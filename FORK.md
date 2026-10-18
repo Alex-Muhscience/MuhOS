@@ -16,8 +16,7 @@ attribution are in `NOTICE`; bundled asset status is in `ASSETS.md`.
 
 ## Branches and remotes
 
-- `origin`: `https://github.com/Alex-Muhscience/MuhOS` (private until
-  `tools/asset-inventory --strict` passes).
+- `origin`: `https://github.com/Alex-Muhscience/MuhOS` (private for now).
 - `upstream`: `https://github.com/ilyamiro/serpantinum.git`, fetch only
   (push disabled). Its history and tags are **never pushed** to `origin`:
   upstream history contains fonts that may not be redistributed.
