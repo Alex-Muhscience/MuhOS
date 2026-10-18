@@ -52,7 +52,7 @@ Item {
 
     function _reallyPlay(filePath, vol, dur) {
         let cleanPath = filePath.startsWith("file://") ? filePath.substring(7) : filePath;
-        let propsJson = "{\"application.id\":\"serpantinum-sfx\",\"application.name\":\"serpantinum-sfx\",\"media.role\":\"event\"}";
+        let propsJson = "{\"application.id\":\"serpantinum-sfx\",\"application.name\":\"MuhOS sounds\",\"media.role\":\"event\"}";
         try {
             if (dur > 0) {
                 let escaped = cleanPath.replace(/'/g, "'\\''");
@@ -83,7 +83,7 @@ Item {
         let volFlag = "--volume=" + finalVol;
 
         let id = root.nextHandleId++;
-        let sfxProps = "-P '{\"application.id\":\"serpantinum-sfx\",\"application.name\":\"serpantinum-sfx\",\"media.role\":\"event\"}' ";
+        let sfxProps = "-P '{\"application.id\":\"serpantinum-sfx\",\"application.name\":\"MuhOS sounds\",\"media.role\":\"event\"}' ";
 
         let script;
         if (doLoop) {

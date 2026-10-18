@@ -134,7 +134,7 @@ GuideTab {
                             Text {
                                 text: I18n.t("guide.about.version_by", {
                                     version: (Updater.localVersion !== "..." ? Updater.localVersion : (rootObj.dotsVersion !== "Loading..." && rootObj.dotsVersion !== I18n.t("guide.about.loading") ? rootObj.dotsVersion : "2.0.0")),
-                                    author: "@ilyamiro"
+                                    author: I18n.t("muhos.contributors")
                                 })
                                 font.family: ThemeBackend.fontFamily
                                 font.pixelSize: rootObj.s(13)
@@ -203,8 +203,8 @@ GuideTab {
                             fillDuration: 1200
 
                             onTriggered: {
-                                let cmd = "if command -v kitty >/dev/null 2>&1; then kitty --hold bash -c 'eval \"$(curl -fsSL https://raw.githubusercontent.com/ilyamiro/serpantinum/master/install/install.sh)\"'; else ${TERM:-xterm} -hold -e bash -c 'eval \"$(curl -fsSL https://raw.githubusercontent.com/ilyamiro/serpantinum/master/install/install.sh)\"'; fi";
-                                Quickshell.execDetached(["bash", "-c", cmd]);
+                                // MuhOS is updated by the package manager, never by upstream's install script.
+                                Quickshell.execDetached(["notify-send", "-a", "MuhOS", I18n.t("muhos.update_hint")]);
                                 Quickshell.execDetached(["bash", rootObj.appPaths.serpantinumDir + "/scripts/qs_manager.sh", "close"]);
                             }
                         }
@@ -393,7 +393,7 @@ GuideTab {
                     accentColor: ThemeBackend.surface0
                     textColor: ThemeBackend.text
 
-                    onTriggered: Quickshell.execDetached(["xdg-open", "https://github.com/ilyamiro/serpantinum"])
+                    onTriggered: Quickshell.execDetached(["xdg-open", "https://github.com/Alex-Muhscience/MuhOS"])
                 }
             }
         }

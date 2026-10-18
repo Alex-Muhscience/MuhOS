@@ -24,6 +24,12 @@ Item {
     signal startAnimations()
     signal firstLaunchFinished()
 
+    // MuhOS: end the first run on the desktop with a hint, instead of
+    // opening the settings window.
+    function showFirstRunHint() {
+        Quickshell.execDetached(["notify-send", "-a", "MuhOS", I18n.t("muhos.first_run_title"), I18n.t("muhos.first_run_body")]);
+    }
+
     Timer {
         id: startupDelayTimer
         interval: 350
@@ -114,12 +120,12 @@ Item {
         ignoreUnknownSignals: true
         function onFinished() {
             startLoader.active = false;
-            Quickshell.execDetached(["bash", root.helperScript, "--open-guide"]);
+            root.showFirstRunHint();
             root.firstLaunchFinished();
         }
         function onClosed() {
             startLoader.active = false;
-            Quickshell.execDetached(["bash", root.helperScript, "--open-guide"]);
+            root.showFirstRunHint();
             root.firstLaunchFinished();
         }
     }
