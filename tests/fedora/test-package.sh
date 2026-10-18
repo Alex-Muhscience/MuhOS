@@ -56,6 +56,8 @@ check "stub created" test -f "$stub"
 check "stub points at packaged defaults" grep -q '"/usr/share/muhos/hypr"' "$stub"
 check "settings seeded with wallpaper dir" bash -c "jq -e '.wallpaperDir == \"$home/Pictures/Wallpapers\"' '$settings'"
 check "wallpaper dir created" test -d "$home/Pictures/Wallpapers"
+check "default wallpapers copied" bash -c "ls '$home/Pictures/Wallpapers'/muhos-*.jpg"
+check "IP geolocation off by default" bash -c "jq -e '.general.ipGeolocation == false' '$settings'"
 check "files owned by the user" bash -c "[ \"\$(stat -c %U '$stub')\" = '$user' ]"
 after_other="$(tree_hash "$home/.config/hypr")$(tree_hash "$home/.config/kitty")"
 check "existing ~/.config/hypr and kitty untouched" test "$before_other" = "$after_other"
@@ -69,6 +71,13 @@ as_user sh -c "echo '{\"mine\": true}' > '$settings'"
 as_user muhos-session --prepare 2>/dev/null
 check "user edits to stub preserved" grep -q -- '-- my edit' "$stub"
 check "user settings preserved" grep -q '"mine"' "$settings"
+
+# A user who already has wallpapers gets no defaults copied in.
+useradd -m muhostest2
+runuser -u muhostest2 -- mkdir -p /home/muhostest2/Pictures/Wallpapers
+runuser -u muhostest2 -- cp /usr/share/muhos/src/assets/wallpapers/muhos-dawn.jpg /home/muhostest2/Pictures/Wallpapers/mine.jpg
+runuser -u muhostest2 -- env HOME=/home/muhostest2 XDG_CONFIG_HOME= muhos-session --prepare 2>/dev/null
+check "existing wallpapers: no defaults copied" bash -c '! ls /home/muhostest2/Pictures/Wallpapers/muhos-*.jpg'
 
 # Removal leaves user data alone.
 rpm -e muhos

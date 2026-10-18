@@ -31,7 +31,15 @@ touch `~/.config/hypr`, kitty, cava or fastfetch configuration.
   changes in `user.lua`; package updates keep improving the defaults
   underneath.
 - `~/.config/serpantinum/settings.json`: seeded from the upstream template,
-  with the wallpaper folder set to `~/Pictures/Wallpapers` (created if needed).
+  with the wallpaper folder set to `~/Pictures/Wallpapers` (created if needed)
+  and automatic IP geolocation off: your public IP is not sent to a
+  geolocation service in the background, and the weather stays offline until
+  you set a location in Settings > General > Location (enter coordinates, or
+  press the detect button for a one-time lookup). To look it up automatically
+  instead, set `general.ipGeolocation` to `true` in that file.
+- `~/Pictures/Wallpapers`: the MuhOS default wallpapers are copied in during
+  this first setup, only if the folder has no images, so the first launch
+  has one to apply.
 
 Then it starts Hyprland with that config. Hyprland's autostart imports the
 session environment into systemd and starts `muhos-session.target`, which
