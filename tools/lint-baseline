@@ -43,9 +43,20 @@ def version(cmd):
     return " ".join(lines[:2]).strip()
 
 
+def is_shell_script(path):
+    if path.endswith(".sh"):
+        return True
+    try:
+        with open(os.path.join(ROOT, path), "rb") as fh:
+            first = fh.readline(128)
+    except OSError:
+        return False
+    return first.startswith(b"#!") and first.split(b"/")[-1].split()[-1] in (b"sh", b"bash")
+
+
 def run_shellcheck():
     exe = tool("shellcheck")
-    files = tracked(lambda p: p.endswith(".sh") or p.startswith("bin/"))
+    files = tracked(is_shell_script)
     out = subprocess.run([exe, "-f", "json1", "-x", *files], cwd=ROOT,
                          capture_output=True, text=True)
     comments = json.loads(out.stdout or '{"comments": []}')["comments"]
