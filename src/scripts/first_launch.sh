@@ -30,7 +30,10 @@ check_status() {
     fi
 
     START_QML=""
-    if [ -f "$SERPANTINUM_DIR/quickshell/serp/Start.qml" ]; then
+    # MuhOS: its own lightweight welcome screen replaces Start.qml.
+    if [ -f "$SERPANTINUM_DIR/quickshell/serp/MuhosWelcome.qml" ]; then
+        START_QML="$SERPANTINUM_DIR/quickshell/serp/MuhosWelcome.qml"
+    elif [ -f "$SERPANTINUM_DIR/quickshell/serp/Start.qml" ]; then
         START_QML="$SERPANTINUM_DIR/quickshell/serp/Start.qml"
     elif [ -f "$SERPANTINUM_DIR/quickshell/Start.qml" ]; then
         START_QML="$SERPANTINUM_DIR/quickshell/Start.qml"

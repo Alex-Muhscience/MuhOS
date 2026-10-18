@@ -23,6 +23,13 @@ MUHOS_KEYS = {
     "first_run_title": "Welcome to MuhOS",
     "first_run_body": "Open Settings with the gear icon in the top-left corner of the bar.",
     "update_hint": "MuhOS is updated by your package manager: sudo dnf upgrade",
+    "welcome_title": "Welcome to MuhOS",
+    "welcome_start": "Get started",
+    "welcome_open_settings": "Open Settings",
+    "tip_launcher": "Search and launch apps",
+    "tip_settings": "Settings",
+    "tip_wallpapers": "Choose a wallpaper",
+    "tip_terminal": "Open a terminal",
 }
 OVERRIDES = {
     ("guide", "about", "github_repo"): "Alex-Muhscience/MuhOS",

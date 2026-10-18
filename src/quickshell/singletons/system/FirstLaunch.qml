@@ -50,7 +50,7 @@ Item {
             if (root.pendingStartQml.length > 0) {
                 startLoader.source = "file://" + root.pendingStartQml;
             } else {
-                startLoader.source = Qt.resolvedUrl("../serp/Start.qml");
+                startLoader.source = Qt.resolvedUrl("../serp/MuhosWelcome.qml");
             }
             startLoader.active = true;
         }
@@ -119,8 +119,10 @@ Item {
         target: startLoader.item
         ignoreUnknownSignals: true
         function onFinished() {
+            // The MuhOS welcome opens settings itself when asked; then no hint.
+            let openedSettings = startLoader.item && startLoader.item.openedSettings === true;
             startLoader.active = false;
-            root.showFirstRunHint();
+            if (!openedSettings) root.showFirstRunHint();
             root.firstLaunchFinished();
         }
         function onClosed() {
