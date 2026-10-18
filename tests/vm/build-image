@@ -1,0 +1,82 @@
+#!/usr/bin/env bash
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# MuhOS: build a Fedora 44 test VM image with MuhOS installed.
+#
+#   tests/vm/build-image base <fedora-cloud-base.qcow2> <vm-dir>
+#   tests/vm/build-image install <rpm-dir> <vm-dir>
+#
+# base: copies the official Fedora Cloud Base image (never modified) into a
+#   larger disk and installs GDM and Hyprland (COPR lionheartp/Hyprland). It
+#   creates user "muhos", logged in automatically into the "MuhOS (Hyprland)"
+#   session, and installs an SSH key for the checks. This is the slow step.
+# install: installs (or reinstalls) every binary RPM in <rpm-dir>; run it
+#   again after each new build.
+# Test-VM-only settings (autologin, password) never leave the VM.
+# Runs unprivileged: needs qemu-img, virt-resize, virt-customize, ssh-keygen.
+# Weak dependencies (Recommends) are off unless VM_WEAK_DEPS=1, to keep the
+# download small; set it to test a full desktop install.
+
+set -euo pipefail
+
+usage="usage: build-image base <base.qcow2> <vm-dir> | install <rpm-dir> <vm-dir>"
+phase="${1:?$usage}"
+src="$(realpath -e "${2:?$usage}")"
+dir="$(realpath -m "${3:?$usage}")"
+disk="$dir/disk.qcow2"
+weak="$([ "${VM_WEAK_DEPS:-0}" = 1 ] && echo True || echo False)"
+stage="$(mktemp -d)"
+trap 'rm -rf "$stage"' EXIT
+
+case "$phase" in
+base)
+    mkdir -p "$dir"
+    [ -f "$dir/id_ed25519" ] || ssh-keygen -q -t ed25519 -N '' -C muhos-test-vm -f "$dir/id_ed25519"
+
+    # Grow the root filesystem into a larger disk (largest partition = root).
+    root_part="$(virt-filesystems -a "$src" --partitions --long --no-title | sort -k4 -n | tail -n 1 | awk '{print $1}')"
+    qemu-img create -q -f qcow2 "$disk" "${VM_DISK_SIZE:-30G}"
+    virt-resize --quiet --expand "$root_part" "$src" "$disk"
+
+    cat > "$stage/custom.conf" <<'EOF'
+# MuhOS test VM only: log in automatically.
+[daemon]
+AutomaticLoginEnable=True
+AutomaticLogin=muhos
+EOF
+    cat > "$stage/accountsservice-muhos" <<'EOF'
+[User]
+Session=muhos
+SystemAccount=false
+EOF
+
+    virt-customize -a "$disk" \
+        --hostname muhos-test \
+        --run-command 'touch /etc/cloud/cloud-init.disabled' \
+        --run-command "echo install_weak_deps=$weak >> /etc/dnf/dnf.conf" \
+        --install dnf5-plugins \
+        --run-command 'dnf -y copr enable lionheartp/Hyprland' \
+        --install gdm,hyprland,xdg-desktop-portal-hyprland \
+        --run-command 'useradd -m -G wheel muhos' \
+        --password muhos:password:muhos \
+        --ssh-inject "muhos:file:$dir/id_ed25519.pub" \
+        --run-command 'systemctl enable sshd gdm && systemctl set-default graphical.target' \
+        --copy-in "$stage/custom.conf:/etc/gdm" \
+        --copy-in "$stage/accountsservice-muhos:/tmp" \
+        --run-command 'install -D -m 0600 /tmp/accountsservice-muhos /var/lib/AccountsService/users/muhos' \
+        --selinux-relabel
+    echo "base image ready: $disk"
+    ;;
+install)
+    cp "$src"/*.rpm "$stage/"
+    rm -f "$stage"/*.src.rpm "$stage"/*-debuginfo-* "$stage"/*-debugsource-*
+    virt-customize -a "$disk" \
+        --mkdir /var/tmp/muhos-rpms \
+        --copy-in "$stage/:/var/tmp/muhos-rpms" \
+        --run-command 'cd /var/tmp/muhos-rpms/* && dnf -y install ./*.rpm && dnf -y reinstall ./*.rpm; rm -rf /var/tmp/muhos-rpms' \
+        --run-command 'rpm -q muhos quickshell matugen hyprland gdm > /var/log/muhos-test-packages.txt' \
+        --selinux-relabel
+    virt-cat -a "$disk" /var/log/muhos-test-packages.txt
+    ;;
+*)
+    echo "$usage" >&2; exit 1 ;;
+esac

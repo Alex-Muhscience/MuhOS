@@ -1,0 +1,67 @@
+#!/usr/bin/env bash
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# MuhOS: start or stop the test VM built by tests/vm/build-image.
+#
+#   tests/vm/run start <vm-dir>     boot headless; SSH on 127.0.0.1:2222
+#   tests/vm/run stop <vm-dir>      power off
+#   tests/vm/run screenshot <vm-dir> <out.png>
+#
+# Plain QEMU as the current user: KVM, user-mode networking (only SSH is
+# forwarded, to localhost), virtio-vga (software rendering in the guest),
+# no window. Serial console goes to <vm-dir>/serial.log.
+
+set -euo pipefail
+
+cmd="${1:?usage: run start|stop|screenshot <vm-dir> [out.png]}"
+dir="$(realpath "${2:?usage: run start|stop|screenshot <vm-dir> [out.png]}")"
+qmp="$dir/qmp.sock"
+
+qmp() {
+    python3 -I - "$qmp" "$@" <<'EOF'
+import json, socket, sys
+path, cmd, *args = sys.argv[1:]
+s = socket.socket(socket.AF_UNIX); s.connect(path)
+f = s.makefile("rw")
+f.readline()
+def send(obj):
+    f.write(json.dumps(obj) + "\n"); f.flush()
+    while True:
+        r = json.loads(f.readline())
+        if "return" in r or "error" in r:
+            return r
+send({"execute": "qmp_capabilities"})
+arguments = json.loads(args[0]) if args else {}
+r = send({"execute": cmd, "arguments": arguments})
+if "error" in r:
+    sys.exit(r["error"]["desc"])
+EOF
+}
+
+case "$cmd" in
+start)
+    [ -S "$qmp" ] && { echo "already running?" >&2; exit 1; }
+    qemu-system-x86_64 \
+        -name muhos-test -enable-kvm -machine q35 -cpu host -smp 4 -m 6144 \
+        -drive "file=$dir/disk.qcow2,if=virtio,cache=unsafe" \
+        -nic "user,model=virtio-net-pci,hostfwd=tcp:127.0.0.1:2222-:22" \
+        -device virtio-vga,xres=1920,yres=1080 \
+        -display none -serial "file:$dir/serial.log" \
+        -qmp "unix:$qmp,server=on,wait=off" \
+        -daemonize -pidfile "$dir/qemu.pid"
+    echo "started (pid $(cat "$dir/qemu.pid"))"
+    ;;
+stop)
+    qmp system_powerdown || true
+    for _ in $(seq 60); do kill -0 "$(cat "$dir/qemu.pid" 2>/dev/null)" 2>/dev/null || break; sleep 1; done
+    kill "$(cat "$dir/qemu.pid" 2>/dev/null)" 2>/dev/null || true
+    rm -f "$qmp" "$dir/qemu.pid"
+    ;;
+screenshot)
+    out="$(realpath -m "${3:?usage: run screenshot <vm-dir> <out.png>}")"
+    qmp screendump "{\"filename\": \"$dir/screen.ppm\"}"
+    magick "$dir/screen.ppm" "$out" && rm -f "$dir/screen.ppm"
+    echo "$out"
+    ;;
+*)
+    echo "unknown command $cmd" >&2; exit 1 ;;
+esac
