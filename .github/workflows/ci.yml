@@ -24,3 +24,19 @@ jobs:
         run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
       - name: Lint counts do not exceed baseline
         run: python3 -I tools/lint-baseline --check
+
+  rpm:
+    runs-on: ubuntu-latest
+    container: registry.fedoraproject.org/fedora:44
+    steps:
+      - name: Install tools
+        run: dnf -y install git python3 rpm-build rpmlint systemd-rpm-macros jq xdg-user-dirs
+      - uses: actions/checkout@v4
+      - name: Trust the checkout
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+      - name: Build RPM
+        run: packaging/fedora/build-rpm out
+      - name: rpmlint
+        run: rpmlint out/*.rpm || true
+      - name: Package tests
+        run: tests/fedora/test-package.sh out/muhos-*.noarch.rpm
