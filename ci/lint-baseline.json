@@ -5,23 +5,23 @@
       "Quick.layout-positioning": 41,
       "Quick.property-changes-parsed": 11,
       "duplicate-property-binding": 14,
-      "import": 7111,
+      "import": 7125,
       "incompatible-type": 31,
-      "missing-property": 358,
+      "missing-property": 354,
       "property-override": 10,
       "required": 7,
       "signal-handler-parameters": 5,
-      "unqualified": 8526,
-      "unresolved-type": 260,
-      "unused-imports": 141
+      "unqualified": 8378,
+      "unresolved-type": 257,
+      "unused-imports": 140
     },
     "by_type": {
-      "info": 141,
-      "warning": 16382
+      "info": 140,
+      "warning": 16241
     },
     "files": 295,
     "files_with_errors": 290,
-    "total": 16523,
+    "total": 16381,
     "version": "qmllint 6.11.2"
   },
   "shellcheck": {
@@ -53,7 +53,7 @@
       "style": 44,
       "warning": 39
     },
-    "files": 50,
+    "files": 62,
     "total": 145,
     "version": "ShellCheck - shell script analysis tool version: 0.11.0"
   }
