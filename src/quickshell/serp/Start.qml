@@ -265,7 +265,13 @@ PanelWindow {
         anchors.fill: parent
 
         HoverHandler {
+            // pointChanged also fires while content moves under a still
+            // pointer, so only an actual position change counts as activity.
+            property point lastPos: Qt.point(-1, -1)
             onPointChanged: {
+                let pos = point.position;
+                if (Math.abs(pos.x - lastPos.x) < 2 && Math.abs(pos.y - lastPos.y) < 2) return;
+                lastPos = pos;
                 window.motionResting = false;
                 motionRestTimer.restart();
             }
