@@ -128,7 +128,11 @@ Item {
             let force = forceRescan ? "true" : "false";
 
             let cmd = "CACHE=\"" + cacheFile + "\"; ";
-            cmd += "if [ \"" + force + "\" = \"true\" ] || [ ! -f \"$CACHE\" ]; then ";
+            // Rescan when a font directory changed after the cache was written, so
+            // fonts added or removed by an update do not linger in the picker.
+            cmd += "if [ \"" + force + "\" = \"true\" ] || [ ! -f \"$CACHE\" ]";
+            if (sys !== "") cmd += " || [ \"" + sys + "\" -nt \"$CACHE\" ]";
+            cmd += " || [ \"" + usr + "\" -nt \"$CACHE\" ]; then ";
             cmd += "mkdir -p \"$(dirname \"$CACHE\")\"; ";
             cmd += "find ";
             if (sys !== "") cmd += "\"" + sys + "\" ";
