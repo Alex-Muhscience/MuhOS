@@ -5,7 +5,7 @@
 
 Name:           muhos
 Version:        0.1.0
-Release:        0.6%{?dist}
+Release:        0.7%{?dist}
 Summary:        Desktop shell for Hyprland on Fedora, based on Serpantinum
 
 # Code, MuhOS sounds and images: AGPL-3.0-or-later.
@@ -24,6 +24,9 @@ BuildRequires:  bash
 Requires:       quickshell >= 0.3.2
 Requires:       matugen >= 4
 Requires:       hyprland >= 0.56
+# Hyprland's own dialogs (app-not-responding, permission prompts); Hyprland
+# warns at login when it is missing. Same COPR as Hyprland.
+Requires:       hyprland-guiutils
 
 Requires:       qt6-qtdeclarative
 Requires:       qt6-qtwayland
@@ -170,6 +173,9 @@ python3 -I tools/asset-inventory --strict
 %config(noreplace) %{_sysconfdir}/pam.d/serpantinum
 
 %changelog
+* Mon Oct 19 2026 MuhOS contributors - 0.1.0-0.7
+- Require hyprland-guiutils (Hyprland warned at login without it)
+
 * Mon Oct 19 2026 MuhOS contributors - 0.1.0-0.6
 - Welcome screen: drop a signal that shadowed the window's own
 

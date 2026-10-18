@@ -54,6 +54,7 @@ pin). Fedora 44 has Quickshell 0.2.1 and Matugen 3.1.0, and no Hyprland.
 |---|---|---|
 | Quickshell | 0.3.2 | MuhOS: `packaging/fedora/quickshell/quickshell.spec` (Fedora's spec, updated) |
 | Matugen | 4.2.0 | MuhOS: `packaging/fedora/matugen/matugen.spec` (vendored crates) |
+| hyprland-guiutils | 0.2.2 | Same COPR as Hyprland: its dialogs (app not responding, permissions) |
 | Hyprland | 0.56.2 | Third-party COPR [`lionheartp/Hyprland`](https://copr.fedorainfracloud.org/coprs/lionheartp/Hyprland/) (fork of solopasha/hyprland); fallback [`mineiro/hyprland`](https://copr.fedorainfracloud.org/coprs/mineiro/hyprland/) |
 
 Until the MuhOS COPR exists, the Quickshell and Matugen source RPMs are
