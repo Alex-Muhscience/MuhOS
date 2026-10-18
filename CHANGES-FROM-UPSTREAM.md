@@ -6,18 +6,22 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 
 ## General improvements (candidates for upstream)
 
-- Ship license texts for the bundled fonts (e0ed84b)
-- Rescan fonts when a font directory changes (351af1b)
-- Keep daemon pid and lock files in XDG_RUNTIME_DIR (9c5148d)
-- Drop executable bits from data files (41a5120)
-- Drop executable bits from remaining non-script files (b47df91)
+- Ship license texts for the bundled fonts (6ce8091)
+- Rescan fonts when a font directory changes (a624abe)
+- Keep daemon pid and lock files in XDG_RUNTIME_DIR (ad69199)
+- Drop executable bits from data files (7a07562)
+- Drop executable bits from remaining non-script files (d4ce63f)
+- Ship icon-set licenses and attribution for Symbols Nerd Font (379522d)
+- Replace bundled sounds with CC0 and original sounds (6540b21)
+- Replace Pusheen GIFs with original empty-state art (0fcf24b)
 
 ## Fedora-specific
 
-- Add RPM packaging, GDM session and systemd user units (2fca9c4)
-- Fix rpmlint errors in the spec (27128b7)
-- Add install-level package tests (326fd5f)
-- Avoid command substitution in a package test check (e97c4a8)
+- Add RPM packaging, GDM session and systemd user units (a8c907b)
+- Fix rpmlint errors in the spec (a166a89)
+- Add install-level package tests (9766a29)
+- Avoid command substitution in a package test check (69e3b42)
+- Ship sound licenses and enforce the strict asset check (deecbbc)
 
 ## MuhOS branding
 
@@ -25,18 +29,23 @@ _None yet._
 
 ## Fork infrastructure
 
-- Add fork scaffolding, asset inventory and lint baselines (ed8a33f)
-- Generate CHANGES-FROM-UPSTREAM.md (21df974)
-- List modified upstream files as the AGPL 5(a) notice (64c6a1f)
-- Verify shipped license files in the asset inventory (5eb98c0)
-- Regenerate CHANGES-FROM-UPSTREAM.md (1059a48)
-- Lint every tracked shell script, not only *.sh and bin/ (0ef0ee7)
-- Regenerate CHANGES-FROM-UPSTREAM.md (13399a6)
-- Apply shellcheck directive to the whole changes generator (3af12b0)
-- Build the RPM and run package tests in CI (75e2964)
-- Regenerate CHANGES-FROM-UPSTREAM.md (0cb7dec)
-- Regenerate CHANGES-FROM-UPSTREAM.md (d9e2a74)
-- Track upstream through snapshot commits instead of its history (34ae030)
+- Add fork scaffolding, asset inventory and lint baselines (1d52844)
+- Generate CHANGES-FROM-UPSTREAM.md (38d1a68)
+- List modified upstream files as the AGPL 5(a) notice (590dc68)
+- Verify shipped license files in the asset inventory (3afdd5d)
+- Regenerate CHANGES-FROM-UPSTREAM.md (befc02d)
+- Lint every tracked shell script, not only *.sh and bin/ (2ff569c)
+- Regenerate CHANGES-FROM-UPSTREAM.md (a5f92fa)
+- Apply shellcheck directive to the whole changes generator (d841d1f)
+- Build the RPM and run package tests in CI (f9f195e)
+- Regenerate CHANGES-FROM-UPSTREAM.md (fa37d4a)
+- Regenerate CHANGES-FROM-UPSTREAM.md (6bac402)
+- Track upstream through snapshot commits instead of its history (376e29a)
+- Regenerate CHANGES-FROM-UPSTREAM.md (3e27b68)
+- Clear Symbols Nerd Font in the asset inventory (9d1e091)
+- Exclude untraceable upstream assets; add asset build tools (2263613)
+- Clear all bundled assets in the inventory (3c9107e)
+- Update hosting note in FORK.md (0305979)
 
 ## Upstream files changed by MuhOS
 
@@ -60,15 +69,12 @@ _None yet._
 - `src/assets/languages/ru.json` (modified since 2026-10-18)
 - `src/assets/languages/vi.json` (modified since 2026-10-18)
 - `src/assets/logo.svg` (modified since 2026-10-18)
-- `src/assets/pushy.gif` (modified since 2026-10-18)
-- `src/assets/pushy2.gif` (modified since 2026-10-18)
 - `src/assets/tutorial.json` (modified since 2026-10-18)
 - `src/quickshell/singletons/theme/ThemeBackend.qml` (modified since 2026-10-18)
 - `src/scripts/system/exit.sh` (modified since 2026-10-18)
 - `src/scripts/system/poweroff.sh` (modified since 2026-10-18)
 - `src/scripts/system/reboot.sh` (modified since 2026-10-18)
 - `version.txt` (modified since 2026-10-18)
-- `website/static/img/logo.svg` (modified since 2026-10-18)
 
 ## Upstream files not imported
 
@@ -81,3 +87,23 @@ Listed in `tools/upstream-exclude.txt`:
 - `src/assets/fonts/AtkynsonMonoNerdFont-Regular.otf` (embedded license forbids derivatives)
 - `src/assets/fonts/HeavyDataNerdFont-Regular.ttf` (no license)
 - `src/assets/fonts/ProggyCleanSZNerdFont-Regular.ttf` (no license)
+- `src/assets/sounds/guide` (no traceable source)
+- `src/assets/sounds/musicpopup` (no traceable source)
+- `src/assets/sounds/network` (no traceable source)
+- `src/assets/sounds/notifications` (no traceable source; Sine.wav is from a commercial library)
+- `src/assets/sounds/quickactions` (no traceable source)
+- `src/assets/sounds/reusables` (no traceable source)
+- `src/assets/sounds/system` (no traceable source)
+- `src/assets/sounds/tutorial` (no traceable source)
+- `src/assets/sounds/start/background.wav` (no traceable source)
+- `src/assets/sounds/start/exit.wav` (no traceable source)
+- `src/assets/sounds/start/start.wav` (no traceable source)
+- `src/assets/sounds/start/transition_serp.wav` (no traceable source)
+- `src/assets/sounds/start/type.wav` (no traceable source)
+- `src/assets/sounds/start/wave.wav` (no traceable source)
+- `src/assets/pushy.gif` (Pusheen the Cat, commercially licensed character)
+- `src/assets/pushy2.gif` (Pusheen the Cat, commercially licensed character)
+- `config/sddm` (SDDM theme (MuhOS keeps GDM); background has no traceable source)
+- `website` (upstream's serpantinum.dev site; screenshots contain third-party art)
+- `docs/assets` (upstream screenshots and logos; contain third-party art and trademarks)
+- `.github/workflows/deploy-site.yml` (deploys upstream's website)
