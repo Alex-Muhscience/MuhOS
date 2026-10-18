@@ -12,109 +12,244 @@
   "exclude": [],
   "rules": [
     {
-      "match": ["src/assets/fonts/SF-Pro-Display-*.otf", "src/assets/fonts/SFMono-Regular.otf"],
-      "status": "non-redistributable",
-      "license": "Apple Font License (EULA)",
-      "action": "Remove; substitute an OFL font (e.g. Inter / JetBrains Mono)"
-    },
-    {
-      "match": ["src/assets/fonts/TTCommonsPro_regular.otf"],
-      "status": "non-redistributable",
-      "license": "TypeType EULA (demo build)",
-      "action": "Remove; substitute an OFL font"
-    },
-    {
-      "match": ["src/assets/fonts/AtkynsonMonoNerdFont-Regular.otf"],
+      "match": [
+        "src/assets/fonts/SymbolsNerdFontMono-Regular.ttf"
+      ],
       "status": "needs-review",
-      "license": "Braille Institute license (embedded: no derivatives)",
-      "action": "Check current Atkinson Hyperlegible Mono license; patched NF build may not be allowed"
+      "license": "MIT + per-icon-set licenses",
+      "license_files": [
+        "src/assets/fonts/LICENSES/NerdFontsSymbols-LICENSE.txt",
+        "src/assets/fonts/LICENSES/NerdFontsSymbols-README.md"
+      ],
+      "action": "'Font Logos' glyph set is listed as unlicensed; accept, subset it out, or replace"
     },
     {
-      "match": ["src/assets/fonts/DaddyTimeMonoNerdFont-Regular.ttf"],
-      "status": "needs-review",
-      "license": "Embedded: All Rights Reserved",
-      "action": "Confirm license with Nerd Fonts source or remove"
+      "match": [
+        "src/assets/fonts/0xProtoNerdFont-Regular.ttf"
+      ],
+      "status": "ok",
+      "license": "OFL-1.1",
+      "license_files": [
+        "src/assets/fonts/LICENSES/0xProto-LICENSE.txt"
+      ]
     },
     {
-      "match": ["src/assets/fonts/HeavyDataNerdFont-Regular.ttf", "src/assets/fonts/ProggyCleanSZNerdFont-Regular.ttf"],
-      "status": "needs-review",
-      "license": "None embedded",
-      "action": "Confirm license with Nerd Fonts source or remove"
+      "match": [
+        "src/assets/fonts/3270NerdFont-Regular.ttf"
+      ],
+      "status": "ok",
+      "license": "OFL-1.1",
+      "license_files": [
+        "src/assets/fonts/LICENSES/3270-LICENSE.txt"
+      ]
     },
     {
-      "match": ["src/assets/fonts/0xProtoNerdFont-Regular.ttf"],
-      "status": "needs-license-text",
-      "license": "OFL-1.1 (per 0xType project; not embedded)",
-      "action": "Verify, then ship OFL text"
-    },
-    {
-      "match": ["src/assets/fonts/AgaveNerdFont-Regular.ttf", "src/assets/fonts/ComicShannsMonoNerdFont-Regular.otf", "src/assets/fonts/ComicMono.ttf"],
-      "status": "needs-license-text",
+      "match": [
+        "src/assets/fonts/AgaveNerdFont-Regular.ttf"
+      ],
+      "status": "ok",
       "license": "MIT",
-      "action": "Ship MIT notice"
+      "license_files": [
+        "src/assets/fonts/LICENSES/Agave-LICENSE.txt"
+      ]
     },
     {
-      "match": ["src/assets/fonts/CousineNerdFont-Regular.ttf"],
-      "status": "needs-license-text",
-      "license": "Apache-2.0",
-      "action": "Ship Apache-2.0 text or use Fedora font package"
+      "match": [
+        "src/assets/fonts/AnonymiceProNerdFont-Regular.ttf"
+      ],
+      "status": "ok",
+      "license": "OFL-1.1",
+      "license_files": [
+        "src/assets/fonts/LICENSES/AnonymousPro-OFL.txt"
+      ]
     },
     {
-      "match": ["src/assets/fonts/DejaVuSansMNerdFont-Regular.ttf"],
-      "status": "needs-license-text",
+      "match": [
+        "src/assets/fonts/ArimoNerdFont-Regular.ttf"
+      ],
+      "status": "ok",
+      "license": "OFL-1.1",
+      "license_files": [
+        "src/assets/fonts/LICENSES/Arimo-OFL.txt"
+      ]
+    },
+    {
+      "match": [
+        "src/assets/fonts/BlexMono*.ttf",
+        "src/assets/fonts/IBMPlexMono-Regular.ttf"
+      ],
+      "status": "ok",
+      "license": "OFL-1.1",
+      "license_files": [
+        "src/assets/fonts/LICENSES/IBMPlexMono-LICENSE.txt"
+      ]
+    },
+    {
+      "match": [
+        "src/assets/fonts/ComicMono.ttf"
+      ],
+      "status": "ok",
+      "license": "MIT",
+      "license_files": [
+        "src/assets/fonts/LICENSES/ComicMono-LICENSE.txt"
+      ]
+    },
+    {
+      "match": [
+        "src/assets/fonts/ComicShannsMonoNerdFont-Regular.otf"
+      ],
+      "status": "ok",
+      "license": "MIT",
+      "license_files": [
+        "src/assets/fonts/LICENSES/ComicShannsMono-LICENSE.md"
+      ]
+    },
+    {
+      "match": [
+        "src/assets/fonts/CousineNerdFont-Regular.ttf"
+      ],
+      "status": "ok",
+      "license": "Apache-2.0 (embedded)",
+      "license_files": [
+        "src/assets/fonts/LICENSES/Apache-2.0.txt"
+      ]
+    },
+    {
+      "match": [
+        "src/assets/fonts/DaddyTimeMonoNerdFont-Regular.ttf"
+      ],
+      "status": "ok",
+      "license": "OFL-1.1 (per Nerd Fonts LICENSE.md; embedded string says All Rights Reserved)",
+      "license_files": [
+        "src/assets/fonts/LICENSES/DaddyTimeMono-LICENSE.md"
+      ]
+    },
+    {
+      "match": [
+        "src/assets/fonts/DejaVuSansMNerdFont-Regular.ttf"
+      ],
+      "status": "ok",
       "license": "Bitstream-Vera AND public domain",
-      "action": "Ship DejaVu license text or use Fedora font package"
+      "license_files": [
+        "src/assets/fonts/LICENSES/DejaVuSansMono-LICENSE.txt"
+      ]
     },
     {
-      "match": ["src/assets/fonts/OpenDyslexicNerdFont-Regular.otf"],
-      "status": "needs-license-text",
-      "license": "Bitstream-Vera AND CC-BY-3.0",
-      "action": "Ship license text and attribution"
-    },
-    {
-      "match": ["src/assets/fonts/GohuFontuni14NerdFont-Regular.ttf"],
-      "status": "needs-license-text",
+      "match": [
+        "src/assets/fonts/GohuFontuni14NerdFont-Regular.ttf"
+      ],
+      "status": "ok",
       "license": "WTFPL",
-      "action": "Ship WTFPL text"
+      "license_files": [
+        "src/assets/fonts/LICENSES/GohuFont-COPYING-LICENSE.txt"
+      ]
     },
     {
-      "match": ["src/assets/fonts/SymbolsNerdFontMono-Regular.ttf"],
-      "status": "needs-license-text",
-      "license": "MIT (patcher) + per-icon-set licenses",
-      "action": "Ship Nerd Fonts license bundle"
+      "match": [
+        "src/assets/fonts/InconsolataGoNerdFont-Regular.ttf"
+      ],
+      "status": "ok",
+      "license": "OFL-1.1",
+      "license_files": [
+        "src/assets/fonts/LICENSES/InconsolataGo-OFL.txt"
+      ]
     },
     {
-      "match": ["src/assets/fonts/*.ttf", "src/assets/fonts/*.otf", "config/sddm/themes/material-you/font/*.ttf"],
-      "status": "needs-license-text",
+      "match": [
+        "src/assets/fonts/IosevkaNerdFont-*.ttf"
+      ],
+      "status": "ok",
+      "license": "OFL-1.1",
+      "license_files": [
+        "src/assets/fonts/LICENSES/Iosevka-LICENSE.md"
+      ]
+    },
+    {
+      "match": [
+        "src/assets/fonts/OpenDyslexicNerdFont-Regular.otf"
+      ],
+      "status": "ok",
+      "license": "Bitstream-Vera AND CC-BY-3.0",
+      "license_files": [
+        "src/assets/fonts/LICENSES/Bitstream-Vera.txt",
+        "src/assets/fonts/LICENSES/CC-BY-3.0.txt"
+      ],
+      "action": "Attribution: OpenDyslexic changes by Abelardo Gonzalez (CC-BY-3.0)"
+    },
+    {
+      "match": [
+        "src/assets/fonts/AdwaitaMonoNerdFont-Regular.ttf",
+        "src/assets/fonts/AurulentSansM*.otf",
+        "src/assets/fonts/BitcountPropSingle*.ttf",
+        "src/assets/fonts/EduVICWANTHand-Regular.ttf",
+        "src/assets/fonts/FiraCode-Regular.ttf",
+        "src/assets/fonts/JetBrainsMono-*.ttf",
+        "src/assets/fonts/LektonNerdFont-Regular.ttf",
+        "src/assets/fonts/Roboto-Regular.ttf"
+      ],
+      "status": "ok",
+      "license": "OFL-1.1 (embedded; copyright in each file's name table)",
+      "license_files": [
+        "src/assets/fonts/LICENSES/OFL-1.1.txt"
+      ]
+    },
+    {
+      "match": [
+        "config/sddm/themes/material-you/font/*.ttf"
+      ],
+      "status": "ok",
       "license": "OFL-1.1 (embedded)",
-      "action": "Ship OFL text or use Fedora font package"
+      "license_files": [
+        "config/sddm/themes/material-you/font/OFL-1.1.txt"
+      ]
     },
     {
-      "match": ["src/assets/sounds/**", "src/assets/sounds/*/*", "src/assets/sounds/*/*/*"],
+      "match": [
+        "src/assets/sounds/**",
+        "src/assets/sounds/*/*",
+        "src/assets/sounds/*/*/*"
+      ],
       "status": "unknown-provenance",
       "license": "",
       "action": "Trace origin or replace with CC0/own recordings"
     },
     {
-      "match": ["src/assets/pushy.gif", "src/assets/pushy2.gif", "config/sddm/themes/material-you/bg.png"],
+      "match": [
+        "src/assets/pushy.gif",
+        "src/assets/pushy2.gif",
+        "config/sddm/themes/material-you/bg.png"
+      ],
       "status": "unknown-provenance",
       "license": "",
       "action": "Trace origin or replace"
     },
     {
-      "match": ["docs/assets/logos/*", "website/static/img/logos/*"],
+      "match": [
+        "docs/assets/logos/*",
+        "website/static/img/logos/*"
+      ],
       "status": "third-party-trademark",
       "license": "Trademark of respective project",
       "action": "Check each project's trademark guidelines before reuse"
     },
     {
-      "match": ["src/assets/logo.svg", "docs/assets/banner.png", "docs/assets/previews/*", "website/static/*", "website/static/img/*", "website/static/img/previews/*", "website/static/img/previews/steps/*"],
+      "match": [
+        "src/assets/logo.svg",
+        "docs/assets/banner.png",
+        "docs/assets/previews/*",
+        "website/static/*",
+        "website/static/img/*",
+        "website/static/img/previews/*",
+        "website/static/img/previews/steps/*"
+      ],
       "status": "upstream-branding",
       "license": "AGPL-3.0-or-later (upstream)",
       "action": "Replace with MuhOS branding"
     },
     {
-      "match": ["src/assets/shaders/*/*.qsb"],
+      "match": [
+        "src/assets/shaders/*/*.qsb"
+      ],
       "status": "generated",
       "license": "AGPL-3.0-or-later (compiled from .frag)",
       "action": "Rebuild with qsb during RPM build"

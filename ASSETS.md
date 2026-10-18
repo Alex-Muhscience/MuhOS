@@ -21,27 +21,19 @@ Excluded from this inventory: nothing.
 
 | Status | Files | Size | Releasable |
 |---|---:|---:|:---:|
-| non-redistributable | 4 | 4.5 MiB | no |
-| needs-review | 4 | 9.0 MiB | no |
+| needs-review | 1 | 2.5 MiB | no |
 | unknown-provenance | 41 | 60.5 MiB | no |
-| needs-license-text | 32 | 90.7 MiB | no |
 | third-party-trademark | 12 | 475.6 KiB | no |
 | upstream-branding | 22 | 25.0 MiB | no |
 | generated | 27 | 135.9 KiB | yes |
-| **total** | **142** | **190.2 MiB** | |
+| ok | 32 | 90.5 MiB | yes |
+| **total** | **135** | **179.1 MiB** | |
 
 ## Assets
 
 | Path | Kind | Size | Status | License (per policy) | Embedded metadata | Action | SHA-256 |
 |---|---|---:|---|---|---|---|---|
-| `src/assets/fonts/SF-Pro-Display-Regular.otf` | font | 2.1 MiB | non-redistributable | Apple Font License (EULA) | This San Francisco Font (the “Apple Font”) is licensed to you by Apple Inc. (“Apple”) in … | Remove; substitute an OFL font (e.g. Inter / JetBrains Mono) | `7dc04ac11000` |
-| `src/assets/fonts/SF-Pro-Display-Semibold.otf` | font | 2.2 MiB | non-redistributable | Apple Font License (EULA) | This San Francisco Font (the “Apple Font”) is licensed to you by Apple Inc. (“Apple”) in … | Remove; substitute an OFL font (e.g. Inter / JetBrains Mono) | `6c4fa1be203e` |
-| `src/assets/fonts/SFMono-Regular.otf` | font | 91.7 KiB | non-redistributable | Apple Font License (EULA) | This SF Mono Font (the “Apple Font”) is licensed to you by Apple Inc. (“Apple”) in consid… | Remove; substitute an OFL font (e.g. Inter / JetBrains Mono) | `41e67c69ee0b` |
-| `src/assets/fonts/TTCommonsPro_regular.otf` | font | 27.7 KiB | non-redistributable | TypeType EULA (demo build) | This font software is the property of TypeType LLC. Your use of the font software is subj… | Remove; substitute an OFL font | `b19be67d88bb` |
-| `src/assets/fonts/AtkynsonMonoNerdFont-Regular.otf` | font | 2.1 MiB | needs-review | Braille Institute license (embedded: no… | Braille Institute of America, Inc. provides Atkinson Hyperlegible for use, without deriva… | Check current Atkinson Hyperlegible Mono license; patched N… | `d915620850ca` |
-| `src/assets/fonts/DaddyTimeMonoNerdFont-Regular.ttf` | font | 2.4 MiB | needs-review | Embedded: All Rights Reserved | Copyright (C) 2017-2021 Jason Stewart, All Rights Reserved | Confirm license with Nerd Fonts source or remove | `cf044df51c3f` |
-| `src/assets/fonts/HeavyDataNerdFont-Regular.ttf` | font | 2.3 MiB | needs-review | None embedded | 2008 Vic Fieger | Confirm license with Nerd Fonts source or remove | `1c65089ddd54` |
-| `src/assets/fonts/ProggyCleanSZNerdFont-Regular.ttf` | font | 2.3 MiB | needs-review | None embedded | by Tristan Grimmer | Confirm license with Nerd Fonts source or remove | `04cf0be1a528` |
+| `src/assets/fonts/SymbolsNerdFontMono-Regular.ttf` | font | 2.5 MiB | needs-review | MIT + per-icon-set licenses — NerdFonts… | Copyright (c) 2016, Ryan McIntyre | 'Font Logos' glyph set is listed as unlicensed; accept, sub… | `fe471e538392` |
 | `config/sddm/themes/material-you/bg.png` | image | 718.2 KiB | unknown-provenance |  |  | Trace origin or replace | `a27c84082669` |
 | `src/assets/pushy.gif` | image | 14.2 KiB | unknown-provenance |  |  | Trace origin or replace | `0950b88928eb` |
 | `src/assets/pushy2.gif` | image | 28.4 KiB | unknown-provenance |  |  | Trace origin or replace | `2e55680ced35` |
@@ -83,38 +75,6 @@ Excluded from this inventory: nothing.
 | `src/assets/sounds/system/quick_click.wav` | sound | 172.3 KiB | unknown-provenance |  |  | Trace origin or replace with CC0/own recordings | `9ed3369b07b5` |
 | `src/assets/sounds/tutorial/tip.wav` | sound | 523.3 KiB | unknown-provenance |  |  | Trace origin or replace with CC0/own recordings | `14455267b2e7` |
 | `src/assets/sounds/tutorial/tip_guide.wav` | sound | 572.9 KiB | unknown-provenance |  |  | Trace origin or replace with CC0/own recordings | `406b6528357a` |
-| `config/sddm/themes/material-you/font/GoogleSans-VariableFont_GRAD,opsz,wght.ttf` | font | 4.5 MiB | needs-license-text | OFL-1.1 (embedded) | This Font Software is licensed under the SIL Open Font License, Version 1.1. This license… | Ship OFL text or use Fedora font package | `08f022f46f30` |
-| `src/assets/fonts/0xProtoNerdFont-Regular.ttf` | font | 2.3 MiB | needs-license-text | OFL-1.1 (per 0xType project; not embedd… | 0xType Project Authors (https://github.com/0xType) | Verify, then ship OFL text | `014921bcefcb` |
-| `src/assets/fonts/3270NerdFont-Regular.ttf` | font | 2.5 MiB | needs-license-text | OFL-1.1 (embedded) | This Font Software is licensed under the SIL Open Font License, Version 1.1. This license… | Ship OFL text or use Fedora font package | `78540c388022` |
-| `src/assets/fonts/AdwaitaMonoNerdFont-Regular.ttf` | font | 3.8 MiB | needs-license-text | OFL-1.1 (embedded) | This font software is licensed under the SIL Open Font License, Version 1.1. This license… | Ship OFL text or use Fedora font package | `bcd970a74682` |
-| `src/assets/fonts/AgaveNerdFont-Regular.ttf` | font | 2.5 MiB | needs-license-text | MIT | Agave typeface (c) 2013-2020, type agaric <agaric@protonmail.com> Permission is hereby gr… | Ship MIT notice | `6111ca3d2797` |
-| `src/assets/fonts/AnonymiceProNerdFont-Regular.ttf` | font | 2.4 MiB | needs-license-text | OFL-1.1 (embedded) | Copyright (c) 2009, Mark Simonson (http://www.ms-studio.com, mark@marksimonson.com), with… | Ship OFL text or use Fedora font package | `6a8c8842c02a` |
-| `src/assets/fonts/ArimoNerdFont-Regular.ttf` | font | 2.6 MiB | needs-license-text | OFL-1.1 (embedded) | This Font Software is licensed under the SIL Open Font License, Version 1.1. This Font So… | Ship OFL text or use Fedora font package | `c8391ed0dbcc` |
-| `src/assets/fonts/AurulentSansMNerdFont-Regular.otf` | font | 2.0 MiB | needs-license-text | OFL-1.1 (embedded) | Copyright (c) 2007, Stephen G. Hartke (lastname at gmail dot com), with Reserved Font Nam… | Ship OFL text or use Fedora font package | `4d40b6818151` |
-| `src/assets/fonts/AurulentSansMNerdFontMono-Regular.otf` | font | 2.1 MiB | needs-license-text | OFL-1.1 (embedded) | Copyright (c) 2007, Stephen G. Hartke (lastname at gmail dot com), with Reserved Font Nam… | Ship OFL text or use Fedora font package | `da75261e2dec` |
-| `src/assets/fonts/BitcountPropSingle-Regular.ttf` | font | 323.3 KiB | needs-license-text | OFL-1.1 (embedded) | This Font Software is licensed under the SIL Open Font License, Version 1.1. This license… | Ship OFL text or use Fedora font package | `2be05ab22044` |
-| `src/assets/fonts/BitcountPropSingle_Roman-Bold.ttf` | font | 323.3 KiB | needs-license-text | OFL-1.1 (embedded) | This Font Software is licensed under the SIL Open Font License, Version 1.1. This license… | Ship OFL text or use Fedora font package | `d5fd31d5ad53` |
-| `src/assets/fonts/BlexMonoNerdFont-Bold.ttf` | font | 2.2 MiB | needs-license-text | OFL-1.1 (embedded) | This Font Software is licensed under the SIL Open Font License, Version 1.1. This license… | Ship OFL text or use Fedora font package | `0d40cee43321` |
-| `src/assets/fonts/BlexMonoNerdFont-Light.ttf` | font | 2.2 MiB | needs-license-text | OFL-1.1 (embedded) | This Font Software is licensed under the SIL Open Font License, Version 1.1. This license… | Ship OFL text or use Fedora font package | `a591c43b85eb` |
-| `src/assets/fonts/BlexMonoNerdFontMono-Regular.ttf` | font | 2.2 MiB | needs-license-text | OFL-1.1 (embedded) | This Font Software is licensed under the SIL Open Font License, Version 1.1. This license… | Ship OFL text or use Fedora font package | `f9892505b7cd` |
-| `src/assets/fonts/ComicMono.ttf` | font | 18.3 KiB | needs-license-text | MIT | https://github.com/dtinth/comic-mono-font/blob/master/LICENSE | Ship MIT notice | `3bc1425e922a` |
-| `src/assets/fonts/ComicShannsMonoNerdFont-Regular.otf` | font | 2.2 MiB | needs-license-text | MIT | MIT License Copyright (c) 2018 Shannon Miwa Copyright (c) 2023 Jesus Gonzalez Permission … | Ship MIT notice | `8a49e1ecee6a` |
-| `src/assets/fonts/CousineNerdFont-Regular.ttf` | font | 2.6 MiB | needs-license-text | Apache-2.0 | Licensed under the Apache License, Version 2.0 — Digitized data copyright (c) 2010-2012 G… | Ship Apache-2.0 text or use Fedora font package | `c27984a30f1b` |
-| `src/assets/fonts/DejaVuSansMNerdFont-Regular.ttf` | font | 2.6 MiB | needs-license-text | Bitstream-Vera AND public domain | Fonts are (c) Bitstream (see below). DejaVu changes are in public domain. Bitstream Vera … | Ship DejaVu license text or use Fedora font package | `02beb8054a77` |
-| `src/assets/fonts/EduVICWANTHand-Regular.ttf` | font | 742.8 KiB | needs-license-text | OFL-1.1 (embedded) | This Font Software is licensed under the SIL Open Font License, Version 1.1. This license… | Ship OFL text or use Fedora font package | `2c05d38ab507` |
-| `src/assets/fonts/FiraCode-Regular.ttf` | font | 184.1 KiB | needs-license-text | OFL-1.1 (embedded) | This Font Software is licensed under the SIL Open Font License, Version 1.1. This license… | Ship OFL text or use Fedora font package | `5dc1651a1143` |
-| `src/assets/fonts/GohuFontuni14NerdFont-Regular.ttf` | font | 2.4 MiB | needs-license-text | WTFPL | Copyright by Hugo Chargois - Licensed under the WTFPL - Converted by Guilherme Maeda | Ship WTFPL text | `ebd98e42b542` |
-| `src/assets/fonts/IBMPlexMono-Regular.ttf` | font | 130.7 KiB | needs-license-text | OFL-1.1 (embedded) | This Font Software is licensed under the SIL Open Font License, Version 1.1. This license… | Ship OFL text or use Fedora font package | `ab08018ccd27` |
-| `src/assets/fonts/InconsolataGoNerdFont-Regular.ttf` | font | 2.2 MiB | needs-license-text | OFL-1.1 (embedded) | This Font Software is licensed under the SIL Open Font License, Version 1.1. This license… | Ship OFL text or use Fedora font package | `804b35cd8361` |
-| `src/assets/fonts/IosevkaNerdFont-Bold.ttf` | font | 12.7 MiB | needs-license-text | OFL-1.1 (embedded) | This font software is licensed under the SIL Open Font License, Version 1.1. This license… | Ship OFL text or use Fedora font package | `d13814ca9b4d` |
-| `src/assets/fonts/IosevkaNerdFont-Italic.ttf` | font | 13.0 MiB | needs-license-text | OFL-1.1 (embedded) | This font software is licensed under the SIL Open Font License, Version 1.1. This license… | Ship OFL text or use Fedora font package | `8d5607aa9eaa` |
-| `src/assets/fonts/IosevkaNerdFont-Regular.ttf` | font | 12.6 MiB | needs-license-text | OFL-1.1 (embedded) | This font software is licensed under the SIL Open Font License, Version 1.1. This license… | Ship OFL text or use Fedora font package | `48dad5829093` |
-| `src/assets/fonts/JetBrainsMono-Regular.ttf` | font | 267.5 KiB | needs-license-text | OFL-1.1 (embedded) | This Font Software is licensed under the SIL Open Font License, Version 1.1. This license… | Ship OFL text or use Fedora font package | `a0bf60ef0f83` |
-| `src/assets/fonts/JetBrainsMono-SemiBold.ttf` | font | 270.6 KiB | needs-license-text | OFL-1.1 (embedded) | This Font Software is licensed under the SIL Open Font License, Version 1.1. This license… | Ship OFL text or use Fedora font package | `1b3bfa1ed566` |
-| `src/assets/fonts/LektonNerdFont-Regular.ttf` | font | 2.2 MiB | needs-license-text | OFL-1.1 (embedded) | This Font Software is licensed under the SIL Open Font License, Version 1.1. ------------… | Ship OFL text or use Fedora font package | `36d5bfeaaea3` |
-| `src/assets/fonts/OpenDyslexicNerdFont-Regular.otf` | font | 2.1 MiB | needs-license-text | Bitstream-Vera AND CC-BY-3.0 | Fonts are © Bitstream. OpenDyslexic changes and additional glyphs by Abelardo Gonzalez ar… | Ship license text and attribution | `d66d8e37a291` |
-| `src/assets/fonts/Roboto-Regular.ttf` | font | 155.4 KiB | needs-license-text | OFL-1.1 (embedded) | This Font Software is licensed under the SIL Open Font License, Version 1.1. This license… | Ship OFL text or use Fedora font package | `15256405ecb0` |
-| `src/assets/fonts/SymbolsNerdFontMono-Regular.ttf` | font | 2.5 MiB | needs-license-text | MIT (patcher) + per-icon-set licenses | Copyright (c) 2016, Ryan McIntyre | Ship Nerd Fonts license bundle | `fe471e538392` |
 | `docs/assets/logos/arch.png` | image | 34.0 KiB | third-party-trademark | Trademark of respective project |  | Check each project's trademark guidelines before reuse | `338ac2a4cc70` |
 | `docs/assets/logos/hyprland.png` | image | 35.5 KiB | third-party-trademark | Trademark of respective project |  | Check each project's trademark guidelines before reuse | `ff6e276993f1` |
 | `docs/assets/logos/niri.png` | image | 57.6 KiB | third-party-trademark | Trademark of respective project |  | Check each project's trademark guidelines before reuse | `bceef1daedd0` |
@@ -176,3 +136,35 @@ Excluded from this inventory: nothing.
 | `src/assets/shaders/vfx/node_beams_clipped.frag.qsb` | shader-binary | 7.9 KiB | generated | AGPL-3.0-or-later (compiled from .frag) |  | Rebuild with qsb during RPM build | `53174a89f71c` |
 | `src/assets/shaders/widgets/pacman.frag.qsb` | shader-binary | 2.6 KiB | generated | AGPL-3.0-or-later (compiled from .frag) |  | Rebuild with qsb during RPM build | `ac77565dcb38` |
 | `src/assets/shaders/widgets/widget_outline.frag.qsb` | shader-binary | 4.1 KiB | generated | AGPL-3.0-or-later (compiled from .frag) |  | Rebuild with qsb during RPM build | `1981dcdd25a1` |
+| `config/sddm/themes/material-you/font/GoogleSans-VariableFont_GRAD,opsz,wght.ttf` | font | 4.5 MiB | ok | OFL-1.1 (embedded) — OFL-1.1.txt | This Font Software is licensed under the SIL Open Font License, Version 1.1. This license… |  | `08f022f46f30` |
+| `src/assets/fonts/0xProtoNerdFont-Regular.ttf` | font | 2.3 MiB | ok | OFL-1.1 — 0xProto-LICENSE.txt | 0xType Project Authors (https://github.com/0xType) |  | `014921bcefcb` |
+| `src/assets/fonts/3270NerdFont-Regular.ttf` | font | 2.5 MiB | ok | OFL-1.1 — 3270-LICENSE.txt | This Font Software is licensed under the SIL Open Font License, Version 1.1. This license… |  | `78540c388022` |
+| `src/assets/fonts/AdwaitaMonoNerdFont-Regular.ttf` | font | 3.8 MiB | ok | OFL-1.1 (embedded; copyright in each fi… | This font software is licensed under the SIL Open Font License, Version 1.1. This license… |  | `bcd970a74682` |
+| `src/assets/fonts/AgaveNerdFont-Regular.ttf` | font | 2.5 MiB | ok | MIT — Agave-LICENSE.txt | Agave typeface (c) 2013-2020, type agaric <agaric@protonmail.com> Permission is hereby gr… |  | `6111ca3d2797` |
+| `src/assets/fonts/AnonymiceProNerdFont-Regular.ttf` | font | 2.4 MiB | ok | OFL-1.1 — AnonymousPro-OFL.txt | Copyright (c) 2009, Mark Simonson (http://www.ms-studio.com, mark@marksimonson.com), with… |  | `6a8c8842c02a` |
+| `src/assets/fonts/ArimoNerdFont-Regular.ttf` | font | 2.6 MiB | ok | OFL-1.1 — Arimo-OFL.txt | This Font Software is licensed under the SIL Open Font License, Version 1.1. This Font So… |  | `c8391ed0dbcc` |
+| `src/assets/fonts/AurulentSansMNerdFont-Regular.otf` | font | 2.0 MiB | ok | OFL-1.1 (embedded; copyright in each fi… | Copyright (c) 2007, Stephen G. Hartke (lastname at gmail dot com), with Reserved Font Nam… |  | `4d40b6818151` |
+| `src/assets/fonts/AurulentSansMNerdFontMono-Regular.otf` | font | 2.1 MiB | ok | OFL-1.1 (embedded; copyright in each fi… | Copyright (c) 2007, Stephen G. Hartke (lastname at gmail dot com), with Reserved Font Nam… |  | `da75261e2dec` |
+| `src/assets/fonts/BitcountPropSingle-Regular.ttf` | font | 323.3 KiB | ok | OFL-1.1 (embedded; copyright in each fi… | This Font Software is licensed under the SIL Open Font License, Version 1.1. This license… |  | `2be05ab22044` |
+| `src/assets/fonts/BitcountPropSingle_Roman-Bold.ttf` | font | 323.3 KiB | ok | OFL-1.1 (embedded; copyright in each fi… | This Font Software is licensed under the SIL Open Font License, Version 1.1. This license… |  | `d5fd31d5ad53` |
+| `src/assets/fonts/BlexMonoNerdFont-Bold.ttf` | font | 2.2 MiB | ok | OFL-1.1 — IBMPlexMono-LICENSE.txt | This Font Software is licensed under the SIL Open Font License, Version 1.1. This license… |  | `0d40cee43321` |
+| `src/assets/fonts/BlexMonoNerdFont-Light.ttf` | font | 2.2 MiB | ok | OFL-1.1 — IBMPlexMono-LICENSE.txt | This Font Software is licensed under the SIL Open Font License, Version 1.1. This license… |  | `a591c43b85eb` |
+| `src/assets/fonts/BlexMonoNerdFontMono-Regular.ttf` | font | 2.2 MiB | ok | OFL-1.1 — IBMPlexMono-LICENSE.txt | This Font Software is licensed under the SIL Open Font License, Version 1.1. This license… |  | `f9892505b7cd` |
+| `src/assets/fonts/ComicMono.ttf` | font | 18.3 KiB | ok | MIT — ComicMono-LICENSE.txt | https://github.com/dtinth/comic-mono-font/blob/master/LICENSE |  | `3bc1425e922a` |
+| `src/assets/fonts/ComicShannsMonoNerdFont-Regular.otf` | font | 2.2 MiB | ok | MIT — ComicShannsMono-LICENSE.md | MIT License Copyright (c) 2018 Shannon Miwa Copyright (c) 2023 Jesus Gonzalez Permission … |  | `8a49e1ecee6a` |
+| `src/assets/fonts/CousineNerdFont-Regular.ttf` | font | 2.6 MiB | ok | Apache-2.0 (embedded) — Apache-2.0.txt | Licensed under the Apache License, Version 2.0 — Digitized data copyright (c) 2010-2012 G… |  | `c27984a30f1b` |
+| `src/assets/fonts/DaddyTimeMonoNerdFont-Regular.ttf` | font | 2.4 MiB | ok | OFL-1.1 (per Nerd Fonts LICENSE.md; emb… | Copyright (C) 2017-2021 Jason Stewart, All Rights Reserved |  | `cf044df51c3f` |
+| `src/assets/fonts/DejaVuSansMNerdFont-Regular.ttf` | font | 2.6 MiB | ok | Bitstream-Vera AND public domain — Deja… | Fonts are (c) Bitstream (see below). DejaVu changes are in public domain. Bitstream Vera … |  | `02beb8054a77` |
+| `src/assets/fonts/EduVICWANTHand-Regular.ttf` | font | 742.8 KiB | ok | OFL-1.1 (embedded; copyright in each fi… | This Font Software is licensed under the SIL Open Font License, Version 1.1. This license… |  | `2c05d38ab507` |
+| `src/assets/fonts/FiraCode-Regular.ttf` | font | 184.1 KiB | ok | OFL-1.1 (embedded; copyright in each fi… | This Font Software is licensed under the SIL Open Font License, Version 1.1. This license… |  | `5dc1651a1143` |
+| `src/assets/fonts/GohuFontuni14NerdFont-Regular.ttf` | font | 2.4 MiB | ok | WTFPL — GohuFont-COPYING-LICENSE.txt | Copyright by Hugo Chargois - Licensed under the WTFPL - Converted by Guilherme Maeda |  | `ebd98e42b542` |
+| `src/assets/fonts/IBMPlexMono-Regular.ttf` | font | 130.7 KiB | ok | OFL-1.1 — IBMPlexMono-LICENSE.txt | This Font Software is licensed under the SIL Open Font License, Version 1.1. This license… |  | `ab08018ccd27` |
+| `src/assets/fonts/InconsolataGoNerdFont-Regular.ttf` | font | 2.2 MiB | ok | OFL-1.1 — InconsolataGo-OFL.txt | This Font Software is licensed under the SIL Open Font License, Version 1.1. This license… |  | `804b35cd8361` |
+| `src/assets/fonts/IosevkaNerdFont-Bold.ttf` | font | 12.7 MiB | ok | OFL-1.1 — Iosevka-LICENSE.md | This font software is licensed under the SIL Open Font License, Version 1.1. This license… |  | `d13814ca9b4d` |
+| `src/assets/fonts/IosevkaNerdFont-Italic.ttf` | font | 13.0 MiB | ok | OFL-1.1 — Iosevka-LICENSE.md | This font software is licensed under the SIL Open Font License, Version 1.1. This license… |  | `8d5607aa9eaa` |
+| `src/assets/fonts/IosevkaNerdFont-Regular.ttf` | font | 12.6 MiB | ok | OFL-1.1 — Iosevka-LICENSE.md | This font software is licensed under the SIL Open Font License, Version 1.1. This license… |  | `48dad5829093` |
+| `src/assets/fonts/JetBrainsMono-Regular.ttf` | font | 267.5 KiB | ok | OFL-1.1 (embedded; copyright in each fi… | This Font Software is licensed under the SIL Open Font License, Version 1.1. This license… |  | `a0bf60ef0f83` |
+| `src/assets/fonts/JetBrainsMono-SemiBold.ttf` | font | 270.6 KiB | ok | OFL-1.1 (embedded; copyright in each fi… | This Font Software is licensed under the SIL Open Font License, Version 1.1. This license… |  | `1b3bfa1ed566` |
+| `src/assets/fonts/LektonNerdFont-Regular.ttf` | font | 2.2 MiB | ok | OFL-1.1 (embedded; copyright in each fi… | This Font Software is licensed under the SIL Open Font License, Version 1.1. ------------… |  | `36d5bfeaaea3` |
+| `src/assets/fonts/OpenDyslexicNerdFont-Regular.otf` | font | 2.1 MiB | ok | Bitstream-Vera AND CC-BY-3.0 — Bitstrea… | Fonts are © Bitstream. OpenDyslexic changes and additional glyphs by Abelardo Gonzalez ar… | Attribution: OpenDyslexic changes by Abelardo Gonzalez (CC-… | `d66d8e37a291` |
+| `src/assets/fonts/Roboto-Regular.ttf` | font | 155.4 KiB | ok | OFL-1.1 (embedded; copyright in each fi… | This Font Software is licensed under the SIL Open Font License, Version 1.1. This license… |  | `15256405ecb0` |

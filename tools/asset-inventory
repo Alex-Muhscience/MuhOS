@@ -141,6 +141,14 @@ def build():
             "action": rule.get("action", "") if rule else "",
             "embedded": "",
         }
+        # A license is only satisfied if its text actually ships with the asset.
+        license_files = rule.get("license_files", []) if rule else []
+        missing = [f for f in license_files if not os.path.isfile(os.path.join(ROOT, f))]
+        if missing:
+            entry["status"] = "needs-license-text"
+            entry["action"] = "Missing " + ", ".join(missing)
+        elif license_files:
+            entry["license"] += " — " + ", ".join(os.path.basename(f) for f in license_files)
         if kind == "font":
             names = font_names(full)
             embedded = names.get(13) or names.get(14) or ""
