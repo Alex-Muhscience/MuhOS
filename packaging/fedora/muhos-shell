@@ -1,0 +1,7 @@
+#!/bin/sh
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# MuhOS (Fedora): started by muhos-shell.service. Puts the upstream command
+# names the shell calls internally on PATH, then runs the shell daemon.
+PATH="/usr/libexec/muhos:$PATH"
+export PATH
+exec /usr/libexec/muhos/serpantinumd start

@@ -1,0 +1,74 @@
+#!/usr/bin/env bash
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# MuhOS (Fedora): Wayland session entry point, started by the display manager.
+#
+#   muhos-session             prepare per-user files if missing, then run Hyprland
+#   muhos-session --prepare   only prepare per-user files, then exit
+#
+# Per-user files are created once and never overwritten:
+#   ~/.config/muhos/hypr/hyprland.lua   stub that loads the packaged defaults
+#                                       plus an optional user.lua next to it
+#   ~/.config/serpantinum/settings.json shell settings, seeded from the template
+# Nothing else in ~/.config is touched; an existing ~/.config/hypr is ignored.
+
+set -euo pipefail
+
+datadir="${MUHOS_DATADIR:-/usr/share/muhos}"
+libexecdir="${MUHOS_LIBEXECDIR:-/usr/libexec/muhos}"
+config_home="${XDG_CONFIG_HOME:-$HOME/.config}"
+hypr_dir="$config_home/muhos/hypr"
+settings="$config_home/serpantinum/settings.json"
+
+log() { printf 'muhos-session: %s\n' "$*" >&2; }
+
+# Write $2 to $1 only if $1 does not exist yet; never replaces user files.
+create_once() {
+    local target="$1" content="$2"
+    [ -e "$target" ] && return 0
+    mkdir -p "$(dirname "$target")"
+    printf '%s' "$content" > "$target.muhos-tmp"
+    mv -n "$target.muhos-tmp" "$target"
+    rm -f "$target.muhos-tmp"
+    log "created $target"
+}
+
+pictures_dir() {
+    local dir=""
+    command -v xdg-user-dir >/dev/null 2>&1 && dir="$(xdg-user-dir PICTURES 2>/dev/null || true)"
+    if [ -z "$dir" ] || [ "$dir" = "$HOME" ]; then
+        dir="$HOME/Pictures"
+    fi
+    printf '%s' "${dir%/}"
+}
+
+prepare() {
+    create_once "$hypr_dir/hyprland.lua" \
+        "$(sed "s|@MUHOS_HYPR_DIR@|$datadir/hypr|g" "$datadir/skel/hyprland.lua")
+"
+
+    if [ ! -e "$settings" ]; then
+        local wallpapers seeded
+        wallpapers="$(pictures_dir)/Wallpapers"
+        mkdir -p "$wallpapers"
+        seeded="$(jq --arg wp "$wallpapers" '. * {wallpaperDir: $wp}' "$datadir/defaults/settings.json")"
+        create_once "$settings" "$seeded
+"
+    fi
+}
+
+if [ "${1:-}" = "--prepare" ]; then
+    prepare
+    exit 0
+fi
+
+prepare
+
+# Shell helpers and compositor keybinds call the upstream command names.
+export PATH="$libexecdir:$PATH"
+
+status=0
+start-hyprland -- --config "$hypr_dir/hyprland.lua" || status=$?
+
+# The compositor is gone; take the shell and anything else bound to the session down.
+systemctl --user stop muhos-session.target 2>/dev/null || true
+exit "$status"

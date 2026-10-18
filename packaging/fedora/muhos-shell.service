@@ -1,0 +1,15 @@
+[Unit]
+Description=MuhOS desktop shell
+Documentation=file:///usr/share/doc/muhos/README.fedora.md
+PartOf=graphical-session.target
+After=graphical-session.target
+Requisite=graphical-session.target
+StartLimitIntervalSec=60
+StartLimitBurst=5
+
+[Service]
+Type=simple
+ExecStart=/usr/libexec/muhos/muhos-shell
+Restart=on-failure
+RestartSec=2
+TimeoutStopSec=5

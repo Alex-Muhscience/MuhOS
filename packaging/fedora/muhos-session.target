@@ -1,0 +1,7 @@
+[Unit]
+Description=MuhOS Hyprland session
+Documentation=file:///usr/share/doc/muhos/README.fedora.md
+BindsTo=graphical-session.target
+Wants=graphical-session-pre.target
+After=graphical-session-pre.target
+Wants=muhos-shell.service

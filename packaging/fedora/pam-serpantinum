@@ -1,0 +1,6 @@
+#%PAM-1.0
+# MuhOS lock screen. The service name is the one the shell looks up.
+# Fingerprint unlock follows authselect: enable it with
+#   authselect enable-feature with-fingerprint
+auth       include      system-auth
+account    include      system-auth

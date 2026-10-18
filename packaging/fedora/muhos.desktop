@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=MuhOS (Hyprland)
+Comment=MuhOS desktop shell on the Hyprland compositor
+Exec=/usr/bin/muhos-session
+Type=Application
+DesktopNames=Hyprland;MuhOS

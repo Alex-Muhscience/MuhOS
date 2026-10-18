@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# MuhOS: build the source and binary RPM from the current git HEAD.
+#
+#   packaging/fedora/build-rpm [outdir]     (default: ./rpmbuild-out)
+#
+# Needs rpm-build and systemd-rpm-macros; run it inside a fedora:44 container
+# to keep the host untouched (see packaging/fedora/README.fedora.md).
+
+set -euo pipefail
+
+root="$(cd "$(dirname "$0")/../.." && pwd)"
+spec="$root/packaging/fedora/muhos.spec"
+out="$(realpath -m "${1:-$root/rpmbuild-out}")"
+version="$(rpmspec -q --srpm --qf '%{version}' "$spec")"
+top="$(mktemp -d)"
+trap 'rm -rf "$top"' EXIT
+
+mkdir -p "$top/SOURCES" "$out"
+git -C "$root" archive --format=tar.gz --prefix="muhos-$version/" \
+    -o "$top/SOURCES/muhos-$version.tar.gz" HEAD
+
+rpmbuild --define "_topdir $top" -ba "$spec"
+find "$top/RPMS" "$top/SRPMS" -name '*.rpm' -exec cp {} "$out/" \;
+ls -1 "$out"
