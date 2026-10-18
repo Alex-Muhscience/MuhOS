@@ -38,6 +38,7 @@ check "no installer or telemetry shipped" bash -c '! rpm -ql muhos | grep -qE "/
 check "nothing installed under /usr/local" bash -c '! rpm -ql muhos | grep -q "^/usr/local"'
 check "no non-script executables in datadir" bash -c '! find /usr/share/muhos/src -type f -perm /111 ! -name "*.sh" ! -name "*.py" | grep -q .'
 check "font licenses shipped" test -f /usr/share/licenses/muhos/LICENSES/OFL-1.1.txt
+check "sound sources shipped" test -f /usr/share/licenses/muhos/SOURCES.md
 check "systemd units verify" systemd-analyze verify /usr/lib/systemd/user/muhos-shell.service /usr/lib/systemd/user/muhos-session.target
 
 # Per-user setup must never overwrite existing files.

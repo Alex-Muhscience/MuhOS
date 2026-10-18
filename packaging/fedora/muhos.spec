@@ -112,6 +112,8 @@ cp -a bin src version.txt "$share/"
 find "$share" -type f -exec chmod 0644 {} +
 find "$share/src" -type f \( -name '*.sh' -o -name '*.py' \) -exec chmod 0755 {} +
 chmod 0755 "$share"/bin/*
+# Asset licenses are installed once, via %%license.
+rm -r "$share/src/assets/fonts/LICENSES" "$share/src/assets/sounds/LICENSES"
 # Disables upstream's GitHub update check; updates come from the package.
 printf 'rpm\n' > "$share/package-managed"
 
