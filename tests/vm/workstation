@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# MuhOS: interactive Fedora Workstation VM, installed from the official live ISO.
+#
+#   tests/vm/workstation install <vm-dir> <Fedora-Workstation-Live.iso>
+#   tests/vm/workstation start <vm-dir>
+#
+# install: creates a 40 GiB disk and boots the ISO in a window; install Fedora
+#   with the normal installer, then shut the VM down.
+# start: boots the installed disk in a window.
+# The window has GPU acceleration (virtio-vga-gl), sound through the host's
+# PipeWire, and a USB tablet so the pointer follows the host's exactly. Only
+# SSH is forwarded, to 127.0.0.1:2223 (the headless test VM uses 2222).
+# Runs as the current user with KVM and UEFI (OVMF); no libvirt.
+
+set -euo pipefail
+
+usage="usage: workstation install <vm-dir> <iso> | start <vm-dir>"
+cmd="${1:?$usage}"
+dir="$(realpath -m "${2:?$usage}")"
+ovmf=/usr/share/edk2/ovmf
+
+mkdir -p "$dir"
+[ -f "$dir/OVMF_VARS.fd" ] || cp "$ovmf/OVMF_VARS.fd" "$dir/OVMF_VARS.fd"
+
+# QEMU option values contain commas; they are not array separators.
+# shellcheck disable=SC2054
+args=(
+    -name muhos-workstation -enable-kvm -machine q35 -cpu host -smp 4 -m 8192
+    -drive "if=pflash,format=raw,readonly=on,file=$ovmf/OVMF_CODE.fd"
+    -drive "if=pflash,format=raw,file=$dir/OVMF_VARS.fd"
+    -drive "file=$dir/disk.qcow2,if=virtio,discard=unmap"
+    -device virtio-vga-gl -display gtk,gl=on,zoom-to-fit=on
+    -audiodev pipewire,id=snd0 -device intel-hda -device hda-duplex,audiodev=snd0
+    -device qemu-xhci -device usb-tablet
+    -nic "user,model=virtio-net-pci,hostfwd=tcp:127.0.0.1:2223-:22"
+)
+
+case "$cmd" in
+install)
+    iso="$(realpath -e "${3:?$usage}")"
+    [ -f "$dir/disk.qcow2" ] || qemu-img create -q -f qcow2 "$dir/disk.qcow2" 40G
+    exec qemu-system-x86_64 "${args[@]}" -cdrom "$iso" -boot order=d
+    ;;
+start)
+    exec qemu-system-x86_64 "${args[@]}"
+    ;;
+*)
+    echo "$usage" >&2; exit 1 ;;
+esac
