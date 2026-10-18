@@ -39,6 +39,7 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - muhos 0.1.0-0.4 (5705727)
 - Default to Adwaita Sans and the Papirus icon theme (d08e53e)
 - muhos 0.1.0-0.5 (494ce0d)
+- muhos 0.1.0-0.6 (411f131)
 
 ## MuhOS branding
 
@@ -48,6 +49,7 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - Brand UI strings and version at package build time (2f72921)
 - MuhOS names, attribution and first run on the desktop (fab4bf2)
 - New lightweight first-run welcome screen (b3e933a)
+- Welcome screen: do not redeclare the window's closed() signal (99db4cc)
 
 ## Fork infrastructure
 
@@ -80,6 +82,7 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - Regenerate CHANGES-FROM-UPSTREAM.md (2a96e64)
 - Add an interactive Fedora Workstation VM launcher (d5b99f7)
 - Regenerate CHANGES-FROM-UPSTREAM.md (d1742ed)
+- Regenerate CHANGES-FROM-UPSTREAM.md (0e5a8de)
 
 ## Upstream files changed by MuhOS
 
