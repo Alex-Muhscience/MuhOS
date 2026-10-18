@@ -6,13 +6,16 @@
 #
 #   src/assets/pushy.gif    200x200  sleeping moon, rising "z"s (notification empty state)
 #   src/assets/pushy2.gif   480x480  drifting cloud (reserved / nothing-here placeholder)
+#   src/assets/wallpapers/muhos-dusk.jpg, muhos-dawn.jpg   3840x2160 default wallpapers
 #
-# The file names are the ones the shell already loads. Needs python3-pillow.
+# The GIF names are the ones the shell already loads. Needs python3-pillow and
+# numpy.
 # Muted mid-tone colors so the art reads on dark and light themes.
 
 import math
 import os
 
+import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -108,10 +111,46 @@ def save(path, frames):
                    loop=0, disposal=2, transparency=63, optimize=False)
 
 
+def wallpaper(path, top, bottom, waves, seed):
+    """Layered soft waves over a vertical gradient, 3840x2160, lightly dithered."""
+    w, h = 3840, 2160
+    y, x = np.mgrid[0:h, 0:w].astype(np.float64)
+    t = y / (h - 1)
+    img = np.empty((h, w, 3))
+    for c in range(3):
+        img[..., c] = top[c] + (bottom[c] - top[c]) * t
+    for i, (color, height, amp, freq, phase, alpha) in enumerate(waves):
+        crest = h * height + amp * h * np.sin(2 * np.pi * freq * x / w + phase) \
+            + 0.35 * amp * h * np.sin(2 * np.pi * freq * 2.3 * x / w + phase * 1.7)
+        # Soft-edged band below the crest.
+        band = np.clip((y - crest) / (0.012 * h), 0, 1) * alpha
+        for c in range(3):
+            img[..., c] = img[..., c] * (1 - band) + color[c] * band
+    noise = np.random.default_rng(seed).uniform(-1.5, 1.5, (h, w, 1))
+    img = np.clip(img + noise, 0, 255).astype(np.uint8)
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    Image.fromarray(img, "RGB").save(path, quality=92, optimize=True, progressive=True)
+
+
 def main():
     save(os.path.join(ASSETS, "pushy.gif"), [moon_frame(i) for i in range(FRAMES)])
     save(os.path.join(ASSETS, "pushy2.gif"), [cloud_frame(i) for i in range(FRAMES)])
     print("wrote src/assets/pushy.gif and src/assets/pushy2.gif")
+
+    walls = os.path.join(ASSETS, "wallpapers")
+    wallpaper(os.path.join(walls, "muhos-dusk.jpg"), (18, 20, 36), (44, 34, 78), [
+        ((40, 38, 74), 0.52, 0.035, 1.0, 0.4, 0.75),
+        ((58, 46, 98), 0.64, 0.030, 1.4, 2.1, 0.80),
+        ((82, 62, 128), 0.76, 0.025, 0.8, 4.0, 0.85),
+        ((30, 26, 52), 0.88, 0.020, 1.7, 1.2, 0.95),
+    ], seed=1)
+    wallpaper(os.path.join(walls, "muhos-dawn.jpg"), (236, 228, 240), (200, 184, 220), [
+        ((214, 196, 226), 0.50, 0.035, 1.1, 1.0, 0.70),
+        ((186, 160, 210), 0.63, 0.030, 0.9, 3.0, 0.75),
+        ((150, 124, 186), 0.76, 0.025, 1.5, 0.3, 0.80),
+        ((112, 92, 152), 0.88, 0.020, 1.2, 2.2, 0.90),
+    ], seed=2)
+    print("wrote src/assets/wallpapers/muhos-dusk.jpg and muhos-dawn.jpg")
 
 
 if __name__ == "__main__":

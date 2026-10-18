@@ -13,6 +13,17 @@
   "rules": [
     {
       "match": [
+        "src/assets/wallpapers/*.jpg"
+      ],
+      "status": "ok",
+      "license": "AGPL-3.0-or-later (MuhOS original, drawn by tools/build-images)",
+      "license_files": [
+        "tools/build-images",
+        "LICENSE.md"
+      ]
+    },
+    {
+      "match": [
         "src/assets/sounds/start/pop_author.wav"
       ],
       "status": "ok",

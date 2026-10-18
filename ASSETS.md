@@ -23,8 +23,8 @@ Excluded from this inventory: nothing.
 |---|---:|---:|:---:|
 | upstream-branding | 1 | 12.4 KiB | yes |
 | generated | 27 | 135.9 KiB | yes |
-| ok | 70 | 94.7 MiB | yes |
-| **total** | **98** | **94.8 MiB** | |
+| ok | 72 | 95.3 MiB | yes |
+| **total** | **100** | **95.4 MiB** | |
 
 ## Assets
 
@@ -128,3 +128,5 @@ Excluded from this inventory: nothing.
 | `src/assets/sounds/system/quick_click.wav` | sound | 65.5 KiB | ok | CC0-1.0 (Kenney, https://kenney.nl; see… |  |  | `5d04d99b2af8` |
 | `src/assets/sounds/tutorial/tip.wav` | sound | 57.3 KiB | ok | CC0-1.0 (Kenney, https://kenney.nl; see… |  |  | `9fbe7352dcb4` |
 | `src/assets/sounds/tutorial/tip_guide.wav` | sound | 50.0 KiB | ok | CC0-1.0 (Kenney, https://kenney.nl; see… |  |  | `4a4a8b0853c5` |
+| `src/assets/wallpapers/muhos-dawn.jpg` | image | 334.6 KiB | ok | AGPL-3.0-or-later (MuhOS original, draw… |  |  | `cc716b961158` |
+| `src/assets/wallpapers/muhos-dusk.jpg` | image | 326.6 KiB | ok | AGPL-3.0-or-later (MuhOS original, draw… |  |  | `aed9aaac6ec0` |
