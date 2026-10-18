@@ -5,7 +5,7 @@
 
 Name:           muhos
 Version:        0.1.0
-Release:        0.5%{?dist}
+Release:        0.6%{?dist}
 Summary:        Desktop shell for Hyprland on Fedora, based on Serpantinum
 
 # Code, MuhOS sounds and images: AGPL-3.0-or-later.
@@ -170,6 +170,9 @@ python3 -I tools/asset-inventory --strict
 %config(noreplace) %{_sysconfdir}/pam.d/serpantinum
 
 %changelog
+* Mon Oct 19 2026 MuhOS contributors - 0.1.0-0.6
+- Welcome screen: drop a signal that shadowed the window's own
+
 * Mon Oct 19 2026 MuhOS contributors - 0.1.0-0.5
 - New lightweight welcome screen
 - Adwaita Sans interface font, Papirus icons, native text rendering
