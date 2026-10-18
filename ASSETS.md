@@ -88,7 +88,7 @@ Excluded from this inventory: nothing.
 | `src/assets/fonts/OpenDyslexicNerdFont-Regular.otf` | font | 2.1 MiB | ok | Bitstream-Vera AND CC-BY-3.0 — Bitstrea… | Fonts are © Bitstream. OpenDyslexic changes and additional glyphs by Abelardo Gonzalez ar… | Attribution: OpenDyslexic changes by Abelardo Gonzalez (CC-… | `d66d8e37a291` |
 | `src/assets/fonts/Roboto-Regular.ttf` | font | 155.4 KiB | ok | OFL-1.1 (embedded; copyright in each fi… | This Font Software is licensed under the SIL Open Font License, Version 1.1. This license… |  | `15256405ecb0` |
 | `src/assets/fonts/SymbolsNerdFontMono-Regular.ttf` | font | 2.5 MiB | ok | MIT + icon-set licenses (CC-BY-4.0, MIT… | Copyright (c) 2016, Ryan McIntyre | Attribution for CC-BY icon sets in NerdFontsSymbols/ATTRIBU… | `fe471e538392` |
-| `src/assets/logo.svg` | image | 743 B | ok | AGPL-3.0-or-later (MuhOS mark, generate… |  |  | `8ccba98c036c` |
+| `src/assets/logo.svg` | image | 743 B | ok | AGPL-3.0-or-later (MuhOS mark, generate… |  |  | `503341ec83ad` |
 | `src/assets/pushy.gif` | image | 29.0 KiB | ok | AGPL-3.0-or-later (MuhOS original, draw… |  |  | `5fc647550071` |
 | `src/assets/pushy2.gif` | image | 82.9 KiB | ok | AGPL-3.0-or-later (MuhOS original, draw… |  |  | `f0cc61909076` |
 | `src/assets/sounds/guide/barconfig/in.wav` | sound | 36.5 KiB | ok | CC0-1.0 (Kenney, https://kenney.nl; see… |  |  | `20b3384b09ec` |

@@ -7,8 +7,8 @@
 #   src/assets/pushy.gif    200x200  sleeping moon, rising "z"s (notification empty state)
 #   src/assets/pushy2.gif   480x480  drifting cloud (reserved / nothing-here placeholder)
 #   src/assets/wallpapers/muhos-dusk.jpg, muhos-dawn.jpg   3840x2160 default wallpapers
-#   src/assets/logo.svg     MuhOS mark, a single-colour silhouette: the shell uses it
-#                           as a mask and fills it with theme colours
+#   src/assets/logo.svg     MuhOS mark, a white silhouette: the shell uses it as a mask
+#                           or colourizes it with theme colours (white keeps the hue)
 #
 # The GIF names are the ones the shell already loads. Needs python3-pillow and
 # numpy.
@@ -139,10 +139,10 @@ LOGO_SVG = """<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
   <!-- An "M" whose middle dips like a wave: two legs joined by a smooth valley. -->
   <path d="M 236 778 L 236 318 C 236 222 352 206 404 282 C 452 352 476 446 512 446 C 548 446 572 352 620 282 C 672 206 788 222 788 318 L 788 778"
-        fill="none" stroke="#000000" stroke-width="132" stroke-linecap="round" stroke-linejoin="round"/>
+        fill="none" stroke="#ffffff" stroke-width="132" stroke-linecap="round" stroke-linejoin="round"/>
   <!-- A small wave under the valley. -->
   <path d="M 396 640 C 436 600 476 600 512 640 C 548 680 588 680 628 640"
-        fill="none" stroke="#000000" stroke-width="64" stroke-linecap="round"/>
+        fill="none" stroke="#ffffff" stroke-width="64" stroke-linecap="round"/>
 </svg>
 """
 
