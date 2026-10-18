@@ -6,7 +6,8 @@ Base: upstream `v2.2.13` (`d6f1c8d`). Labels are explained in FORK.md.
 
 ## General improvements (candidates for upstream)
 
-_None yet._
+- Remove fonts that cannot be redistributed; ship font licenses (6f5fcc9)
+- Rescan fonts when a font directory changes (074f9ab)
 
 ## Fedora-specific
 
@@ -19,4 +20,17 @@ _None yet._
 ## Fork infrastructure
 
 - Add fork scaffolding, asset inventory and lint baselines (578e084)
+- Generate CHANGES-FROM-UPSTREAM.md (c029c09)
+- List modified upstream files as the AGPL 5(a) notice (178e774)
+- Verify shipped license files in the asset inventory (0593d29)
 
+## Upstream files changed by MuhOS
+
+- `src/assets/fonts/AtkynsonMonoNerdFont-Regular.otf` (removed 2026-10-18)
+- `src/assets/fonts/HeavyDataNerdFont-Regular.ttf` (removed 2026-10-18)
+- `src/assets/fonts/ProggyCleanSZNerdFont-Regular.ttf` (removed 2026-10-18)
+- `src/assets/fonts/SF-Pro-Display-Regular.otf` (removed 2026-10-18)
+- `src/assets/fonts/SF-Pro-Display-Semibold.otf` (removed 2026-10-18)
+- `src/assets/fonts/SFMono-Regular.otf` (removed 2026-10-18)
+- `src/assets/fonts/TTCommonsPro_regular.otf` (removed 2026-10-18)
+- `src/quickshell/singletons/theme/ThemeBackend.qml` (modified since 2026-10-18)
