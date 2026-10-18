@@ -5,7 +5,7 @@
 
 Name:           muhos
 Version:        0.1.0
-Release:        0.2%{?dist}
+Release:        0.3%{?dist}
 Summary:        Desktop shell for Hyprland on Fedora, based on Serpantinum
 
 # Code, MuhOS sounds and images: AGPL-3.0-or-later.
@@ -162,6 +162,10 @@ python3 -I tools/asset-inventory --strict
 %config(noreplace) %{_sysconfdir}/pam.d/serpantinum
 
 %changelog
+* Sun Oct 18 2026 MuhOS contributors - 0.1.0-0.3
+- Looping sounds stop when playback fails instead of respawning pw-play
+- Welcome screen pause now engages when the pointer is still
+
 * Sun Oct 18 2026 MuhOS contributors - 0.1.0-0.2
 - Default wallpapers; IP geolocation off for new users; no weather fetch for 0,0
 - Welcome screen pauses its animations when the pointer is idle
