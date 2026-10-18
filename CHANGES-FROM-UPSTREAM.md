@@ -23,6 +23,9 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - Avoid command substitution in a package test check (0d01ad7)
 - Ship sound licenses and enforce the strict asset check (fbcbb09)
 - Install asset licenses only once (8824796)
+- Package Quickshell 0.3.2 (50226ff)
+- Package Matugen 4.2.0 (34fedaf)
+- Document where Quickshell, Matugen and Hyprland come from (9dff67c)
 
 ## MuhOS branding
 
@@ -50,6 +53,7 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - Regenerate CHANGES-FROM-UPSTREAM.md (3bf25da)
 - Regenerate CHANGES-FROM-UPSTREAM.md (d21a492)
 - Regenerate CHANGES-FROM-UPSTREAM.md (4fe2684)
+- Regenerate CHANGES-FROM-UPSTREAM.md (6298977)
 
 ## Upstream files changed by MuhOS
 
