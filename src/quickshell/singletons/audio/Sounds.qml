@@ -87,9 +87,13 @@ Item {
 
         let script;
         if (doLoop) {
+            // Stop looping when playback fails (e.g. no audio output) or ends
+            // within a second; otherwise pw-play is respawned in a tight loop and
+            // every short-lived stream makes the shell reprocess PipeWire nodes.
             script =
                 "trap 'kill $CPID 2>/dev/null; exit' TERM; " +
-                "while :; do pw-play " + sfxProps + volFlag + " '" + cleanPath + "' & CPID=$!; wait $CPID; done";
+                "while :; do t=$(date +%s); pw-play " + sfxProps + volFlag + " '" + cleanPath + "' & CPID=$!; " +
+                "wait $CPID || exit 0; [ $(( $(date +%s) - t )) -ge 1 ] || exit 0; done";
         } else {
             script = "exec pw-play " + sfxProps + volFlag + " '" + cleanPath + "'";
         }
