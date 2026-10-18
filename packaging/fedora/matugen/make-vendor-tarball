@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# MuhOS: produce the Matugen sources for matugen.spec.
+#
+#   packaging/fedora/matugen/make-vendor-tarball <version> <outdir>
+#
+# Writes matugen-<version>.crate (from crates.io), matugen-<version>-vendor.tar.xz
+# (all Rust dependencies, via cargo vendor) and licenses.txt (the distinct
+# license expressions of matugen and its dependencies, for the spec's License
+# tag). Needs cargo, curl, tar, xz, python3. Run in a fedora:44 container.
+
+set -euo pipefail
+
+version="${1:?usage: make-vendor-tarball <version> <outdir>}"
+out="$(realpath -m "${2:?usage: make-vendor-tarball <version> <outdir>}")"
+work="$(mktemp -d)"
+trap 'rm -rf "$work"' EXIT
+mkdir -p "$out"
+
+crate="$out/matugen-$version.crate"
+curl -fsSL --retry 3 "https://crates.io/api/v1/crates/matugen/$version/download" -o "$crate"
+tar -xzf "$crate" -C "$work"
+cd "$work/matugen-$version"
+
+cargo vendor --locked --versioned-dirs vendor >/dev/null
+tar --sort=name --mtime=@0 --owner=0 --group=0 --numeric-owner \
+    -cJf "$out/matugen-$version-vendor.tar.xz" vendor
+
+cargo metadata --locked --format-version 1 --filter-platform x86_64-unknown-linux-gnu \
+    | python3 -I -c '
+import json, sys
+meta = json.load(sys.stdin)
+deps = {n["id"] for n in meta["resolve"]["nodes"]}
+for lic in sorted({(p["license"] or "UNKNOWN").replace("/", " OR ") for p in meta["packages"] if p["id"] in deps}):
+    print(lic)
+' > "$out/licenses.txt"
+
+sha256sum "$crate" "$out/matugen-$version-vendor.tar.xz"
+echo "license expressions: $(wc -l < "$out/licenses.txt")"
