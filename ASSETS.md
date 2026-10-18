@@ -21,19 +21,17 @@ Excluded from this inventory: nothing.
 
 | Status | Files | Size | Releasable |
 |---|---:|---:|:---:|
-| needs-review | 1 | 2.5 MiB | no |
 | unknown-provenance | 41 | 60.5 MiB | no |
 | third-party-trademark | 12 | 475.6 KiB | no |
 | upstream-branding | 22 | 25.0 MiB | no |
 | generated | 27 | 135.9 KiB | yes |
-| ok | 32 | 90.5 MiB | yes |
+| ok | 33 | 93.0 MiB | yes |
 | **total** | **135** | **179.1 MiB** | |
 
 ## Assets
 
 | Path | Kind | Size | Status | License (per policy) | Embedded metadata | Action | SHA-256 |
 |---|---|---:|---|---|---|---|---|
-| `src/assets/fonts/SymbolsNerdFontMono-Regular.ttf` | font | 2.5 MiB | needs-review | MIT + per-icon-set licenses — NerdFonts… | Copyright (c) 2016, Ryan McIntyre | 'Font Logos' glyph set is listed as unlicensed; accept, sub… | `fe471e538392` |
 | `config/sddm/themes/material-you/bg.png` | image | 718.2 KiB | unknown-provenance |  |  | Trace origin or replace | `a27c84082669` |
 | `src/assets/pushy.gif` | image | 14.2 KiB | unknown-provenance |  |  | Trace origin or replace | `0950b88928eb` |
 | `src/assets/pushy2.gif` | image | 28.4 KiB | unknown-provenance |  |  | Trace origin or replace | `2e55680ced35` |
@@ -168,3 +166,4 @@ Excluded from this inventory: nothing.
 | `src/assets/fonts/LektonNerdFont-Regular.ttf` | font | 2.2 MiB | ok | OFL-1.1 (embedded; copyright in each fi… | This Font Software is licensed under the SIL Open Font License, Version 1.1. ------------… |  | `36d5bfeaaea3` |
 | `src/assets/fonts/OpenDyslexicNerdFont-Regular.otf` | font | 2.1 MiB | ok | Bitstream-Vera AND CC-BY-3.0 — Bitstrea… | Fonts are © Bitstream. OpenDyslexic changes and additional glyphs by Abelardo Gonzalez ar… | Attribution: OpenDyslexic changes by Abelardo Gonzalez (CC-… | `d66d8e37a291` |
 | `src/assets/fonts/Roboto-Regular.ttf` | font | 155.4 KiB | ok | OFL-1.1 (embedded; copyright in each fi… | This Font Software is licensed under the SIL Open Font License, Version 1.1. This license… |  | `15256405ecb0` |
+| `src/assets/fonts/SymbolsNerdFontMono-Regular.ttf` | font | 2.5 MiB | ok | MIT + icon-set licenses (CC-BY-4.0, MIT… | Copyright (c) 2016, Ryan McIntyre | Attribution for CC-BY icon sets in NerdFontsSymbols/ATTRIBU… | `fe471e538392` |
