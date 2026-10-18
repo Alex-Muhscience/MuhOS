@@ -9,10 +9,14 @@ Base: upstream `v2.2.13` (`d6f1c8d`). Labels are explained in FORK.md.
 - Remove fonts that cannot be redistributed; ship font licenses (6f5fcc9)
 - Rescan fonts when a font directory changes (074f9ab)
 - Keep daemon pid and lock files in XDG_RUNTIME_DIR (9d73d1f)
+- Drop executable bits from data files (94ffe53)
+- Drop executable bits from remaining non-script files (820abec)
 
 ## Fedora-specific
 
 - Add RPM packaging, GDM session and systemd user units (f3f5b4a)
+- Fix rpmlint errors in the spec (20ca374)
+- Add install-level package tests (61b4aa6)
 
 ## MuhOS branding
 
@@ -26,12 +30,21 @@ _None yet._
 - Verify shipped license files in the asset inventory (0593d29)
 - Regenerate CHANGES-FROM-UPSTREAM.md (16c1db4)
 - Lint every tracked shell script, not only *.sh and bin/ (a7110a7)
+- Regenerate CHANGES-FROM-UPSTREAM.md (52f5748)
+- Apply shellcheck directive to the whole changes generator (f8cba26)
+- Build the RPM and run package tests in CI (3bfdfd1)
 
 ## Upstream files changed by MuhOS
 
 - `.gitignore` (modified since 2026-10-18)
+- `CHANGELOG.md` (modified since 2026-10-18)
+- `LICENSE.md` (modified since 2026-10-18)
+- `README.md` (modified since 2026-10-18)
 - `bin/serpantinum` (modified since 2026-10-18)
 - `bin/serpantinumd` (modified since 2026-10-18)
+- `default.nix` (modified since 2026-10-18)
+- `flake.lock` (modified since 2026-10-18)
+- `flake.nix` (modified since 2026-10-18)
 - `src/assets/fonts/AtkynsonMonoNerdFont-Regular.otf` (removed 2026-10-18)
 - `src/assets/fonts/HeavyDataNerdFont-Regular.ttf` (removed 2026-10-18)
 - `src/assets/fonts/ProggyCleanSZNerdFont-Regular.ttf` (removed 2026-10-18)
@@ -39,7 +52,23 @@ _None yet._
 - `src/assets/fonts/SF-Pro-Display-Semibold.otf` (removed 2026-10-18)
 - `src/assets/fonts/SFMono-Regular.otf` (removed 2026-10-18)
 - `src/assets/fonts/TTCommonsPro_regular.otf` (removed 2026-10-18)
+- `src/assets/languages/az.json` (modified since 2026-10-18)
+- `src/assets/languages/de.json` (modified since 2026-10-18)
+- `src/assets/languages/en.json` (modified since 2026-10-18)
+- `src/assets/languages/es.json` (modified since 2026-10-18)
+- `src/assets/languages/hy.json` (modified since 2026-10-18)
+- `src/assets/languages/it.json` (modified since 2026-10-18)
+- `src/assets/languages/ko.json` (modified since 2026-10-18)
+- `src/assets/languages/pt.json` (modified since 2026-10-18)
+- `src/assets/languages/ru.json` (modified since 2026-10-18)
+- `src/assets/languages/vi.json` (modified since 2026-10-18)
+- `src/assets/logo.svg` (modified since 2026-10-18)
+- `src/assets/pushy.gif` (modified since 2026-10-18)
+- `src/assets/pushy2.gif` (modified since 2026-10-18)
+- `src/assets/tutorial.json` (modified since 2026-10-18)
 - `src/quickshell/singletons/theme/ThemeBackend.qml` (modified since 2026-10-18)
 - `src/scripts/system/exit.sh` (modified since 2026-10-18)
 - `src/scripts/system/poweroff.sh` (modified since 2026-10-18)
 - `src/scripts/system/reboot.sh` (modified since 2026-10-18)
+- `version.txt` (modified since 2026-10-18)
+- `website/static/img/logo.svg` (modified since 2026-10-18)
