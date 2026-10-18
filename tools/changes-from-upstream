@@ -4,9 +4,9 @@
 #
 #   tools/changes-from-upstream [base-tag]     (default: base tag recorded in NOTICE)
 
-set -euo pipefail
 # Backticks in the printf formats below are Markdown, not command substitution.
 # shellcheck disable=SC2016
+set -euo pipefail
 
 root="$(cd "$(dirname "$0")/.." && pwd)"
 base="${1:-$(sed -n 's/^ *Based on: *tag \([^,]*\),.*/\1/p' "$root/NOTICE")}"
