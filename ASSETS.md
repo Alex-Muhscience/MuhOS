@@ -13,100 +13,24 @@ Excluded from this inventory: nothing.
 - **unknown-provenance**: No source or license recorded anywhere in the repository. Must be traced, replaced, or removed.
 - **needs-license-text**: License permits redistribution, but the required license/notice text is not shipped alongside the file.
 - **third-party-trademark**: Logo of another project; usage is governed by that project's trademark policy, not by a copyright license.
-- **upstream-branding**: Serpantinum name/logo/screenshots. AGPL permits it, but MuhOS ships its own branding, so it must be replaced.
+- **upstream-branding**: Serpantinum name/logo, AGPL-3.0-or-later like the rest of upstream: redistributable, but MuhOS replaces it with its own branding.
 - **generated**: Build artifact produced from source in this repository; should be rebuilt during packaging rather than shipped as committed.
 - **ok**: Cleared for release.
 
 ## Summary
 
-| Status | Files | Size | Releasable |
+| Status | Files | Size | Redistributable |
 |---|---:|---:|:---:|
-| unknown-provenance | 41 | 60.5 MiB | no |
-| third-party-trademark | 12 | 475.6 KiB | no |
-| upstream-branding | 22 | 25.0 MiB | no |
+| upstream-branding | 1 | 12.4 KiB | yes |
 | generated | 27 | 135.9 KiB | yes |
-| ok | 33 | 93.0 MiB | yes |
-| **total** | **135** | **179.1 MiB** | |
+| ok | 70 | 94.7 MiB | yes |
+| **total** | **98** | **94.8 MiB** | |
 
 ## Assets
 
 | Path | Kind | Size | Status | License (per policy) | Embedded metadata | Action | SHA-256 |
 |---|---|---:|---|---|---|---|---|
-| `config/sddm/themes/material-you/bg.png` | image | 718.2 KiB | unknown-provenance |  |  | Trace origin or replace | `a27c84082669` |
-| `src/assets/pushy.gif` | image | 14.2 KiB | unknown-provenance |  |  | Trace origin or replace | `0950b88928eb` |
-| `src/assets/pushy2.gif` | image | 28.4 KiB | unknown-provenance |  |  | Trace origin or replace | `2e55680ced35` |
-| `src/assets/sounds/guide/barconfig/in.wav` | sound | 81.4 KiB | unknown-provenance |  |  | Trace origin or replace with CC0/own recordings | `94448e17f496` |
-| `src/assets/sounds/guide/barconfig/out.wav` | sound | 86.3 KiB | unknown-provenance |  |  | Trace origin or replace with CC0/own recordings | `5a49799f10e6` |
-| `src/assets/sounds/musicpopup/swoosh.wav` | sound | 455.2 KiB | unknown-provenance |  |  | Trace origin or replace with CC0/own recordings | `d751ba2a06e2` |
-| `src/assets/sounds/network/connect.wav` | sound | 156.1 KiB | unknown-provenance |  |  | Trace origin or replace with CC0/own recordings | `64489c39f539` |
-| `src/assets/sounds/network/disconnect.wav` | sound | 355.6 KiB | unknown-provenance |  |  | Trace origin or replace with CC0/own recordings | `7c6ea71b8033` |
-| `src/assets/sounds/network/power_off.wav` | sound | 576.1 KiB | unknown-provenance |  |  | Trace origin or replace with CC0/own recordings | `ef2759f4004f` |
-| `src/assets/sounds/network/power_on.wav` | sound | 432.1 KiB | unknown-provenance |  |  | Trace origin or replace with CC0/own recordings | `6f9bc1f059ea` |
-| `src/assets/sounds/network/switch.wav` | sound | 40.6 KiB | unknown-provenance |  |  | Trace origin or replace with CC0/own recordings | `a4e3508434a0` |
-| `src/assets/sounds/notifications/Botanica.wav` | sound | 295.2 KiB | unknown-provenance |  |  | Trace origin or replace with CC0/own recordings | `2a428633bfe0` |
-| `src/assets/sounds/notifications/Curious.mp3` | sound | 66.8 KiB | unknown-provenance |  |  | Trace origin or replace with CC0/own recordings | `58636839c819` |
-| `src/assets/sounds/notifications/Progress.wav` | sound | 129.2 KiB | unknown-provenance |  |  | Trace origin or replace with CC0/own recordings | `d178edc6cc7d` |
-| `src/assets/sounds/notifications/Sine.wav` | sound | 698.9 KiB | unknown-provenance |  |  | Trace origin or replace with CC0/own recordings | `9b421eadc12f` |
-| `src/assets/sounds/notifications/Sneak.mp3` | sound | 101.2 KiB | unknown-provenance |  |  | Trace origin or replace with CC0/own recordings | `4032c1aeaf41` |
-| `src/assets/sounds/notifications/WakeUp.mp3` | sound | 55.5 KiB | unknown-provenance |  |  | Trace origin or replace with CC0/own recordings | `748e6d03a559` |
-| `src/assets/sounds/notifications/Wobbly.mp3` | sound | 61.2 KiB | unknown-provenance |  |  | Trace origin or replace with CC0/own recordings | `1f00f6568532` |
-| `src/assets/sounds/quickactions/usage.wav` | sound | 2.9 MiB | unknown-provenance |  |  | Trace origin or replace with CC0/own recordings | `08bab077f156` |
-| `src/assets/sounds/reusables/clickbutton/click.wav` | sound | 4.6 KiB | unknown-provenance |  |  | Trace origin or replace with CC0/own recordings | `0dea4d30acdb` |
-| `src/assets/sounds/reusables/clickbutton/click2.wav` | sound | 8.6 KiB | unknown-provenance |  |  | Trace origin or replace with CC0/own recordings | `bf4c5ffc136d` |
-| `src/assets/sounds/reusables/draggable/tick.wav` | sound | 172.3 KiB | unknown-provenance |  |  | Trace origin or replace with CC0/own recordings | `01cb08b0d7c2` |
-| `src/assets/sounds/reusables/dropdown/click.wav` | sound | 4.6 KiB | unknown-provenance |  |  | Trace origin or replace with CC0/own recordings | `0dea4d30acdb` |
-| `src/assets/sounds/reusables/dropdown/list.wav` | sound | 82.8 KiB | unknown-provenance |  |  | Trace origin or replace with CC0/own recordings | `b8ef826eda42` |
-| `src/assets/sounds/reusables/fillbutton/button.wav` | sound | 952 B | unknown-provenance |  |  | Trace origin or replace with CC0/own recordings | `7be1ed6f4aa9` |
-| `src/assets/sounds/reusables/fillbutton/charge_loop.wav` | sound | 538.3 KiB | unknown-provenance |  |  | Trace origin or replace with CC0/own recordings | `8904a0c4b80c` |
-| `src/assets/sounds/reusables/fillbutton/charge_loop2.wav` | sound | 102.4 KiB | unknown-provenance |  |  | Trace origin or replace with CC0/own recordings | `2bc08a59b7f7` |
-| `src/assets/sounds/reusables/iconbutton/click.wav` | sound | 4.6 KiB | unknown-provenance |  |  | Trace origin or replace with CC0/own recordings | `0dea4d30acdb` |
-| `src/assets/sounds/reusables/input/type.wav` | sound | 740 B | unknown-provenance |  |  | Trace origin or replace with CC0/own recordings | `0649e34f48c7` |
-| `src/assets/sounds/reusables/switch/sfx.wav` | sound | 8.7 KiB | unknown-provenance |  |  | Trace origin or replace with CC0/own recordings | `3de70aaf46e4` |
-| `src/assets/sounds/reusables/toggle/sfx.wav` | sound | 87.7 KiB | unknown-provenance |  |  | Trace origin or replace with CC0/own recordings | `b092eec92bc0` |
-| `src/assets/sounds/start/background.wav` | sound | 42.6 MiB | unknown-provenance |  |  | Trace origin or replace with CC0/own recordings | `988d452c7f22` |
-| `src/assets/sounds/start/exit.wav` | sound | 3.8 MiB | unknown-provenance |  |  | Trace origin or replace with CC0/own recordings | `2f9383a936bb` |
-| `src/assets/sounds/start/pop_author.wav` | sound | 22.9 KiB | unknown-provenance |  |  | Trace origin or replace with CC0/own recordings | `751f710ef4d5` |
-| `src/assets/sounds/start/start.wav` | sound | 1.5 MiB | unknown-provenance |  |  | Trace origin or replace with CC0/own recordings | `82a17b2e5805` |
-| `src/assets/sounds/start/transition_serp.wav` | sound | 443.0 KiB | unknown-provenance |  |  | Trace origin or replace with CC0/own recordings | `fa27e65b91dd` |
-| `src/assets/sounds/start/type.wav` | sound | 740 B | unknown-provenance |  |  | Trace origin or replace with CC0/own recordings | `0649e34f48c7` |
-| `src/assets/sounds/start/wave.wav` | sound | 2.8 MiB | unknown-provenance |  |  | Trace origin or replace with CC0/own recordings | `9f6e39a1ae00` |
-| `src/assets/sounds/system/quick_click.wav` | sound | 172.3 KiB | unknown-provenance |  |  | Trace origin or replace with CC0/own recordings | `9ed3369b07b5` |
-| `src/assets/sounds/tutorial/tip.wav` | sound | 523.3 KiB | unknown-provenance |  |  | Trace origin or replace with CC0/own recordings | `14455267b2e7` |
-| `src/assets/sounds/tutorial/tip_guide.wav` | sound | 572.9 KiB | unknown-provenance |  |  | Trace origin or replace with CC0/own recordings | `406b6528357a` |
-| `docs/assets/logos/arch.png` | image | 34.0 KiB | third-party-trademark | Trademark of respective project |  | Check each project's trademark guidelines before reuse | `338ac2a4cc70` |
-| `docs/assets/logos/hyprland.png` | image | 35.5 KiB | third-party-trademark | Trademark of respective project |  | Check each project's trademark guidelines before reuse | `ff6e276993f1` |
-| `docs/assets/logos/niri.png` | image | 57.6 KiB | third-party-trademark | Trademark of respective project |  | Check each project's trademark guidelines before reuse | `bceef1daedd0` |
-| `docs/assets/logos/nixos.png` | image | 45.5 KiB | third-party-trademark | Trademark of respective project |  | Check each project's trademark guidelines before reuse | `7197d0cee430` |
-| `docs/assets/logos/sway.png` | image | 43.7 KiB | third-party-trademark | Trademark of respective project |  | Check each project's trademark guidelines before reuse | `1f860c56c0fd` |
-| `website/static/img/logos/arch.png` | image | 34.0 KiB | third-party-trademark | Trademark of respective project |  | Check each project's trademark guidelines before reuse | `338ac2a4cc70` |
-| `website/static/img/logos/fedora.png` | image | 25.9 KiB | third-party-trademark | Trademark of respective project |  | Check each project's trademark guidelines before reuse | `816cf30b8919` |
-| `website/static/img/logos/hyprland.png` | image | 35.5 KiB | third-party-trademark | Trademark of respective project |  | Check each project's trademark guidelines before reuse | `ff6e276993f1` |
-| `website/static/img/logos/mango.svg` | image | 17.1 KiB | third-party-trademark | Trademark of respective project |  | Check each project's trademark guidelines before reuse | `7af65fda77eb` |
-| `website/static/img/logos/niri.png` | image | 57.6 KiB | third-party-trademark | Trademark of respective project |  | Check each project's trademark guidelines before reuse | `bceef1daedd0` |
-| `website/static/img/logos/nixos.png` | image | 45.5 KiB | third-party-trademark | Trademark of respective project |  | Check each project's trademark guidelines before reuse | `7197d0cee430` |
-| `website/static/img/logos/sway.png` | image | 43.7 KiB | third-party-trademark | Trademark of respective project |  | Check each project's trademark guidelines before reuse | `1f860c56c0fd` |
-| `docs/assets/banner.png` | image | 111.3 KiB | upstream-branding | AGPL-3.0-or-later (upstream) |  | Replace with MuhOS branding | `f9876f0b8bb4` |
-| `docs/assets/previews/preview_1.png` | image | 5.9 MiB | upstream-branding | AGPL-3.0-or-later (upstream) |  | Replace with MuhOS branding | `fd5417918d3d` |
-| `docs/assets/previews/preview_2.png` | image | 5.9 MiB | upstream-branding | AGPL-3.0-or-later (upstream) |  | Replace with MuhOS branding | `51d67db1c36a` |
-| `docs/assets/previews/preview_3.png` | image | 5.9 MiB | upstream-branding | AGPL-3.0-or-later (upstream) |  | Replace with MuhOS branding | `ed8bf04f3d96` |
-| `docs/assets/previews/preview_4.png` | image | 5.9 MiB | upstream-branding | AGPL-3.0-or-later (upstream) |  | Replace with MuhOS branding | `6bf10233ee94` |
 | `src/assets/logo.svg` | image | 12.4 KiB | upstream-branding | AGPL-3.0-or-later (upstream) |  | Replace with MuhOS branding | `73b79df9827b` |
-| `website/static/apple-touch-icon.png` | image | 12.4 KiB | upstream-branding | AGPL-3.0-or-later (upstream) |  | Replace with MuhOS branding | `fde678ed0508` |
-| `website/static/favicon-192.png` | image | 13.3 KiB | upstream-branding | AGPL-3.0-or-later (upstream) |  | Replace with MuhOS branding | `ead9e077c129` |
-| `website/static/favicon-48.png` | image | 2.3 KiB | upstream-branding | AGPL-3.0-or-later (upstream) |  | Replace with MuhOS branding | `8d84e54d66ea` |
-| `website/static/favicon.ico` | image | 13.6 KiB | upstream-branding | AGPL-3.0-or-later (upstream) |  | Replace with MuhOS branding | `9d49eb2088c3` |
-| `website/static/img/logo-dark.svg` | image | 12.4 KiB | upstream-branding | AGPL-3.0-or-later (upstream) |  | Replace with MuhOS branding | `6cd21c97b913` |
-| `website/static/img/logo-light.svg` | image | 12.4 KiB | upstream-branding | AGPL-3.0-or-later (upstream) |  | Replace with MuhOS branding | `33d0eb25086d` |
-| `website/static/img/logo.png` | image | 20.6 KiB | upstream-branding | AGPL-3.0-or-later (upstream) |  | Replace with MuhOS branding | `6364bef1e9a6` |
-| `website/static/img/logo.svg` | image | 12.4 KiB | upstream-branding | AGPL-3.0-or-later (upstream) |  | Replace with MuhOS branding | `6cd21c97b913` |
-| `website/static/img/previews/preview_1.webp` | image | 119.9 KiB | upstream-branding | AGPL-3.0-or-later (upstream) |  | Replace with MuhOS branding | `f0a504deb529` |
-| `website/static/img/previews/preview_2.webp` | image | 157.1 KiB | upstream-branding | AGPL-3.0-or-later (upstream) |  | Replace with MuhOS branding | `37bc7033a702` |
-| `website/static/img/previews/preview_3.webp` | image | 167.8 KiB | upstream-branding | AGPL-3.0-or-later (upstream) |  | Replace with MuhOS branding | `e8d76afc58bb` |
-| `website/static/img/previews/preview_4.webp` | image | 198.3 KiB | upstream-branding | AGPL-3.0-or-later (upstream) |  | Replace with MuhOS branding | `490ae5c1327a` |
-| `website/static/img/previews/steps/configure_preview.webp` | image | 37.1 KiB | upstream-branding | AGPL-3.0-or-later (upstream) |  | Replace with MuhOS branding | `3318f0a566df` |
-| `website/static/img/previews/steps/enjoy_preview.webp` | image | 228.8 KiB | upstream-branding | AGPL-3.0-or-later (upstream) |  | Replace with MuhOS branding | `baa4bf857a4f` |
-| `website/static/img/previews/steps/install_preview.webp` | image | 58.1 KiB | upstream-branding | AGPL-3.0-or-later (upstream) |  | Replace with MuhOS branding | `37a64dce1831` |
-| `website/static/img/social-card.jpg` | image | 61.8 KiB | upstream-branding | AGPL-3.0-or-later (upstream) |  | Replace with MuhOS branding | `460fe91f8359` |
 | `src/assets/shaders/audio/seekbar_wave.frag.qsb` | shader-binary | 5.3 KiB | generated | AGPL-3.0-or-later (compiled from .frag) |  | Rebuild with qsb during RPM build | `35f956dff85e` |
 | `src/assets/shaders/audio/visualizer_bars.frag.qsb` | shader-binary | 6.9 KiB | generated | AGPL-3.0-or-later (compiled from .frag) |  | Rebuild with qsb during RPM build | `fc8c019cc0fa` |
 | `src/assets/shaders/audio/visualizer_ring_wave.frag.qsb` | shader-binary | 4.6 KiB | generated | AGPL-3.0-or-later (compiled from .frag) |  | Rebuild with qsb during RPM build | `18ef9b26f52d` |
@@ -134,7 +58,6 @@ Excluded from this inventory: nothing.
 | `src/assets/shaders/vfx/node_beams_clipped.frag.qsb` | shader-binary | 7.9 KiB | generated | AGPL-3.0-or-later (compiled from .frag) |  | Rebuild with qsb during RPM build | `53174a89f71c` |
 | `src/assets/shaders/widgets/pacman.frag.qsb` | shader-binary | 2.6 KiB | generated | AGPL-3.0-or-later (compiled from .frag) |  | Rebuild with qsb during RPM build | `ac77565dcb38` |
 | `src/assets/shaders/widgets/widget_outline.frag.qsb` | shader-binary | 4.1 KiB | generated | AGPL-3.0-or-later (compiled from .frag) |  | Rebuild with qsb during RPM build | `1981dcdd25a1` |
-| `config/sddm/themes/material-you/font/GoogleSans-VariableFont_GRAD,opsz,wght.ttf` | font | 4.5 MiB | ok | OFL-1.1 (embedded) — OFL-1.1.txt | This Font Software is licensed under the SIL Open Font License, Version 1.1. This license… |  | `08f022f46f30` |
 | `src/assets/fonts/0xProtoNerdFont-Regular.ttf` | font | 2.3 MiB | ok | OFL-1.1 — 0xProto-LICENSE.txt | 0xType Project Authors (https://github.com/0xType) |  | `014921bcefcb` |
 | `src/assets/fonts/3270NerdFont-Regular.ttf` | font | 2.5 MiB | ok | OFL-1.1 — 3270-LICENSE.txt | This Font Software is licensed under the SIL Open Font License, Version 1.1. This license… |  | `78540c388022` |
 | `src/assets/fonts/AdwaitaMonoNerdFont-Regular.ttf` | font | 3.8 MiB | ok | OFL-1.1 (embedded; copyright in each fi… | This font software is licensed under the SIL Open Font License, Version 1.1. This license… |  | `bcd970a74682` |
@@ -167,3 +90,41 @@ Excluded from this inventory: nothing.
 | `src/assets/fonts/OpenDyslexicNerdFont-Regular.otf` | font | 2.1 MiB | ok | Bitstream-Vera AND CC-BY-3.0 — Bitstrea… | Fonts are © Bitstream. OpenDyslexic changes and additional glyphs by Abelardo Gonzalez ar… | Attribution: OpenDyslexic changes by Abelardo Gonzalez (CC-… | `d66d8e37a291` |
 | `src/assets/fonts/Roboto-Regular.ttf` | font | 155.4 KiB | ok | OFL-1.1 (embedded; copyright in each fi… | This Font Software is licensed under the SIL Open Font License, Version 1.1. This license… |  | `15256405ecb0` |
 | `src/assets/fonts/SymbolsNerdFontMono-Regular.ttf` | font | 2.5 MiB | ok | MIT + icon-set licenses (CC-BY-4.0, MIT… | Copyright (c) 2016, Ryan McIntyre | Attribution for CC-BY icon sets in NerdFontsSymbols/ATTRIBU… | `fe471e538392` |
+| `src/assets/pushy.gif` | image | 29.0 KiB | ok | AGPL-3.0-or-later (MuhOS original, draw… |  |  | `5fc647550071` |
+| `src/assets/pushy2.gif` | image | 82.9 KiB | ok | AGPL-3.0-or-later (MuhOS original, draw… |  |  | `f0cc61909076` |
+| `src/assets/sounds/guide/barconfig/in.wav` | sound | 36.5 KiB | ok | CC0-1.0 (Kenney, https://kenney.nl; see… |  |  | `20b3384b09ec` |
+| `src/assets/sounds/guide/barconfig/out.wav` | sound | 36.5 KiB | ok | CC0-1.0 (Kenney, https://kenney.nl; see… |  |  | `e88434bf6ea6` |
+| `src/assets/sounds/musicpopup/swoosh.wav` | sound | 90.7 KiB | ok | CC0-1.0 (Kenney, https://kenney.nl; see… |  |  | `abbe853ae402` |
+| `src/assets/sounds/network/connect.wav` | sound | 92.9 KiB | ok | CC0-1.0 (Kenney, https://kenney.nl; see… |  |  | `675411719bf4` |
+| `src/assets/sounds/network/disconnect.wav` | sound | 134.5 KiB | ok | CC0-1.0 (Kenney, https://kenney.nl; see… |  |  | `d4990a05c48c` |
+| `src/assets/sounds/network/power_off.wav` | sound | 80.5 KiB | ok | CC0-1.0 (Kenney, https://kenney.nl; see… |  |  | `463ea39edbd9` |
+| `src/assets/sounds/network/power_on.wav` | sound | 89.3 KiB | ok | CC0-1.0 (Kenney, https://kenney.nl; see… |  |  | `cf6b14033a68` |
+| `src/assets/sounds/network/switch.wav` | sound | 36.8 KiB | ok | CC0-1.0 (Kenney, https://kenney.nl; see… |  |  | `d3c8dddcbe27` |
+| `src/assets/sounds/notifications/Bong.wav` | sound | 20.7 KiB | ok | CC0-1.0 (Kenney, https://kenney.nl; see… |  |  | `e2bf92d3562d` |
+| `src/assets/sounds/notifications/Confirm.wav` | sound | 84.5 KiB | ok | CC0-1.0 (Kenney, https://kenney.nl; see… |  |  | `757d2c8294d2` |
+| `src/assets/sounds/notifications/Glass.wav` | sound | 119.3 KiB | ok | CC0-1.0 (Kenney, https://kenney.nl; see… |  |  | `362ddfa644c5` |
+| `src/assets/sounds/notifications/Pizzicato.wav` | sound | 97.2 KiB | ok | CC0-1.0 (Kenney, https://kenney.nl; see… |  |  | `9a91b5ff658b` |
+| `src/assets/sounds/notifications/Question.wav` | sound | 84.6 KiB | ok | CC0-1.0 (Kenney, https://kenney.nl; see… |  |  | `fb02d3c6fdcf` |
+| `src/assets/sounds/notifications/Steel.wav` | sound | 101.0 KiB | ok | CC0-1.0 (Kenney, https://kenney.nl; see… |  |  | `80f1799d486a` |
+| `src/assets/sounds/notifications/ThreeTone.wav` | sound | 146.3 KiB | ok | CC0-1.0 (Kenney, https://kenney.nl; see… |  |  | `30c945b2ad21` |
+| `src/assets/sounds/quickactions/usage.wav` | sound | 198.0 KiB | ok | CC0-1.0 (Kenney, https://kenney.nl; see… |  |  | `82a95d04b164` |
+| `src/assets/sounds/reusables/clickbutton/click.wav` | sound | 15.7 KiB | ok | CC0-1.0 (Kenney, https://kenney.nl; see… |  |  | `b89839952f10` |
+| `src/assets/sounds/reusables/draggable/tick.wav` | sound | 3.5 KiB | ok | CC0-1.0 (Kenney, https://kenney.nl; see… |  |  | `554983795cde` |
+| `src/assets/sounds/reusables/dropdown/click.wav` | sound | 16.8 KiB | ok | CC0-1.0 (Kenney, https://kenney.nl; see… |  |  | `dea9ea265614` |
+| `src/assets/sounds/reusables/dropdown/list.wav` | sound | 25.5 KiB | ok | CC0-1.0 (Kenney, https://kenney.nl; see… |  |  | `1c854209188f` |
+| `src/assets/sounds/reusables/fillbutton/button.wav` | sound | 7.0 KiB | ok | CC0-1.0 (Kenney, https://kenney.nl; see… |  |  | `1bde39525491` |
+| `src/assets/sounds/reusables/fillbutton/charge_loop.wav` | sound | 258.4 KiB | ok | AGPL-3.0-or-later (MuhOS original, synt… |  |  | `b8c45f9cd474` |
+| `src/assets/sounds/reusables/iconbutton/click.wav` | sound | 14.4 KiB | ok | CC0-1.0 (Kenney, https://kenney.nl; see… |  |  | `5ff489cf9fe9` |
+| `src/assets/sounds/reusables/input/type.wav` | sound | 7.8 KiB | ok | CC0-1.0 (Kenney, https://kenney.nl; see… |  |  | `fbe55b206e47` |
+| `src/assets/sounds/reusables/switch/sfx.wav` | sound | 8.8 KiB | ok | CC0-1.0 (Kenney, https://kenney.nl; see… |  |  | `726e6b4bf424` |
+| `src/assets/sounds/reusables/toggle/sfx.wav` | sound | 23.5 KiB | ok | CC0-1.0 (Kenney, https://kenney.nl; see… |  |  | `91923655e9e5` |
+| `src/assets/sounds/start/background.wav` | sound | 2.7 MiB | ok | AGPL-3.0-or-later (MuhOS original, synt… |  |  | `2fcd711e284e` |
+| `src/assets/sounds/start/exit.wav` | sound | 267.9 KiB | ok | CC0-1.0 (Kenney, https://kenney.nl; see… |  |  | `4bf032717bb2` |
+| `src/assets/sounds/start/pop_author.wav` | sound | 22.9 KiB | ok | CC0-1.0 (Romain Raynal, Open Sounds; st… |  |  | `751f710ef4d5` |
+| `src/assets/sounds/start/start.wav` | sound | 228.1 KiB | ok | CC0-1.0 (Kenney, https://kenney.nl; see… |  |  | `80bb8eec2d99` |
+| `src/assets/sounds/start/transition_serp.wav` | sound | 207.0 KiB | ok | CC0-1.0 (Kenney, https://kenney.nl; see… |  |  | `fb6f17a30e9a` |
+| `src/assets/sounds/start/type.wav` | sound | 9.5 KiB | ok | CC0-1.0 (Kenney, https://kenney.nl; see… |  |  | `7588f57239b6` |
+| `src/assets/sounds/start/wave.wav` | sound | 654.7 KiB | ok | AGPL-3.0-or-later (MuhOS original, synt… |  |  | `53cfe1058029` |
+| `src/assets/sounds/system/quick_click.wav` | sound | 65.5 KiB | ok | CC0-1.0 (Kenney, https://kenney.nl; see… |  |  | `5d04d99b2af8` |
+| `src/assets/sounds/tutorial/tip.wav` | sound | 57.3 KiB | ok | CC0-1.0 (Kenney, https://kenney.nl; see… |  |  | `9fbe7352dcb4` |
+| `src/assets/sounds/tutorial/tip_guide.wav` | sound | 50.0 KiB | ok | CC0-1.0 (Kenney, https://kenney.nl; see… |  |  | `4a4a8b0853c5` |

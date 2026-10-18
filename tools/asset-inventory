@@ -32,8 +32,8 @@ ASSET_EXT = {
     ".qsb": "shader-binary",
 }
 
-# Statuses that may ship in a MuhOS release.
-RELEASABLE = {"ok", "generated"}
+# Statuses that may be redistributed (upstream-branding is still replaced for MuhOS releases).
+RELEASABLE = {"ok", "generated", "upstream-branding"}
 
 STATUS_ORDER = [
     "non-redistributable", "needs-review", "unknown-provenance", "needs-license-text",
@@ -181,7 +181,7 @@ def render(policy, assets):
     ]
     for status, meaning in policy["statuses"].items():
         lines.append(f"- **{status}**: {meaning}")
-    lines += ["", "## Summary", "", "| Status | Files | Size | Releasable |", "|---|---:|---:|:---:|"]
+    lines += ["", "## Summary", "", "| Status | Files | Size | Redistributable |", "|---|---:|---:|:---:|"]
     for status in STATUS_ORDER:
         if status in totals:
             n, size = totals[status]
