@@ -61,7 +61,7 @@ for i in $(seq 1 "$runs"); do
     VM_DISK="$disk" "$here/run" start "$dir" >/dev/null
 
     for _ in $(seq 120); do vm true 2>/dev/null && break; sleep 5; done
-    for _ in $(seq 120); do vm 'pgrep -u muhos -f "quickshell -p"' >/dev/null 2>&1 && break; sleep 2; done
+    for _ in $(seq 120); do vm 'pgrep -u muhos -x quickshell' >/dev/null 2>&1 && break; sleep 2; done
     # Wait for the shell to report its configuration loaded, then warm up.
     for _ in $(seq 120); do vm 'journalctl --user -u muhos-shell -b -o cat | grep -q "Configuration Loaded"' && break; sleep 2; done
     sleep "$warmup"
@@ -78,7 +78,7 @@ for line in sys.stdin:
     if start is None and m.startswith(\"Started muhos-shell.service\"): start = t
     if loaded is None and \"Configuration Loaded\" in m: loaded = t
 print(f\"{(loaded - start) / 1e6:.2f}\" if start and loaded else \"\")')
-        pid=\$(pgrep -u muhos -f 'quickshell -p' | head -n1); hz=\$(getconf CLK_TCK)
+        pid=\$(pgrep -u muhos -x quickshell | head -n1); hz=\$(getconf CLK_TCK)
         t0=\$(awk '{print \$14+\$15}' /proc/\$pid/stat); sleep $window; t1=\$(awk '{print \$14+\$15}' /proc/\$pid/stat)
         cpu=\$(awk -v a=\$t0 -v b=\$t1 -v hz=\$hz -v s=$window 'BEGIN{printf \"%.2f\", (b-a)/hz/s*100}')
         pss=\$(awk '/^Pss:/{printf \"%.1f\", \$2/1024}' /proc/\$pid/smaps_rollup)

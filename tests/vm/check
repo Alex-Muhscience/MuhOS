@@ -34,7 +34,7 @@ echo
 vm true || { fail "ssh reachable"; exit 1; }
 
 # Give GDM, the session and the shell time to come up.
-for _ in $(seq 60); do vm 'pgrep -u muhos -x quickshell || pgrep -u muhos -f "quickshell -p"' >/dev/null 2>&1 && break; sleep 5; done
+for _ in $(seq 60); do vm 'pgrep -u muhos -x quickshell' >/dev/null 2>&1 && break; sleep 5; done
 sleep 10
 
 echo "== session"
@@ -45,7 +45,7 @@ check "muhos-session.target active" 'systemctl --user is-active muhos-session.ta
 check "muhos-shell.service active" 'systemctl --user is-active muhos-shell.service'
 restarts="$(vm 'systemctl --user show muhos-shell.service -p NRestarts --value' 2>/dev/null)"
 if [ "${restarts:-x}" = 0 ]; then pass "shell never restarted"; else fail "shell restarted ${restarts:-?} time(s)"; fi
-check "quickshell process running" 'pgrep -u muhos -f "quickshell -p"'
+check "quickshell process running" 'pgrep -u muhos -x quickshell'
 check "per-user Hyprland stub created" 'test -f ~/.config/muhos/hypr/hyprland.lua'
 check "settings seeded" 'test -f ~/.config/serpantinum/settings.json'
 check "user's ~/.config/hypr left alone" 'test ! -e ~/.config/hypr'
@@ -58,7 +58,7 @@ echo "== log summary"
 vm 'journalctl --user -u muhos-shell -b --no-pager -o cat | grep -ciE "error|fatal|segfault|core dumped"' | sed 's/^/error-like lines: /'
 
 echo "== idle resources over ${idle}s"
-vm "pid=\$(pgrep -u muhos -f 'quickshell -p' | head -n1); hz=\$(getconf CLK_TCK);
+vm "pid=\$(pgrep -u muhos -x quickshell | head -n1); hz=\$(getconf CLK_TCK);
     t0=\$(awk '{print \$14+\$15}' /proc/\$pid/stat); sleep $idle; t1=\$(awk '{print \$14+\$15}' /proc/\$pid/stat);
     awk -v a=\$t0 -v b=\$t1 -v hz=\$hz -v s=$idle 'BEGIN{printf \"quickshell CPU: %.2f%% of one core\n\", (b-a)/hz/s*100}';
     awk '/^Pss:|^Rss:/{printf \"quickshell %s %.1f MiB\n\", \$1, \$2/1024}' /proc/\$pid/smaps_rollup;
