@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# MuhOS: build a third-party package (Quickshell, fonts, icon themes) from its spec.
+#
+#   packaging/fedora/build-external <spec> [outdir] [extra-source-dir]
+#
+# Downloads every remote SourceN of the spec (a "#/name" suffix names the
+# downloaded file), copies local sources from [extra-source-dir] (for example
+# a vendor tarball), installs the build dependencies and runs rpmbuild.
+# Needs rpm-build, curl and dnf; run it as root in a fedora:44 container.
+
+set -euo pipefail
+
+spec="$(realpath "${1:?usage: build-external <spec> [outdir] [extra-source-dir]}")"
+out="$(realpath -m "${2:-$PWD/rpmbuild-out}")"
+extra="${3:-}"
+top="$(mktemp -d)"
+trap 'rm -rf "$top"' EXIT
+mkdir -p "$top/SOURCES" "$out"
+
+rpmspec -P "$spec" | sed -n 's/^Source[0-9]*:[[:space:]]*//p' | while read -r src; do
+    case "$src" in
+        http://*|https://*)
+            name="${src##*#/}"
+            [ "$name" = "$src" ] && name="${src##*/}"
+            url="${src%%#/*}"
+            echo "fetching $name"
+            curl -fsSL --retry 3 "$url" -o "$top/SOURCES/$name"
+            ;;
+        *)
+            [ -n "$extra" ] && cp "$extra/$src" "$top/SOURCES/"
+            ;;
+    esac
+done
+
+dnf -y -q builddep "$spec" >/dev/null
+rpmbuild --define "_topdir $top" -ba "$spec"
+find "$top/RPMS" "$top/SRPMS" -name '*.rpm' -exec cp {} "$out/" \;
+ls -1 "$out"
