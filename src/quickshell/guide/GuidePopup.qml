@@ -1104,6 +1104,33 @@ Item {
                 width: Math.max(0, parent.width - sidebar.targetWidth - 2)
                 height: Math.max(0, parent.height - 8)
             }
+
+            // MuhOS: a visible way out; Esc and clicking outside also close.
+            IconButton {
+                id: closeGuideBtn
+                anchors.top: parent.top
+                anchors.topMargin: root.s(10)
+                anchors.right: I18n.rtl ? undefined : parent.right
+                anchors.left: I18n.rtl ? parent.left : undefined
+                anchors.rightMargin: root.s(10)
+                anchors.leftMargin: root.s(10)
+                size: root.s(32)
+                cornerRadius: ThemeBackend.borderRadius
+                buttonIcon: "󰅖"
+                iconFontSize: root.s(16)
+                glassShadow: 0
+                accentColor: Qt.alpha(ThemeBackend.surface0, 0.7)
+                textColor: ThemeBackend.subtext0
+                z: 10
+
+                onClicked: {
+                    if (typeof masterWindow !== "undefined" && masterWindow.switchWidget) {
+                        masterWindow.switchWidget("hidden", "");
+                    } else {
+                        root.closePopup();
+                    }
+                }
+            }
         }
     }
 }
