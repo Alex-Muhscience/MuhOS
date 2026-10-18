@@ -16,6 +16,8 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - Replace Pusheen GIFs with original empty-state art (1d87798)
 - Pause welcome-screen motion when nobody is moving the pointer (c7111e7)
 - Make IP geolocation optional; never fetch weather for 0,0 (a601df2)
+- Stop looping sounds when playback fails (847c7ec)
+- Wake the welcome screen only on real pointer movement (7be262a)
 
 ## Fedora-specific
 
@@ -30,6 +32,8 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - Document where Quickshell, Matugen and Hyprland come from (9dff67c)
 - Add Fedora 44 VM session tests (16e1283)
 - First-login defaults: no IP geolocation, default wallpapers (1e52f9d)
+- muhos 0.1.0-0.2 (6ed5c81)
+- muhos 0.1.0-0.3 (f51aa75)
 
 ## MuhOS branding
 
@@ -62,6 +66,8 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - Regenerate CHANGES-FROM-UPSTREAM.md (3b62968)
 - Regenerate CHANGES-FROM-UPSTREAM.md (c0ae8c3)
 - Add a repeatable VM idle benchmark (a66c2b8)
+- Regenerate CHANGES-FROM-UPSTREAM.md (85415bb)
+- Match the quickshell process by exact name in VM tests (db72e94)
 
 ## Upstream files changed by MuhOS
 
@@ -87,6 +93,7 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - `src/assets/logo.svg` (modified since 2026-10-18)
 - `src/assets/tutorial.json` (modified since 2026-10-18)
 - `src/quickshell/serp/Start.qml` (modified since 2026-10-18)
+- `src/quickshell/singletons/audio/Sounds.qml` (modified since 2026-10-18)
 - `src/quickshell/singletons/theme/ThemeBackend.qml` (modified since 2026-10-18)
 - `src/scripts/location.sh` (modified since 2026-10-18)
 - `src/scripts/system/exit.sh` (modified since 2026-10-18)
