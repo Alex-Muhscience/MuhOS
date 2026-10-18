@@ -17,6 +17,7 @@ Base: upstream `v2.2.13` (`d6f1c8d`). Labels are explained in FORK.md.
 - Add RPM packaging, GDM session and systemd user units (f3f5b4a)
 - Fix rpmlint errors in the spec (20ca374)
 - Add install-level package tests (61b4aa6)
+- Avoid command substitution in a package test check (17c7669)
 
 ## MuhOS branding
 
@@ -33,6 +34,7 @@ _None yet._
 - Regenerate CHANGES-FROM-UPSTREAM.md (52f5748)
 - Apply shellcheck directive to the whole changes generator (f8cba26)
 - Build the RPM and run package tests in CI (3bfdfd1)
+- Regenerate CHANGES-FROM-UPSTREAM.md (3fedf8f)
 
 ## Upstream files changed by MuhOS
 
