@@ -6,22 +6,22 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 
 ## General improvements (candidates for upstream)
 
-- Ship license texts for the bundled fonts (6ce8091)
-- Rescan fonts when a font directory changes (a624abe)
-- Keep daemon pid and lock files in XDG_RUNTIME_DIR (ad69199)
-- Drop executable bits from data files (7a07562)
-- Drop executable bits from remaining non-script files (d4ce63f)
-- Ship icon-set licenses and attribution for Symbols Nerd Font (379522d)
-- Replace bundled sounds with CC0 and original sounds (6540b21)
-- Replace Pusheen GIFs with original empty-state art (0fcf24b)
+- Ship license texts for the bundled fonts (8663b53)
+- Rescan fonts when a font directory changes (5bece76)
+- Keep daemon pid and lock files in XDG_RUNTIME_DIR (90a0c89)
+- Drop executable bits from data files (3042500)
+- Drop executable bits from remaining non-script files (ffc5980)
+- Ship icon-set licenses and attribution for Symbols Nerd Font (5bf4b00)
+- Replace bundled sounds with CC0 and original sounds (dda5769)
+- Replace Pusheen GIFs with original empty-state art (1d87798)
 
 ## Fedora-specific
 
-- Add RPM packaging, GDM session and systemd user units (a8c907b)
-- Fix rpmlint errors in the spec (a166a89)
-- Add install-level package tests (9766a29)
-- Avoid command substitution in a package test check (69e3b42)
-- Ship sound licenses and enforce the strict asset check (deecbbc)
+- Add RPM packaging, GDM session and systemd user units (0ecd206)
+- Fix rpmlint errors in the spec (c28bbe7)
+- Add install-level package tests (4cf9f9c)
+- Avoid command substitution in a package test check (0d01ad7)
+- Ship sound licenses and enforce the strict asset check (fbcbb09)
 
 ## MuhOS branding
 
@@ -29,23 +29,24 @@ _None yet._
 
 ## Fork infrastructure
 
-- Add fork scaffolding, asset inventory and lint baselines (1d52844)
-- Generate CHANGES-FROM-UPSTREAM.md (38d1a68)
-- List modified upstream files as the AGPL 5(a) notice (590dc68)
-- Verify shipped license files in the asset inventory (3afdd5d)
-- Regenerate CHANGES-FROM-UPSTREAM.md (befc02d)
-- Lint every tracked shell script, not only *.sh and bin/ (2ff569c)
-- Regenerate CHANGES-FROM-UPSTREAM.md (a5f92fa)
-- Apply shellcheck directive to the whole changes generator (d841d1f)
-- Build the RPM and run package tests in CI (f9f195e)
-- Regenerate CHANGES-FROM-UPSTREAM.md (fa37d4a)
-- Regenerate CHANGES-FROM-UPSTREAM.md (6bac402)
-- Track upstream through snapshot commits instead of its history (376e29a)
-- Regenerate CHANGES-FROM-UPSTREAM.md (3e27b68)
-- Clear Symbols Nerd Font in the asset inventory (9d1e091)
-- Exclude untraceable upstream assets; add asset build tools (2263613)
-- Clear all bundled assets in the inventory (3c9107e)
-- Update hosting note in FORK.md (0305979)
+- Add fork scaffolding, asset inventory and lint baselines (45c6877)
+- Generate CHANGES-FROM-UPSTREAM.md (65f7280)
+- List modified upstream files as the AGPL 5(a) notice (c0d694c)
+- Verify shipped license files in the asset inventory (f7ba0df)
+- Regenerate CHANGES-FROM-UPSTREAM.md (c8be7ba)
+- Lint every tracked shell script, not only *.sh and bin/ (05fed20)
+- Regenerate CHANGES-FROM-UPSTREAM.md (3e58733)
+- Apply shellcheck directive to the whole changes generator (121a506)
+- Build the RPM and run package tests in CI (0d2021e)
+- Regenerate CHANGES-FROM-UPSTREAM.md (0a7fd5c)
+- Regenerate CHANGES-FROM-UPSTREAM.md (1a9141b)
+- Track upstream through snapshot commits instead of its history (27e12dd)
+- Regenerate CHANGES-FROM-UPSTREAM.md (df656c7)
+- Clear Symbols Nerd Font in the asset inventory (8067b13)
+- Exclude untraceable upstream assets; add asset build tools (9d6381f)
+- Clear all bundled assets in the inventory (becda74)
+- Update hosting note in FORK.md (886be16)
+- Regenerate CHANGES-FROM-UPSTREAM.md (3bf25da)
 
 ## Upstream files changed by MuhOS
 
