@@ -22,7 +22,10 @@ PanelWindow {
 
     property bool openedSettings: false
     property bool leaving: false
-    property real reveal: 0.0
+    // Animated on an Item (not the window) so tooling can resolve the target.
+    readonly property real reveal: revealer.value
+
+    Item { id: revealer; property real value: 0.0 }
 
     WlrLayershell.namespace: "muhos-welcome"
     WlrLayershell.layer: WlrLayer.Overlay
@@ -47,13 +50,13 @@ PanelWindow {
 
     NumberAnimation {
         id: enter
-        target: window; property: "reveal"; from: 0.0; to: 1.0
+        target: revealer; property: "value"; from: 0.0; to: 1.0
         duration: 450; easing.type: Easing.OutCubic
     }
 
     SequentialAnimation {
         id: exit
-        NumberAnimation { target: window; property: "reveal"; to: 0.0; duration: 260; easing.type: Easing.InCubic }
+        NumberAnimation { target: revealer; property: "value"; to: 0.0; duration: 260; easing.type: Easing.InCubic }
         ScriptAction {
             script: {
                 if (window.openedSettings && typeof Caching !== "undefined")
