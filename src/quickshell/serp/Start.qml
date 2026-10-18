@@ -47,6 +47,18 @@ PanelWindow {
     property real globalOrbitAngle: 0
     NumberAnimation on globalOrbitAngle {
         from: 0; to: Math.PI * 2; duration: 120000; loops: Animation.Infinite; running: true
+        paused: window.motionResting
+    }
+
+    // Once the button is shown, pause the ambient motion after a while without
+    // pointer movement, so a welcome screen nobody is looking at stops redrawing
+    // every frame. Any pointer movement resumes it where it stopped.
+    property bool motionResting: false
+    Timer {
+        id: motionRestTimer
+        interval: 20000
+        running: window.idleTextActive && !window.motionResting
+        onTriggered: window.motionResting = true
     }
 
     property real panelReveal: 0.0
@@ -92,6 +104,7 @@ PanelWindow {
     property real idlePhase: 0.0
     NumberAnimation on idlePhase {
         from: 0.0; to: Math.PI * 2; duration: 8000; loops: Animation.Infinite; running: window.idleTextActive
+        paused: window.motionResting
     }
 
     property real monitorZoomProgress: 0.0
@@ -250,6 +263,13 @@ PanelWindow {
     Item {
         id: rootItem
         anchors.fill: parent
+
+        HoverHandler {
+            onPointChanged: {
+                window.motionResting = false;
+                motionRestTimer.restart();
+            }
+        }
         focus: true
         opacity: window.mainOpacity
 
