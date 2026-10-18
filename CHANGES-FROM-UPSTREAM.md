@@ -20,6 +20,7 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - Wake the welcome screen only on real pointer movement (7be262a)
 - Keep the stored version in sync on package-managed installs (706161b)
 - Use native text rendering (6ce3237)
+- Add a close button to the settings window (4e84898)
 
 ## Fedora-specific
 
@@ -41,6 +42,7 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - muhos 0.1.0-0.5 (494ce0d)
 - muhos 0.1.0-0.6 (411f131)
 - Require hyprland-guiutils; muhos 0.1.0-0.7 (0144b31)
+- Add a MuhOS Settings app entry; muhos 0.1.0-0.8 (3dc7546)
 
 ## MuhOS branding
 
@@ -51,6 +53,7 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - MuhOS names, attribution and first run on the desktop (fab4bf2)
 - New lightweight first-run welcome screen (b3e933a)
 - Welcome screen: do not redeclare the window's closed() signal (99db4cc)
+- Welcome screen: animate an Item rather than the window (4b054b6)
 
 ## Fork infrastructure
 
@@ -85,6 +88,8 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - Regenerate CHANGES-FROM-UPSTREAM.md (d1742ed)
 - Regenerate CHANGES-FROM-UPSTREAM.md (0e5a8de)
 - Regenerate CHANGES-FROM-UPSTREAM.md (7d99bd1)
+- Regenerate CHANGES-FROM-UPSTREAM.md (df2a638)
+- Re-record the lint baseline for the new welcome screen (0d74ade)
 
 ## Upstream files changed by MuhOS
 
@@ -111,6 +116,7 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - `src/assets/tutorial.json` (modified since 2026-10-18)
 - `src/quickshell/Shell.qml` (modified since 2026-10-18)
 - `src/quickshell/guide/AboutTab.qml` (modified since 2026-10-18)
+- `src/quickshell/guide/GuidePopup.qml` (modified since 2026-10-18)
 - `src/quickshell/guide/WelcomeTab.qml` (modified since 2026-10-18)
 - `src/quickshell/notifications/types/Update.qml` (modified since 2026-10-18)
 - `src/quickshell/serp/Start.qml` (modified since 2026-10-18)
