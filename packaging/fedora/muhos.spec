@@ -5,7 +5,7 @@
 
 Name:           muhos
 Version:        0.1.0
-Release:        0.8%{?dist}
+Release:        0.9%{?dist}
 Summary:        Desktop shell for Hyprland on Fedora, based on Serpantinum
 
 # Code, MuhOS sounds and images: AGPL-3.0-or-later.
@@ -69,7 +69,8 @@ Requires:       (ffmpeg-free or ffmpeg)
 Requires:       systemd
 # Default interface font and app icon theme (see muhos-session, muhos-shell).
 Requires:       adwaita-sans-fonts
-Requires:       papirus-icon-theme
+Requires:       fluent-icon-theme
+Requires:       material-symbols-rounded-fonts
 
 # Features degrade without these; the split is provisional until VM testing.
 Recommends:     xdg-desktop-portal-hyprland
@@ -133,6 +134,8 @@ python3 -I tools/brand-languages "$share/src/assets/languages"
 install -d "$share/hypr"
 cp -a compositors/hyprland/. "$share/hypr/"
 install -m 0644 packaging/fedora/hypr/autostart.lua "$share/hypr/config/autostart.lua"
+install -m 0644 packaging/fedora/hypr/muhos.lua "$share/hypr/config/muhos.lua"
+echo 'require("config/muhos")' >> "$share/hypr/hyprland.lua"
 install -Dm 0644 packaging/fedora/hypr/hyprland.lua "$share/skel/hyprland.lua"
 install -Dm 0644 config/serpantinum/settings.json "$share/defaults/settings.json"
 
@@ -177,6 +180,10 @@ python3 -I tools/asset-inventory --strict
 %config(noreplace) %{_sysconfdir}/pam.d/serpantinum
 
 %changelog
+* Mon Oct 19 2026 MuhOS contributors - 0.1.0-0.9
+- Fluent app icons and Material Symbols Rounded for the redesign
+- Hyprland blurs behind MuhOS panels (muhos-* layer rule)
+
 * Mon Oct 19 2026 MuhOS contributors - 0.1.0-0.8
 - MuhOS Settings app entry; settings window gets a close button
 

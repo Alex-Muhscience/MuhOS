@@ -32,6 +32,9 @@ check "package-managed marker" test -f /usr/share/muhos/package-managed
 check "updater sees package-managed" grep -q 'package-managed' /usr/share/muhos/src/scripts/updater.py
 check "MuhOS autostart replaces upstream" grep -q 'muhos-session.target' /usr/share/muhos/hypr/config/autostart.lua
 check "upstream autostart does not enable easyeffects" bash -c '! grep -q easyeffects /usr/share/muhos/hypr/config/autostart.lua'
+check "Hyprland loads the MuhOS glass rule" grep -qx 'require("config/muhos")' /usr/share/muhos/hypr/hyprland.lua
+check "Material Symbols Rounded font visible" bash -c 'fc-list : family | grep -qx "Material Symbols Rounded"'
+check "Fluent-dark icon theme installed" test -f /usr/share/icons/Fluent-dark/index.theme
 check "MuhOS Settings app entry" grep -q "^Exec=muhos msg open guide$" /usr/share/applications/muhos-settings.desktop
 check "session entry for GDM" grep -q '^Exec=/usr/bin/muhos-session$' /usr/share/wayland-sessions/muhos.desktop
 check "PAM service uses system-auth" grep -q 'include *system-auth' /etc/pam.d/serpantinum
