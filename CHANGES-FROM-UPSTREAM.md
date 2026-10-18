@@ -36,6 +36,7 @@ _None yet._
 - Build the RPM and run package tests in CI (75e2964)
 - Regenerate CHANGES-FROM-UPSTREAM.md (0cb7dec)
 - Regenerate CHANGES-FROM-UPSTREAM.md (d9e2a74)
+- Track upstream through snapshot commits instead of its history (34ae030)
 
 ## Upstream files changed by MuhOS
 
