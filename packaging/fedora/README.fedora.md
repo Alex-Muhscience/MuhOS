@@ -40,9 +40,21 @@ starts `muhos-shell.service`.
 ## Dependencies outside Fedora
 
 Upstream 2.2.13 was tested with Quickshell 0.3.2 and Matugen 4.2.0 (its Nix
-pin). Fedora 44 has Quickshell 0.2.1 and Matugen 3.1.0, and no Hyprland. The
-MuhOS COPR is expected to provide Quickshell and Matugen; Hyprland comes from
-a third-party COPR until decided otherwise.
+pin). Fedora 44 has Quickshell 0.2.1 and Matugen 3.1.0, and no Hyprland.
+
+| Package | Version | Source |
+|---|---|---|
+| Quickshell | 0.3.2 | MuhOS: `packaging/fedora/quickshell/quickshell.spec` (Fedora's spec, updated) |
+| Matugen | 4.2.0 | MuhOS: `packaging/fedora/matugen/matugen.spec` (vendored crates) |
+| Hyprland | 0.56.2 | Third-party COPR [`lionheartp/Hyprland`](https://copr.fedorainfracloud.org/coprs/lionheartp/Hyprland/) (fork of solopasha/hyprland); fallback [`mineiro/hyprland`](https://copr.fedorainfracloud.org/coprs/mineiro/hyprland/) |
+
+Until the MuhOS COPR exists, the Quickshell and Matugen source RPMs are
+attached to GitHub releases. For testing:
+
+```sh
+sudo dnf copr enable lionheartp/Hyprland
+sudo dnf install ./quickshell-*.rpm ./matugen-*.rpm ./muhos-*.noarch.rpm
+```
 
 ## Building
 
