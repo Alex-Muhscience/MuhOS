@@ -22,6 +22,7 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - Add install-level package tests (4cf9f9c)
 - Avoid command substitution in a package test check (0d01ad7)
 - Ship sound licenses and enforce the strict asset check (fbcbb09)
+- Install asset licenses only once (8824796)
 
 ## MuhOS branding
 
@@ -47,6 +48,7 @@ _None yet._
 - Clear all bundled assets in the inventory (becda74)
 - Update hosting note in FORK.md (886be16)
 - Regenerate CHANGES-FROM-UPSTREAM.md (3bf25da)
+- Regenerate CHANGES-FROM-UPSTREAM.md (d21a492)
 
 ## Upstream files changed by MuhOS
 
