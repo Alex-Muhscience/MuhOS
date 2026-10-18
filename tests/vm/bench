@@ -1,0 +1,104 @@
+#!/usr/bin/env bash
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# MuhOS: repeatable idle benchmark in the test VM (see tests/vm/README.md).
+#
+#   tests/vm/bench <vm-dir> <scenario> [runs] [warmup-s] [window-s] > results.csv
+#
+# scenario: desktop  the desktop after the first-launch welcome screen
+#           welcome  the first-launch welcome screen, waiting for a click
+#
+# Every run boots a fresh throwaway overlay of <vm-dir>/disk.qcow2, so runs
+# start from the same state and the image is never modified. After the shell
+# starts it waits [warmup-s] (default 60), then measures over [window-s]
+# (default 60). Defaults: 5 runs. Prints one CSV row per run on stdout and a
+# median/min/max summary on stderr.
+#
+# Columns: run, startup_s (muhos-shell.service start -> "Configuration
+# Loaded"), qs_cpu_pct (quickshell CPU, % of one core, over the window),
+# qs_pss_mib, qs_rss_mib, hypr_pss_mib.
+
+set -euo pipefail
+
+dir="$(realpath "${1:?usage: bench <vm-dir> desktop|welcome [runs] [warmup-s] [window-s]}")"
+scenario="${2:?usage: bench <vm-dir> desktop|welcome [runs] [warmup-s] [window-s]}"
+runs="${3:-5}"
+warmup="${4:-60}"
+window="${5:-60}"
+here="$(dirname "$(realpath "$0")")"
+work="$dir/bench"
+mkdir -p "$work"
+
+case "$scenario" in desktop|welcome) ;; *) echo "unknown scenario $scenario" >&2; exit 1 ;; esac
+
+vm() {
+    ssh -q -i "$dir/id_ed25519" -p 2222 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
+        -o ConnectTimeout=5 -o BatchMode=yes muhos@127.0.0.1 "$@"
+}
+
+# One prepared overlay per scenario; each run adds a throwaway overlay on top.
+prepared="$work/$scenario.qcow2"
+if [ ! -f "$prepared" ]; then
+    qemu-img create -q -f qcow2 -b "$dir/disk.qcow2" -F qcow2 "$prepared"
+    # The first-launch flag decides which screen comes up; set it explicitly
+    # for both scenarios, whatever earlier logins left on the base disk.
+    if [ "$scenario" = desktop ]; then
+        flag='install -o muhos -g muhos -m 0644 /dev/null /home/muhos/.local/state/serpantinum/first_launch.done'
+    else
+        flag='rm -f /home/muhos/.local/state/serpantinum/first_launch.done'
+    fi
+    virt-customize -q -a "$prepared" \
+        --run-command 'install -d -o muhos -g muhos /home/muhos/.local /home/muhos/.local/state /home/muhos/.local/state/serpantinum' \
+        --run-command "$flag" \
+        --selinux-relabel
+fi
+
+{
+echo "run,startup_s,qs_cpu_pct,qs_pss_mib,qs_rss_mib,hypr_pss_mib"
+for i in $(seq 1 "$runs"); do
+    disk="$work/run.qcow2"
+    rm -f "$disk"
+    qemu-img create -q -f qcow2 -b "$prepared" -F qcow2 "$disk"
+    VM_DISK="$disk" "$here/run" start "$dir" >/dev/null
+
+    for _ in $(seq 120); do vm true 2>/dev/null && break; sleep 5; done
+    for _ in $(seq 120); do vm 'pgrep -u muhos -f "quickshell -p"' >/dev/null 2>&1 && break; sleep 2; done
+    # Wait for the shell to report its configuration loaded, then warm up.
+    for _ in $(seq 120); do vm 'journalctl --user -u muhos-shell -b -o cat | grep -q "Configuration Loaded"' && break; sleep 2; done
+    sleep "$warmup"
+
+    row="$(vm "set -e
+        startup=\$(journalctl --user -u muhos-shell -b -o json --output-fields=MESSAGE,__MONOTONIC_TIMESTAMP |
+            python3 -c '
+import json, sys
+start = loaded = None
+for line in sys.stdin:
+    e = json.loads(line); m = e.get(\"MESSAGE\", \"\")
+    m = bytes(m).decode(\"utf-8\", \"replace\") if isinstance(m, list) else (m or \"\")
+    t = int(e[\"__MONOTONIC_TIMESTAMP\"])
+    if start is None and m.startswith(\"Started muhos-shell.service\"): start = t
+    if loaded is None and \"Configuration Loaded\" in m: loaded = t
+print(f\"{(loaded - start) / 1e6:.2f}\" if start and loaded else \"\")')
+        pid=\$(pgrep -u muhos -f 'quickshell -p' | head -n1); hz=\$(getconf CLK_TCK)
+        t0=\$(awk '{print \$14+\$15}' /proc/\$pid/stat); sleep $window; t1=\$(awk '{print \$14+\$15}' /proc/\$pid/stat)
+        cpu=\$(awk -v a=\$t0 -v b=\$t1 -v hz=\$hz -v s=$window 'BEGIN{printf \"%.2f\", (b-a)/hz/s*100}')
+        pss=\$(awk '/^Pss:/{printf \"%.1f\", \$2/1024}' /proc/\$pid/smaps_rollup)
+        rss=\$(awk '/^Rss:/{printf \"%.1f\", \$2/1024}' /proc/\$pid/smaps_rollup)
+        h=\$(pgrep -u muhos -x Hyprland | head -n1)
+        hpss=\$(awk '/^Pss:/{printf \"%.1f\", \$2/1024}' /proc/\$h/smaps_rollup)
+        echo \"\$startup,\$cpu,\$pss,\$rss,\$hpss\"")"
+    echo "$i,$row"
+    "$here/run" screenshot "$dir" "$work/$scenario-run$i.png" >/dev/null || true
+    "$here/run" stop "$dir" >/dev/null
+    rm -f "$disk"
+done
+} | tee "$work/$scenario.csv"
+
+python3 -I - "$work/$scenario.csv" "$scenario" >&2 <<'EOF'
+import csv, statistics, sys
+rows = list(csv.DictReader(open(sys.argv[1])))
+print(f"\n{sys.argv[2]}: {len(rows)} runs (median [min-max])")
+for col in ("startup_s", "qs_cpu_pct", "qs_pss_mib", "qs_rss_mib", "hypr_pss_mib"):
+    vals = [float(r[col]) for r in rows if r[col]]
+    if vals:
+        print(f"  {col:13} {statistics.median(vals):8.2f}  [{min(vals):.2f}-{max(vals):.2f}]")
+EOF

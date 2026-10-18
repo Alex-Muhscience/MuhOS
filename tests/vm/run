@@ -8,13 +8,15 @@
 #
 # Plain QEMU as the current user: KVM, user-mode networking (only SSH is
 # forwarded, to localhost), virtio-vga (software rendering in the guest),
-# no window. Serial console goes to <vm-dir>/serial.log.
+# no window. Serial console goes to <vm-dir>/serial.log. VM_DISK overrides the
+# disk (default <vm-dir>/disk.qcow2), e.g. a throwaway overlay for benchmarks.
 
 set -euo pipefail
 
 cmd="${1:?usage: run start|stop|screenshot <vm-dir> [out.png]}"
 dir="$(realpath "${2:?usage: run start|stop|screenshot <vm-dir> [out.png]}")"
 qmp="$dir/qmp.sock"
+disk="${VM_DISK:-$dir/disk.qcow2}"
 
 qmp() {
     python3 -I - "$qmp" "$@" <<'EOF'
@@ -42,7 +44,7 @@ start)
     [ -S "$qmp" ] && { echo "already running?" >&2; exit 1; }
     qemu-system-x86_64 \
         -name muhos-test -enable-kvm -machine q35 -cpu host -smp 4 -m 6144 \
-        -drive "file=$dir/disk.qcow2,if=virtio,cache=unsafe" \
+        -drive "file=$disk,if=virtio,cache=unsafe" \
         -nic "user,model=virtio-net-pci,hostfwd=tcp:127.0.0.1:2222-:22" \
         -device virtio-vga,xres=1920,yres=1080 \
         -display none -serial "file:$dir/serial.log" \
