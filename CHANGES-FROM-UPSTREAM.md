@@ -26,7 +26,7 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 
 ## MuhOS branding
 
-_None yet._
+- Rewrite README for MuhOS (6f11b68)
 
 ## Fork infrastructure
 
@@ -49,6 +49,7 @@ _None yet._
 - Update hosting note in FORK.md (886be16)
 - Regenerate CHANGES-FROM-UPSTREAM.md (3bf25da)
 - Regenerate CHANGES-FROM-UPSTREAM.md (d21a492)
+- Regenerate CHANGES-FROM-UPSTREAM.md (4fe2684)
 
 ## Upstream files changed by MuhOS
 
