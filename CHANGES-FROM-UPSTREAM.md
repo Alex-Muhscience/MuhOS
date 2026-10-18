@@ -40,6 +40,7 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - Default to Adwaita Sans and the Papirus icon theme (d08e53e)
 - muhos 0.1.0-0.5 (494ce0d)
 - muhos 0.1.0-0.6 (411f131)
+- Require hyprland-guiutils; muhos 0.1.0-0.7 (0144b31)
 
 ## MuhOS branding
 
@@ -83,6 +84,7 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - Add an interactive Fedora Workstation VM launcher (d5b99f7)
 - Regenerate CHANGES-FROM-UPSTREAM.md (d1742ed)
 - Regenerate CHANGES-FROM-UPSTREAM.md (0e5a8de)
+- Regenerate CHANGES-FROM-UPSTREAM.md (7d99bd1)
 
 ## Upstream files changed by MuhOS
 
