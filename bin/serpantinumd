@@ -133,8 +133,8 @@ fi
 
 if [ "$COMMAND" == "stop" ]; then
     pid=""
-    if [ -f "/tmp/serpantinumd.pid" ]; then
-        pid="$(cat "/tmp/serpantinumd.pid" 2>/dev/null)"
+    if [ -f "${XDG_RUNTIME_DIR:-/tmp}/serpantinumd.pid" ]; then
+        pid="$(cat "${XDG_RUNTIME_DIR:-/tmp}/serpantinumd.pid" 2>/dev/null)"
     fi
 
     if [ -n "$pid" ] && is_alive "$pid"; then
@@ -153,16 +153,16 @@ if [ "$COMMAND" == "stop" ]; then
     fi
     pkill -TERM -f "wl-paste --watch echo 1" 2>/dev/null
 
-    rm -f "/tmp/serpantinumd.pid" 2>/dev/null
-    rm -f "/tmp/serpantinumd.lock" 2>/dev/null
+    rm -f "${XDG_RUNTIME_DIR:-/tmp}/serpantinumd.pid" 2>/dev/null
+    rm -f "${XDG_RUNTIME_DIR:-/tmp}/serpantinumd.lock" 2>/dev/null
     echo "$(t "daemon.cli.stopped")"
     exit 0
 fi
 
 if [ "$COMMAND" == "status" ]; then
     pid=""
-    if [ -f "/tmp/serpantinumd.pid" ]; then
-        pid="$(cat "/tmp/serpantinumd.pid" 2>/dev/null)"
+    if [ -f "${XDG_RUNTIME_DIR:-/tmp}/serpantinumd.pid" ]; then
+        pid="$(cat "${XDG_RUNTIME_DIR:-/tmp}/serpantinumd.pid" 2>/dev/null)"
     fi
     if [ -n "$pid" ] && is_alive "$pid"; then
         echo "$(t "daemon.cli.status_running" PID="$pid")"
@@ -174,11 +174,11 @@ if [ "$COMMAND" == "status" ]; then
 fi
 
 if [ "$COMMAND" == "start" ]; then
-    exec 9>"/tmp/serpantinumd.lock"
+    exec 9>"${XDG_RUNTIME_DIR:-/tmp}/serpantinumd.lock"
 
     if ! flock -n 9; then
         existing_pid=""
-        [ -f "/tmp/serpantinumd.pid" ] && existing_pid="$(cat "/tmp/serpantinumd.pid" 2>/dev/null)"
+        [ -f "${XDG_RUNTIME_DIR:-/tmp}/serpantinumd.pid" ] && existing_pid="$(cat "${XDG_RUNTIME_DIR:-/tmp}/serpantinumd.pid" 2>/dev/null)"
 
         if [ -n "$existing_pid" ] && is_alive "$existing_pid"; then
             echo "$(t "daemon.already_running")"
@@ -197,7 +197,7 @@ if [ "$COMMAND" == "start" ]; then
         fi
     fi
 
-    echo $$ > "/tmp/serpantinumd.pid"
+    echo $$ > "${XDG_RUNTIME_DIR:-/tmp}/serpantinumd.pid"
 
     CLEANUP_DONE=false
     LAUNCH_PID=""
@@ -233,8 +233,8 @@ if [ "$COMMAND" == "start" ]; then
         pkill -KILL -f "focus_daemon.py" 2>/dev/null
 
         exec 9>&- 2>/dev/null
-        rm -f "/tmp/serpantinumd.pid" 2>/dev/null
-        rm -f "/tmp/serpantinumd.lock" 2>/dev/null
+        rm -f "${XDG_RUNTIME_DIR:-/tmp}/serpantinumd.pid" 2>/dev/null
+        rm -f "${XDG_RUNTIME_DIR:-/tmp}/serpantinumd.lock" 2>/dev/null
         exit 0
     }
 

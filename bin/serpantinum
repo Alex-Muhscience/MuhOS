@@ -163,20 +163,20 @@ show_ipc_help() {
 
 ensure_daemon() {
     local pid=""
-    if [ -f "/tmp/serpantinumd.pid" ]; then
-        pid="$(cat "/tmp/serpantinumd.pid" 2>/dev/null)"
+    if [ -f "${XDG_RUNTIME_DIR:-/tmp}/serpantinumd.pid" ]; then
+        pid="$(cat "${XDG_RUNTIME_DIR:-/tmp}/serpantinumd.pid" 2>/dev/null)"
     fi
 
     if [ -z "$pid" ] || ! is_alive "$pid"; then
-        rm -f "/tmp/serpantinumd.pid" 2>/dev/null
-        rm -f "/tmp/serpantinumd.lock" 2>/dev/null
+        rm -f "${XDG_RUNTIME_DIR:-/tmp}/serpantinumd.pid" 2>/dev/null
+        rm -f "${XDG_RUNTIME_DIR:-/tmp}/serpantinumd.lock" 2>/dev/null
 
         [ "$VERBOSE" = true ] && echo "$(t "cli.starting_daemon")"
         "$BIN_DIR/serpantinumd" start > /dev/null 2>&1 &
 
         local count=0
         while [ "$count" -lt 15 ]; do
-            if [ -f "/tmp/serpantinumd.pid" ] && is_alive "$(cat "/tmp/serpantinumd.pid" 2>/dev/null)"; then
+            if [ -f "${XDG_RUNTIME_DIR:-/tmp}/serpantinumd.pid" ] && is_alive "$(cat "${XDG_RUNTIME_DIR:-/tmp}/serpantinumd.pid" 2>/dev/null)"; then
                 break
             fi
             sleep 0.1
@@ -215,8 +215,8 @@ fi
 
 if [[ "$1" == "kill" ]]; then
     pid=""
-    if [ -f "/tmp/serpantinumd.pid" ]; then
-        pid="$(cat "/tmp/serpantinumd.pid" 2>/dev/null)"
+    if [ -f "${XDG_RUNTIME_DIR:-/tmp}/serpantinumd.pid" ]; then
+        pid="$(cat "${XDG_RUNTIME_DIR:-/tmp}/serpantinumd.pid" 2>/dev/null)"
     fi
 
     if [ -n "$pid" ] && is_alive "$pid"; then
@@ -234,8 +234,8 @@ if [[ "$1" == "kill" ]]; then
         pkill -KILL -f "quickshell.*$MAIN_QML" 2>/dev/null
     fi
 
-    rm -f "/tmp/serpantinumd.pid" 2>/dev/null
-    rm -f "/tmp/serpantinumd.lock" 2>/dev/null
+    rm -f "${XDG_RUNTIME_DIR:-/tmp}/serpantinumd.pid" 2>/dev/null
+    rm -f "${XDG_RUNTIME_DIR:-/tmp}/serpantinumd.lock" 2>/dev/null
     echo "$(t "cli.daemon_stopped")"
     exit 0
 fi
