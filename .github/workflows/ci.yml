@@ -1,0 +1,26 @@
+# MuhOS CI: asset licensing and lint baselines on the Fedora release we target.
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  assets:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Asset inventory is current and fully classified
+        run: python3 -I tools/asset-inventory --check
+
+  lint:
+    runs-on: ubuntu-latest
+    container: registry.fedoraproject.org/fedora:44
+    steps:
+      - name: Install tools
+        run: dnf -y install git python3 ShellCheck qt6-qtdeclarative-devel
+      - uses: actions/checkout@v4
+      - name: Trust the checkout
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+      - name: Lint counts do not exceed baseline
+        run: python3 -I tools/lint-baseline --check

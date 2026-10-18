@@ -1,0 +1,35 @@
+MuhOS
+=====
+
+MuhOS is a modified version of Serpantinum, a Wayland desktop shell.
+
+Upstream project
+  Name:       Serpantinum
+  Author:     Copyright (C) 2026 Illia Miroshnichenko (ilyamiro)
+  Source:     https://github.com/ilyamiro/serpantinum
+  License:    GNU Affero General Public License v3.0 or later (see LICENSE.md)
+  Based on:   tag v2.2.13, commit d6f1c8dc5ecbc1bfb74f9828de4ecf9448d31e87
+
+MuhOS modifications
+  Copyright (C) 2026 MuhOS contributors
+  First modified: 2026-10-18
+  License:    GNU Affero General Public License v3.0 or later
+
+  MuhOS is distributed under the same license as Serpantinum. Every change
+  relative to upstream is recorded in the git history and summarized in
+  CHANGES-FROM-UPSTREAM.md. Files changed by MuhOS carry a "Modified by
+  MuhOS" notice with the date of the first modification, as required by
+  section 5(a) of the AGPL.
+
+"MuhOS" is not affiliated with or endorsed by the Serpantinum project.
+
+Bundled third-party assets
+  Fonts, sounds and images bundled in this repository are NOT covered by
+  the AGPL notice above unless stated otherwise. Their licenses and
+  redistribution status are listed in ASSETS.md. Assets marked as not
+  releasable there must not be shipped in a MuhOS release.
+
+This program is distributed in the hope that it will be useful, but WITHOUT
+ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License for more
+details.

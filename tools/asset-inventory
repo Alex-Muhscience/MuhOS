@@ -1,0 +1,232 @@
+#!/usr/bin/env python3
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# MuhOS: inventory of bundled binary assets and their redistribution status.
+#
+# Classification rules live in tools/asset-policy.json (first match wins).
+# Font metadata is read from the OpenType 'name' table so license claims come
+# from the files themselves, not from guesses.
+#
+#   tools/asset-inventory            regenerate ASSETS.md
+#   tools/asset-inventory --check    fail if ASSETS.md is stale or an asset is unclassified
+#   tools/asset-inventory --strict   additionally fail on anything not cleared for release
+
+import argparse
+import fnmatch
+import hashlib
+import json
+import os
+import struct
+import subprocess
+import sys
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+POLICY = os.path.join(ROOT, "tools", "asset-policy.json")
+OUTPUT = os.path.join(ROOT, "ASSETS.md")
+
+ASSET_EXT = {
+    ".ttf": "font", ".otf": "font", ".woff": "font", ".woff2": "font",
+    ".wav": "sound", ".mp3": "sound", ".ogg": "sound", ".flac": "sound", ".opus": "sound",
+    ".png": "image", ".jpg": "image", ".jpeg": "image", ".gif": "image",
+    ".webp": "image", ".svg": "image", ".ico": "image",
+    ".mp4": "video", ".webm": "video",
+    ".qsb": "shader-binary",
+}
+
+# Statuses that may ship in a MuhOS release.
+RELEASABLE = {"ok", "generated"}
+
+STATUS_ORDER = [
+    "non-redistributable", "needs-review", "unknown-provenance", "needs-license-text",
+    "third-party-trademark", "upstream-branding", "generated", "ok", "unclassified",
+]
+
+
+def tracked_files():
+    try:
+        out = subprocess.run(["git", "-C", ROOT, "ls-files", "-z"],
+                             check=True, capture_output=True).stdout
+        return sorted(p for p in out.decode().split("\0") if p)
+    except (OSError, subprocess.CalledProcessError):
+        paths = []
+        for base, dirs, files in os.walk(ROOT):
+            dirs[:] = [d for d in dirs if d != ".git"]
+            paths += [os.path.relpath(os.path.join(base, f), ROOT) for f in files]
+        return sorted(paths)
+
+
+def font_names(path):
+    """Return {nameID: str} for IDs 0 (copyright), 1 (family), 13 (license), 14 (license URL)."""
+    wanted = {0, 1, 13, 14}
+    try:
+        with open(path, "rb") as fh:
+            data = fh.read()
+        num_tables = struct.unpack(">H", data[4:6])[0]
+        name_off = None
+        for i in range(num_tables):
+            tag, _, off, _ = struct.unpack(">4sIII", data[12 + 16 * i:28 + 16 * i])
+            if tag == b"name":
+                name_off = off
+                break
+        if name_off is None:
+            return {}
+        _, count, str_off = struct.unpack(">HHH", data[name_off:name_off + 6])
+        found = {}
+        for i in range(count):
+            rec = name_off + 6 + 12 * i
+            pid, eid, lang, nid, length, off = struct.unpack(">HHHHHH", data[rec:rec + 12])
+            if nid not in wanted:
+                continue
+            raw = data[name_off + str_off + off:name_off + str_off + off + length]
+            if pid == 3 or pid == 0:
+                text = raw.decode("utf-16-be", "replace")
+            else:
+                text = raw.decode("latin-1", "replace")
+            # Prefer Windows/English records, but take anything if that is all there is.
+            if nid not in found or (pid == 3 and lang == 0x409):
+                found[nid] = " ".join(text.split())
+        return found
+    except (OSError, struct.error):
+        return {}
+
+
+def classify(path, rules):
+    for rule in rules:
+        if any(fnmatch.fnmatchcase(path, g) for g in rule["match"]):
+            return rule
+    return None
+
+
+def sha256(path):
+    h = hashlib.sha256()
+    with open(path, "rb") as fh:
+        for chunk in iter(lambda: fh.read(1 << 20), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def human(n):
+    for unit in ("B", "KiB", "MiB", "GiB"):
+        if n < 1024 or unit == "GiB":
+            return f"{n:.0f} {unit}" if unit == "B" else f"{n:.1f} {unit}"
+        n /= 1024
+
+
+def md_cell(text, limit=90):
+    text = (text or "").replace("|", "\\|").replace("\n", " ")
+    return text if len(text) <= limit else text[:limit - 1] + "…"
+
+
+def build():
+    with open(POLICY) as fh:
+        policy = json.load(fh)
+    excluded = policy.get("exclude", [])
+    rules = policy["rules"]
+
+    assets = []
+    for rel in tracked_files():
+        kind = ASSET_EXT.get(os.path.splitext(rel)[1].lower())
+        if not kind or any(fnmatch.fnmatchcase(rel, g) for g in excluded):
+            continue
+        full = os.path.join(ROOT, rel)
+        if not os.path.isfile(full):
+            continue
+        rule = classify(rel, rules)
+        entry = {
+            "path": rel,
+            "kind": kind,
+            "size": os.path.getsize(full),
+            "sha256": sha256(full),
+            "status": rule["status"] if rule else "unclassified",
+            "license": rule.get("license", "") if rule else "",
+            "action": rule.get("action", "") if rule else "",
+            "embedded": "",
+        }
+        if kind == "font":
+            names = font_names(full)
+            embedded = names.get(13) or names.get(14) or ""
+            if names.get(0):
+                embedded = (embedded + " — " if embedded else "") + names[0]
+            entry["embedded"] = embedded or "(no license/copyright in name table)"
+        assets.append(entry)
+    return policy, assets
+
+
+def render(policy, assets):
+    order = {s: i for i, s in enumerate(STATUS_ORDER)}
+    assets = sorted(assets, key=lambda a: (order.get(a["status"], 99), a["path"]))
+    totals = {}
+    for a in assets:
+        n, size = totals.get(a["status"], (0, 0))
+        totals[a["status"]] = (n + 1, size + a["size"])
+
+    lines = [
+        "# Bundled asset inventory",
+        "",
+        "<!-- Generated by tools/asset-inventory from tools/asset-policy.json. Do not edit by hand. -->",
+        "",
+        "Every binary asset tracked in this repository, with its redistribution status.",
+        "Font license text is read from each file's OpenType `name` table (IDs 13/14, copyright ID 0).",
+        f"Excluded from this inventory: {', '.join('`' + g + '`' for g in policy.get('exclude', [])) or 'nothing'}.",
+        "",
+        "## Status meanings",
+        "",
+    ]
+    for status, meaning in policy["statuses"].items():
+        lines.append(f"- **{status}**: {meaning}")
+    lines += ["", "## Summary", "", "| Status | Files | Size | Releasable |", "|---|---:|---:|:---:|"]
+    for status in STATUS_ORDER:
+        if status in totals:
+            n, size = totals[status]
+            lines.append(f"| {status} | {n} | {human(size)} | {'yes' if status in RELEASABLE else 'no'} |")
+    n_all = sum(n for n, _ in totals.values())
+    size_all = sum(s for _, s in totals.values())
+    lines += [f"| **total** | **{n_all}** | **{human(size_all)}** | |", ""]
+
+    lines += ["## Assets", "",
+              "| Path | Kind | Size | Status | License (per policy) | Embedded metadata | Action | SHA-256 |",
+              "|---|---|---:|---|---|---|---|---|"]
+    for a in assets:
+        lines.append(
+            f"| `{a['path']}` | {a['kind']} | {human(a['size'])} | {a['status']} | "
+            f"{md_cell(a['license'], 40)} | {md_cell(a['embedded'])} | {md_cell(a['action'], 60)} | "
+            f"`{a['sha256'][:12]}` |")
+    return "\n".join(lines) + "\n"
+
+
+def main():
+    ap = argparse.ArgumentParser(description=__doc__)
+    ap.add_argument("--check", action="store_true", help="fail if ASSETS.md is stale or anything is unclassified")
+    ap.add_argument("--strict", action="store_true", help="also fail on any asset not cleared for release")
+    args = ap.parse_args()
+
+    policy, assets = build()
+    text = render(policy, assets)
+    failed = False
+
+    unclassified = [a["path"] for a in assets if a["status"] == "unclassified"]
+    if unclassified:
+        failed = True
+        print("Unclassified assets (add a rule to tools/asset-policy.json):", file=sys.stderr)
+        for p in unclassified:
+            print(f"  {p}", file=sys.stderr)
+
+    if args.check or args.strict:
+        current = open(OUTPUT).read() if os.path.exists(OUTPUT) else ""
+        if current != text:
+            failed = True
+            print("ASSETS.md is out of date; run tools/asset-inventory.", file=sys.stderr)
+    else:
+        with open(OUTPUT, "w") as fh:
+            fh.write(text)
+
+    if args.strict:
+        blocked = [a for a in assets if a["status"] not in RELEASABLE]
+        if blocked:
+            failed = True
+            print(f"{len(blocked)} assets are not cleared for release (see ASSETS.md).", file=sys.stderr)
+
+    return 1 if failed else 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

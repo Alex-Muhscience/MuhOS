@@ -1,0 +1,123 @@
+{
+  "statuses": {
+    "non-redistributable": "Proprietary license that forbids redistribution. Must be removed before any MuhOS release.",
+    "needs-review": "License text embedded in the file conflicts with how it is shipped (e.g. a no-derivatives font shipped as a patched derivative). Needs a human decision.",
+    "unknown-provenance": "No source or license recorded anywhere in the repository. Must be traced, replaced, or removed.",
+    "needs-license-text": "License permits redistribution, but the required license/notice text is not shipped alongside the file.",
+    "third-party-trademark": "Logo of another project; usage is governed by that project's trademark policy, not by a copyright license.",
+    "upstream-branding": "Serpantinum name/logo/screenshots. AGPL permits it, but MuhOS ships its own branding, so it must be replaced.",
+    "generated": "Build artifact produced from source in this repository; should be rebuilt during packaging rather than shipped as committed.",
+    "ok": "Cleared for release."
+  },
+  "exclude": [],
+  "rules": [
+    {
+      "match": ["src/assets/fonts/SF-Pro-Display-*.otf", "src/assets/fonts/SFMono-Regular.otf"],
+      "status": "non-redistributable",
+      "license": "Apple Font License (EULA)",
+      "action": "Remove; substitute an OFL font (e.g. Inter / JetBrains Mono)"
+    },
+    {
+      "match": ["src/assets/fonts/TTCommonsPro_regular.otf"],
+      "status": "non-redistributable",
+      "license": "TypeType EULA (demo build)",
+      "action": "Remove; substitute an OFL font"
+    },
+    {
+      "match": ["src/assets/fonts/AtkynsonMonoNerdFont-Regular.otf"],
+      "status": "needs-review",
+      "license": "Braille Institute license (embedded: no derivatives)",
+      "action": "Check current Atkinson Hyperlegible Mono license; patched NF build may not be allowed"
+    },
+    {
+      "match": ["src/assets/fonts/DaddyTimeMonoNerdFont-Regular.ttf"],
+      "status": "needs-review",
+      "license": "Embedded: All Rights Reserved",
+      "action": "Confirm license with Nerd Fonts source or remove"
+    },
+    {
+      "match": ["src/assets/fonts/HeavyDataNerdFont-Regular.ttf", "src/assets/fonts/ProggyCleanSZNerdFont-Regular.ttf"],
+      "status": "needs-review",
+      "license": "None embedded",
+      "action": "Confirm license with Nerd Fonts source or remove"
+    },
+    {
+      "match": ["src/assets/fonts/0xProtoNerdFont-Regular.ttf"],
+      "status": "needs-license-text",
+      "license": "OFL-1.1 (per 0xType project; not embedded)",
+      "action": "Verify, then ship OFL text"
+    },
+    {
+      "match": ["src/assets/fonts/AgaveNerdFont-Regular.ttf", "src/assets/fonts/ComicShannsMonoNerdFont-Regular.otf", "src/assets/fonts/ComicMono.ttf"],
+      "status": "needs-license-text",
+      "license": "MIT",
+      "action": "Ship MIT notice"
+    },
+    {
+      "match": ["src/assets/fonts/CousineNerdFont-Regular.ttf"],
+      "status": "needs-license-text",
+      "license": "Apache-2.0",
+      "action": "Ship Apache-2.0 text or use Fedora font package"
+    },
+    {
+      "match": ["src/assets/fonts/DejaVuSansMNerdFont-Regular.ttf"],
+      "status": "needs-license-text",
+      "license": "Bitstream-Vera AND public domain",
+      "action": "Ship DejaVu license text or use Fedora font package"
+    },
+    {
+      "match": ["src/assets/fonts/OpenDyslexicNerdFont-Regular.otf"],
+      "status": "needs-license-text",
+      "license": "Bitstream-Vera AND CC-BY-3.0",
+      "action": "Ship license text and attribution"
+    },
+    {
+      "match": ["src/assets/fonts/GohuFontuni14NerdFont-Regular.ttf"],
+      "status": "needs-license-text",
+      "license": "WTFPL",
+      "action": "Ship WTFPL text"
+    },
+    {
+      "match": ["src/assets/fonts/SymbolsNerdFontMono-Regular.ttf"],
+      "status": "needs-license-text",
+      "license": "MIT (patcher) + per-icon-set licenses",
+      "action": "Ship Nerd Fonts license bundle"
+    },
+    {
+      "match": ["src/assets/fonts/*.ttf", "src/assets/fonts/*.otf", "config/sddm/themes/material-you/font/*.ttf"],
+      "status": "needs-license-text",
+      "license": "OFL-1.1 (embedded)",
+      "action": "Ship OFL text or use Fedora font package"
+    },
+    {
+      "match": ["src/assets/sounds/**", "src/assets/sounds/*/*", "src/assets/sounds/*/*/*"],
+      "status": "unknown-provenance",
+      "license": "",
+      "action": "Trace origin or replace with CC0/own recordings"
+    },
+    {
+      "match": ["src/assets/pushy.gif", "src/assets/pushy2.gif", "config/sddm/themes/material-you/bg.png"],
+      "status": "unknown-provenance",
+      "license": "",
+      "action": "Trace origin or replace"
+    },
+    {
+      "match": ["docs/assets/logos/*", "website/static/img/logos/*"],
+      "status": "third-party-trademark",
+      "license": "Trademark of respective project",
+      "action": "Check each project's trademark guidelines before reuse"
+    },
+    {
+      "match": ["src/assets/logo.svg", "docs/assets/banner.png", "docs/assets/previews/*", "website/static/*", "website/static/img/*", "website/static/img/previews/*", "website/static/img/previews/steps/*"],
+      "status": "upstream-branding",
+      "license": "AGPL-3.0-or-later (upstream)",
+      "action": "Replace with MuhOS branding"
+    },
+    {
+      "match": ["src/assets/shaders/*/*.qsb"],
+      "status": "generated",
+      "license": "AGPL-3.0-or-later (compiled from .frag)",
+      "action": "Rebuild with qsb during RPM build"
+    }
+  ]
+}
