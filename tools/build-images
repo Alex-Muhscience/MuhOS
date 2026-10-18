@@ -1,0 +1,118 @@
+#!/usr/bin/env python3
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# MuhOS: draw the empty-state animations (MuhOS originals; this file is their source).
+#
+#   tools/build-images
+#
+#   src/assets/pushy.gif    200x200  sleeping moon, rising "z"s (notification empty state)
+#   src/assets/pushy2.gif   480x480  drifting cloud (reserved / nothing-here placeholder)
+#
+# The file names are the ones the shell already loads. Needs python3-pillow.
+# Muted mid-tone colors so the art reads on dark and light themes.
+
+import math
+import os
+
+from PIL import Image, ImageDraw, ImageFont
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ASSETS = os.path.join(ROOT, "src", "assets")
+SS = 4            # supersampling factor for smooth edges
+FRAMES = 16
+FRAME_MS = 90
+
+MOON = (176, 168, 214, 255)
+MOON_SHADE = (138, 130, 182, 255)
+CLOUD = (168, 182, 210, 255)
+CLOUD_SHADE = (132, 148, 182, 255)
+TEXT = (150, 160, 196, 255)
+
+
+def font(size):
+    for name in ("DejaVuSans-Bold.ttf", "/usr/share/fonts/dejavu-sans-fonts/DejaVuSans-Bold.ttf"):
+        try:
+            return ImageFont.truetype(name, size)
+        except OSError:
+            continue
+    return ImageFont.load_default(size)
+
+
+def to_gif_frame(img, size):
+    """Downscale and convert to a palette frame with 1-bit transparency."""
+    img = img.resize((size, size), Image.LANCZOS)
+    alpha = img.getchannel("A").point(lambda a: 255 if a >= 128 else 0)
+    rgb = Image.new("RGB", img.size, (0, 0, 0))
+    rgb.paste(img, mask=alpha)
+    pal = rgb.quantize(colors=63, dither=Image.Dither.NONE)
+    out = Image.new("P", img.size, 63)
+    out.putpalette(pal.getpalette()[:63 * 3] + [0, 0, 0])
+    out.paste(pal, mask=alpha)
+    out.info["transparency"] = 63
+    return out
+
+
+def moon_frame(i):
+    s = 200 * SS
+    img = Image.new("RGBA", (s, s), (0, 0, 0, 0))
+    d = ImageDraw.Draw(img)
+    bob = math.sin(2 * math.pi * i / FRAMES) * 4 * SS
+    cx, cy, r = 92 * SS, 118 * SS + bob, 56 * SS
+    # Crescent: full disc minus an offset disc.
+    disc = Image.new("L", (s, s), 0)
+    ImageDraw.Draw(disc).ellipse((cx - r, cy - r, cx + r, cy + r), fill=255)
+    cut = Image.new("L", (s, s), 0)
+    ImageDraw.Draw(cut).ellipse((cx - r + 30 * SS, cy - r - 18 * SS, cx + r + 30 * SS, cy + r - 18 * SS), fill=255)
+    crescent = Image.composite(Image.new("L", (s, s), 0), disc, cut)
+    img.paste(MOON, mask=crescent)
+    # Closed eye on the crescent.
+    ex, ey = cx - 30 * SS, cy + 6 * SS
+    d.arc((ex - 9 * SS, ey - 6 * SS, ex + 9 * SS, ey + 6 * SS), 20, 160, fill=MOON_SHADE, width=3 * SS)
+    # Three "z"s rising and fading, staggered.
+    for k in range(3):
+        phase = ((i / FRAMES) + k / 3) % 1.0
+        size = int((22 + 9 * k) * SS)
+        x = 128 * SS + k * 16 * SS + phase * 10 * SS
+        y = 96 * SS - k * 22 * SS - phase * 34 * SS
+        alpha = int(255 * math.sin(math.pi * phase))
+        if alpha < 40:
+            continue
+        layer = Image.new("RGBA", (s, s), (0, 0, 0, 0))
+        ImageDraw.Draw(layer).text((x, y), "z", font=font(size), fill=TEXT[:3] + (alpha,))
+        img = Image.alpha_composite(img, layer)
+    return to_gif_frame(img, 200)
+
+
+def cloud_frame(i):
+    s = 480 * SS
+    img = Image.new("RGBA", (s, s), (0, 0, 0, 0))
+    d = ImageDraw.Draw(img)
+    t = 2 * math.pi * i / FRAMES
+    dx, dy = math.sin(t) * 14 * SS, math.sin(2 * t) * 5 * SS
+    cx, cy = 240 * SS + dx, 250 * SS + dy
+    # Shadow lobes first, then the cloud body slightly above.
+    lobes = [(-110, 10, 70), (-40, -40, 95), (60, -20, 85), (125, 20, 62), (0, 30, 80)]
+    for ox, oy, r in lobes:
+        d.ellipse((cx + (ox - r) * SS, cy + (oy - r + 10) * SS, cx + (ox + r) * SS, cy + (oy + r + 10) * SS), fill=CLOUD_SHADE)
+    for ox, oy, r in lobes:
+        d.ellipse((cx + (ox - r) * SS, cy + (oy - r) * SS, cx + (ox + r) * SS, cy + (oy + r) * SS), fill=CLOUD)
+    d.rounded_rectangle((cx - 170 * SS, cy + 10 * SS, cx + 180 * SS, cy + 85 * SS), radius=38 * SS, fill=CLOUD)
+    # Sleepy face.
+    for ex in (-45, 45):
+        d.arc((cx + (ex - 16) * SS, cy - 6 * SS, cx + (ex + 16) * SS, cy + 14 * SS), 20, 160, fill=CLOUD_SHADE, width=5 * SS)
+    d.arc((cx - 14 * SS, cy + 22 * SS, cx + 14 * SS, cy + 38 * SS), 20, 160, fill=CLOUD_SHADE, width=5 * SS)
+    return to_gif_frame(img, 480)
+
+
+def save(path, frames):
+    frames[0].save(path, save_all=True, append_images=frames[1:], duration=FRAME_MS,
+                   loop=0, disposal=2, transparency=63, optimize=False)
+
+
+def main():
+    save(os.path.join(ASSETS, "pushy.gif"), [moon_frame(i) for i in range(FRAMES)])
+    save(os.path.join(ASSETS, "pushy2.gif"), [cloud_frame(i) for i in range(FRAMES)])
+    print("wrote src/assets/pushy.gif and src/assets/pushy2.gif")
+
+
+if __name__ == "__main__":
+    main()

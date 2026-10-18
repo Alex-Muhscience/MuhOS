@@ -1,6 +1,8 @@
-# Upstream files never imported into MuhOS (one path per line).
+# Upstream paths never imported into MuhOS (one file or directory per line).
 # tools/sync-upstream drops these from every upstream snapshot.
 # Reason recorded after the path; see ASSETS.md for asset licensing.
+
+# Fonts whose license forbids or does not establish redistribution
 src/assets/fonts/SF-Pro-Display-Regular.otf         Apple Font License
 src/assets/fonts/SF-Pro-Display-Semibold.otf        Apple Font License
 src/assets/fonts/SFMono-Regular.otf                 Apple Font License
@@ -8,3 +10,29 @@ src/assets/fonts/TTCommonsPro_regular.otf           TypeType EULA, demo build
 src/assets/fonts/AtkynsonMonoNerdFont-Regular.otf   embedded license forbids derivatives
 src/assets/fonts/HeavyDataNerdFont-Regular.ttf      no license
 src/assets/fonts/ProggyCleanSZNerdFont-Regular.ttf  no license
+
+# Sounds with no traceable source or license (replaced by tools/build-sounds)
+src/assets/sounds/guide                             no traceable source
+src/assets/sounds/musicpopup                        no traceable source
+src/assets/sounds/network                           no traceable source
+src/assets/sounds/notifications                     no traceable source; Sine.wav is from a commercial library
+src/assets/sounds/quickactions                      no traceable source
+src/assets/sounds/reusables                         no traceable source
+src/assets/sounds/system                            no traceable source
+src/assets/sounds/tutorial                          no traceable source
+src/assets/sounds/start/background.wav              no traceable source
+src/assets/sounds/start/exit.wav                    no traceable source
+src/assets/sounds/start/start.wav                   no traceable source
+src/assets/sounds/start/transition_serp.wav         no traceable source
+src/assets/sounds/start/type.wav                    no traceable source
+src/assets/sounds/start/wave.wav                    no traceable source
+
+# Images (replaced by tools/build-images)
+src/assets/pushy.gif                                Pusheen the Cat, commercially licensed character
+src/assets/pushy2.gif                               Pusheen the Cat, commercially licensed character
+
+# Upstream material MuhOS does not ship
+config/sddm                                         SDDM theme (MuhOS keeps GDM); background has no traceable source
+website                                             upstream's serpantinum.dev site; screenshots contain third-party art
+docs/assets                                         upstream screenshots and logos; contain third-party art and trademarks
+.github/workflows/deploy-site.yml                   deploys upstream's website

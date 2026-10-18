@@ -1,0 +1,230 @@
+#!/usr/bin/env python3
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# MuhOS: rebuild src/assets/sounds from openly licensed sources.
+#
+#   tools/build-sounds
+#
+# Kenney packs (CC0) are downloaded from pinned URLs and checked against
+# SHA-256; a few sounds with no fitting CC0 source are synthesized here
+# (the code below is their source). Writes src/assets/sounds/SOURCES.md.
+# Needs: python3, numpy, ffmpeg, curl. Output is 16-bit PCM WAV, peak -3 dBFS.
+
+import hashlib
+import io
+import os
+import subprocess
+import sys
+import tempfile
+import wave
+import zipfile
+
+import numpy as np
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+OUT = os.path.join(ROOT, "src", "assets", "sounds")
+RATE = 44100
+PEAK = 10 ** (-3 / 20)
+
+PACKS = {
+    "interface-sounds": ("Interface Sounds 1.0",
+        "https://kenney.nl/media/pages/assets/interface-sounds/fa43c1dd4d-1677589452/kenney_interface-sounds.zip",
+        "f2193d072726d6758a5f7871b2dcc54dcce0d5c35c6f0a62f92549b327c81232"),
+    "ui-audio": ("UI Audio",
+        "https://kenney.nl/media/pages/assets/ui-audio/490d233f68-1677590494/kenney_ui-audio.zip",
+        "946fc23a63d535d693eb31b2eabb80c8c28d6351e2186b344ceb71b2cb1d5eb6"),
+    "music-jingles": ("Music Jingles",
+        "https://kenney.nl/media/pages/assets/music-jingles/f37e530b9e-1677590399/kenney_music-jingles.zip",
+        "b729ba57959bd58793d2c5cafa348aaf2655d354f3da35ec4729e03ec77197b8"),
+    "digital-audio": ("Digital Audio",
+        "https://kenney.nl/media/pages/assets/digital-audio/216eac4753-1677590265/kenney_digital-audio.zip",
+        "24e6ce28b76a6d8c89cff4d331e0965ff5c3de8a73c612028e9d363cc64e4f06"),
+}
+
+# Output path (relative to src/assets/sounds) -> (pack, file name in pack without extension).
+KENNEY = {
+    "guide/barconfig/in.wav": ("interface-sounds", "maximize_003"),
+    "guide/barconfig/out.wav": ("interface-sounds", "minimize_003"),
+    "musicpopup/swoosh.wav": ("interface-sounds", "maximize_005"),
+    "network/connect.wav": ("interface-sounds", "confirmation_002"),
+    "network/disconnect.wav": ("digital-audio", "lowDown"),
+    "network/power_off.wav": ("digital-audio", "phaserDown1"),
+    "network/power_on.wav": ("digital-audio", "phaserUp1"),
+    "network/switch.wav": ("ui-audio", "switch7"),
+    "notifications/Bong.wav": ("interface-sounds", "bong_001"),
+    "notifications/Confirm.wav": ("interface-sounds", "confirmation_004"),
+    "notifications/Glass.wav": ("interface-sounds", "glass_004"),
+    "notifications/Pizzicato.wav": ("music-jingles", "jingles_PIZZI04"),
+    "notifications/Question.wav": ("interface-sounds", "question_001"),
+    "notifications/Steel.wav": ("music-jingles", "jingles_STEEL09"),
+    "notifications/ThreeTone.wav": ("digital-audio", "threeTone1"),
+    "quickactions/usage.wav": ("digital-audio", "powerUp3"),
+    "reusables/clickbutton/click.wav": ("ui-audio", "click1"),
+    "reusables/draggable/tick.wav": ("interface-sounds", "tick_002"),
+    "reusables/dropdown/click.wav": ("interface-sounds", "click_001"),
+    "reusables/dropdown/list.wav": ("interface-sounds", "open_001"),
+    "reusables/fillbutton/button.wav": ("interface-sounds", "select_001"),
+    "reusables/iconbutton/click.wav": ("ui-audio", "click3"),
+    "reusables/input/type.wav": ("interface-sounds", "tick_001"),
+    "reusables/switch/sfx.wav": ("ui-audio", "switch12"),
+    "reusables/toggle/sfx.wav": ("interface-sounds", "toggle_001"),
+    "start/exit.wav": ("music-jingles", "jingles_STEEL07"),
+    "start/start.wav": ("music-jingles", "jingles_PIZZI07"),
+    "start/transition_serp.wav": ("digital-audio", "zapThreeToneUp"),
+    "start/type.wav": ("interface-sounds", "tick_004"),
+    "system/quick_click.wav": ("interface-sounds", "select_003"),
+    "tutorial/tip.wav": ("interface-sounds", "question_002"),
+    "tutorial/tip_guide.wav": ("interface-sounds", "confirmation_001"),
+}
+
+# Files kept as they are, with their provenance.
+KEPT = {
+    "start/pop_author.wav": "Romain Raynal, Open Sounds, \"Modern UI Vol.1\" "
+                            "(romainraynal.fr/opensounds). CC0-1.0, stated in the file's own metadata.",
+}
+
+
+def fade(n, attack, release):
+    env = np.ones(n)
+    a, r = int(attack * RATE), int(release * RATE)
+    if a:
+        env[:a] = np.linspace(0, 1, a)
+    if r:
+        env[-r:] = np.minimum(env[-r:], np.linspace(1, 0, r))
+    return env
+
+
+def background_loop():
+    """16 s ambient pad in A major. Every partial and LFO completes a whole
+    number of cycles in 16 s, so the loop point is seamless."""
+    seconds = 16
+    t = np.arange(seconds * RATE) / RATE
+    q = 1 / seconds                        # frequency grid for seamless loops
+    chord = [110.0, 164.8, 220.0, 277.2, 329.6]
+    left = np.zeros_like(t)
+    right = np.zeros_like(t)
+    for i, f in enumerate(chord):
+        f = round(f / q) * q
+        lfo = 0.6 + 0.4 * np.sin(2 * np.pi * (i + 1) * q * t + i)
+        detune = 2 * q
+        left += lfo * (np.sin(2 * np.pi * f * t) + 0.3 * np.sin(2 * np.pi * 2 * f * t)) / (i + 1.5)
+        right += lfo * (np.sin(2 * np.pi * (f + detune) * t) + 0.3 * np.sin(2 * np.pi * 2 * (f + detune) * t)) / (i + 1.5)
+    return np.stack([left, right], axis=1)
+
+
+def charge_sweep():
+    """1.5 s rising tone that builds while a button is held."""
+    n = int(1.5 * RATE)
+    t = np.arange(n) / RATE
+    freq = 180 + 520 * (t / t[-1]) ** 1.6
+    phase = 2 * np.pi * np.cumsum(freq) / RATE
+    tone = np.sin(phase) + 0.35 * np.sin(2 * phase) + 0.15 * np.sin(3 * phase)
+    tone *= fade(n, 0.25, 0.05) * (0.4 + 0.6 * t / t[-1])
+    return np.stack([tone, tone], axis=1)
+
+
+def swell():
+    """3.8 s soft swell: low-passed noise that rises and settles."""
+    n = int(3.8 * RATE)
+    rng = np.random.default_rng(20261018)
+    noise = rng.standard_normal((n, 2))
+    kernel = np.hanning(400)
+    kernel /= kernel.sum()
+    smooth = np.stack([np.convolve(noise[:, c], kernel, mode="same") for c in range(2)], axis=1)
+    t = np.arange(n) / RATE
+    env = np.sin(np.pi * np.clip(t / 3.8, 0, 1)) ** 2
+    return smooth * env[:, None]
+
+
+SYNTH = {
+    "start/background.wav": (background_loop, "Seamless 16 s ambient pad (A major), looped by the start screen."),
+    "reusables/fillbutton/charge_loop.wav": (charge_sweep, "1.5 s rising tone while a button charges."),
+    "start/wave.wav": (swell, "3.8 s low-passed noise swell."),
+}
+
+
+def write_wav(path, samples):
+    samples = np.asarray(samples, dtype=np.float64)
+    peak = np.max(np.abs(samples)) or 1.0
+    pcm = np.round(samples / peak * PEAK * 32767).astype("<i2")
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    with wave.open(path, "wb") as w:
+        w.setnchannels(pcm.shape[1] if pcm.ndim == 2 else 1)
+        w.setsampwidth(2)
+        w.setframerate(RATE)
+        w.writeframes(pcm.tobytes())
+
+
+def decode(data):
+    """Decode any audio file to float stereo at RATE using ffmpeg."""
+    out = subprocess.run(
+        ["ffmpeg", "-v", "error", "-i", "pipe:0", "-f", "f32le", "-ac", "2", "-ar", str(RATE), "pipe:1"],
+        input=data, capture_output=True, check=True).stdout
+    return np.frombuffer(out, dtype="<f4").reshape(-1, 2)
+
+
+def fetch_pack(name):
+    title, url, digest = PACKS[name]
+    data = subprocess.run(["curl", "-fsSL", "--retry", "3", url], capture_output=True, check=True).stdout
+    actual = hashlib.sha256(data).hexdigest()
+    if actual != digest:
+        sys.exit(f"{name}: sha256 mismatch ({actual})")
+    archive = zipfile.ZipFile(io.BytesIO(data))
+    license_text = next(archive.read(n) for n in archive.namelist() if n.lower().endswith("license.txt"))
+    if b"CC0" not in license_text:
+        sys.exit(f"{name}: license file does not say CC0")
+    files = {}
+    for member in archive.namelist():
+        base, ext = os.path.splitext(os.path.basename(member))
+        if ext.lower() in (".ogg", ".wav"):
+            files[base] = archive.read(member)
+    return files
+
+
+def main():
+    managed = set(KENNEY) | set(SYNTH)
+    packs = {name: fetch_pack(name) for name in sorted({p for p, _ in KENNEY.values()})}
+
+    # Remove sounds this script manages or that are no longer listed anywhere.
+    for base, _, files in os.walk(OUT):
+        for f in files:
+            rel = os.path.relpath(os.path.join(base, f), OUT)
+            if rel.endswith((".wav", ".mp3", ".ogg")) and rel not in KEPT:
+                os.remove(os.path.join(OUT, rel))
+
+    for rel, (pack, name) in sorted(KENNEY.items()):
+        write_wav(os.path.join(OUT, rel), decode(packs[pack][name]))
+    for rel, (make, _) in sorted(SYNTH.items()):
+        write_wav(os.path.join(OUT, rel), make())
+
+    lines = [
+        "# Sound sources",
+        "",
+        "<!-- Generated by tools/build-sounds. Do not edit by hand. -->",
+        "",
+        "Every sound in this directory, where it comes from, and its license.",
+        "Kenney packs are by Kenney Vleugels (https://kenney.nl), released under",
+        "CC0-1.0 (https://creativecommons.org/publicdomain/zero/1.0/); converted to",
+        "16-bit WAV and peak-normalized. Synthesized sounds are MuhOS originals, made",
+        "by `tools/build-sounds` (their source), AGPL-3.0-or-later.",
+        "",
+        "| File | Source | License |",
+        "|---|---|---|",
+    ]
+    for rel in sorted(managed | set(KEPT)):
+        if rel in KENNEY:
+            pack, name = KENNEY[rel]
+            src = f"Kenney \"{PACKS[pack][0]}\", `{name}`"
+            lic = "CC0-1.0"
+        elif rel in SYNTH:
+            src = "MuhOS original: " + SYNTH[rel][1]
+            lic = "AGPL-3.0-or-later"
+        else:
+            src, lic = KEPT[rel], "CC0-1.0"
+        lines.append(f"| `{rel}` | {src} | {lic} |")
+    with open(os.path.join(OUT, "SOURCES.md"), "w") as fh:
+        fh.write("\n".join(lines) + "\n")
+    print(f"wrote {len(KENNEY)} Kenney sounds, {len(SYNTH)} synthesized, kept {len(KEPT)}")
+
+
+if __name__ == "__main__":
+    main()

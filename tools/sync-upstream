@@ -43,7 +43,7 @@ export GIT_INDEX_FILE="$index"
 "${git[@]}" read-tree "$commit"
 while read -r path _; do
     case "$path" in ''|'#'*) continue ;; esac
-    "${git[@]}" rm -q --cached --ignore-unmatch -- "$path"
+    "${git[@]}" rm -r -q --cached --ignore-unmatch -- "$path"
 done < "$root/tools/upstream-exclude.txt"
 tree="$("${git[@]}" write-tree)"
 unset GIT_INDEX_FILE
