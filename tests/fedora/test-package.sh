@@ -36,7 +36,7 @@ check "session entry for GDM" grep -q '^Exec=/usr/bin/muhos-session$' /usr/share
 check "PAM service uses system-auth" grep -q 'include *system-auth' /etc/pam.d/serpantinum
 check "no installer or telemetry shipped" bash -c '! rpm -ql muhos | grep -qE "/install/|telemetry"'
 check "nothing installed under /usr/local" bash -c '! rpm -ql muhos | grep -q "^/usr/local"'
-check "no non-script executables in datadir" bash -c '[ -z "$(find /usr/share/muhos/src -type f -perm /111 ! -name "*.sh" ! -name "*.py")" ]'
+check "no non-script executables in datadir" bash -c '! find /usr/share/muhos/src -type f -perm /111 ! -name "*.sh" ! -name "*.py" | grep -q .'
 check "font licenses shipped" test -f /usr/share/licenses/muhos/LICENSES/OFL-1.1.txt
 check "systemd units verify" systemd-analyze verify /usr/lib/systemd/user/muhos-shell.service /usr/lib/systemd/user/muhos-session.target
 
