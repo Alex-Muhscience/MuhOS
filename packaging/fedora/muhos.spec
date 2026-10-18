@@ -5,7 +5,7 @@
 
 Name:           muhos
 Version:        0.1.0
-Release:        0.7%{?dist}
+Release:        0.8%{?dist}
 Summary:        Desktop shell for Hyprland on Fedora, based on Serpantinum
 
 # Code, MuhOS sounds and images: AGPL-3.0-or-later.
@@ -18,6 +18,7 @@ BuildArch:      noarch
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  python3
 BuildRequires:  bash
+BuildRequires:  desktop-file-utils
 
 # Versions the upstream base release was tested with (its Nix pin).
 # Fedora 44 ships older Quickshell/Matugen and no Hyprland; these come from COPR.
@@ -148,6 +149,7 @@ ln -s ../share/%{name}/bin/serpantinumd %{buildroot}%{_bindir}/muhosd
 install -m 0755 packaging/fedora/muhos-session %{buildroot}%{_bindir}/muhos-session
 
 install -Dm 0644 packaging/fedora/muhos.desktop %{buildroot}%{_datadir}/wayland-sessions/muhos.desktop
+install -Dm 0644 packaging/fedora/muhos-settings.desktop %{buildroot}%{_datadir}/applications/muhos-settings.desktop
 install -Dm 0644 packaging/fedora/muhos-shell.service %{buildroot}%{_userunitdir}/muhos-shell.service
 install -Dm 0644 packaging/fedora/muhos-session.target %{buildroot}%{_userunitdir}/muhos-session.target
 install -Dm 0644 packaging/fedora/pam-serpantinum %{buildroot}%{_sysconfdir}/pam.d/serpantinum
@@ -156,6 +158,7 @@ install -Dm 0644 packaging/fedora/pam-serpantinum %{buildroot}%{_sysconfdir}/pam
 bash -n %{buildroot}%{_bindir}/muhos-session
 sh -n %{buildroot}%{_libexecdir}/%{name}/muhos-shell
 for f in %{buildroot}%{_datadir}/%{name}/bin/*; do bash -n "$f"; done
+desktop-file-validate %{buildroot}%{_datadir}/applications/muhos-settings.desktop
 python3 -I tools/asset-inventory --strict
 
 %files
@@ -168,11 +171,15 @@ python3 -I tools/asset-inventory --strict
 %{_libexecdir}/%{name}/
 %{_datadir}/%{name}/
 %{_datadir}/wayland-sessions/muhos.desktop
+%{_datadir}/applications/muhos-settings.desktop
 %{_userunitdir}/muhos-shell.service
 %{_userunitdir}/muhos-session.target
 %config(noreplace) %{_sysconfdir}/pam.d/serpantinum
 
 %changelog
+* Mon Oct 19 2026 MuhOS contributors - 0.1.0-0.8
+- MuhOS Settings app entry; settings window gets a close button
+
 * Mon Oct 19 2026 MuhOS contributors - 0.1.0-0.7
 - Require hyprland-guiutils (Hyprland warned at login without it)
 
