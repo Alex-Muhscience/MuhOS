@@ -46,6 +46,16 @@ fi
 
 qs_ensure_cache "focustime"
 
+# A package-managed install (RPM, AUR) is updated by the package manager, so
+# the installed version.txt is authoritative: keep the stored version in sync
+# with it instead of writing it only once.
+if [ -f "$(dirname "$SERPANTINUM_DIR")/package-managed" ] && [ -f "$(dirname "$SERPANTINUM_DIR")/version.txt" ]; then
+    pkg_ver="$(xargs < "$(dirname "$SERPANTINUM_DIR")/version.txt" 2>/dev/null)"
+    if [ -n "$pkg_ver" ] && ! grep -qx "SERPANTINUM_VERSION=\"$pkg_ver\"" "$QS_STATE_DIR/version" 2>/dev/null; then
+        echo "SERPANTINUM_VERSION=\"$pkg_ver\"" > "$QS_STATE_DIR/version"
+    fi
+fi
+
 if [ ! -f "$QS_STATE_DIR/version" ]; then
     ver=""
     if [ -f "$SERPANTINUM_DIR/version.txt" ]; then
