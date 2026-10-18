@@ -19,6 +19,7 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - Stop looping sounds when playback fails (847c7ec)
 - Wake the welcome screen only on real pointer movement (7be262a)
 - Keep the stored version in sync on package-managed installs (706161b)
+- Use native text rendering (6ce3237)
 
 ## Fedora-specific
 
@@ -36,6 +37,8 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - muhos 0.1.0-0.2 (6ed5c81)
 - muhos 0.1.0-0.3 (f51aa75)
 - muhos 0.1.0-0.4 (5705727)
+- Default to Adwaita Sans and the Papirus icon theme (d08e53e)
+- muhos 0.1.0-0.5 (494ce0d)
 
 ## MuhOS branding
 
@@ -44,6 +47,7 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - Replace the Serpantinum logo with a MuhOS mark (b7c2f8e)
 - Brand UI strings and version at package build time (2f72921)
 - MuhOS names, attribution and first run on the desktop (fab4bf2)
+- New lightweight first-run welcome screen (b3e933a)
 
 ## Fork infrastructure
 
@@ -75,6 +79,7 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - Match the quickshell process by exact name in VM tests (db72e94)
 - Regenerate CHANGES-FROM-UPSTREAM.md (2a96e64)
 - Add an interactive Fedora Workstation VM launcher (d5b99f7)
+- Regenerate CHANGES-FROM-UPSTREAM.md (d1742ed)
 
 ## Upstream files changed by MuhOS
 
@@ -99,6 +104,7 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - `src/assets/languages/vi.json` (modified since 2026-10-18)
 - `src/assets/logo.svg` (modified since 2026-10-18)
 - `src/assets/tutorial.json` (modified since 2026-10-18)
+- `src/quickshell/Shell.qml` (modified since 2026-10-18)
 - `src/quickshell/guide/AboutTab.qml` (modified since 2026-10-18)
 - `src/quickshell/guide/WelcomeTab.qml` (modified since 2026-10-18)
 - `src/quickshell/notifications/types/Update.qml` (modified since 2026-10-18)
@@ -107,6 +113,7 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - `src/quickshell/singletons/system/FirstLaunch.qml` (modified since 2026-10-18)
 - `src/quickshell/singletons/theme/ThemeBackend.qml` (modified since 2026-10-18)
 - `src/scripts/caching.sh` (modified since 2026-10-18)
+- `src/scripts/first_launch.sh` (modified since 2026-10-18)
 - `src/scripts/location.sh` (modified since 2026-10-18)
 - `src/scripts/system/exit.sh` (modified since 2026-10-18)
 - `src/scripts/system/poweroff.sh` (modified since 2026-10-18)
