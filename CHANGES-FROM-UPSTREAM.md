@@ -18,6 +18,7 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - Make IP geolocation optional; never fetch weather for 0,0 (a601df2)
 - Stop looping sounds when playback fails (847c7ec)
 - Wake the welcome screen only on real pointer movement (7be262a)
+- Keep the stored version in sync on package-managed installs (706161b)
 
 ## Fedora-specific
 
@@ -34,11 +35,15 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - First-login defaults: no IP geolocation, default wallpapers (1e52f9d)
 - muhos 0.1.0-0.2 (6ed5c81)
 - muhos 0.1.0-0.3 (f51aa75)
+- muhos 0.1.0-0.4 (5705727)
 
 ## MuhOS branding
 
 - Rewrite README for MuhOS (6f11b68)
 - Add MuhOS default wallpapers (351bdcf)
+- Replace the Serpantinum logo with a MuhOS mark (b7c2f8e)
+- Brand UI strings and version at package build time (2f72921)
+- MuhOS names, attribution and first run on the desktop (fab4bf2)
 
 ## Fork infrastructure
 
@@ -68,6 +73,8 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - Add a repeatable VM idle benchmark (a66c2b8)
 - Regenerate CHANGES-FROM-UPSTREAM.md (85415bb)
 - Match the quickshell process by exact name in VM tests (db72e94)
+- Regenerate CHANGES-FROM-UPSTREAM.md (2a96e64)
+- Add an interactive Fedora Workstation VM launcher (d5b99f7)
 
 ## Upstream files changed by MuhOS
 
@@ -92,15 +99,25 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - `src/assets/languages/vi.json` (modified since 2026-10-18)
 - `src/assets/logo.svg` (modified since 2026-10-18)
 - `src/assets/tutorial.json` (modified since 2026-10-18)
+- `src/quickshell/guide/AboutTab.qml` (modified since 2026-10-18)
+- `src/quickshell/guide/WelcomeTab.qml` (modified since 2026-10-18)
+- `src/quickshell/notifications/types/Update.qml` (modified since 2026-10-18)
 - `src/quickshell/serp/Start.qml` (modified since 2026-10-18)
 - `src/quickshell/singletons/audio/Sounds.qml` (modified since 2026-10-18)
+- `src/quickshell/singletons/system/FirstLaunch.qml` (modified since 2026-10-18)
 - `src/quickshell/singletons/theme/ThemeBackend.qml` (modified since 2026-10-18)
+- `src/scripts/caching.sh` (modified since 2026-10-18)
 - `src/scripts/location.sh` (modified since 2026-10-18)
 - `src/scripts/system/exit.sh` (modified since 2026-10-18)
 - `src/scripts/system/poweroff.sh` (modified since 2026-10-18)
 - `src/scripts/system/reboot.sh` (modified since 2026-10-18)
 - `src/scripts/weather.sh` (modified since 2026-10-18)
 - `version.txt` (modified since 2026-10-18)
+
+## Upstream files changed when the package is built
+
+- `src/assets/languages/*.json`: product and command names replaced by `tools/brand-languages`
+- `version.txt`: replaced with the MuhOS version (`packaging/fedora/muhos.spec`)
 
 ## Upstream files not imported
 
