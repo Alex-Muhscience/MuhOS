@@ -3,7 +3,10 @@
 # MuhOS: install-level tests for the Fedora RPM. Run as root in a disposable
 # fedora:44 container:
 #
-#   tests/fedora/test-package.sh /path/to/muhos-*.noarch.rpm
+#   tests/fedora/test-package.sh /path/to/muhos-*.noarch.rpm [other.rpm...]
+#
+# Pass the MuhOS-built dependency RPMs (icon theme, symbol font) after the
+# muhos RPM so their checks can pass.
 #
 # Runtime dependencies (Quickshell >= 0.3.2, Hyprland) are not in Fedora 44,
 # so the package is installed with --nodeps; this tests layout and per-user
@@ -21,7 +24,7 @@ check() { local desc="$1"; shift; if "$@" >/dev/null 2>&1; then pass "$desc"; el
 as_user() { runuser -u "$user" -- env HOME="/home/$user" XDG_CONFIG_HOME= "$@"; }
 tree_hash() { (cd "$1" && find . -type f -print0 | sort -z | xargs -0 sha256sum | sha256sum); }
 
-rpm -i --nodeps "$rpm_file"
+rpm -i --nodeps "$@"
 
 # Layout
 check "muhos command resolves" test -x "$(readlink -f /usr/bin/muhos)"
