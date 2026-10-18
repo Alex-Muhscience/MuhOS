@@ -8,10 +8,11 @@ Base: upstream `v2.2.13` (`d6f1c8d`). Labels are explained in FORK.md.
 
 - Remove fonts that cannot be redistributed; ship font licenses (6f5fcc9)
 - Rescan fonts when a font directory changes (074f9ab)
+- Keep daemon pid and lock files in XDG_RUNTIME_DIR (9d73d1f)
 
 ## Fedora-specific
 
-_None yet._
+- Add RPM packaging, GDM session and systemd user units (f3f5b4a)
 
 ## MuhOS branding
 
@@ -23,9 +24,14 @@ _None yet._
 - Generate CHANGES-FROM-UPSTREAM.md (c029c09)
 - List modified upstream files as the AGPL 5(a) notice (178e774)
 - Verify shipped license files in the asset inventory (0593d29)
+- Regenerate CHANGES-FROM-UPSTREAM.md (16c1db4)
+- Lint every tracked shell script, not only *.sh and bin/ (a7110a7)
 
 ## Upstream files changed by MuhOS
 
+- `.gitignore` (modified since 2026-10-18)
+- `bin/serpantinum` (modified since 2026-10-18)
+- `bin/serpantinumd` (modified since 2026-10-18)
 - `src/assets/fonts/AtkynsonMonoNerdFont-Regular.otf` (removed 2026-10-18)
 - `src/assets/fonts/HeavyDataNerdFont-Regular.ttf` (removed 2026-10-18)
 - `src/assets/fonts/ProggyCleanSZNerdFont-Regular.ttf` (removed 2026-10-18)
@@ -34,3 +40,6 @@ _None yet._
 - `src/assets/fonts/SFMono-Regular.otf` (removed 2026-10-18)
 - `src/assets/fonts/TTCommonsPro_regular.otf` (removed 2026-10-18)
 - `src/quickshell/singletons/theme/ThemeBackend.qml` (modified since 2026-10-18)
+- `src/scripts/system/exit.sh` (modified since 2026-10-18)
+- `src/scripts/system/poweroff.sh` (modified since 2026-10-18)
+- `src/scripts/system/reboot.sh` (modified since 2026-10-18)
