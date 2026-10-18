@@ -21,7 +21,7 @@ BuildRequires:  systemd-rpm-macros
 BuildRequires:  python3
 BuildRequires:  bash
 
-# Versions upstream v%{upstream_version} was tested with (its Nix pin).
+# Versions the upstream base release was tested with (its Nix pin).
 # Fedora 44 ships older Quickshell/Matugen and no Hyprland; these come from COPR.
 Requires:       quickshell >= 0.3.2
 Requires:       matugen >= 4
@@ -58,7 +58,7 @@ Requires:       brightnessctl
 Requires:       pamixer
 Requires:       pipewire-utils
 Requires:       wireplumber
-Requires:       libnotify
+Requires:       /usr/bin/notify-send
 Requires:       NetworkManager
 Requires:       bluez
 Requires:       lm_sensors
@@ -110,6 +110,8 @@ systemd user service, and never modifies existing compositor configuration.
 share=%{buildroot}%{_datadir}/%{name}
 install -d "$share"
 cp -a bin src version.txt "$share/"
+# Executable bits: only on scripts, whatever the tarball says.
+find "$share" -type f -exec chmod 0644 {} +
 find "$share/src" -type f \( -name '*.sh' -o -name '*.py' \) -exec chmod 0755 {} +
 chmod 0755 "$share"/bin/*
 # Disables upstream's GitHub update check; updates come from the package.
@@ -124,14 +126,14 @@ install -Dm 0644 config/serpantinum/settings.json "$share/defaults/settings.json
 
 # Upstream command names, used internally by the shell and keybinds.
 install -d %{buildroot}%{_libexecdir}/%{name}
-ln -s %{_datadir}/%{name}/bin/serpantinum  %{buildroot}%{_libexecdir}/%{name}/serpantinum
-ln -s %{_datadir}/%{name}/bin/serpantinumd %{buildroot}%{_libexecdir}/%{name}/serpantinumd
+ln -s ../../share/%{name}/bin/serpantinum  %{buildroot}%{_libexecdir}/%{name}/serpantinum
+ln -s ../../share/%{name}/bin/serpantinumd %{buildroot}%{_libexecdir}/%{name}/serpantinumd
 install -m 0755 packaging/fedora/muhos-shell %{buildroot}%{_libexecdir}/%{name}/muhos-shell
 
 # Public MuhOS commands.
 install -d %{buildroot}%{_bindir}
-ln -s %{_datadir}/%{name}/bin/serpantinum  %{buildroot}%{_bindir}/muhos
-ln -s %{_datadir}/%{name}/bin/serpantinumd %{buildroot}%{_bindir}/muhosd
+ln -s ../share/%{name}/bin/serpantinum  %{buildroot}%{_bindir}/muhos
+ln -s ../share/%{name}/bin/serpantinumd %{buildroot}%{_bindir}/muhosd
 install -m 0755 packaging/fedora/muhos-session %{buildroot}%{_bindir}/muhos-session
 
 install -Dm 0644 packaging/fedora/muhos.desktop %{buildroot}%{_datadir}/wayland-sessions/muhos.desktop
