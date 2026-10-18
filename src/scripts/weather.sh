@@ -167,8 +167,14 @@ get_data() {
     tz=$(echo "$loc_json" | jq -r '.timezone // empty' 2>/dev/null)
     loc_ts=$(echo "$loc_json" | jq -r '.updated_at // 0' 2>/dev/null)
 
-    [[ -z "$lat" || "$lat" == "null" ]] && lat="0.0"
-    [[ -z "$lon" || "$lon" == "null" ]] && lon="0.0"
+    # No known location (none set, IP geolocation off or failed): show the
+    # offline forecast instead of fetching weather for latitude 0, longitude 0.
+    if [[ -z "$lat" || "$lat" == "null" || -z "$lon" || "$lon" == "null" ]] \
+        || { [[ "$lat" =~ ^0(\.0*)?$ ]] && [[ "$lon" =~ ^0(\.0*)?$ ]]; }; then
+        log_debug "No location known. Writing offline data instead of fetching."
+        write_dummy_data
+        return
+    fi
     [[ -z "$tz" || "$tz" == "null" ]] && tz="auto"
     [[ -z "$loc_ts" || "$loc_ts" == "null" ]] && loc_ts=0
 
