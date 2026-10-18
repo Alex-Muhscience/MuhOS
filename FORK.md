@@ -37,6 +37,9 @@ tools/asset-inventory --check    # new upstream assets must be classified
 tools/changes-from-upstream
 ```
 
+`README.md` is MuhOS's own; when an upstream sync conflicts on it, keep the
+MuhOS version and carry over any upstream fact worth keeping by hand.
+
 Run the lint, package and benchmark checks, then merge `sync/vX.Y.Z` into
 `main`. Push `main`, `upstream-snapshots` and the new `muhos-upstream-*` tag
 by name; never `git push --tags`.
