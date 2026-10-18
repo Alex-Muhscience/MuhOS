@@ -49,14 +49,12 @@ these labels.
 
 ## Modified-file notices
 
-When MuhOS first changes an upstream file, add a header comment directly
-below any existing license header:
-
-```
-// Modified by MuhOS, 2026-10-18. See NOTICE.
-```
-
-(Use the comment syntax of the file: `#` for shell, Python, TOML.)
+Upstream files carry no license headers, and per-file "modified by" comments
+would have to be stripped from every `[general]` patch offered upstream.
+Instead, `tools/changes-from-upstream` lists every upstream file MuhOS changed
+or removed, with the date of the first change, in `CHANGES-FROM-UPSTREAM.md`.
+That generated list is the AGPL section 5(a) notice; `NOTICE` points to it.
+Regenerate it in the same commit that touches upstream files.
 
 ## Branding
 

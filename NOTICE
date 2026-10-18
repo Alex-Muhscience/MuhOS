@@ -16,10 +16,9 @@ MuhOS modifications
   License:    GNU Affero General Public License v3.0 or later
 
   MuhOS is distributed under the same license as Serpantinum. Every change
-  relative to upstream is recorded in the git history and summarized in
-  CHANGES-FROM-UPSTREAM.md. Files changed by MuhOS carry a "Modified by
-  MuhOS" notice with the date of the first modification, as required by
-  section 5(a) of the AGPL.
+  relative to upstream is recorded in the git history. As required by
+  section 5(a) of the AGPL, CHANGES-FROM-UPSTREAM.md lists every upstream
+  file MuhOS modified or removed, with the date of the first change.
 
 "MuhOS" is not affiliated with or endorsed by the Serpantinum project.
 
