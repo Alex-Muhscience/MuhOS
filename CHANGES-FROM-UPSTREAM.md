@@ -26,6 +26,7 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - Package Quickshell 0.3.2 (50226ff)
 - Package Matugen 4.2.0 (34fedaf)
 - Document where Quickshell, Matugen and Hyprland come from (9dff67c)
+- Add Fedora 44 VM session tests (16e1283)
 
 ## MuhOS branding
 
@@ -54,6 +55,7 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - Regenerate CHANGES-FROM-UPSTREAM.md (d21a492)
 - Regenerate CHANGES-FROM-UPSTREAM.md (4fe2684)
 - Regenerate CHANGES-FROM-UPSTREAM.md (6298977)
+- Regenerate CHANGES-FROM-UPSTREAM.md (3b62968)
 
 ## Upstream files changed by MuhOS
 
