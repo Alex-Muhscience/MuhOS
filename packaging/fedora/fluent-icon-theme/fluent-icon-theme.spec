@@ -14,12 +14,13 @@ Source0:        %{url}/archive/refs/tags/%{tag}.tar.gz#/Fluent-icon-theme-%{tag}
 BuildArch:      noarch
 BuildRequires:  bash
 BuildRequires:  coreutils
+BuildRequires:  fdupes
 BuildRequires:  findutils
 BuildRequires:  sed
 Requires:       hicolor-icon-theme
 
 %description
-A colourful icon theme following Microsoft's Fluent design language, with
+A colorful icon theme following Microsoft's Fluent design language, with
 standard, dark and light variants (Fluent, Fluent-dark, Fluent-light).
 
 %prep
@@ -33,6 +34,8 @@ mkdir -p %{buildroot}%{_datadir}/icons
 bash ./install.sh -d %{buildroot}%{_datadir}/icons standard
 # The installer may build icon caches; they belong to the target system.
 find %{buildroot}%{_datadir}/icons -name icon-theme.cache -delete
+# The variants repeat many identical files; hardlink them.
+%fdupes %{buildroot}%{_datadir}/icons
 
 %check
 for v in Fluent Fluent-dark Fluent-light; do

@@ -23,7 +23,7 @@ Requires:       fontconfig
 %description
 Material Symbols Rounded is Google's variable icon font: over 3,000 symbols
 with adjustable fill, weight, grade and optical size. Icons are selected by
-ligature name, for example "settings" or "wifi".
+ligature name, for example "settings" or "home".
 
 %prep
 %setup -c -T
