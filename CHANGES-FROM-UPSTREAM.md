@@ -14,6 +14,8 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - Ship icon-set licenses and attribution for Symbols Nerd Font (5bf4b00)
 - Replace bundled sounds with CC0 and original sounds (dda5769)
 - Replace Pusheen GIFs with original empty-state art (1d87798)
+- Pause welcome-screen motion when nobody is moving the pointer (c7111e7)
+- Make IP geolocation optional; never fetch weather for 0,0 (a601df2)
 
 ## Fedora-specific
 
@@ -27,10 +29,12 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - Package Matugen 4.2.0 (34fedaf)
 - Document where Quickshell, Matugen and Hyprland come from (9dff67c)
 - Add Fedora 44 VM session tests (16e1283)
+- First-login defaults: no IP geolocation, default wallpapers (1e52f9d)
 
 ## MuhOS branding
 
 - Rewrite README for MuhOS (6f11b68)
+- Add MuhOS default wallpapers (351bdcf)
 
 ## Fork infrastructure
 
@@ -56,6 +60,8 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - Regenerate CHANGES-FROM-UPSTREAM.md (4fe2684)
 - Regenerate CHANGES-FROM-UPSTREAM.md (6298977)
 - Regenerate CHANGES-FROM-UPSTREAM.md (3b62968)
+- Regenerate CHANGES-FROM-UPSTREAM.md (c0ae8c3)
+- Add a repeatable VM idle benchmark (a66c2b8)
 
 ## Upstream files changed by MuhOS
 
@@ -80,10 +86,13 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - `src/assets/languages/vi.json` (modified since 2026-10-18)
 - `src/assets/logo.svg` (modified since 2026-10-18)
 - `src/assets/tutorial.json` (modified since 2026-10-18)
+- `src/quickshell/serp/Start.qml` (modified since 2026-10-18)
 - `src/quickshell/singletons/theme/ThemeBackend.qml` (modified since 2026-10-18)
+- `src/scripts/location.sh` (modified since 2026-10-18)
 - `src/scripts/system/exit.sh` (modified since 2026-10-18)
 - `src/scripts/system/poweroff.sh` (modified since 2026-10-18)
 - `src/scripts/system/reboot.sh` (modified since 2026-10-18)
+- `src/scripts/weather.sh` (modified since 2026-10-18)
 - `version.txt` (modified since 2026-10-18)
 
 ## Upstream files not imported
