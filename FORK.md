@@ -16,21 +16,31 @@ attribution are in `NOTICE`; bundled asset status is in `ASSETS.md`.
 
 ## Branches and remotes
 
-- `upstream` remote: `https://github.com/ilyamiro/serpantinum.git` (push disabled).
-- `main`: MuhOS. Based on upstream release **tags** only, never upstream `master`.
-- Current base: `v2.2.13` (`d6f1c8d`).
+- `origin`: `https://github.com/Alex-Muhscience/MuhOS` (private until
+  `tools/asset-inventory --strict` passes).
+- `upstream`: `https://github.com/ilyamiro/serpantinum.git`, fetch only
+  (push disabled). Its history and tags are **never pushed** to `origin`:
+  upstream history contains fonts that may not be redistributed.
+- `upstream-snapshots`: one commit per upstream release, each a snapshot of
+  that release without the files in `tools/upstream-exclude.txt`, tagged
+  `muhos-upstream-v<version>`. The first snapshot is the root of MuhOS history.
+- `main`: MuhOS. Merges snapshots; never merges upstream commits directly.
+- Current base: upstream v2.2.13 (`d6f1c8d`), snapshot `muhos-upstream-v2.2.13`.
 
 ### Syncing to a new upstream release
 
 ```sh
 git fetch upstream --tags
 git switch -c sync/vX.Y.Z main
-git merge --no-ff vX.Y.Z      # resolve conflicts, keep MuhOS changes minimal
-tools/asset-inventory --check # new upstream assets must be classified
+tools/sync-upstream vX.Y.Z       # snapshot + tag + merge; credits upstream authors
+# resolve conflicts if any, then set "Based on" in NOTICE to vX.Y.Z
+tools/asset-inventory --check    # new upstream assets must be classified
+tools/changes-from-upstream
 ```
 
-Then update `Based on` in `NOTICE` and the base tag above, run the test and
-benchmark suites, and merge `sync/vX.Y.Z` into `main`.
+Run the lint, package and benchmark checks, then merge `sync/vX.Y.Z` into
+`main`. Push `main`, `upstream-snapshots` and the new `muhos-upstream-*` tag
+by name; never `git push --tags`.
 
 ## Labelling changes
 
@@ -76,11 +86,14 @@ MuhOS ships its own identity:
 - Lint baselines (`ci/lint-baseline.json`) may only go down.
 - `tools/asset-inventory --strict` must pass before any release.
 
-## Open decisions
+## Decisions
 
-- **Public history.** The upstream history contains non-redistributable fonts
-  (see `ASSETS.md`). Pushing the full history to a public host
-  redistributes them. Decide before the first push: either rewrite history to
-  drop those files, or start the public `main` from a single import commit of
-  `v2.2.13` with those files removed, recording the upstream commit hash.
-- **Hosting** of the repository and the COPR.
+- **History** (2026-10-18): MuhOS history starts from a clean import commit
+  of v2.2.13 without the excluded fonts; upstream history is not published.
+- **Hosting** (2026-10-18): GitHub (`Alex-Muhscience/MuhOS`, private for now)
+  with source RPMs attached to releases; Fedora COPR later.
+- **Dependencies** (2026-10-18): MuhOS packages Quickshell and Matugen itself;
+  Hyprland comes from a third-party COPR for now.
+- **Assets** (2026-10-18): trace the source and license of every bundled
+  asset; anything that cannot be cleared is replaced with openly licensed
+  material.

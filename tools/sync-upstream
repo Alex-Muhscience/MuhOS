@@ -1,0 +1,81 @@
+#!/usr/bin/env bash
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# MuhOS: import an upstream Serpantinum release as a snapshot on the
+# upstream-snapshots branch, then merge it into the current branch.
+#
+#   git fetch upstream --tags
+#   tools/sync-upstream <upstream-ref> [version]
+#
+# <upstream-ref> is normally a release tag such as v2.2.14; [version] defaults
+# to version.txt at that ref. Upstream history is never added to MuhOS: each
+# snapshot is a single commit without the files in tools/upstream-exclude.txt.
+# Afterwards: resolve conflicts if any, update NOTICE, then run the checks
+# listed in FORK.md.
+
+set -euo pipefail
+
+root="$(cd "$(dirname "$0")/.." && pwd)"
+ref="${1:?usage: tools/sync-upstream <upstream-ref> [version]}"
+git=(git -C "$root")
+
+commit="$("${git[@]}" rev-parse --verify "$ref^{commit}")"
+version="${2:-$("${git[@]}" show "$commit:version.txt" | tr -d '[:space:]')}"
+tag="muhos-upstream-v$version"
+branch="upstream-snapshots"
+current="$("${git[@]}" symbolic-ref --short HEAD)"
+
+if "${git[@]}" rev-parse -q --verify "refs/tags/$tag" >/dev/null; then
+    echo "$tag already exists" >&2
+    exit 1
+fi
+if [ -n "$("${git[@]}" status --porcelain)" ]; then
+    echo "working tree is not clean" >&2
+    exit 1
+fi
+
+previous="$("${git[@]}" rev-parse "$branch")"
+previous_upstream="$("${git[@]}" log -1 --format=%B "$previous" | sed -n 's/^commit \([0-9a-f]\{40\}\)\.$/\1/p' | head -n 1)"
+
+# Build the snapshot tree in a temporary index: upstream tree minus exclusions.
+index="$(mktemp)"
+trap 'rm -f "$index"' EXIT
+export GIT_INDEX_FILE="$index"
+"${git[@]}" read-tree "$commit"
+while read -r path _; do
+    case "$path" in ''|'#'*) continue ;; esac
+    "${git[@]}" rm -q --cached --ignore-unmatch -- "$path"
+done < "$root/tools/upstream-exclude.txt"
+tree="$("${git[@]}" write-tree)"
+unset GIT_INDEX_FILE
+
+# Credit upstream authors of everything since the previous snapshot.
+credits=""
+if [ -n "$previous_upstream" ] && "${git[@]}" cat-file -e "$previous_upstream" 2>/dev/null; then
+    credits="$("${git[@]}" shortlog -sn --no-merges "$previous_upstream..$commit" | sed 's/^ *[0-9]*\t/- /')"
+fi
+
+message="$(cat <<EOF
+[fork] Import Serpantinum v$version
+
+Snapshot of upstream Serpantinum by Illia Miroshnichenko (ilyamiro),
+https://github.com/ilyamiro/serpantinum, version $version,
+commit $commit.
+License: AGPL-3.0-or-later (LICENSE.md). Files listed in
+tools/upstream-exclude.txt are left out.
+${credits:+
+Upstream contributors since the previous snapshot:
+$credits}
+EOF
+)"
+
+snapshot="$(printf '%s\n' "$message" | "${git[@]}" commit-tree "$tree" -p "$previous")"
+"${git[@]}" update-ref "refs/heads/$branch" "$snapshot" "$previous"
+"${git[@]}" tag -a "$tag" -m "Upstream Serpantinum v$version (${commit:0:7}), minus excluded files" "$snapshot"
+echo "created $tag ($snapshot)"
+
+if "${git[@]}" merge --no-ff -m "[fork] Merge upstream Serpantinum v$version" "$tag"; then
+    echo "merged $tag into $current; now update NOTICE (Based on) and run the checks"
+else
+    echo "merge has conflicts; resolve them, commit, then update NOTICE" >&2
+    exit 1
+fi

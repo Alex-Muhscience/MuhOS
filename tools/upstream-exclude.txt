@@ -1,0 +1,10 @@
+# Upstream files never imported into MuhOS (one path per line).
+# tools/sync-upstream drops these from every upstream snapshot.
+# Reason recorded after the path; see ASSETS.md for asset licensing.
+src/assets/fonts/SF-Pro-Display-Regular.otf         Apple Font License
+src/assets/fonts/SF-Pro-Display-Semibold.otf        Apple Font License
+src/assets/fonts/SFMono-Regular.otf                 Apple Font License
+src/assets/fonts/TTCommonsPro_regular.otf           TypeType EULA, demo build
+src/assets/fonts/AtkynsonMonoNerdFont-Regular.otf   embedded license forbids derivatives
+src/assets/fonts/HeavyDataNerdFont-Regular.ttf      no license
+src/assets/fonts/ProggyCleanSZNerdFont-Regular.ttf  no license
