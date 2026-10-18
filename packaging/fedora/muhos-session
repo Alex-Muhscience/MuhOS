@@ -10,6 +10,7 @@
 #                                       plus an optional user.lua next to it
 #   ~/.config/serpantinum/settings.json shell settings, seeded from the template,
 #                                       with IP geolocation off (privacy default)
+#                                       and Adwaita Sans as the interface font
 #   ~/Pictures/Wallpapers                MuhOS default wallpapers copied in, only
 #                                       during that first setup and only if the
 #                                       folder has no images yet
@@ -57,7 +58,7 @@ prepare() {
         if [ -z "$(find "$wallpapers" -maxdepth 1 -type f \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' -o -iname '*.webp' \) -print -quit)" ]; then
             cp -n "$datadir/src/assets/wallpapers/"*.jpg "$wallpapers/" 2>/dev/null || true
         fi
-        seeded="$(jq --arg wp "$wallpapers" '. * {wallpaperDir: $wp, general: {ipGeolocation: false}}' "$datadir/defaults/settings.json")"
+        seeded="$(jq --arg wp "$wallpapers" '. * {wallpaperDir: $wp, general: {ipGeolocation: false}, theme: {fontFamily: "Adwaita Sans"}}' "$datadir/defaults/settings.json")"
         create_once "$settings" "$seeded
 "
     fi

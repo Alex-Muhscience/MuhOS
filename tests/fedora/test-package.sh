@@ -65,6 +65,7 @@ check "stub points at packaged defaults" grep -q '"/usr/share/muhos/hypr"' "$stu
 check "settings seeded with wallpaper dir" bash -c "jq -e '.wallpaperDir == \"$home/Pictures/Wallpapers\"' '$settings'"
 check "wallpaper dir created" test -d "$home/Pictures/Wallpapers"
 check "default wallpapers copied" bash -c "ls '$home/Pictures/Wallpapers'/muhos-*.jpg"
+check "Adwaita Sans default font" bash -c "jq -e '.theme.fontFamily == \"Adwaita Sans\"' '$settings'"
 check "IP geolocation off by default" bash -c "jq -e '.general.ipGeolocation == false' '$settings'"
 check "files owned by the user" bash -c "[ \"\$(stat -c %U '$stub')\" = '$user' ]"
 after_other="$(tree_hash "$home/.config/hypr")$(tree_hash "$home/.config/kitty")"

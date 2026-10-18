@@ -63,6 +63,9 @@ Requires:       lm_sensors
 Requires:       ImageMagick
 Requires:       (ffmpeg-free or ffmpeg)
 Requires:       systemd
+# Default interface font and app icon theme (see muhos-session, muhos-shell).
+Requires:       adwaita-sans-fonts
+Requires:       papirus-icon-theme
 
 # Features degrade without these; the split is provisional until VM testing.
 Recommends:     xdg-desktop-portal-hyprland

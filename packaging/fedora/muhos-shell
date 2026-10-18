@@ -4,4 +4,10 @@
 # names the shell calls internally on PATH, then runs the shell daemon.
 PATH="/usr/libexec/muhos:$PATH"
 export PATH
+# One consistent icon theme for app icons in the shell (dock, launcher, tray);
+# only the shell is affected, not the user's GTK/Qt apps.
+if [ -z "${QS_ICON_THEME:-}" ] && [ -d /usr/share/icons/Papirus-Dark ]; then
+    QS_ICON_THEME=Papirus-Dark
+    export QS_ICON_THEME
+fi
 exec /usr/libexec/muhos/serpantinumd start
