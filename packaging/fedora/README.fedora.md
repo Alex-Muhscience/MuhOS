@@ -2,9 +2,9 @@
 
 Target: Fedora 44 Workstation, x86_64, Hyprland. GDM stays your login manager.
 
-> **Test builds only.** Bundled sounds and some images have unknown
-> provenance (see `ASSETS.md`). Do not publish RPMs until
-> `tools/asset-inventory --strict` passes.
+> Every bundled font, sound and image is listed with its source and license in
+> `ASSETS.md`; the package build fails if any is not cleared for
+> redistribution (`tools/asset-inventory --strict`).
 
 ## What the package installs
 

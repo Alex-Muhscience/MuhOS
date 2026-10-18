@@ -1,5 +1,5 @@
-# MuhOS: Fedora package. Test builds only until `tools/asset-inventory --strict`
-# passes; see ASSETS.md for the assets that still block a public release.
+# MuhOS: Fedora package. Every bundled asset is listed with its license in ASSETS.md;
+# %check fails the build if any is not cleared for redistribution.
 
 %global upstream_version 2.2.13
 
@@ -8,12 +8,10 @@ Version:        0.1.0
 Release:        0.1%{?dist}
 Summary:        Desktop shell for Hyprland on Fedora, based on Serpantinum
 
-# Code: AGPL-3.0-or-later (upstream Serpantinum and MuhOS changes).
-# Bundled fonts: see ASSETS.md and src/assets/fonts/LICENSES.
-# Bundled sounds and images: provenance still unknown (ASSETS.md); test builds only.
-License:        AGPL-3.0-or-later AND OFL-1.1 AND MIT AND Apache-2.0 AND Bitstream-Vera AND CC-BY-3.0 AND WTFPL
-# TODO: MuhOS project URL once hosting is decided.
-URL:            https://github.com/ilyamiro/serpantinum
+# Code, MuhOS sounds and images: AGPL-3.0-or-later.
+# Fonts: src/assets/fonts/LICENSES. Sounds: src/assets/sounds/SOURCES.md. Full list: ASSETS.md.
+License:        AGPL-3.0-or-later AND OFL-1.1 AND MIT AND Apache-2.0 AND Bitstream-Vera AND CC-BY-3.0 AND CC-BY-4.0 AND CC0-1.0 AND Unlicense AND WTFPL
+URL:            https://github.com/Alex-Muhscience/MuhOS
 Source0:        %{name}-%{version}.tar.gz
 
 BuildArch:      noarch
@@ -145,10 +143,11 @@ install -Dm 0644 packaging/fedora/pam-serpantinum %{buildroot}%{_sysconfdir}/pam
 bash -n %{buildroot}%{_bindir}/muhos-session
 sh -n %{buildroot}%{_libexecdir}/%{name}/muhos-shell
 for f in %{buildroot}%{_datadir}/%{name}/bin/*; do bash -n "$f"; done
-python3 -I tools/asset-inventory --check
+python3 -I tools/asset-inventory --strict
 
 %files
 %license LICENSE.md NOTICE ASSETS.md src/assets/fonts/LICENSES
+%license src/assets/sounds/SOURCES.md src/assets/sounds/LICENSES
 %doc README.md FORK.md CHANGES-FROM-UPSTREAM.md packaging/fedora/README.fedora.md
 %{_bindir}/muhos
 %{_bindir}/muhosd
