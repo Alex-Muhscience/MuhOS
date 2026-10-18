@@ -39,6 +39,14 @@ check "nothing installed under /usr/local" bash -c '! rpm -ql muhos | grep -q "^
 check "no non-script executables in datadir" bash -c '! find /usr/share/muhos/src -type f -perm /111 ! -name "*.sh" ! -name "*.py" | grep -q .'
 check "font licenses shipped" test -f /usr/share/licenses/muhos/LICENSES/OFL-1.1.txt
 check "sound sources shipped" test -f /usr/share/licenses/muhos/SOURCES.md
+L=/usr/share/muhos/src/assets/languages
+check "UI strings branded (en title)" bash -c "jq -e '.start.title == \"MuhOS\"' $L/en.json"
+check "UI strings branded (ru title)" bash -c "jq -e '.start.title == \"MuhOS\"' $L/ru.json"
+check "attribution string present" bash -c "jq -e '.muhos.based_on | test(\"Serpantinum\")' $L/en.json"
+check "command help names muhos" bash -c "jq -e '.cli.usage | startswith(\"Usage: muhos \")' $L/en.json"
+check "no Serpantinum outside installer strings" bash -c "! jq -r 'del(.installer, .muhos) | .. | strings' $L/*.json | grep -qi serpantinum"
+check "MuhOS version shown" bash -c "[ \"\$(cat /usr/share/muhos/version.txt)\" = \"\$(rpm -q --qf '%{VERSION}' muhos)\" ]"
+check "MuhOS logo installed" grep -q "MuhOS mark" /usr/share/muhos/src/assets/logo.svg
 check "systemd units verify" systemd-analyze verify /usr/lib/systemd/user/muhos-shell.service /usr/lib/systemd/user/muhos-session.target
 
 # Per-user setup must never overwrite existing files.

@@ -1,0 +1,76 @@
+#!/usr/bin/env python3
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# MuhOS: apply MuhOS branding to the shell's language files, in place.
+#
+#   tools/brand-languages <languages-dir>
+#
+# Run by the RPM build on the installed copy (/usr/share/muhos/src/assets/
+# languages), so upstream's files stay untouched in the repository and upstream
+# syncs never conflict on them. In every string outside "installer.*" (the
+# upstream installer is not shipped), the product name Serpantinum becomes
+# MuhOS, and the command names serpantinum/serpantinumd become muhos/muhosd.
+# MuhOS-only keys (under "muhos.") are added in English; the shell falls back
+# to English for keys a language lacks.
+
+import json
+import os
+import re
+import sys
+
+MUHOS_KEYS = {
+    "based_on": "Based on Serpantinum by {author}",
+    "contributors": "MuhOS contributors",
+    "first_run_title": "Welcome to MuhOS",
+    "first_run_body": "Open Settings with the gear icon in the top-left corner of the bar.",
+    "update_hint": "MuhOS is updated by your package manager: sudo dnf upgrade",
+}
+OVERRIDES = {
+    ("guide", "about", "github_repo"): "Alex-Muhscience/MuhOS",
+}
+
+# ASCII boundaries: text in other scripts may follow a name with no space.
+COMMAND = re.compile(r"(?<![A-Za-z0-9_])serpantinum(d?)(?![A-Za-z0-9_])")
+NAME = re.compile(r"serpantinum", re.IGNORECASE)
+
+
+def brand(text, command_context):
+    # The daemon name is always a command; the plain name is a command only in
+    # usage lines, otherwise it is the product name.
+    text = re.sub(r"(?<![A-Za-z0-9_])serpantinumd(?![A-Za-z0-9_])", "muhosd", text)
+    if command_context:
+        text = COMMAND.sub(lambda m: "muhos" + m.group(1), text)
+    return NAME.sub("MuhOS", text)
+
+
+def walk(node, path):
+    if isinstance(node, dict):
+        return {k: walk(v, path + (k,)) for k, v in node.items()}
+    if isinstance(node, str):
+        if path[:1] == ("installer",):
+            return node
+        if path in OVERRIDES:
+            return OVERRIDES[path]
+        command_context = "usage" in path[-1]
+        return brand(node, command_context)
+    return node
+
+
+def main():
+    directory = sys.argv[1]
+    for name in sorted(os.listdir(directory)):
+        if not name.endswith(".json"):
+            continue
+        path = os.path.join(directory, name)
+        with open(path, encoding="utf-8") as fh:
+            data = json.load(fh)
+        data = walk(data, ())
+        if name == "en.json":
+            data["muhos"] = dict(MUHOS_KEYS)
+        with open(path, "w", encoding="utf-8") as fh:
+            json.dump(data, fh, ensure_ascii=False, indent=2)
+            fh.write("\n")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

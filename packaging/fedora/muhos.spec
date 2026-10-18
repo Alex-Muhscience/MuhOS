@@ -116,6 +116,11 @@ chmod 0755 "$share"/bin/*
 rm -r "$share/src/assets/fonts/LICENSES" "$share/src/assets/sounds/LICENSES"
 # Disables upstream's GitHub update check; updates come from the package.
 printf 'rpm\n' > "$share/package-managed"
+# The shell shows this as its version (upstream's is in NOTICE).
+printf '%s\n' %{version} > "$share/version.txt"
+# MuhOS names in the UI and command help; upstream's files stay untouched in
+# the source, see tools/brand-languages.
+python3 -I tools/brand-languages "$share/src/assets/languages"
 
 # Hyprland defaults: upstream config with the MuhOS autostart.
 install -d "$share/hypr"
