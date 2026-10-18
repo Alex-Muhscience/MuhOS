@@ -5,7 +5,8 @@
 // entrance and exit; while idle nothing changes, so nothing is redrawn. The
 // wallpaper shows through a plain translucent layer (no blur, no shaders).
 // Contract with FirstLaunch: start() is called once loaded; finished() is
-// emitted once when the user continues. openedSettings tells FirstLaunch that
+// emitted once when the user continues (the window's own closed() signal is
+// not used). openedSettings tells FirstLaunch that
 // the settings window was opened, so its hint is not needed.
 
 import QtQuick
@@ -18,7 +19,6 @@ PanelWindow {
     id: window
 
     signal finished()
-    signal closed()
 
     property bool openedSettings: false
     property bool leaving: false
