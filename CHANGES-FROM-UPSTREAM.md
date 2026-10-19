@@ -21,6 +21,7 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - Keep the stored version in sync on package-managed installs (706161b)
 - Use native text rendering (6ce3237)
 - Add a close button to the settings window (4e84898)
+- New MuhOS bar: clean glass design with Material Symbols (0ac64d9)
 
 ## Fedora-specific
 
@@ -43,6 +44,11 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - muhos 0.1.0-0.6 (411f131)
 - Require hyprland-guiutils; muhos 0.1.0-0.7 (0144b31)
 - Add a MuhOS Settings app entry; muhos 0.1.0-0.8 (3dc7546)
+- Package Material Symbols Rounded and the Fluent icon theme (d3beea6)
+- Fluent icons, Material Symbols and glass blur; muhos 0.1.0-0.9 (967596d)
+- Hardlink duplicate Fluent icons; fix rpmlint spelling findings (789fd37)
+- Let the package tests install MuhOS-built dependency RPMs (c823013)
+- muhos 0.1.0-0.10 with the new bar (e23cae2)
 
 ## MuhOS branding
 
@@ -54,6 +60,7 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - New lightweight first-run welcome screen (b3e933a)
 - Welcome screen: do not redeclare the window's closed() signal (99db4cc)
 - Welcome screen: animate an Item rather than the window (4b054b6)
+- Draw the MuhOS mark in white (c7ae538)
 
 ## Fork infrastructure
 
@@ -90,6 +97,7 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - Regenerate CHANGES-FROM-UPSTREAM.md (7d99bd1)
 - Regenerate CHANGES-FROM-UPSTREAM.md (df2a638)
 - Re-record the lint baseline for the new welcome screen (0d74ade)
+- Regenerate CHANGES-FROM-UPSTREAM.md (94ddd7d)
 
 ## Upstream files changed by MuhOS
 
@@ -114,11 +122,13 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - `src/assets/languages/vi.json` (modified since 2026-10-18)
 - `src/assets/logo.svg` (modified since 2026-10-18)
 - `src/assets/tutorial.json` (modified since 2026-10-18)
+- `src/quickshell/Main.qml` (modified since 2026-10-18)
 - `src/quickshell/Shell.qml` (modified since 2026-10-18)
 - `src/quickshell/guide/AboutTab.qml` (modified since 2026-10-18)
 - `src/quickshell/guide/GuidePopup.qml` (modified since 2026-10-18)
 - `src/quickshell/guide/WelcomeTab.qml` (modified since 2026-10-18)
 - `src/quickshell/notifications/types/Update.qml` (modified since 2026-10-18)
+- `src/quickshell/qmldir` (modified since 2026-10-18)
 - `src/quickshell/serp/Start.qml` (modified since 2026-10-18)
 - `src/quickshell/singletons/audio/Sounds.qml` (modified since 2026-10-18)
 - `src/quickshell/singletons/system/FirstLaunch.qml` (modified since 2026-10-18)
