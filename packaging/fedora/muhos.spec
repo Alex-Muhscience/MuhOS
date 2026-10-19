@@ -5,7 +5,7 @@
 
 Name:           muhos
 Version:        0.1.0
-Release:        0.9%{?dist}
+Release:        0.10%{?dist}
 Summary:        Desktop shell for Hyprland on Fedora, based on Serpantinum
 
 # Code, MuhOS sounds and images: AGPL-3.0-or-later.
@@ -180,6 +180,9 @@ python3 -I tools/asset-inventory --strict
 %config(noreplace) %{_sysconfdir}/pam.d/serpantinum
 
 %changelog
+* Mon Oct 19 2026 MuhOS contributors - 0.1.0-0.10
+- New MuhOS bar (clean glass, Material Symbols); bar.design "classic" restores the old one
+
 * Mon Oct 19 2026 MuhOS contributors - 0.1.0-0.9
 - Fluent app icons and Material Symbols Rounded for the redesign
 - Hyprland blurs behind MuhOS panels (muhos-* layer rule)
