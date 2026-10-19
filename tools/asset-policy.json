@@ -13,6 +13,26 @@
   "rules": [
     {
       "match": [
+        "docs/assets/muhos-tile.svg"
+      ],
+      "status": "ok",
+      "license": "AGPL-3.0-or-later (MuhOS mark on a tile; same mark as src/assets/logo.svg)",
+      "license_files": [
+        "LICENSE.md"
+      ]
+    },
+    {
+      "match": [
+        "docs/screenshots/*.webp"
+      ],
+      "status": "ok",
+      "license": "AGPL-3.0-or-later (screenshots of MuhOS with MuhOS wallpapers; app windows and icons shown incidentally belong to their projects, e.g. the Firefox logo is a Mozilla trademark)",
+      "license_files": [
+        "LICENSE.md"
+      ]
+    },
+    {
+      "match": [
         "src/assets/logo.svg"
       ],
       "status": "ok",

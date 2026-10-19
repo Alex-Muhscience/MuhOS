@@ -22,8 +22,8 @@ Excluded from this inventory: nothing.
 | Status | Files | Size | Redistributable |
 |---|---:|---:|:---:|
 | generated | 27 | 135.9 KiB | yes |
-| ok | 73 | 95.3 MiB | yes |
-| **total** | **100** | **95.4 MiB** | |
+| ok | 82 | 95.5 MiB | yes |
+| **total** | **109** | **95.6 MiB** | |
 
 ## Assets
 
@@ -56,6 +56,15 @@ Excluded from this inventory: nothing.
 | `src/assets/shaders/vfx/node_beams_clipped.frag.qsb` | shader-binary | 7.9 KiB | generated | AGPL-3.0-or-later (compiled from .frag) |  | Rebuild with qsb during RPM build | `53174a89f71c` |
 | `src/assets/shaders/widgets/pacman.frag.qsb` | shader-binary | 2.6 KiB | generated | AGPL-3.0-or-later (compiled from .frag) |  | Rebuild with qsb during RPM build | `ac77565dcb38` |
 | `src/assets/shaders/widgets/widget_outline.frag.qsb` | shader-binary | 4.1 KiB | generated | AGPL-3.0-or-later (compiled from .frag) |  | Rebuild with qsb during RPM build | `1981dcdd25a1` |
+| `docs/assets/muhos-tile.svg` | image | 1014 B | ok | AGPL-3.0-or-later (MuhOS mark on a tile… |  |  | `0d3b9593507a` |
+| `docs/screenshots/clock-island.webp` | image | 3.3 KiB | ok | AGPL-3.0-or-later (screenshots of MuhOS… |  |  | `e38335860776` |
+| `docs/screenshots/control-centre.webp` | image | 10.7 KiB | ok | AGPL-3.0-or-later (screenshots of MuhOS… |  |  | `b310c888a40d` |
+| `docs/screenshots/desktop-dark.webp` | image | 27.7 KiB | ok | AGPL-3.0-or-later (screenshots of MuhOS… |  |  | `5e902dc68980` |
+| `docs/screenshots/desktop-light.webp` | image | 26.7 KiB | ok | AGPL-3.0-or-later (screenshots of MuhOS… |  |  | `9c506ced23b2` |
+| `docs/screenshots/launcher.webp` | image | 13.6 KiB | ok | AGPL-3.0-or-later (screenshots of MuhOS… |  |  | `a6f1531b4d4e` |
+| `docs/screenshots/music.webp` | image | 18.4 KiB | ok | AGPL-3.0-or-later (screenshots of MuhOS… |  |  | `e1f72891452b` |
+| `docs/screenshots/settings.webp` | image | 26.1 KiB | ok | AGPL-3.0-or-later (screenshots of MuhOS… |  |  | `543a4407553e` |
+| `docs/screenshots/tiling.webp` | image | 33.4 KiB | ok | AGPL-3.0-or-later (screenshots of MuhOS… |  |  | `f2e2f9093530` |
 | `src/assets/fonts/0xProtoNerdFont-Regular.ttf` | font | 2.3 MiB | ok | OFL-1.1 — 0xProto-LICENSE.txt | 0xType Project Authors (https://github.com/0xType) |  | `014921bcefcb` |
 | `src/assets/fonts/3270NerdFont-Regular.ttf` | font | 2.5 MiB | ok | OFL-1.1 — 3270-LICENSE.txt | This Font Software is licensed under the SIL Open Font License, Version 1.1. This license… |  | `78540c388022` |
 | `src/assets/fonts/AdwaitaMonoNerdFont-Regular.ttf` | font | 3.8 MiB | ok | OFL-1.1 (embedded; copyright in each fi… | This font software is licensed under the SIL Open Font License, Version 1.1. This license… |  | `bcd970a74682` |
