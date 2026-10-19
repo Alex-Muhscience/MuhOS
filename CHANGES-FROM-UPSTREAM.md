@@ -22,6 +22,7 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - Use native text rendering (6ce3237)
 - Add a close button to the settings window (4e84898)
 - New MuhOS bar: clean glass design with Material Symbols (0ac64d9)
+- Hybrid menu bar and control centre (124dc3f)
 
 ## Fedora-specific
 
@@ -49,6 +50,7 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - Hardlink duplicate Fluent icons; fix rpmlint spelling findings (789fd37)
 - Let the package tests install MuhOS-built dependency RPMs (c823013)
 - muhos 0.1.0-0.10 with the new bar (e23cae2)
+- Adwaita icons and per-surface blur rules; muhos 0.1.0-0.11 (3289cdb)
 
 ## MuhOS branding
 
@@ -98,6 +100,7 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - Regenerate CHANGES-FROM-UPSTREAM.md (df2a638)
 - Re-record the lint baseline for the new welcome screen (0d74ade)
 - Regenerate CHANGES-FROM-UPSTREAM.md (94ddd7d)
+- Regenerate CHANGES-FROM-UPSTREAM.md (a298d6b)
 
 ## Upstream files changed by MuhOS
 
