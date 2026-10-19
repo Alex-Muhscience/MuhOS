@@ -5,7 +5,7 @@
 #
 #   tests/fedora/test-package.sh /path/to/muhos-*.noarch.rpm [other.rpm...]
 #
-# Pass the MuhOS-built dependency RPMs (icon theme, symbol font) after the
+# Pass any MuhOS-built dependency RPMs after the
 # muhos RPM so their checks can pass.
 #
 # Runtime dependencies (Quickshell >= 0.3.2, Hyprland) are not in Fedora 44,
@@ -36,8 +36,7 @@ check "updater sees package-managed" grep -q 'package-managed' /usr/share/muhos/
 check "MuhOS autostart replaces upstream" grep -q 'muhos-session.target' /usr/share/muhos/hypr/config/autostart.lua
 check "upstream autostart does not enable easyeffects" bash -c '! grep -q easyeffects /usr/share/muhos/hypr/config/autostart.lua'
 check "Hyprland loads the MuhOS glass rule" grep -qx 'require("config/muhos")' /usr/share/muhos/hypr/hyprland.lua
-check "Material Symbols Rounded font visible" bash -c 'fc-list : family | grep -qx "Material Symbols Rounded"'
-check "Fluent-dark icon theme installed" test -f /usr/share/icons/Fluent-dark/index.theme
+check "Adwaita symbolic icons installed" test -f /usr/share/icons/Adwaita/symbolic/status/network-wireless-signal-excellent-symbolic.svg
 check "MuhOS Settings app entry" grep -q "^Exec=muhos msg open guide$" /usr/share/applications/muhos-settings.desktop
 check "session entry for GDM" grep -q '^Exec=/usr/bin/muhos-session$' /usr/share/wayland-sessions/muhos.desktop
 check "PAM service uses system-auth" grep -q 'include *system-auth' /etc/pam.d/serpantinum

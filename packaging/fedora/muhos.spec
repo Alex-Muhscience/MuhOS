@@ -5,7 +5,7 @@
 
 Name:           muhos
 Version:        0.1.0
-Release:        0.10%{?dist}
+Release:        0.11%{?dist}
 Summary:        Desktop shell for Hyprland on Fedora, based on Serpantinum
 
 # Code, MuhOS sounds and images: AGPL-3.0-or-later.
@@ -69,8 +69,7 @@ Requires:       (ffmpeg-free or ffmpeg)
 Requires:       systemd
 # Default interface font and app icon theme (see muhos-session, muhos-shell).
 Requires:       adwaita-sans-fonts
-Requires:       fluent-icon-theme
-Requires:       material-symbols-rounded-fonts
+Requires:       adwaita-icon-theme
 
 # Features degrade without these; the split is provisional until VM testing.
 Recommends:     xdg-desktop-portal-hyprland
@@ -180,6 +179,10 @@ python3 -I tools/asset-inventory --strict
 %config(noreplace) %{_sysconfdir}/pam.d/serpantinum
 
 %changelog
+* Mon Oct 19 2026 MuhOS contributors - 0.1.0-0.11
+- Hybrid menu bar and control centre; Adwaita icons replace Fluent and Material Symbols
+- Blur rules per MuhOS surface (bar island, control centre, welcome screen)
+
 * Mon Oct 19 2026 MuhOS contributors - 0.1.0-0.10
 - New MuhOS bar (clean glass, Material Symbols); bar.design "classic" restores the old one
 
