@@ -386,7 +386,7 @@ untouched:
 
 ```sh
 podman run --rm -v "$PWD":/src:Z -w /src registry.fedoraproject.org/fedora:44 bash -c '
-  dnf -y install git python3 rpm-build systemd-rpm-macros desktop-file-utils jq xdg-user-dirs adwaita-icon-theme &&
+  dnf -y install git python3 rpm-build systemd systemd-rpm-macros desktop-file-utils jq xdg-user-dirs adwaita-icon-theme &&
   git config --global --add safe.directory /src &&
   packaging/fedora/build-rpm out &&
   tests/fedora/test-package.sh out/muhos-*.noarch.rpm'

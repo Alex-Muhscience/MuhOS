@@ -30,7 +30,7 @@ jobs:
     container: registry.fedoraproject.org/fedora:44
     steps:
       - name: Install tools
-        run: dnf -y install git python3 rpm-build rpmlint dnf-plugins-core jq xdg-user-dirs adwaita-icon-theme
+        run: dnf -y install git python3 rpm-build rpmlint dnf-plugins-core jq xdg-user-dirs adwaita-icon-theme systemd
       - uses: actions/checkout@v4
       - name: Trust the checkout
         run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
