@@ -1,18 +1,21 @@
 # MuhOS
 
 MuhOS is a desktop shell for the Hyprland compositor on Fedora. It provides
-the bar, launcher, dock, notifications, lock screen, quick settings, widgets
-and theming of a complete desktop, built on [Quickshell](https://quickshell.org/)
-(Qt 6 / QML).
+the menu bar, control centre, launcher, dock, notifications, lock screen,
+widgets and theming of a complete desktop, built on
+[Quickshell](https://quickshell.org/) (Qt 6 / QML).
 
 MuhOS is a Fedora-focused fork of
 [Serpantinum](https://github.com/ilyamiro/serpantinum) by Illia Miroshnichenko.
-It keeps Serpantinum's shell and features and changes how it is packaged,
-installed and integrated into the system.
+It keeps Serpantinum's features, changes how the shell is packaged, installed
+and integrated into the system, and is redesigning its interface.
 
-> **Status: pre-release.** The package builds and passes its install tests;
-> a full login session has not yet been validated on real hardware or in a VM.
-> Expect rough edges.
+> **Status: pre-release.** The package builds and passes its install tests,
+> and a full GDM login session works in Fedora 44 virtual machines (a
+> Workstation install and a headless benchmark image). It has not yet been
+> validated on real hardware. The redesign is in progress: the menu bar and
+> control centre are new; the dock, launcher, notifications and lock screen
+> still use Serpantinum's design. Expect rough edges.
 
 ## Goals
 
@@ -35,6 +38,31 @@ In priority order:
 Other compositors supported upstream (Niri, Sway, Mango) are still in the tree
 but untested in MuhOS.
 
+## Design
+
+MuhOS's look ("Hybrid") combines GNOME's structure with a macOS-style
+translucent menu bar and glass panels, plus Serpantinum's wallpaper-driven
+theming:
+
+- **Menu bar.** Transparent over the wallpaper, laid out like GNOME: the apps
+  button and workspace dots on the left, the clock in the middle, network,
+  volume and battery on the right. Its text turns dark on light wallpapers
+  and light on dark ones, per screen.
+- **Clock island.** The clock shows the cover and a small visualizer while
+  music plays; click it to expand it into a player. Without music it opens
+  the calendar.
+- **Control centre.** Click the status icons (or run
+  `muhos ipc call muhos controlCentre`, e.g. from a key binding): toggles for
+  Wi-Fi, Bluetooth, power mode, night light, dark style and do not disturb,
+  volume and brightness sliders, screenshot, settings, lock and a power menu.
+- **Icons and colour.** Adwaita icons throughout; the accent colour comes
+  from the wallpaper.
+- **Glass.** Panels are translucent and Hyprland blurs what is behind them.
+  Set `"muhos": { "solidPanels": true }` in the settings for solid panels.
+
+To go back to Serpantinum's bar, set `"bar": { "design": "classic" }`. Side
+bars and an auto-hiding bar also use the classic bar for now.
+
 ## How MuhOS differs from Serpantinum
 
 - **Installed as an RPM**, not by a `curl | bash` script. There is no
@@ -50,6 +78,9 @@ but untested in MuhOS.
   `~/.config/muhos/hypr/`: a small `hyprland.lua` that loads the packaged
   defaults, plus your own `user.lua`. Package updates improve the defaults
   without overwriting your changes.
+- **Its own interface.** The menu bar and control centre are rebuilt (see
+  [Design](#design)), and they open popups directly instead of starting a
+  helper script and a second Quickshell process for every click.
 - **Every bundled asset is cleared for redistribution.** Fonts, sounds and
   images each have a recorded source and license ([ASSETS.md](ASSETS.md));
   material without one was removed or replaced with openly licensed or
@@ -86,17 +117,33 @@ python3 -I tools/asset-inventory --strict   # every asset licensed and cleared
 python3 -I tools/lint-baseline --check      # shellcheck/qmllint counts must not grow
 ```
 
+`tests/vm/` builds Fedora 44 virtual machines with MuhOS installed, checks the
+login session, and runs the benchmarks (5 runs per scenario, medians
+reported); see [tests/vm/README.md](tests/vm/README.md). Results are in
+[bench/results/](bench/results/). So far, measured in a VM with software
+rendering:
+
+| Change | Measured effect (Quickshell, idle) |
+|---|---|
+| New welcome screen (0.1.0-0.5) | CPU on the first-run screen 130% → 0.5% of a core |
+| New bar (0.1.0-0.10) | Desktop CPU 0.52% → 0.07%, memory (PSS) 503 → 473 MiB |
+
+The 0.1.0-0.10 bar also raised Hyprland's memory by about 12 MiB, probably
+because of the blur; that has not been isolated yet.
+
 ## Repository layout
 
 | Path | Contents |
 |---|---|
 | `src/quickshell/` | The shell (QML) |
+| `src/quickshell/muhos/` | MuhOS's own interface: menu bar, control centre, design tokens |
 | `src/scripts/`, `bin/` | Helper scripts and the shell's command-line tools |
 | `src/assets/` | Fonts, sounds, shaders, themes, translations |
 | `compositors/` | Default compositor configuration (Hyprland is the one MuhOS uses) |
 | `packaging/fedora/` | RPM specs, session entry, systemd units |
 | `tools/` | Asset inventory, lint baseline, upstream sync, asset build scripts |
-| `tests/` | Package tests |
+| `tests/` | Package tests (`tests/fedora/`) and VM tests and benchmarks (`tests/vm/`) |
+| `bench/results/` | Benchmark reports |
 
 ## Contributing
 
@@ -112,6 +159,9 @@ the rules for evidence (no performance claim without a benchmark).
   and its [contributors](https://github.com/ilyamiro/serpantinum/graphs/contributors):
   the shell MuhOS is built on.
 - [Quickshell](https://quickshell.org/), the toolkit the shell runs on.
+- The [Adwaita icon theme](https://gitlab.gnome.org/GNOME/adwaita-icon-theme)
+  by the GNOME project, used from Fedora's package. The design takes cues
+  from GNOME and macOS; MuhOS is not affiliated with either.
 - Sounds by [Kenney](https://kenney.nl) (CC0) and Romain Raynal's
   [Open Sounds](https://romainraynal.gumroad.com/) (CC0).
 - Fonts and icons from [Nerd Fonts](https://www.nerdfonts.com/) and the font
