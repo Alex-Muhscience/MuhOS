@@ -76,7 +76,14 @@ PanelWindow {
         }
     }
 
+    // MuhOS: popups opened from inside the shell, without the IPC round trip.
+    Connections {
+        target: MuhosCommands
+        function onCommandRequested(cmd, target, arg) { mainIpc.handleCommand(cmd, target, arg); }
+    }
+
     IpcHandler {
+        id: mainIpc
         target: "main"
 
         function forceReload(): void {

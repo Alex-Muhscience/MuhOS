@@ -8,6 +8,12 @@ ShellRoot {
     readonly property bool performanceMode: !!(Config.getSetting("general", {}).performance)
     readonly property bool quickactionsEnabled: Config.getSetting("general", {}).quickactions !== false
     readonly property bool dockEnabled: Config.getSetting("dock", {}).enabled !== false
+    // MuhOS bar unless the user picks the classic one, or a layout it does not
+    // cover yet (side bars, autohide).
+    readonly property var barSettings: Config.getSetting("bar", {})
+    readonly property bool muhosBar: barSettings.design !== "classic"
+        && barSettings.position !== "left" && barSettings.position !== "right"
+        && !barSettings.autohide
 
     Connections {
         target: Quickshell
@@ -44,7 +50,14 @@ ShellRoot {
     }
 
     Main {}
-    Bar {}
+    Loader {
+        active: muhosBar
+        sourceComponent: MuhosBar {}
+    }
+    Loader {
+        active: !muhosBar
+        sourceComponent: Bar {}
+    }
     Lock {}
     WidgetRedactor {}
 

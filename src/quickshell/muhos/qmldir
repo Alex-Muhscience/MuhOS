@@ -1,0 +1,10 @@
+GlassButton 1.0 GlassButton.qml
+Symbol 1.0 Symbol.qml
+BarWorkspaces 1.0 BarWorkspaces.qml
+BarClock 1.0 BarClock.qml
+BarMedia 1.0 BarMedia.qml
+BarStatus 1.0 BarStatus.qml
+BarTray 1.0 BarTray.qml
+MuhosBar 1.0 MuhosBar.qml
+singleton MuhosStyle 1.0 MuhosStyle.qml
+singleton MuhosCommands 1.0 MuhosCommands.qml

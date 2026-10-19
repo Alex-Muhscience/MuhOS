@@ -14,7 +14,7 @@
 
 set -euo pipefail
 
-rpm_file="$1"
+: "${1:?usage: test-package.sh muhos.rpm [other.rpm...]}"
 user=muhostest
 fails=0
 
