@@ -5,23 +5,23 @@
       "Quick.layout-positioning": 41,
       "Quick.property-changes-parsed": 11,
       "duplicate-property-binding": 14,
-      "import": 7395,
+      "import": 7887,
       "incompatible-type": 31,
       "missing-property": 354,
       "property-override": 10,
-      "required": 8,
+      "required": 9,
       "signal-handler-parameters": 5,
-      "unqualified": 8380,
-      "unresolved-type": 259,
+      "unqualified": 8419,
+      "unresolved-type": 262,
       "unused-imports": 140
     },
     "by_type": {
       "info": 140,
-      "warning": 16516
+      "warning": 17051
     },
-    "files": 295,
-    "files_with_errors": 290,
-    "total": 16656,
+    "files": 302,
+    "files_with_errors": 297,
+    "total": 17191,
     "version": "qmllint 6.11.2"
   },
   "shellcheck": {

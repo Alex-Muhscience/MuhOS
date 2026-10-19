@@ -245,7 +245,8 @@ PanelWindow {
             if (isNaN(h)) h = 40;
             return Math.max(28, Math.min(48, h)) / 40;
         }
-        property int barThickness: Math.round(48 * thicknessRatio)
+        // MuhOS: the MuhOS bar reserves its own, thinner band.
+        property int barThickness: MuhosStyle.barActive ? MuhosStyle.barBand : Math.round(48 * thicknessRatio)
         property string bp: masterWindow.barPosition
         property bool activeBar: !masterWindow.isBarEffectivelyHidden
 

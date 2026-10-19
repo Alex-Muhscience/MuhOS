@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
-// Rounded hover/press surface for bar controls. Children go in the content row.
+// Rounded hover/press surface for bar and panel controls. Children go in the
+// content row.
 import QtQuick
 import "../"
 
@@ -8,6 +9,9 @@ Item {
 
     property bool active: false        // its popup is open
     property bool filledAtRest: false  // show the resting fill (pill style)
+    property bool inBar: false         // menu-bar colours instead of panel colours
+    property bool lightWallpaper: false // in the bar: dark-on-light colours
+    property real radius: height / 2
     property int padding: MuhosStyle.s(10)
     property alias spacing: row.spacing
     property alias hovered: mouse.containsMouse
@@ -17,15 +21,17 @@ Item {
     signal rightClicked()
     signal wheel(int delta)
 
-    implicitHeight: MuhosStyle.control
+    implicitHeight: inBar ? MuhosStyle.barItem : MuhosStyle.roundButton
     implicitWidth: Math.max(implicitHeight, row.implicitWidth + padding * 2)
 
     Rectangle {
         anchors.fill: parent
-        radius: MuhosStyle.controlRadius
-        color: mouse.pressed ? MuhosStyle.fillPressed
-             : (mouse.containsMouse || root.active) ? MuhosStyle.fillHover
-             : root.filledAtRest ? MuhosStyle.fill : "transparent"
+        radius: root.radius
+        color: root.inBar
+             ? (root.active ? MuhosStyle.barActiveFill(root.lightWallpaper) : (mouse.containsMouse || mouse.pressed) ? MuhosStyle.barHover(root.lightWallpaper) : "transparent")
+             : mouse.pressed ? MuhosStyle.chipPressed
+             : (mouse.containsMouse || root.active) ? MuhosStyle.chipHover
+             : root.filledAtRest ? MuhosStyle.chip : "transparent"
         Behavior on color { ColorAnimation { duration: MuhosStyle.fast } }
     }
 

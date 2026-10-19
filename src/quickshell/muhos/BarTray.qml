@@ -11,6 +11,7 @@ Row {
 
     property var barWindow: null
     property bool atBottom: false
+    property bool lightWallpaper: false
 
     spacing: 0
     visible: SystemTray.items.values.length > 0
@@ -23,6 +24,8 @@ Row {
             required property var modelData
             required property int index
             padding: MuhosStyle.s(6)
+            inBar: true
+            lightWallpaper: root.lightWallpaper
 
             function openMenu() {
                 const pt = item.mapToItem(null, item.width / 2, root.atBottom ? 0 : item.height);

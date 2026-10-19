@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
-// Workspace pills: the focused one stretches into an accent capsule, ones
+// Workspace dots (GNOME-style): the focused one stretches into a pill, ones
 // with windows are brighter than empty ones. Click to switch, scroll to step.
 import QtQuick
 import Quickshell
@@ -18,18 +18,20 @@ Item {
     }
     readonly property int dot: MuhosStyle.s(8)
     property int wheelAccumulator: 0
+    property bool lightWallpaper: false
+    readonly property color ink: MuhosStyle.barText(lightWallpaper)
 
     function occupied(id) {
         const ws = Hyprland.workspaces.values.find(w => w.id === id);
         return !!(ws && ws.toplevels && ws.toplevels.values.length > 0);
     }
-    function focus(id) {
+    function focusWorkspace(id) {
         if (id >= 1 && id <= 10 && id !== focusedId)
             Hyprland.dispatch("hl.dsp.focus({ workspace = " + id + " })");
     }
 
     implicitWidth: pills.implicitWidth + MuhosStyle.s(8)
-    implicitHeight: MuhosStyle.control
+    implicitHeight: MuhosStyle.barItem
 
     Row {
         id: pills
@@ -45,8 +47,8 @@ Item {
                 readonly property int wsId: index + 1
                 readonly property bool isFocused: wsId === root.focusedId
 
-                width: isFocused ? MuhosStyle.s(22) : root.dot
-                height: MuhosStyle.control
+                width: isFocused ? MuhosStyle.s(26) : root.dot
+                height: MuhosStyle.barItem
                 Behavior on width { NumberAnimation { duration: MuhosStyle.normal; easing.type: MuhosStyle.easingEmphasis } }
 
                 Rectangle {
@@ -54,8 +56,8 @@ Item {
                     width: parent.width
                     height: root.dot
                     radius: height / 2
-                    color: slot.isFocused ? MuhosStyle.accent
-                         : MuhosStyle.tint(MuhosStyle.text, hit.containsMouse ? 0.6 : (root.occupied(slot.wsId) ? 0.38 : 0.18))
+                    color: slot.isFocused ? root.ink
+                         : MuhosStyle.tint(root.ink, hit.containsMouse ? 0.8 : (root.occupied(slot.wsId) ? 0.62 : 0.28))
                     Behavior on color { ColorAnimation { duration: MuhosStyle.normal } }
                 }
 
@@ -66,7 +68,7 @@ Item {
                     anchors.rightMargin: -pills.spacing / 2
                     hoverEnabled: true
                     cursorShape: Qt.PointingHandCursor
-                    onClicked: root.focus(slot.wsId)
+                    onClicked: root.focusWorkspace(slot.wsId)
                 }
             }
         }
@@ -79,7 +81,7 @@ Item {
             if (Math.abs(root.wheelAccumulator) < 120) return;
             const step = root.wheelAccumulator > 0 ? -1 : 1;
             root.wheelAccumulator = 0;
-            root.focus(Math.max(1, Math.min(root.count, root.focusedId + step)));
+            root.focusWorkspace(Math.max(1, Math.min(root.count, root.focusedId + step)));
         }
     }
 }

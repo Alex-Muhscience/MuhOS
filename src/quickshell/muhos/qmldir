@@ -1,10 +1,14 @@
 GlassButton 1.0 GlassButton.qml
-Symbol 1.0 Symbol.qml
+AdwIcon 1.0 AdwIcon.qml
 BarWorkspaces 1.0 BarWorkspaces.qml
-BarClock 1.0 BarClock.qml
-BarMedia 1.0 BarMedia.qml
+BarIsland 1.0 BarIsland.qml
 BarStatus 1.0 BarStatus.qml
 BarTray 1.0 BarTray.qml
+CcToggle 1.0 CcToggle.qml
+CcSlider 1.0 CcSlider.qml
+CcMenuItem 1.0 CcMenuItem.qml
+ControlCentre 1.0 ControlCentre.qml
 MuhosBar 1.0 MuhosBar.qml
 singleton MuhosStyle 1.0 MuhosStyle.qml
 singleton MuhosCommands 1.0 MuhosCommands.qml
+singleton MuhosState 1.0 MuhosState.qml

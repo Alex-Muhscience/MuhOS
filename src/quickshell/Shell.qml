@@ -8,12 +8,13 @@ ShellRoot {
     readonly property bool performanceMode: !!(Config.getSetting("general", {}).performance)
     readonly property bool quickactionsEnabled: Config.getSetting("general", {}).quickactions !== false
     readonly property bool dockEnabled: Config.getSetting("dock", {}).enabled !== false
-    // MuhOS bar unless the user picks the classic one, or a layout it does not
-    // cover yet (side bars, autohide).
-    readonly property var barSettings: Config.getSetting("bar", {})
-    readonly property bool muhosBar: barSettings.design !== "classic"
-        && barSettings.position !== "left" && barSettings.position !== "right"
-        && !barSettings.autohide
+    readonly property bool muhosBar: MuhosStyle.barActive
+    // The control centre is created on first use and kept, so it can animate out.
+    property bool controlCentreUsed: false
+    Connections {
+        target: MuhosCommands
+        function onControlCentreOpenChanged() { if (MuhosCommands.controlCentreOpen) controlCentreUsed = true; }
+    }
 
     Connections {
         target: Quickshell
@@ -53,6 +54,10 @@ ShellRoot {
     Loader {
         active: muhosBar
         sourceComponent: MuhosBar {}
+    }
+    LazyLoader {
+        active: muhosBar && controlCentreUsed
+        ControlCentre {}
     }
     Loader {
         active: !muhosBar
