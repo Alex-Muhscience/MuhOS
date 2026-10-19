@@ -179,7 +179,30 @@ tree but untested in MuhOS.
 
 ## Installation
 
-MuhOS is not in a package repository yet, so for now you build three RPMs.
+MuhOS is not in a package repository yet. Each
+[release](https://github.com/Alex-Muhscience/MuhOS/releases) has ready-made
+RPMs for Fedora 44 x86_64, plus source RPMs if you prefer to build them.
+
+### Quick install from a release
+
+Download `muhos-*.noarch.rpm`, `quickshell-*.x86_64.rpm`,
+`matugen-*.x86_64.rpm` and `SHA256SUMS` from the
+[latest release](https://github.com/Alex-Muhscience/MuhOS/releases), then:
+
+```sh
+sha256sum --check --ignore-missing SHA256SUMS     # verify the downloads
+sudo dnf copr enable lionheartp/Hyprland           # Hyprland 0.56
+sudo dnf install ./muhos-*.noarch.rpm ./quickshell-*.x86_64.rpm ./matugen-*.x86_64.rpm
+```
+
+The packages are not signed yet, so dnf notes that it skipped signature
+checks; the checksums are how you verify them for now.
+
+Then log out, click the gear on the GDM login screen, choose
+**MuhOS (Hyprland)** and sign in.
+
+### Build it yourself
+
 Building happens as your user; only the final install needs `sudo`.
 
 **1. Enable Hyprland and install the build tools**
