@@ -67,6 +67,10 @@ ShellRoot {
     WidgetRedactor {}
 
     Launcher {}
+    LazyLoader {
+        active: MuhosStyle.designActive
+        MuhosLauncher {}
+    }
     Clipboard {}    
 
     Polkit {}

@@ -9,6 +9,7 @@ CcToggle 1.0 CcToggle.qml
 CcSlider 1.0 CcSlider.qml
 CcMenuItem 1.0 CcMenuItem.qml
 ControlCentre 1.0 ControlCentre.qml
+MuhosLauncher 1.0 MuhosLauncher.qml
 MuhosBar 1.0 MuhosBar.qml
 singleton MuhosStyle 1.0 MuhosStyle.qml
 singleton MuhosCommands 1.0 MuhosCommands.qml
