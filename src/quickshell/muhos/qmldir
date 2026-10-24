@@ -1,4 +1,5 @@
 GlassButton 1.0 GlassButton.qml
+GlassPanel 1.0 GlassPanel.qml
 AdwIcon 1.0 AdwIcon.qml
 BarWorkspaces 1.0 BarWorkspaces.qml
 BarIsland 1.0 BarIsland.qml

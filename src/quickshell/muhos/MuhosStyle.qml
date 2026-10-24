@@ -17,6 +17,8 @@ QtObject {
     // The MuhOS bar is used unless the user picks the classic one, or a layout
     // it does not cover yet (side bars, autohide). Shell.qml and Main.qml read this.
     readonly property var barSettings: Config.getSetting("bar", {})
+    // The MuhOS look (glass dock, panels) unless the user picks the classic design.
+    readonly property bool designActive: barSettings.design !== "classic"
     readonly property bool barActive: barSettings.design !== "classic"
         && barSettings.position !== "left" && barSettings.position !== "right"
         && !barSettings.autohide
@@ -34,8 +36,9 @@ QtObject {
     readonly property color danger: ThemeBackend.red
     readonly property color panel: solid ? (dark ? "#2b2b2f" : "#fafafb")
                                          : (dark ? tint(ThemeBackend.base, 0.58) : Qt.rgba(1, 1, 1, 0.66))
+    // The dock is lighter glass than the panels so more of the blur shows through.
+    readonly property color dockTint: solid ? panel : (dark ? tint(ThemeBackend.base, 0.42) : Qt.rgba(1, 1, 1, 0.46))
     readonly property color panelBorder: dark ? Qt.rgba(1, 1, 1, 0.12) : Qt.rgba(1, 1, 1, 0.75)
-    readonly property color panelHighlight: solid ? "transparent" : (dark ? Qt.rgba(1, 1, 1, 0.10) : Qt.rgba(1, 1, 1, 0.9))
     readonly property color chip: dark ? Qt.rgba(1, 1, 1, 0.11) : Qt.rgba(0, 0, 0, 0.06)
     readonly property color chipHover: dark ? Qt.rgba(1, 1, 1, 0.17) : Qt.rgba(0, 0, 0, 0.10)
     readonly property color chipPressed: dark ? Qt.rgba(1, 1, 1, 0.24) : Qt.rgba(0, 0, 0, 0.15)

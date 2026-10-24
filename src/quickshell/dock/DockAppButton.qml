@@ -170,8 +170,9 @@ Item {
             id: btnShape
             anchors.fill: parent
             radius: dockButton.cornerRadius
-            clip: true
-            color: dockBtnGlass.active ? "transparent" : Qt.alpha(btnMa.pressed ? Qt.darker(dockButton.btnColor, 1.12) : (btnMa.containsMouse ? Qt.lighter(dockButton.btnColor, 1.12) : dockButton.btnColor), ThemeBackend.elementOpacity)
+            // MuhOS: icons sit directly on the glass dock, without a tile.
+            clip: !MuhosStyle.designActive
+            color: (MuhosStyle.designActive || dockBtnGlass.active) ? "transparent" : Qt.alpha(btnMa.pressed ? Qt.darker(dockButton.btnColor, 1.12) : (btnMa.containsMouse ? Qt.lighter(dockButton.btnColor, 1.12) : dockButton.btnColor), ThemeBackend.elementOpacity)
 
             Behavior on color {
                 ColorAnimation { duration: 180 }
@@ -180,6 +181,7 @@ Item {
             GlassFill {
                 id: dockBtnGlass
                 anchors.fill: parent
+                allowed: !MuhosStyle.designActive
                 radius: parent.radius
                 tintColor: dockButton.btnColor
                 tintAmount: 0.3
@@ -203,7 +205,7 @@ Item {
             Image {
                 id: appIcon
                 anchors.fill: parent
-                anchors.margins: dockWindow.s(Math.round(dockWindow.dockElementSize * 0.14))
+                anchors.margins: dockWindow.s(Math.round(dockWindow.dockElementSize * (MuhosStyle.designActive ? 0.04 : 0.14)))
                 fillMode: Image.PreserveAspectFit
                 asynchronous: true
                 smooth: true

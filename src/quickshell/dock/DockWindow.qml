@@ -12,7 +12,8 @@ DockWindowApps {
     property alias dockHover: dockContainerItem.dockHover
     property alias dockTransform: dockContainerItem.dockTransform
 
-    WlrLayershell.namespace: "qs-dock"
+    // MuhOS: named so the compositor blurs behind the glass dock (hypr/muhos.lua).
+    WlrLayershell.namespace: MuhosStyle.designActive ? "muhos-dock" : "qs-dock"
     WlrLayershell.layer: (dockWindowRoot.dockOnTop || dockWindowRoot.editMode) ? WlrLayer.Top : WlrLayer.Bottom
     focusable: dockWindowRoot.editMode
     color: "transparent"
@@ -65,7 +66,8 @@ DockWindowApps {
         return rawElementSize;
     }
 
-    property bool rawDockFloating: rawDockSettings.floating !== undefined ? rawDockSettings.floating : false
+    // MuhOS: the glass dock floats above the screen edge unless the user says otherwise.
+    property bool rawDockFloating: rawDockSettings.floating !== undefined ? rawDockSettings.floating : MuhosStyle.designActive
     property bool dockFloating: rawDockFloating || (sameSideAsBar && !isBarSolid)
     readonly property bool dockBackground: rawDockSettings.background !== undefined ? Boolean(rawDockSettings.background) : true
     readonly property real dockOpacity: dockBackground ? ThemeBackend.elementOpacity : 0.0

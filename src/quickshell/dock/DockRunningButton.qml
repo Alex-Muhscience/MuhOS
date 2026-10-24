@@ -117,12 +117,14 @@ Item {
             id: runningBtnShape
             anchors.fill: parent
             radius: runningDockButton.cornerRadius
-            clip: true
-            color: runningBtnGlass.active ? "transparent" : Qt.alpha(runningBtnMa.pressed ? Qt.darker(runningDockButton.btnColor, 1.12) : (runningBtnMa.containsMouse ? Qt.lighter(runningDockButton.btnColor, 1.12) : runningDockButton.btnColor), ThemeBackend.elementOpacity)
+            // MuhOS: icons sit directly on the glass dock, without a tile.
+            clip: !MuhosStyle.designActive
+            color: (MuhosStyle.designActive || runningBtnGlass.active) ? "transparent" : Qt.alpha(runningBtnMa.pressed ? Qt.darker(runningDockButton.btnColor, 1.12) : (runningBtnMa.containsMouse ? Qt.lighter(runningDockButton.btnColor, 1.12) : runningDockButton.btnColor), ThemeBackend.elementOpacity)
 
             GlassFill {
                 id: runningBtnGlass
                 anchors.fill: parent
+                allowed: !MuhosStyle.designActive
                 radius: parent.radius
                 tintColor: runningDockButton.btnColor
                 tintAmount: 0.3
@@ -140,7 +142,7 @@ Item {
             Image {
                 id: runningAppIcon
                 anchors.fill: parent
-                anchors.margins: dockWindow.s(Math.round(dockWindow.dockElementSize * 0.14))
+                anchors.margins: dockWindow.s(Math.round(dockWindow.dockElementSize * (MuhosStyle.designActive ? 0.04 : 0.14)))
                 fillMode: Image.PreserveAspectFit
                 asynchronous: true
                 smooth: true

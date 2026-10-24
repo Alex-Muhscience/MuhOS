@@ -23,14 +23,14 @@ Item {
     Behavior on width { NumberAnimation { duration: MuhosStyle.slow; easing.type: MuhosStyle.easingSpring; easing.overshoot: 0.8 } }
     Behavior on height { NumberAnimation { duration: MuhosStyle.slow; easing.type: MuhosStyle.easingSpring; easing.overshoot: 0.8 } }
 
-    Rectangle {
+    GlassPanel {
         anchors.fill: parent
         radius: root.expanded ? MuhosStyle.s(30) : height / 2
-        color: area.containsMouse && !root.expanded ? Qt.lighter(MuhosStyle.island, 1.15) : MuhosStyle.island
-        border.width: 1
-        border.color: MuhosStyle.panelBorder
+        tint: area.containsMouse && !root.expanded ? Qt.lighter(MuhosStyle.island, 1.15) : MuhosStyle.island
+        elevation: root.expanded ? MuhosStyle.s(8) : MuhosStyle.s(2)
         Behavior on radius { NumberAnimation { duration: MuhosStyle.slow; easing.type: MuhosStyle.easing } }
-        Behavior on color { ColorAnimation { duration: MuhosStyle.fast } }
+        Behavior on tint { ColorAnimation { duration: MuhosStyle.fast } }
+        Behavior on elevation { NumberAnimation { duration: MuhosStyle.slow; easing.type: MuhosStyle.easing } }
     }
 
     MouseArea {

@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import "../"
 import "../reusables"
+import "../muhos"
 
 Item {
     id: containerRoot
@@ -20,8 +21,11 @@ Item {
         }
     }
 
+    // MuhOS: a floating dock is a glass panel (see dockBg below).
+    readonly property bool muhosGlass: MuhosStyle.designActive && dockWindow.dockFloating && !dockWindow.editMode
+
     property real dynamicCornerRadius: (dockWindow.dockFloating || dockWindow.editMode)
-        ? ThemeBackend.borderRadius
+        ? (containerRoot.muhosGlass ? MuhosStyle.s(22) : ThemeBackend.borderRadius)
         : Math.max(0, Math.min(dockWindow.outerCornerRadius, (dockWindow.isVertical ? width : height) * 0.5))
 
     readonly property real dockSideRadius: dynamicCornerRadius * (1.0 - outerCornerProgress)
@@ -288,9 +292,18 @@ Item {
             }
         }
 
+        GlassPanel {
+            anchors.fill: parent
+            visible: containerRoot.muhosGlass
+            radius: containerRoot.dynamicCornerRadius
+            tint: MuhosStyle.dockTint
+            elevation: MuhosStyle.s(6)
+        }
+
         Rectangle {
             id: dockBg
             anchors.fill: parent
+            visible: !containerRoot.muhosGlass
             radius: containerRoot.dynamicCornerRadius
             topLeftRadius: containerRoot.topLeftCorner
             topRightRadius: containerRoot.topRightCorner

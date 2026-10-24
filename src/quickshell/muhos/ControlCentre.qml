@@ -76,20 +76,9 @@ PanelWindow {
         // Swallow clicks on the panel itself.
         MouseArea { anchors.fill: parent }
 
-        Rectangle {
+        GlassPanel {
             anchors.fill: parent
-            radius: MuhosStyle.panelRadius
-            color: MuhosStyle.panel
-            border.width: 1
-            border.color: MuhosStyle.panelBorder
-            Rectangle {
-                anchors.fill: parent
-                anchors.margins: 1
-                radius: parent.radius - 1
-                color: "transparent"
-                border.width: 1
-                border.color: MuhosStyle.panelHighlight
-            }
+            elevation: MuhosStyle.s(10)
         }
 
         Column {

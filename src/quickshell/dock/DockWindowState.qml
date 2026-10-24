@@ -100,7 +100,7 @@ PanelWindow {
         return Boolean(val);
     }
     property bool editMode: rawDockSettings.editing !== undefined ? rawDockSettings.editing : false
-    property int rawElementSize: rawDockSettings.elementSize !== undefined ? rawDockSettings.elementSize : 44
+    property int rawElementSize: rawDockSettings.elementSize !== undefined ? rawDockSettings.elementSize : (MuhosStyle.designActive ? 48 : 44)
     property bool overrideBoundsCorrection: rawDockSettings.overrideBoundsCorrection !== undefined ? Boolean(rawDockSettings.overrideBoundsCorrection) : false
 
     property bool dockExclusive: {
@@ -259,7 +259,8 @@ PanelWindow {
             val = Config.rawSettings["dock.hoverScale"];
         }
         let parsed = parseFloat(val);
-        if (isNaN(parsed) || parsed < 100) return 1.20;
+        // MuhOS: macOS-style magnification by default.
+        if (isNaN(parsed) || parsed < 100) return MuhosStyle.designActive ? 1.6 : 1.20;
         return parsed / 100.0;
     }
 
@@ -270,7 +271,7 @@ PanelWindow {
         } else if (typeof Config !== "undefined" && Config.rawSettings && Config.rawSettings["dock.cascadeScale"] !== undefined) {
             val = Config.rawSettings["dock.cascadeScale"];
         }
-        if (val === undefined || val === null) return false;
+        if (val === undefined || val === null) return MuhosStyle.designActive;
         if (typeof val === "boolean") return val;
         if (typeof val === "string") return val.toLowerCase() === "true" || val === "1";
         return Boolean(val);
