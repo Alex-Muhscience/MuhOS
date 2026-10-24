@@ -1,8 +1,21 @@
--- MuhOS (Fedora): compositor rules for the MuhOS shell's own surfaces.
--- Hyprland blurs what is behind their translucent parts (the "liquid glass"
--- look); pixels below ignore_alpha stay sharp.
--- Menu bar: only the clock island is glass; the faint shade under the bar
--- (alpha < 0.3) is not blurred.
-hl.layer_rule({ name = "muhos-bar-glass", match = { namespace = "^muhos-bar$" }, blur = true, ignore_alpha = 0.3 })
--- Control centre and welcome screen.
-hl.layer_rule({ name = "muhos-panel-glass", match = { namespace = "^muhos-(panel|welcome)$" }, blur = true, ignore_alpha = 0.1 })
+-- MuhOS (Fedora): compositor settings for the MuhOS shell's glass.
+
+-- Frosted glass, as on macOS: a wide, smooth blur with a saturation boost
+-- ("vibrancy") and a faint grain, so translucent panels read as frosted glass
+-- rather than smeared colour.
+hl.config({
+  decoration = {
+    blur = {
+      size = 10,
+      passes = 3,
+      vibrancy = 0.35,
+      noise = 0.02,
+      contrast = 1.0,
+    },
+  },
+})
+
+-- Blur behind the shell's own surfaces. Pixels below ignore_alpha stay sharp:
+-- the bar's faint shade and the panels' soft shadows (both under 0.3) are not
+-- blurred, only the glass itself.
+hl.layer_rule({ name = "muhos-glass", match = { namespace = "^muhos-(bar|panel|dock|welcome)$" }, blur = true, ignore_alpha = 0.3 })
