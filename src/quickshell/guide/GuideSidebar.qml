@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
 import "../"
+import "../muhos"
 import "../reusables"
 import "../reusables/buttons"
 
@@ -60,41 +61,15 @@ Rectangle {
 
             // MuhOS: a macOS-style close button ("traffic light") at the window's
             // top corner, where it cannot cover any page's controls.
-            Rectangle {
+            CloseButton {
                 id: windowCloseBtn
-                readonly property bool hovered: windowCloseMa.containsMouse
                 x: I18n.rtl ? (parent.width - width) : 0
                 anchors.verticalCenter: parent.verticalCenter
-                width: sidebar.popup.s(14)
-                height: width
-                radius: width / 2
-                color: windowCloseMa.pressed ? "#bf4943" : "#ff5f57"
-                border.width: 1
-                border.color: Qt.rgba(0, 0, 0, 0.18)
+                size: sidebar.popup.s(14)
                 opacity: sidebar.popup.searchActive ? 0.0 : 1.0
                 visible: opacity > 0.001
                 Behavior on opacity { NumberAnimation { duration: 180; easing.type: Easing.OutCubic } }
-
-                Text {
-                    anchors.centerIn: parent
-                    anchors.verticalCenterOffset: -sidebar.popup.s(1)
-                    text: "×"
-                    color: "#4d0000"
-                    font.pixelSize: sidebar.popup.s(13)
-                    font.bold: true
-                    opacity: windowCloseBtn.hovered ? 0.9 : 0.0
-                    Behavior on opacity { NumberAnimation { duration: 120 } }
-                }
-                MouseArea {
-                    id: windowCloseMa
-                    anchors.fill: parent
-                    anchors.margins: -sidebar.popup.s(6)
-                    hoverEnabled: true
-                    cursorShape: Qt.PointingHandCursor
-                    onClicked: sidebar.popup.closePopup()
-                }
-                Accessible.role: Accessible.Button
-                Accessible.name: I18n.t("guide.close", "Close")
+                onClicked: sidebar.popup.closePopup()
             }
 
             Text {

@@ -7,6 +7,7 @@ import Quickshell
 import Quickshell.Io
 import Quickshell.Services.Pipewire
 import "../"
+import "../muhos"
 import "../reusables"
 
 Item {
@@ -411,11 +412,23 @@ Item {
 
                         ColumnLayout {
                             spacing: window.s(2)
-                            Text {
-                                Layout.fillWidth: true; elide: Text.ElideRight
-                                font.family: ThemeBackend.fontFamily; font.weight: Font.Black; font.pixelSize: window.s(17)
-                                color: ThemeBackend.text
-                                text: window.activeName
+                            // MuhOS: a close button at the end of the name line; the
+                            // name shortens before it rather than running under it.
+                            RowLayout {
+                                Layout.fillWidth: true
+                                spacing: window.s(10)
+                                Text {
+                                    Layout.fillWidth: true; elide: Text.ElideRight
+                                    font.family: ThemeBackend.fontFamily; font.weight: Font.Black; font.pixelSize: window.s(17)
+                                    color: ThemeBackend.text
+                                    text: window.activeName
+                                }
+                                CloseButton {
+                                    Layout.alignment: Qt.AlignTop | Qt.AlignRight
+                                    Layout.topMargin: window.s(3)
+                                    size: window.s(14)
+                                    onClicked: MuhosCommands.commandRequested("close", "", "")
+                                }
                             }
                             Text {
                                 Layout.fillWidth: true; elide: Text.ElideRight

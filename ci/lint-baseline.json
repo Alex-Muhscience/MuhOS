@@ -5,7 +5,7 @@
       "Quick.layout-positioning": 41,
       "Quick.property-changes-parsed": 11,
       "duplicate-property-binding": 14,
-      "import": 9659,
+      "import": 9726,
       "incompatible-type": 31,
       "missing-property": 354,
       "property-override": 10,
@@ -17,11 +17,11 @@
     },
     "by_type": {
       "info": 140,
-      "warning": 18989
+      "warning": 19056
     },
-    "files": 315,
-    "files_with_errors": 310,
-    "total": 19129,
+    "files": 316,
+    "files_with_errors": 311,
+    "total": 19196,
     "version": "qmllint 6.11.2"
   },
   "shellcheck": {
