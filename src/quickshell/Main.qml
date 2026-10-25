@@ -396,8 +396,10 @@ PanelWindow {
 
     property real globalUiScale: 1.0
 
-    Notifs.NotificationPopups {
-        id: osdPopups
+    // MuhOS: glass banners (muhos/MuhosBanners.qml) replace these in the MuhOS design.
+    Loader {
+        active: !MuhosStyle.designActive
+        sourceComponent: Notifs.NotificationPopups {}
     }
 
     function applyConfigSettings() {

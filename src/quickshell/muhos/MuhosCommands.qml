@@ -15,10 +15,13 @@ QtObject {
     signal commandRequested(string cmd, string target, string arg)
 
     property bool controlCentreOpen: false
+    property bool notificationCentreOpen: false
+    property var notificationCentreScreen: null
     property var controlCentreScreen: null
 
     function toggle(target, arg) {
         controlCentreOpen = false;
+        notificationCentreOpen = false;
         // The wallpaper picker prepares thumbnails in the script first.
         if (target === "wallpaper" || arg) {
             Quickshell.execDetached(["bash", Caching.serpantinumDir + "/scripts/qs_manager.sh", "toggle", target].concat(arg ? [arg] : []));
@@ -33,13 +36,25 @@ QtObject {
     readonly property IpcHandler _ipc: IpcHandler {
         target: "muhos"
         function controlCentre(): void { root.toggleControlCentre(null); }
+        function notificationCentre(): void { root.toggleNotificationCentre(null); }
     }
 
     function toggleControlCentre(screen) {
         if (!controlCentreOpen) {
             commandRequested("close", "", "");
+            notificationCentreOpen = false;
             controlCentreScreen = screen || null;
         }
         controlCentreOpen = !controlCentreOpen;
+    }
+
+    // Notification centre (clock): notifications and a calendar, like GNOME's date menu.
+    function toggleNotificationCentre(screen) {
+        if (!notificationCentreOpen) {
+            commandRequested("close", "", "");
+            controlCentreOpen = false;
+            notificationCentreScreen = screen || null;
+        }
+        notificationCentreOpen = !notificationCentreOpen;
     }
 }

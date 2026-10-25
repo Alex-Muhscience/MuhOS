@@ -11,9 +11,11 @@ ShellRoot {
     readonly property bool muhosBar: MuhosStyle.barActive
     // The control centre is created on first use and kept, so it can animate out.
     property bool controlCentreUsed: false
+    property bool notificationCentreUsed: false
     Connections {
         target: MuhosCommands
         function onControlCentreOpenChanged() { if (MuhosCommands.controlCentreOpen) controlCentreUsed = true; }
+        function onNotificationCentreOpenChanged() { if (MuhosCommands.notificationCentreOpen) notificationCentreUsed = true; }
     }
 
     Connections {
@@ -70,6 +72,14 @@ ShellRoot {
     LazyLoader {
         active: MuhosStyle.designActive
         MuhosLauncher {}
+    }
+    LazyLoader {
+        active: MuhosStyle.designActive
+        MuhosBanners {}
+    }
+    LazyLoader {
+        active: MuhosStyle.designActive && notificationCentreUsed
+        NotificationCentre {}
     }
     Clipboard {}    
 

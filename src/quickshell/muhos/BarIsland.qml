@@ -1,7 +1,8 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 // The clock "island" in the middle of the menu bar. Shows the date and time;
 // while music plays it adds the cover and a small visualizer, and a click
-// expands it into a player. Without music, a click opens the calendar.
+// expands it into a player. Without music, or on right-click, it opens the
+// notification centre; a dot marks unread notifications.
 import QtQuick
 import Quickshell
 import Quickshell.Widgets
@@ -14,7 +15,7 @@ Item {
     readonly property bool hasMedia: MprisController.hasActivePlayer && MprisController.trackTitle !== ""
     readonly property var player: MprisController.activePlayer
 
-    signal openCalendar()
+    signal openCentre()
 
     onHasMediaChanged: if (!hasMedia) expanded = false
 
@@ -40,7 +41,7 @@ Item {
         cursorShape: Qt.PointingHandCursor
         acceptedButtons: Qt.LeftButton | Qt.RightButton
         onClicked: m => {
-            if (m.button === Qt.RightButton || !root.hasMedia) root.openCalendar();
+            if (m.button === Qt.RightButton || !root.hasMedia) root.openCentre();
             else root.expanded = !root.expanded;
         }
     }
@@ -70,6 +71,14 @@ Item {
             font.pixelSize: MuhosStyle.textBody
             font.weight: Font.Bold
             font.features: { "tnum": 1 }
+        }
+        Rectangle {
+            anchors.verticalCenter: parent.verticalCenter
+            visible: MuhosState.unreadNotifications > 0
+            width: MuhosStyle.s(7)
+            height: width
+            radius: width / 2
+            color: MuhosStyle.accent
         }
         Row {
             anchors.verticalCenter: parent.verticalCenter

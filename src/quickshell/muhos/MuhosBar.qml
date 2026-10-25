@@ -173,7 +173,7 @@ Variants {
             id: island
             anchors.horizontalCenter: parent.horizontalCenter
             y: win.atBottom ? parent.height - height - MuhosStyle.s(4) : MuhosStyle.s(4)
-            onOpenCalendar: MuhosCommands.toggle("calendar")
+            onOpenCentre: MuhosCommands.toggleNotificationCentre(win.screen)
 
             // Entrance: settle in from above.
             opacity: 0

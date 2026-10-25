@@ -9,6 +9,8 @@ singleton MuhosCommands 1.0 muhos/MuhosCommands.qml
 singleton MuhosState 1.0 muhos/MuhosState.qml
 ControlCentre 1.0 muhos/ControlCentre.qml
 MuhosLauncher 1.0 muhos/MuhosLauncher.qml
+MuhosBanners 1.0 muhos/MuhosBanners.qml
+NotificationCentre 1.0 muhos/NotificationCentre.qml
 Floating 1.0 quickactions/Floating.qml
 Clipboard 1.0 clipboard/Clipboard.qml
 Launcher 1.0 launcher/Launcher.qml

@@ -155,6 +155,85 @@ QtObject {
         _briThrottle.restart();
     }
 
+    // Notifications (data lives in upstream's NotificationManager)
+    // Ticks every 30 s so relative times ("5 min ago") stay current.
+    property int clockTick: 0
+    readonly property Timer _tick: Timer { interval: 30000; running: true; repeat: true; onTriggered: root.clockTick++ }
+
+    function relativeTime(ts) {
+        clockTick;
+        const mins = Math.floor((Date.now() - ts) / 60000);
+        if (mins < 1) return "now";
+        if (mins < 60) return mins + " min";
+        const d = new Date(ts), today = new Date();
+        const time = Qt.formatTime(d, Locale.ShortFormat);
+        return d.toDateString() === today.toDateString() ? time : Qt.formatDate(d, "d MMM") + " " + time;
+    }
+
+    // An icon name ("firefox"), file path or URL, as an image source.
+    function iconSource(icon) {
+        const s = icon ? String(icon) : "";
+        if (s === "") return "";
+        if (s.startsWith("/")) return "file://" + s;
+        if (s.indexOf("://") > 0 || s.startsWith("image:")) return s;
+        // Glyphs and other non-names are not icons.
+        if (!/^[A-Za-z0-9._+-]+$/.test(s)) return "";
+        return Quickshell.iconPath(s, true) || "";
+    }
+
+    // Notifications carry their icon and any picture in a few shapes:
+    // "image://icon/<name>" (an icon), "image://icon//<path>" (a file, i.e. a
+    // picture such as a screenshot), plain names, paths or URLs.
+    function isPictureSource(src) {
+        const s = src ? String(src) : "";
+        return s.startsWith("image://icon//") || s.startsWith("/") || s.startsWith("file://") || s.startsWith("http");
+    }
+    // Best icon: the first candidate that is an icon and resolves; else an
+    // icon named after the app.
+    function notifIcon(candidates, appName) {
+        for (const c of candidates) {
+            if (!c || isPictureSource(c)) continue;
+            const src = iconSource(c);
+            if (src) return src;
+        }
+        return appName ? iconSource(String(appName).toLowerCase().replace(/\s+/g, "-")) : "";
+    }
+    // A picture sent with the notification (a photo, a screenshot), not an icon.
+    function notifPicture(image) {
+        const s = image ? String(image) : "";
+        if (s.startsWith("image://icon//")) return "file://" + s.slice("image://icon/".length);
+        return isPictureSource(s) ? iconSource(s) : "";
+    }
+
+    function notifActions(uid) {
+        const n = NotificationManager.liveNotifs[uid];
+        return (n && n.actions) ? n.actions : [];
+    }
+    // Run the notification's default action (what clicking it means).
+    function notifActivate(uid) {
+        const acts = notifActions(uid);
+        const a = acts.find(x => x.identifier === "default") || acts[0];
+        if (a && typeof a.invoke === "function") a.invoke();
+    }
+    function notifAction(uid, identifier) {
+        const a = notifActions(uid).find(x => x.identifier === identifier);
+        if (a && typeof a.invoke === "function") a.invoke();
+    }
+    // Bumped when items are marked read, since ListModel.get() is not observed.
+    property int notifReadRevision: 0
+    function markAllNotificationsRead() {
+        const h = NotificationManager.globalNotificationHistory;
+        for (let i = 0; i < h.count; i++) if (!h.get(i).read) h.setProperty(i, "read", true);
+        notifReadRevision++;
+    }
+    readonly property int unreadNotifications: {
+        notifReadRevision;
+        const h = NotificationManager.globalNotificationHistory;
+        let n = 0;
+        for (let i = 0; i < h.count; i++) if (!h.get(i).read) n++;
+        return n;
+    }
+
     // Session actions (upstream scripts)
     function run(action) {
         const dir = Caching.serpantinumDir + "/scripts/";
