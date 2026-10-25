@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Name=Sound
+Comment=Output and input devices, volume and per-app sound
+Exec=muhos msg open volume
+Icon=muhos-sound
+Terminal=false
+Categories=Settings;HardwareSettings;Audio;
+Keywords=sound;volume;audio;speaker;microphone;output;input;mixer;
+# Opens the MuhOS sound window, so it is hidden in other desktops (see
+# muhos-settings.desktop).
+NotShowIn=GNOME;KDE;XFCE;

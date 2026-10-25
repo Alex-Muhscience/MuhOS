@@ -38,6 +38,8 @@ check "upstream autostart does not enable easyeffects" bash -c '! grep -q easyef
 check "Hyprland loads the MuhOS glass rule" grep -qx 'require("config/muhos")' /usr/share/muhos/hypr/hyprland.lua
 check "Adwaita symbolic icons installed" test -f /usr/share/icons/Adwaita/symbolic/status/network-wireless-signal-excellent-symbolic.svg
 check "MuhOS Settings app entry" grep -q "^Exec=muhos msg open guide$" /usr/share/applications/muhos-settings.desktop
+check "Sound app entry opens the MuhOS sound window" grep -q "^Exec=muhos msg open volume$" /usr/share/applications/muhos-sound.desktop
+check "Sound app icon installed" test -f /usr/share/icons/hicolor/scalable/apps/muhos-sound.svg
 check "session entry for GDM" grep -q '^Exec=/usr/bin/muhos-session$' /usr/share/wayland-sessions/muhos.desktop
 check "PAM service uses system-auth" grep -q 'include *system-auth' /etc/pam.d/serpantinum
 check "no installer or telemetry shipped" bash -c '! rpm -ql muhos | grep -qE "/install/|telemetry"'

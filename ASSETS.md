@@ -22,8 +22,8 @@ Excluded from this inventory: nothing.
 | Status | Files | Size | Redistributable |
 |---|---:|---:|:---:|
 | generated | 27 | 135.9 KiB | yes |
-| ok | 87 | 95.5 MiB | yes |
-| **total** | **114** | **95.7 MiB** | |
+| ok | 88 | 95.5 MiB | yes |
+| **total** | **115** | **95.7 MiB** | |
 
 ## Assets
 
@@ -70,6 +70,7 @@ Excluded from this inventory: nothing.
 | `docs/screenshots/osd.webp` | image | 1.5 KiB | ok | AGPL-3.0-or-later (screenshots of MuhOS… |  |  | `0ca7a404e8c2` |
 | `docs/screenshots/settings.webp` | image | 24.6 KiB | ok | AGPL-3.0-or-later (screenshots of MuhOS… |  |  | `20c776d0305a` |
 | `docs/screenshots/tiling.webp` | image | 34.5 KiB | ok | AGPL-3.0-or-later (screenshots of MuhOS… |  |  | `a21a84722a2d` |
+| `packaging/fedora/icons/muhos-sound.svg` | image | 829 B | ok | AGPL-3.0-or-later (MuhOS original app i… |  |  | `16dd88abf54a` |
 | `src/assets/fonts/0xProtoNerdFont-Regular.ttf` | font | 2.3 MiB | ok | OFL-1.1 — 0xProto-LICENSE.txt | 0xType Project Authors (https://github.com/0xType) |  | `014921bcefcb` |
 | `src/assets/fonts/3270NerdFont-Regular.ttf` | font | 2.5 MiB | ok | OFL-1.1 — 3270-LICENSE.txt | This Font Software is licensed under the SIL Open Font License, Version 1.1. This license… |  | `78540c388022` |
 | `src/assets/fonts/AdwaitaMonoNerdFont-Regular.ttf` | font | 3.8 MiB | ok | OFL-1.1 (embedded; copyright in each fi… | This font software is licensed under the SIL Open Font License, Version 1.1. This license… |  | `bcd970a74682` |

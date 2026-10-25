@@ -13,6 +13,16 @@
   "rules": [
     {
       "match": [
+        "packaging/fedora/icons/*.svg"
+      ],
+      "status": "ok",
+      "license": "AGPL-3.0-or-later (MuhOS original app icons, on the MuhOS tile)",
+      "license_files": [
+        "LICENSE.md"
+      ]
+    },
+    {
+      "match": [
         "docs/assets/muhos-tile.svg"
       ],
       "status": "ok",

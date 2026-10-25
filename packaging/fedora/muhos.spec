@@ -5,7 +5,7 @@
 
 Name:           muhos
 Version:        0.1.0
-Release:        0.12%{?dist}
+Release:        0.13%{?dist}
 Summary:        Desktop shell for Hyprland on Fedora, based on Serpantinum
 
 # Code, MuhOS sounds and images: AGPL-3.0-or-later.
@@ -152,6 +152,8 @@ install -m 0755 packaging/fedora/muhos-session %{buildroot}%{_bindir}/muhos-sess
 
 install -Dm 0644 packaging/fedora/muhos.desktop %{buildroot}%{_datadir}/wayland-sessions/muhos.desktop
 install -Dm 0644 packaging/fedora/muhos-settings.desktop %{buildroot}%{_datadir}/applications/muhos-settings.desktop
+install -Dm 0644 packaging/fedora/muhos-sound.desktop %{buildroot}%{_datadir}/applications/muhos-sound.desktop
+install -Dm 0644 packaging/fedora/icons/muhos-sound.svg %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/muhos-sound.svg
 install -Dm 0644 packaging/fedora/muhos-shell.service %{buildroot}%{_userunitdir}/muhos-shell.service
 install -Dm 0644 packaging/fedora/muhos-session.target %{buildroot}%{_userunitdir}/muhos-session.target
 install -Dm 0644 packaging/fedora/pam-serpantinum %{buildroot}%{_sysconfdir}/pam.d/serpantinum
@@ -161,6 +163,7 @@ bash -n %{buildroot}%{_bindir}/muhos-session
 sh -n %{buildroot}%{_libexecdir}/%{name}/muhos-shell
 for f in %{buildroot}%{_datadir}/%{name}/bin/*; do bash -n "$f"; done
 desktop-file-validate %{buildroot}%{_datadir}/applications/muhos-settings.desktop
+desktop-file-validate %{buildroot}%{_datadir}/applications/muhos-sound.desktop
 python3 -I tools/asset-inventory --strict
 
 %files
@@ -174,11 +177,17 @@ python3 -I tools/asset-inventory --strict
 %{_datadir}/%{name}/
 %{_datadir}/wayland-sessions/muhos.desktop
 %{_datadir}/applications/muhos-settings.desktop
+%{_datadir}/applications/muhos-sound.desktop
+%{_datadir}/icons/hicolor/scalable/apps/muhos-sound.svg
 %{_userunitdir}/muhos-shell.service
 %{_userunitdir}/muhos-session.target
 %config(noreplace) %{_sysconfdir}/pam.d/serpantinum
 
 %changelog
+* Sun Oct 25 2026 MuhOS contributors - 0.1.0-0.13
+- Sound app entry and icon for the MuhOS sound window; close button on it
+- Control centre: arrow beside the volume slider opens the sound window
+
 * Sun Oct 25 2026 MuhOS contributors - 0.1.0-0.12
 - macOS-style glass: frosted blur, glass dock with magnification, Spotlight-style
   launcher, notification banners and centre, on-screen indicator, lock screen
