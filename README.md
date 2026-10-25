@@ -420,10 +420,13 @@ scenario, median reported. Reports are in [bench/results/](bench/results/).
 | New welcome screen (0.1.0-0.5) | Shell CPU while the first-run screen is shown: 130% → 0.5% of a core |
 | New menu bar (0.1.0-0.10) | Idle shell CPU 0.52% → 0.07%; shell memory 503 → 473 MiB |
 | Hybrid design (0.1.0-0.11) | Shell unchanged (0.07%, 471 MiB) |
+| Glass design (0.1.0-0.12) | No measurable change: shell 0.07%, 473 MiB; Hyprland 203 MiB |
 
 Known regression: Hyprland's own memory has grown from 175 MiB (0.1.0-0.1) to
-203 MiB (0.1.0-0.11). The likely cause is blur on a larger bar surface; it is
-being investigated, and `"solidPanels"` does not avoid it yet.
+203 MiB (0.1.0-0.11, unchanged in 0.12). It is not the blur settings or the
+number of blurred surfaces, which did not move it; the cause is still being
+investigated. Not yet measured: blur cost on a real GPU while windows move
+under the glass.
 
 ## Troubleshooting
 
