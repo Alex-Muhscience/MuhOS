@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
-// Control-centre slider: icon button (e.g. mute) plus a rounded track.
+// Control-centre slider: icon button (e.g. mute) plus a rounded track, and
+// optionally an arrow at the end that opens more settings (as in GNOME).
 import QtQuick
 import "../"
 
@@ -8,8 +9,10 @@ Item {
 
     property string icon: ""
     property real value: 0          // 0..1
+    property bool hasMenu: false
     signal moved(real value)
     signal iconClicked()
+    signal menuRequested()
 
     implicitHeight: MuhosStyle.s(36)
 
@@ -24,11 +27,23 @@ Item {
         AdwIcon { name: root.icon; size: MuhosStyle.iconLarge }
     }
 
+    GlassButton {
+        id: menuButton
+        anchors.right: parent.right
+        anchors.verticalCenter: parent.verticalCenter
+        visible: root.hasMenu
+        padding: 0
+        implicitWidth: MuhosStyle.s(32)
+        implicitHeight: MuhosStyle.s(32)
+        onClicked: root.menuRequested()
+        AdwIcon { name: "go-next"; size: MuhosStyle.s(14) }
+    }
+
     Item {
         id: track
         anchors.left: iconButton.right
         anchors.leftMargin: MuhosStyle.s(10)
-        anchors.right: parent.right
+        anchors.right: menuButton.visible ? menuButton.left : parent.right
         anchors.rightMargin: MuhosStyle.s(6)
         anchors.verticalCenter: parent.verticalCenter
         height: MuhosStyle.s(24)

@@ -245,6 +245,8 @@ PanelWindow {
                         value: MuhosState.muted ? 0 : MuhosState.volume
                         onMoved: v => MuhosState.setVolume(v)
                         onIconClicked: if (MuhosState.sinkAudio) MuhosState.sinkAudio.muted = !MuhosState.sinkAudio.muted
+                        hasMenu: true
+                        onMenuRequested: MuhosCommands.toggle("volume")
                     }
                     CcSlider {
                         width: parent.width
