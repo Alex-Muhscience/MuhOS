@@ -11,6 +11,7 @@ CcMenuItem 1.0 CcMenuItem.qml
 ControlCentre 1.0 ControlCentre.qml
 MuhosLauncher 1.0 MuhosLauncher.qml
 MuhosBanners 1.0 MuhosBanners.qml
+MuhosOsd 1.0 MuhosOsd.qml
 NotificationCentre 1.0 NotificationCentre.qml
 MuhosBar 1.0 MuhosBar.qml
 singleton MuhosStyle 1.0 MuhosStyle.qml

@@ -58,7 +58,8 @@ PanelWindow {
         return true;
     }
 
-    property bool isVisible: OsdController.isVisible && isToggleAllowed
+    // MuhOS: the glass indicator (muhos/MuhosOsd.qml) takes over in the MuhOS design.
+    property bool isVisible: OsdController.isVisible && isToggleAllowed && !MuhosStyle.designActive
 
     readonly property color toggleActiveColor: {
         if (kind === "capslock") return capsColor;

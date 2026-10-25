@@ -78,6 +78,10 @@ ShellRoot {
         MuhosBanners {}
     }
     LazyLoader {
+        active: MuhosStyle.designActive
+        MuhosOsd {}
+    }
+    LazyLoader {
         active: MuhosStyle.designActive && notificationCentreUsed
         NotificationCentre {}
     }
