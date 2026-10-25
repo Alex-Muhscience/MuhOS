@@ -118,7 +118,9 @@ whatever is behind them, with a soft sheen and a light edge, as on macOS.
 - **Control centre.** GNOME's system menu in glass: toggles for Wi-Fi (or
   Wired), Bluetooth, power mode, night light, dark style and do not disturb,
   with arrows into the network and Bluetooth panels; volume and brightness
-  sliders (brightness only where a backlight or DDC display exists);
+  sliders (brightness only where a backlight or DDC display exists), with an
+  arrow from volume into the sound window (devices, inputs, per-app sound;
+  also the "Sound" app);
   screenshot, settings and lock buttons; and a power menu with suspend,
   restart, power off and log out. Escape or a click outside closes it.
 - **Dock.** A floating glass dock: icons sit on the glass without tiles and
