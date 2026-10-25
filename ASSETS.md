@@ -22,8 +22,8 @@ Excluded from this inventory: nothing.
 | Status | Files | Size | Redistributable |
 |---|---:|---:|:---:|
 | generated | 27 | 135.9 KiB | yes |
-| ok | 82 | 95.5 MiB | yes |
-| **total** | **109** | **95.6 MiB** | |
+| ok | 87 | 95.5 MiB | yes |
+| **total** | **114** | **95.7 MiB** | |
 
 ## Assets
 
@@ -57,14 +57,19 @@ Excluded from this inventory: nothing.
 | `src/assets/shaders/widgets/pacman.frag.qsb` | shader-binary | 2.6 KiB | generated | AGPL-3.0-or-later (compiled from .frag) |  | Rebuild with qsb during RPM build | `ac77565dcb38` |
 | `src/assets/shaders/widgets/widget_outline.frag.qsb` | shader-binary | 4.1 KiB | generated | AGPL-3.0-or-later (compiled from .frag) |  | Rebuild with qsb during RPM build | `1981dcdd25a1` |
 | `docs/assets/muhos-tile.svg` | image | 1014 B | ok | AGPL-3.0-or-later (MuhOS mark on a tile… |  |  | `0d3b9593507a` |
-| `docs/screenshots/clock-island.webp` | image | 3.3 KiB | ok | AGPL-3.0-or-later (screenshots of MuhOS… |  |  | `e38335860776` |
-| `docs/screenshots/control-centre.webp` | image | 10.7 KiB | ok | AGPL-3.0-or-later (screenshots of MuhOS… |  |  | `b310c888a40d` |
-| `docs/screenshots/desktop-dark.webp` | image | 27.7 KiB | ok | AGPL-3.0-or-later (screenshots of MuhOS… |  |  | `5e902dc68980` |
-| `docs/screenshots/desktop-light.webp` | image | 26.7 KiB | ok | AGPL-3.0-or-later (screenshots of MuhOS… |  |  | `9c506ced23b2` |
-| `docs/screenshots/launcher.webp` | image | 13.6 KiB | ok | AGPL-3.0-or-later (screenshots of MuhOS… |  |  | `a6f1531b4d4e` |
+| `docs/screenshots/calculator.webp` | image | 4.8 KiB | ok | AGPL-3.0-or-later (screenshots of MuhOS… |  |  | `2c756be9c170` |
+| `docs/screenshots/clock-island.webp` | image | 3.6 KiB | ok | AGPL-3.0-or-later (screenshots of MuhOS… |  |  | `ab34bb3914d8` |
+| `docs/screenshots/control-centre.webp` | image | 11.3 KiB | ok | AGPL-3.0-or-later (screenshots of MuhOS… |  |  | `520f59d778a2` |
+| `docs/screenshots/desktop-dark.webp` | image | 29.7 KiB | ok | AGPL-3.0-or-later (screenshots of MuhOS… |  |  | `1480f3cf2fa2` |
+| `docs/screenshots/desktop-light.webp` | image | 27.8 KiB | ok | AGPL-3.0-or-later (screenshots of MuhOS… |  |  | `4c879daa7a58` |
+| `docs/screenshots/launcher.webp` | image | 16.8 KiB | ok | AGPL-3.0-or-later (screenshots of MuhOS… |  |  | `e59ef2761af2` |
+| `docs/screenshots/lock-screen.webp` | image | 30.1 KiB | ok | AGPL-3.0-or-later (screenshots of MuhOS… |  |  | `36bd39571822` |
 | `docs/screenshots/music.webp` | image | 18.4 KiB | ok | AGPL-3.0-or-later (screenshots of MuhOS… |  |  | `e1f72891452b` |
-| `docs/screenshots/settings.webp` | image | 26.1 KiB | ok | AGPL-3.0-or-later (screenshots of MuhOS… |  |  | `543a4407553e` |
-| `docs/screenshots/tiling.webp` | image | 33.4 KiB | ok | AGPL-3.0-or-later (screenshots of MuhOS… |  |  | `f2e2f9093530` |
+| `docs/screenshots/notification-centre.webp` | image | 28.4 KiB | ok | AGPL-3.0-or-later (screenshots of MuhOS… |  |  | `1badc610004b` |
+| `docs/screenshots/notifications.webp` | image | 14.4 KiB | ok | AGPL-3.0-or-later (screenshots of MuhOS… |  |  | `802ac2769694` |
+| `docs/screenshots/osd.webp` | image | 1.5 KiB | ok | AGPL-3.0-or-later (screenshots of MuhOS… |  |  | `0ca7a404e8c2` |
+| `docs/screenshots/settings.webp` | image | 24.6 KiB | ok | AGPL-3.0-or-later (screenshots of MuhOS… |  |  | `20c776d0305a` |
+| `docs/screenshots/tiling.webp` | image | 34.5 KiB | ok | AGPL-3.0-or-later (screenshots of MuhOS… |  |  | `a21a84722a2d` |
 | `src/assets/fonts/0xProtoNerdFont-Regular.ttf` | font | 2.3 MiB | ok | OFL-1.1 — 0xProto-LICENSE.txt | 0xType Project Authors (https://github.com/0xType) |  | `014921bcefcb` |
 | `src/assets/fonts/3270NerdFont-Regular.ttf` | font | 2.5 MiB | ok | OFL-1.1 — 3270-LICENSE.txt | This Font Software is licensed under the SIL Open Font License, Version 1.1. This license… |  | `78540c388022` |
 | `src/assets/fonts/AdwaitaMonoNerdFont-Regular.ttf` | font | 3.8 MiB | ok | OFL-1.1 (embedded; copyright in each fi… | This font software is licensed under the SIL Open Font License, Version 1.1. This license… |  | `bcd970a74682` |

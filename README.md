@@ -19,7 +19,7 @@
 </p>
 
 <p align="center">
-  <img src="docs/screenshots/desktop-dark.webp" alt="MuhOS desktop in dark mode: transparent menu bar, the clock island expanded into a music player, and the control centre open" width="100%">
+  <img src="docs/screenshots/desktop-dark.webp" alt="MuhOS desktop in dark mode: transparent menu bar, the clock island expanded into a music player, the control centre open and the glass dock" width="100%">
 </p>
 
 MuhOS is a desktop shell for the [Hyprland](https://hyprland.org/) compositor
@@ -32,9 +32,10 @@ Miroshnichenko.
 > [!NOTE]
 > **Pre-release.** The package builds, passes its install tests, and a full
 > GDM login session works in Fedora 44 virtual machines. It has not been
-> validated on real hardware yet. The redesign is in progress: the menu bar
-> and control centre are new; the dock, launcher, notifications and lock
-> screen still use Serpantinum's design. Expect rough edges, and please
+> validated on real hardware yet. The menu bar, control centre, dock,
+> launcher, notifications, on-screen indicator and lock screen are MuhOS's
+> own glass design; the music, network, wallpaper and settings windows still
+> use Serpantinum's. Expect rough edges, and please
 > [report them](https://github.com/Alex-Muhscience/MuhOS/issues).
 
 ## Contents
@@ -62,32 +63,45 @@ Miroshnichenko.
 
 <table>
   <tr>
-    <td width="50%"><img src="docs/screenshots/desktop-light.webp" alt="Light mode: dark menu-bar text over a light wallpaper, light control centre with the accent taken from the wallpaper"></td>
-    <td width="50%"><img src="docs/screenshots/tiling.webp" alt="Tiled windows: Files and the Decibels audio player side by side under the transparent menu bar"></td>
+    <td width="50%"><img src="docs/screenshots/desktop-light.webp" alt="Light mode: dark menu-bar text over a light wallpaper, the light control centre and the glass dock"></td>
+    <td width="50%"><img src="docs/screenshots/tiling.webp" alt="Tiled windows: the Decibels audio player and Files side by side under the transparent menu bar"></td>
   </tr>
   <tr>
     <td align="center"><b>Light mode.</b> Bar text adapts to the wallpaper; the accent comes from it too.</td>
     <td align="center"><b>Tiling.</b> Hyprland arranges windows; the menu bar stays out of the way.</td>
   </tr>
   <tr>
-    <td><img src="docs/screenshots/launcher.webp" alt="App launcher with Applications, Files and Emojis tabs"></td>
+    <td><img src="docs/screenshots/launcher.webp" alt="Spotlight-style launcher: the query muhos finds the MuhOS Settings app, the Settings action and three files"></td>
+    <td><img src="docs/screenshots/notifications.webp" alt="Three glass notification banners: a screenshot with its preview, a Firefox update with Restart and Later buttons, and a calendar reminder"></td>
+  </tr>
+  <tr>
+    <td align="center"><b>Launcher.</b> Apps, system actions, files and a calculator in one search.</td>
+    <td align="center"><b>Notifications.</b> Glass banners with pictures and action buttons.</td>
+  </tr>
+  <tr>
+    <td><img src="docs/screenshots/notification-centre.webp" alt="Notification centre: a list of notifications with Clear all and a Do Not Disturb switch, beside today's date and a month calendar"></td>
+    <td><img src="docs/screenshots/lock-screen.webp" alt="Lock screen: blurred wallpaper, a large clock, now playing and notification titles, the user's picture and a glass password field"></td>
+  </tr>
+  <tr>
+    <td align="center"><b>Notification centre.</b> Click the clock: notifications and a calendar.</td>
+    <td align="center"><b>Lock screen.</b> Notification titles only; message contents stay private.</td>
+  </tr>
+  <tr>
     <td><img src="docs/screenshots/music.webp" alt="Music popup with cover, playback controls and a ten-band equalizer with presets"></td>
+    <td><img src="docs/screenshots/settings.webp" alt="MuhOS Settings window with the red close button beside its title and sections from Welcome to About"></td>
   </tr>
   <tr>
-    <td align="center"><b>Launcher.</b> Apps, files, emoji, and commands with <code>&gt;</code>.</td>
     <td align="center"><b>Music.</b> Equalizer with presets, lyrics, output switching.</td>
-  </tr>
-  <tr>
-    <td colspan="2"><img src="docs/screenshots/settings.webp" alt="MuhOS Settings app with sections from Welcome to About"></td>
-  </tr>
-  <tr>
-    <td colspan="2" align="center"><b>Settings.</b> Display, theme, bar, dock, launcher, notifications, idle and more, all in one app.</td>
+    <td align="center"><b>Settings.</b> Display, theme, bar, dock, notifications, idle and more.</td>
   </tr>
 </table>
 
 ## Features
 
-### The MuhOS interface (new)
+### The MuhOS interface
+
+Every MuhOS surface is frosted glass: translucent panels over a blur of
+whatever is behind them, with a soft sheen and a light edge, as on macOS.
 
 <img src="docs/screenshots/control-centre.webp" alt="Control centre: pill toggles, volume slider and session buttons" width="360" align="right">
 
@@ -98,41 +112,71 @@ Miroshnichenko.
   wallpapers and light over dark ones, per screen. Scroll on the dots to
   switch workspace, on the status icons to change the volume.
 - **Clock island.** While music plays, the clock shows the cover and a small
-  live visualizer; click it to expand it into a player with progress and
-  controls. Without music, it opens the calendar.
+  live visualizer; click it to expand it into a player. Otherwise a click
+  (or a right-click at any time) opens the notification centre. A dot marks
+  unread notifications.
 - **Control centre.** GNOME's system menu in glass: toggles for Wi-Fi (or
   Wired), Bluetooth, power mode, night light, dark style and do not disturb,
   with arrows into the network and Bluetooth panels; volume and brightness
   sliders (brightness only where a backlight or DDC display exists);
   screenshot, settings and lock buttons; and a power menu with suspend,
   restart, power off and log out. Escape or a click outside closes it.
+- **Dock.** A floating glass dock: icons sit on the glass without tiles and
+  magnify under the pointer, with their neighbours growing a little too.
+  Running apps get a dot; pinned apps, app menus and auto-hide work as before.
+
+<br clear="right">
+
+<img src="docs/screenshots/calculator.webp" alt="Launcher answering 18*7+2 with 128, ready to copy" width="420" align="right">
+
+- **Launcher.** Spotlight-style: <kbd>Super</kbd>+<kbd>D</kbd> or the logo
+  opens one search field. Before you type it suggests the apps you use most;
+  as you type it shows apps (ranked by how well they match and how often you
+  use them), system actions (settings, wallpapers, control centre, clipboard,
+  screenshot, night light, dark style, do not disturb, lock, and after three
+  letters sleep, restart, power off and log out), files from your main
+  folders, and a calculator answer that <kbd>Enter</kbd> copies.
+- **Notifications.** Banners slide in at the top right with the app icon,
+  any picture sent with them (a screenshot preview, say) and action buttons.
+  They wait while you hover, swipe away to the right, and critical alerts
+  stay until dismissed. Do Not Disturb holds back everything but critical
+  alerts, which still reach the notification centre.
+- **Notification centre.** Opened from the clock: your notifications with
+  dismiss and Clear all, a Do Not Disturb switch, and today's date with a
+  month calendar that links to the full calendar and weather.
+
+<br clear="right">
+
+<img src="docs/screenshots/osd.webp" alt="Volume indicator: a glass pill with a speaker icon, a level bar and 55%" width="320" align="right">
+
+- **On-screen indicator.** A glass pill under the status icons for volume,
+  microphone and brightness (drag or scroll it to adjust) and for caps lock,
+  num lock and airplane mode.
+- **Lock screen.** The wallpaper blurred, a large clock, what is playing and
+  notification titles (never their contents), and your picture with a glass
+  password field. It authenticates through PAM (`system-auth`), so your
+  normal password works.
 - **Adwaita icons and wallpaper colours.** Symbols come from GNOME's Adwaita
   icon theme, apps show their own icons, and the accent colour is generated
   from your wallpaper. Light and dark modes are both supported.
 
-<img src="docs/screenshots/clock-island.webp" alt="Clock island expanded into a music player" width="360">
-
 <br clear="right">
+
+<img src="docs/screenshots/clock-island.webp" alt="Clock island expanded into a music player" width="420">
 
 ### From Serpantinum
 
-These come from Serpantinum and keep its design for now; MuhOS is
-redesigning them next.
+These come from Serpantinum and keep its design:
 
 | | |
 |---|---|
-| **Launcher** | Applications, files and emoji, with frequently used items first; type `>` for commands. |
 | **Music** | Player popup with cover, ten-band equalizer and presets, synced lyrics, audio output switching. |
-| **Dock** | Pinned and running apps, with app menus. |
-| **Notifications** | Popups and a notification centre, with do not disturb. |
 | **Clipboard** | History of copied text and images (cliphist), searchable. |
 | **Wallpapers and themes** | Picker for images and video wallpapers; colours generated from the wallpaper (Matugen) or one of 96 preset themes. |
 | **Screenshots** | Region or full screen, an editor, screen recording and QR-code scanning. |
 | **Network, Bluetooth, volume** | Popups for Wi-Fi networks, Bluetooth devices, and per-app volume. |
 | **Calendar and weather** | Month view and forecast. |
-| **On-screen display** | Volume, brightness, caps lock, num lock and airplane mode indicators. |
 | **Desktop widgets** | Clock, weather, music, visualizer, battery, system usage, user, image and GitHub widgets, placed with a built-in editor. |
-| **Lock screen** | Authenticates through PAM (`system-auth`), so it works with your normal password. |
 | **Night light** | Colour temperature with an automatic day/night schedule. |
 | **Idle** | Dim, lock and suspend after configurable times; a keep-awake switch. |
 | **Wellbeing** | Focus-time tracking. |
@@ -153,9 +197,10 @@ redesigning them next.
   in `~/.config/muhos/hypr/`: a small `hyprland.lua` that loads the packaged
   defaults, plus your own `user.lua`. Package updates improve the defaults
   without overwriting your changes.
-- **Its own interface.** The menu bar and control centre are rebuilt (see
-  [Features](#features)), and they open popups directly instead of starting a
-  helper script and a second Quickshell process for every click.
+- **Its own interface.** The menu bar, control centre, launcher,
+  notifications, on-screen indicator and lock screen are rebuilt and the dock
+  restyled (see [Features](#features)); they open popups directly instead of
+  starting a helper script and a second Quickshell process for every click.
 - **Every bundled asset is cleared for redistribution.** Fonts, sounds and
   images each have a recorded source and license ([ASSETS.md](ASSETS.md));
   material without one was removed or replaced with openly licensed or
@@ -255,7 +300,10 @@ folder.
   pick.
 - **Weather.** Stays off until you set a location in Settings → General →
   Location (see [Privacy](#privacy)).
-- **Apps.** Press <kbd>Super</kbd>+<kbd>D</kbd> or click the logo.
+- **Apps and search.** Press <kbd>Super</kbd>+<kbd>D</kbd> or click the logo.
+- **Notifications and calendar.** Click the clock.
+- **Quick settings.** Click the network, volume and battery icons at the top
+  right.
 
 ## Keyboard shortcuts
 
@@ -263,7 +311,7 @@ folder.
 
 | Shortcut | Action |
 |---|---|
-| <kbd>Super</kbd>+<kbd>D</kbd> | App launcher |
+| <kbd>Super</kbd>+<kbd>D</kbd> | Launcher: apps, files, actions, calculator |
 | <kbd>Super</kbd>+<kbd>Enter</kbd> | Terminal (kitty) |
 | <kbd>Super</kbd>+<kbd>E</kbd> | Files |
 | <kbd>Super</kbd>+<kbd>F</kbd> | Firefox |
@@ -324,7 +372,9 @@ Check it with `Hyprland --verify-config -c ~/.config/muhos/hypr/hyprland.lua`.
 
 | Setting | Effect |
 |---|---|
-| `"bar": { "design": "classic" }` | Use Serpantinum's original bar instead of the MuhOS menu bar. Side bars and an auto-hiding bar also use it for now. |
+| `"bar": { "design": "classic" }` | Use Serpantinum's original design everywhere: its bar, dock style, launcher, notifications, indicator and lock screen. |
+| `"bar": { "position": "left" }` or `"autohide": true` | The MuhOS menu bar does not cover side bars or auto-hiding yet, so these use Serpantinum's bar (the rest stays MuhOS). |
+| `"dock": { "hoverScale": 160, "cascadeScale": true }` | Dock magnification (percent) and whether neighbours grow too; also in Settings → Dock. |
 | `"muhos": { "solidPanels": true }` | Solid panels instead of glass (like "reduce transparency" on macOS). |
 | `"general": { "ipGeolocation": true }` | Look up your location from your IP address automatically (off by default). |
 
@@ -336,7 +386,8 @@ Check it with `Hyprland --verify-config -c ~/.config/muhos/hypr/hyprland.lua`.
 muhos msg toggle launcher        # open or close a popup: launcher, music, calendar,
                                  #   network, volume, system, wallpaper, guide, clipboard
 muhos msg workspace 3            # switch workspace (add "move" to move the window)
-muhos ipc call muhos controlCentre   # open or close the control centre
+muhos ipc call muhos controlCentre        # open or close the control centre
+muhos ipc call muhos notificationCentre   # open or close the notification centre
 muhos screenshot --full --edit   # also: --record, --scan-qr
 muhos lock                       # lock the screen
 muhos reload                     # reload the shell
@@ -388,6 +439,9 @@ muhos reload                                     # restart the shell's interface
 - **The bar looks like Serpantinum's.** The MuhOS bar is replaced by the
   classic one when the bar is set to a side or to auto-hide, or when
   `bar.design` is `"classic"`.
+- **The dock has tiles or does not magnify.** The MuhOS dock settings are
+  defaults for new users; if you changed dock settings before, set
+  floating, magnification and cascade in Settings → Dock.
 - **Dark Style does nothing.** It switches the wallpaper-generated colours
   between light and dark; with a preset theme selected in Settings → Theme,
   pick a light or dark preset there instead.
@@ -429,7 +483,7 @@ asset check and the lint check on every push.
 | Path | Contents |
 |---|---|
 | `src/quickshell/` | The shell (QML) |
-| `src/quickshell/muhos/` | MuhOS's own interface: menu bar, control centre, design tokens |
+| `src/quickshell/muhos/` | MuhOS's own interface: menu bar, control centre, launcher, notifications, indicator, lock screen, glass and design tokens |
 | `src/scripts/`, `bin/` | Helper scripts and the command-line tools |
 | `src/assets/` | Fonts, sounds, shaders, themes, translations, wallpapers |
 | `compositors/` | Default compositor configuration (Hyprland is the one MuhOS uses) |
@@ -448,7 +502,8 @@ asset check and the lint check on every push.
 - [x] Assets cleared for redistribution; MuhOS branding
 - [x] VM test harness and reproducible benchmarks
 - [x] New welcome screen, menu bar, clock island, control centre
-- [ ] Redesign the dock (magnification, Adwaita look), notifications, launcher and lock screen
+- [x] Glass design: dock with magnification, Spotlight-style launcher, notifications and notification centre, on-screen indicator, lock screen
+- [ ] Music, network, wallpaper and settings windows in the glass style
 - [ ] Desktop clock and weather widget in the new style
 - [ ] Find and fix Hyprland's memory growth from blur
 - [ ] Optional macOS-style icon theme (WhiteSur)
