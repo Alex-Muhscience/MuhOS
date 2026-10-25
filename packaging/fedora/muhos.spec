@@ -5,7 +5,7 @@
 
 Name:           muhos
 Version:        0.1.0
-Release:        0.11%{?dist}
+Release:        0.12%{?dist}
 Summary:        Desktop shell for Hyprland on Fedora, based on Serpantinum
 
 # Code, MuhOS sounds and images: AGPL-3.0-or-later.
@@ -179,6 +179,12 @@ python3 -I tools/asset-inventory --strict
 %config(noreplace) %{_sysconfdir}/pam.d/serpantinum
 
 %changelog
+* Sun Oct 25 2026 MuhOS contributors - 0.1.0-0.12
+- macOS-style glass: frosted blur, glass dock with magnification, Spotlight-style
+  launcher, notification banners and centre, on-screen indicator, lock screen
+- Settings window: close button no longer covers the page's controls
+- New users get the MuhOS dock settings at first login
+
 * Mon Oct 19 2026 MuhOS contributors - 0.1.0-0.11
 - Hybrid menu bar and control centre; Adwaita icons replace Fluent and Material Symbols
 - Blur rules per MuhOS surface (bar island, control centre, welcome screen)
