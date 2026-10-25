@@ -423,9 +423,8 @@ scenario, median reported. Reports are in [bench/results/](bench/results/).
 | Glass design (0.1.0-0.12) | No measurable change: shell 0.07%, 473 MiB; Hyprland 203 MiB |
 
 Known regression: Hyprland's own memory has grown from 175 MiB (0.1.0-0.1) to
-203 MiB (0.1.0-0.11, unchanged in 0.12). It is not the blur settings or the
-number of blurred surfaces, which did not move it; the cause is still being
-investigated. Not yet measured: blur cost on a real GPU while windows move
+203 MiB (0.1.0-0.11, unchanged in 0.12). A stronger blur and the newly
+blurred dock did not move it; the cause is still being investigated. Not yet measured: blur cost on a real GPU while windows move
 under the glass.
 
 ## Troubleshooting
