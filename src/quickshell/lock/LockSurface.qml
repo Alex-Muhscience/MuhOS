@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Window
 import Quickshell.Wayland
+import "../"
 
 WlSessionLockSurface {
     id: lockSurface
@@ -12,14 +13,39 @@ WlSessionLockSurface {
     required property var sReloadProcess
     required property var sPoweroffProcess
 
-    LockScreen {
-        surface: lockSurface
-        root: lockSurface.sRoot
-        rootLock: lockSurface.sRootLock
-        pam: lockSurface.sPam
-        lockUI: lockSurface.sLockUI
-        suspendProcess: lockSurface.sSuspendProcess
-        reloadProcess: lockSurface.sReloadProcess
-        poweroffProcess: lockSurface.sPoweroffProcess
+    // MuhOS: the macOS-style lock screen in the MuhOS design. Both screens get
+    // the same objects; authentication stays in Lock.qml either way.
+    Loader {
+        anchors.fill: parent
+        focus: true
+        sourceComponent: MuhosStyle.designActive ? muhosScreen : upstreamScreen
+    }
+
+    Component {
+        id: upstreamScreen
+        LockScreen {
+            surface: lockSurface
+            root: lockSurface.sRoot
+            rootLock: lockSurface.sRootLock
+            pam: lockSurface.sPam
+            lockUI: lockSurface.sLockUI
+            suspendProcess: lockSurface.sSuspendProcess
+            reloadProcess: lockSurface.sReloadProcess
+            poweroffProcess: lockSurface.sPoweroffProcess
+        }
+    }
+
+    Component {
+        id: muhosScreen
+        MuhosLockScreen {
+            surface: lockSurface
+            root: lockSurface.sRoot
+            rootLock: lockSurface.sRootLock
+            pam: lockSurface.sPam
+            lockUI: lockSurface.sLockUI
+            suspendProcess: lockSurface.sSuspendProcess
+            reloadProcess: lockSurface.sReloadProcess
+            poweroffProcess: lockSurface.sPoweroffProcess
+        }
     }
 }

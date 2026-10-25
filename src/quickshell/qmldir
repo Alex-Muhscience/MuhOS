@@ -11,6 +11,7 @@ ControlCentre 1.0 muhos/ControlCentre.qml
 MuhosLauncher 1.0 muhos/MuhosLauncher.qml
 MuhosBanners 1.0 muhos/MuhosBanners.qml
 MuhosOsd 1.0 muhos/MuhosOsd.qml
+MuhosLockScreen 1.0 muhos/MuhosLockScreen.qml
 NotificationCentre 1.0 muhos/NotificationCentre.qml
 Floating 1.0 quickactions/Floating.qml
 Clipboard 1.0 clipboard/Clipboard.qml
