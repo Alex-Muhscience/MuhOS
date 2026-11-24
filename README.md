@@ -94,6 +94,14 @@ Miroshnichenko. Website: **[alex-muhscience.github.io/MuhOS](https://alex-muhsci
     <td align="center"><b>Music.</b> Equalizer with presets, lyrics, output switching.</td>
     <td align="center"><b>Settings.</b> Accent colours, presets, fonts, bar, dock, notifications and more.</td>
   </tr>
+  <tr>
+    <td><img src="docs/screenshots/app-grid.webp" alt="App grid: every installed app as a large icon over the blurred desktop, a search field on top and the dock below"></td>
+    <td><img src="docs/screenshots/equalizer.webp" alt="Equaliser window: preset chips with Rock selected, a frequency-response curve with ten draggable bands, balance, mono, swap and dynamics controls"></td>
+  </tr>
+  <tr>
+    <td align="center"><b>Apps.</b> Every app in a grid, from the dock; type to search.</td>
+    <td align="center"><b>Equaliser.</b> Ten bands on PipeWire, presets, balance and dynamics.</td>
+  </tr>
 </table>
 
 ## Features
@@ -103,7 +111,7 @@ Miroshnichenko. Website: **[alex-muhscience.github.io/MuhOS](https://alex-muhsci
 Every MuhOS surface is frosted glass: translucent panels over a blur of
 whatever is behind them, with a soft sheen and a light edge, as on macOS.
 
-<img src="docs/screenshots/control-centre.webp" alt="Control centre: blue pill toggles for wired network, power mode and do not disturb, night light and dark style, a volume slider with an arrow, and session buttons" width="360" align="right">
+<img src="docs/screenshots/control-centre.webp" alt="Control centre in dark mode: toggles for wired network, power mode, night light, dark style, do not disturb and the equaliser (Rock), a volume slider with an arrow, and session buttons" width="360" align="right">
 
 - **Menu bar.** Transparent over the wallpaper and laid out like macOS. On
   the left, the MuhOS logo opens a menu (About, System Settings, Search,
@@ -126,7 +134,8 @@ whatever is behind them, with a soft sheen and a light edge, as on macOS.
   apps at the next login. Windows float and open centred as on macOS;
   <kbd>Super</kbd>+<kbd>T</kbd> tiles one.
 - **Control centre.** GNOME's system menu in glass: toggles for Wi-Fi (or
-  Wired), Bluetooth, power mode, night light, dark style and do not disturb,
+  Wired), Bluetooth, power mode, night light, dark style, do not disturb and
+  the equaliser,
   with arrows into the network and Bluetooth panels; volume and brightness
   sliders (brightness only where a backlight or DDC display exists), with an
   arrow from volume into the sound window (devices, inputs, per-app sound;
@@ -143,6 +152,10 @@ whatever is behind them, with a soft sheen and a light edge, as on macOS.
   ([report](bench/results/2026-11-24-vm-eq-easyeffects-vs-filterchain.md)).
   Dynamics needs the `ladspa-swh-plugins` package (recommended, so installed
   by default).
+- **App grid.** Like the Apps view on macOS: the "Apps" icon, first in the
+  dock, shows every installed app as a large icon over the blurred desktop,
+  with a search field. Type to filter, Enter or a click opens, Escape
+  closes; the dock stays visible above it.
 - **Dock.** A floating glass dock: icons sit on the glass without tiles and
   magnify under the pointer, with their neighbours growing a little too.
   Running apps get a dot; pinned apps, app menus and auto-hide work as before.

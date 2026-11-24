@@ -58,7 +58,7 @@ Excluded from this inventory: nothing.
 | `src/assets/shaders/widgets/widget_outline.frag.qsb` | shader-binary | 4.1 KiB | generated | AGPL-3.0-or-later (compiled from .frag) |  | Rebuild with qsb during RPM build | `1981dcdd25a1` |
 | `docs/assets/muhos-tile.svg` | image | 1014 B | ok | AGPL-3.0-or-later (MuhOS mark on a tile… |  |  | `0d3b9593507a` |
 | `docs/screenshots/calculator.webp` | image | 5.0 KiB | ok | AGPL-3.0-or-later (screenshots of MuhOS… |  |  | `60fe22dced10` |
-| `docs/screenshots/control-centre.webp` | image | 10.7 KiB | ok | AGPL-3.0-or-later (screenshots of MuhOS… |  |  | `5ed39b317e40` |
+| `docs/screenshots/control-centre.webp` | image | 12.2 KiB | ok | AGPL-3.0-or-later (screenshots of MuhOS… |  |  | `208b51c044a0` |
 | `docs/screenshots/desktop-dark.webp` | image | 40.9 KiB | ok | AGPL-3.0-or-later (screenshots of MuhOS… |  |  | `9839aff0d7e9` |
 | `docs/screenshots/desktop-light.webp` | image | 43.9 KiB | ok | AGPL-3.0-or-later (screenshots of MuhOS… |  |  | `349605683359` |
 | `docs/screenshots/launcher.webp` | image | 16.4 KiB | ok | AGPL-3.0-or-later (screenshots of MuhOS… |  |  | `ee30189f72d2` |

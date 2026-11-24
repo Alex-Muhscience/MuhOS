@@ -217,3 +217,25 @@ footer h4 { color: var(--text); margin: 0 0 8px; font-size: 14px; }
 footer ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
 footer a { color: var(--text-dim); }
 @media (max-width: 720px) { footer .wrap { grid-template-columns: 1fr 1fr; } }
+
+/* Docs: contents on the left on wide screens, one column on phones. */
+.docs { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 48px; align-items: start; }
+.docs nav.toc { position: sticky; top: 72px; font-size: 14px; }
+.docs nav.toc ol { list-style: none; padding: 0; margin: 0; display: grid; gap: 2px; }
+.docs nav.toc a { display: block; padding: 5px 10px; border-radius: 8px; color: var(--text-dim); }
+.docs nav.toc a:hover { background: var(--line); color: var(--text); text-decoration: none; }
+.docs nav.toc h4 { margin: 0 0 8px 10px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-dim); }
+.docs article h2 { scroll-margin-top: 72px; margin-top: 56px; padding-top: 8px; border-top: 1px solid var(--line); font-size: clamp(26px, 3.4vw, 34px); }
+.docs article h2:first-child { margin-top: 0; border-top: 0; }
+.docs article h3 { scroll-margin-top: 72px; margin-top: 28px; }
+.docs article p, .docs article li { color: var(--text); }
+.docs article ul { padding-left: 22px; }
+.docs article li { margin: 6px 0; }
+.docs figure { margin: 20px 0; }
+.docs figure .shot { width: fit-content; max-width: 100%; }
+.docs figcaption { color: var(--text-dim); font-size: 14px; margin-top: 8px; }
+@media (max-width: 860px) {
+  .docs { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+  .docs nav.toc { position: static; border: 1px solid var(--line); border-radius: 14px; padding: 14px 8px; background: var(--bg-raised); }
+  .docs nav.toc ol { grid-template-columns: 1fr 1fr; }
+}

@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>MuhOS docs</title>
-  <meta name="description" content="Getting started with MuhOS: first steps, keyboard shortcuts, settings and troubleshooting.">
+  <title>MuhOS documentation</title>
+  <meta name="description" content="The MuhOS guide: installing, the menu bar, dock, app grid, search, control centre, notifications, equaliser, appearance, shortcuts, settings, configuration, privacy and troubleshooting.">
   <link rel="icon" href="muhos-tile.svg" type="image/svg+xml">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -22,96 +22,282 @@
   </nav>
 
   <main>
-    <header class="hero narrow" style="padding-bottom:24px">
-      <h1>Docs</h1>
-      <p class="lead">Getting around MuhOS. For everything else, including configuration files and building from source, see the <a href="https://github.com/Alex-Muhscience/MuhOS#readme">full README</a>.</p>
+    <header class="hero narrow" style="padding-bottom:16px">
+      <h1>MuhOS guide</h1>
+      <p class="lead">Everything MuhOS does and where to find it, from the first login to configuration files.</p>
     </header>
 
-    <section style="padding-top:0">
-      <div class="narrow">
-        <h2 id="first-steps">First steps</h2>
-        <div class="table-wrap">
-          <table>
-            <tr><th>Settings</th><td><kbd>Super</kbd>+<kbd>H</kbd>, System Settings in the logo menu, or "MuhOS Settings" in the dock.</td></tr>
-            <tr><th>Find apps and files</th><td><kbd>Super</kbd>+<kbd>D</kbd> or the magnifier in the menu bar.</td></tr>
-            <tr><th>Quick settings</th><td>Click the network and volume icons at the top right.</td></tr>
-            <tr><th>Notifications</th><td>Click the date and time.</td></tr>
-            <tr><th>Wallpaper</th><td><kbd>Super</kbd>+<kbd>W</kbd>. Put your own pictures in <code>~/Pictures/Wallpapers</code>.</td></tr>
-            <tr><th>Accent colour</th><td>Settings → Theme → Accent colour.</td></tr>
-            <tr><th>Sleep, restart, log out</th><td>The MuhOS logo at the top left.</td></tr>
-            <tr><th>Weather</th><td>Off until you set a location in Settings → General → Location.</td></tr>
-          </table>
-        </div>
+    <section style="padding-top:16px">
+      <div class="wrap docs">
+        <nav class="toc" aria-label="Contents">
+          <h4>Contents</h4>
+          <ol>
+            <li><a href="#start">Getting started</a></li>
+            <li><a href="#menu-bar">Menu bar</a></li>
+            <li><a href="#dock">Dock</a></li>
+            <li><a href="#apps">App grid</a></li>
+            <li><a href="#search">Search</a></li>
+            <li><a href="#windows">Windows</a></li>
+            <li><a href="#control-centre">Control centre</a></li>
+            <li><a href="#notifications">Notifications</a></li>
+            <li><a href="#sound">Sound and equaliser</a></li>
+            <li><a href="#appearance">Appearance</a></li>
+            <li><a href="#lock">Lock, sleep, power</a></li>
+            <li><a href="#shortcuts">Keyboard shortcuts</a></li>
+            <li><a href="#settings">The Settings app</a></li>
+            <li><a href="#configuration">Configuration files</a></li>
+            <li><a href="#updating">Updating, removing</a></li>
+            <li><a href="#privacy">Privacy</a></li>
+            <li><a href="#troubleshooting">Troubleshooting</a></li>
+            <li><a href="#help">Getting help</a></li>
+          </ol>
+        </nav>
 
-        <h2 id="shortcuts" style="margin-top:48px">Keyboard shortcuts</h2>
-        <p><kbd>Super</kbd> is the Windows key. It plays the role of <kbd>⌘</kbd> in menus.</p>
-        <div class="table-wrap">
-          <table>
-            <tr><th>Shortcut</th><th>Action</th></tr>
-            <tr><td><kbd>Super</kbd>+<kbd>D</kbd></td><td>Search: apps, files, actions, calculator</td></tr>
-            <tr><td><kbd>Super</kbd>+<kbd>Enter</kbd></td><td>Terminal</td></tr>
-            <tr><td><kbd>Super</kbd>+<kbd>E</kbd></td><td>Files</td></tr>
-            <tr><td><kbd>Super</kbd>+<kbd>F</kbd></td><td>Firefox</td></tr>
-            <tr><td><kbd>Super</kbd>+<kbd>Q</kbd></td><td>Close window</td></tr>
-            <tr><td><kbd>Super</kbd>+<kbd>T</kbd></td><td>Tile the window, or float it again</td></tr>
-            <tr><td><kbd>Super</kbd>+<kbd>Alt</kbd>+<kbd>F</kbd></td><td>Maximise window</td></tr>
-            <tr><td><kbd>Super</kbd>+drag</td><td>Move (left button) or resize (right button) a window</td></tr>
-            <tr><td><kbd>Super</kbd>+<kbd>1</kbd>…<kbd>0</kbd></td><td>Go to workspace 1–10</td></tr>
-            <tr><td><kbd>Super</kbd>+<kbd>Shift</kbd>+<kbd>1</kbd>…<kbd>0</kbd></td><td>Move window to workspace 1–10</td></tr>
-            <tr><td>Three-finger swipe</td><td>Switch workspace (touchpad)</td></tr>
-            <tr><td><kbd>Super</kbd>+<kbd>H</kbd></td><td>Settings</td></tr>
-            <tr><td><kbd>Super</kbd>+<kbd>L</kbd></td><td>Lock screen</td></tr>
-            <tr><td><kbd>Super</kbd>+<kbd>C</kbd></td><td>Clipboard history</td></tr>
-            <tr><td><kbd>Super</kbd>+<kbd>W</kbd></td><td>Wallpapers</td></tr>
-            <tr><td><kbd>Super</kbd>+<kbd>M</kbd></td><td>Music</td></tr>
-            <tr><td><kbd>Super</kbd>+<kbd>V</kbd></td><td>Sound</td></tr>
-            <tr><td><kbd>Super</kbd>+<kbd>N</kbd></td><td>Network</td></tr>
-            <tr><td><kbd>Super</kbd>+<kbd>S</kbd></td><td>Calendar</td></tr>
-            <tr><td><kbd>Super</kbd>+<kbd>Space</kbd></td><td>Play or pause media</td></tr>
-            <tr><td><kbd>Print</kbd></td><td>Screenshot of a region (<kbd>Shift</kbd>: open in the editor)</td></tr>
-            <tr><td><kbd>Super</kbd>+<kbd>Print</kbd></td><td>Screenshot of the whole screen</td></tr>
-            <tr><td><kbd>Super</kbd>+<kbd>R</kbd></td><td>Reload the shell</td></tr>
-          </table>
-        </div>
-        <p>Change or add shortcuts in <code>~/.config/muhos/hypr/user.lua</code>. See <a href="https://github.com/Alex-Muhscience/MuhOS#configuration">Configuration</a>.</p>
+        <article>
+          <h2 id="start">Getting started</h2>
+          <p>MuhOS runs on <strong>Fedora 44 or 45 Workstation</strong> (x86_64). It's installed next to GNOME, not instead of it: you choose which one to use when you log in.</p>
+          <pre data-copy><code>curl -fsSL https://alex-muhscience.github.io/MuhOS/install.sh | bash</code></pre>
+          <p>The installer downloads the newest release for your Fedora version from GitHub, checks every package against the release's checksums, enables the Hyprland COPR and installs with dnf, asking first. See <a href="download.html">Download</a> for the details and other ways to install.</p>
+          <ol>
+            <li>After installing, <strong>log out</strong>.</li>
+            <li>On the login screen, click your name, then the <strong>gear button</strong> at the bottom right, and choose <strong>MuhOS (Hyprland)</strong>.</li>
+            <li>Sign in. The first start shows a short welcome with the most useful shortcuts. Your login screen remembers the choice.</li>
+          </ol>
+          <p>To go back to GNOME, log out and pick GNOME the same way. Nothing in your GNOME session changes.</p>
+          <div class="callout"><kbd>Super</kbd> is the Windows key. In MuhOS it plays the role of <kbd>⌘</kbd> on a Mac: menus show <kbd>⌘</kbd> for shortcuts that use it.</div>
 
-        <h2 id="settings" style="margin-top:48px">Useful settings</h2>
-        <p>Most things are in the Settings app. A few live in <code>~/.config/serpantinum/settings.json</code>:</p>
-        <div class="table-wrap">
-          <table>
-            <tr><th>Setting</th><th>Effect</th></tr>
-            <tr><td><code>"bar": { "layout": "hybrid" }</code></td><td>The earlier GNOME-style menu bar, with workspace dots and a clock island.</td></tr>
-            <tr><td><code>"bar": { "design": "classic" }</code></td><td>Serpantinum's original design everywhere.</td></tr>
-            <tr><td><code>"muhos": { "solidPanels": true }</code></td><td>Solid panels instead of glass, like "Reduce transparency" on a Mac.</td></tr>
-            <tr><td><code>"general": { "ipGeolocation": true }</code></td><td>Look up your location from your IP address (off by default).</td></tr>
-          </table>
-        </div>
+          <h2 id="menu-bar">Menu bar</h2>
+          <p>The menu bar runs along the top, transparent over your wallpaper. Its text turns dark over light wallpapers and light over dark ones.</p>
+          <figure><div class="shot"><img src="screenshots/menu.webp" width="250" height="296" alt="The logo menu" loading="lazy"></div><figcaption>The logo menu</figcaption></figure>
+          <ul>
+            <li><strong>MuhOS logo</strong> (top left): About MuhOS, System Settings, Search, Sleep, Restart, Shut Down, Lock Screen and Log Out. Sleep, Restart and Shut Down act straight away.</li>
+            <li><strong>App name</strong> in bold: the app you're using. Click it for Enter Full Screen and Quit.</li>
+            <li><strong>Tray</strong>: icons that background apps put there.</li>
+            <li><strong>Magnifier</strong>: <a href="#search">Search</a>.</li>
+            <li><strong>Network, volume and battery icons</strong>: the <a href="#control-centre">control centre</a>. Scroll on them to change the volume.</li>
+            <li><strong>Date and time</strong>: the <a href="#notifications">notification centre</a>. A dot means there are unread notifications.</li>
+          </ul>
+          <p>Prefer the earlier GNOME-style layout, with workspace dots and a clock in the middle? See <a href="#configuration">Configuration files</a>.</p>
 
-        <h2 id="faq" style="margin-top:48px">Troubleshooting</h2>
-        <details>
-          <summary>"MuhOS (Hyprland)" isn't on the login screen</summary>
-          <p>Check that Hyprland installed: it comes from the COPR enabled in the install steps. Run <code>rpm -q hyprland muhos</code>.</p>
-        </details>
-        <details>
-          <summary>Apps look like GNOME in dark mode</summary>
-          <p>That's expected for now. WhiteSur's dark theme doesn't render GNOME 50 apps correctly, so in dark mode apps use GNOME's own dark style. If you switch Dark Style while apps use WhiteSur, they change at your next login.</p>
-        </details>
-        <details>
-          <summary>Firefox doesn't look like the other apps</summary>
-          <p>Firefox draws its own interface, so GTK themes don't style it.</p>
-        </details>
-        <details>
-          <summary>Something looks wrong or the shell crashed</summary>
-          <p>These commands show what happened. Please include their output when you <a href="https://github.com/Alex-Muhscience/MuhOS/issues/new/choose">report a bug</a>:</p>
-          <pre data-copy><code>journalctl --user -u muhos-shell -b             <span class="comment"># shell logs</span>
+          <h2 id="dock">Dock</h2>
+          <p>The dock floats at the bottom of the screen on frosted glass. Icons grow under the pointer, and their neighbours grow a little too.</p>
+          <ul>
+            <li>Click an icon to open the app, or to bring it forward if it's already open. Open apps have a dot under them.</li>
+            <li>Right-click an icon for its menu, including <strong>Pin to dock</strong> and <strong>Unpin from dock</strong>.</li>
+            <li>The first icon, <strong>Apps</strong>, opens the <a href="#apps">app grid</a>.</li>
+            <li>Size, magnification, auto-hide and which apps show are in Settings → Dock.</li>
+          </ul>
+
+          <h2 id="apps">App grid</h2>
+          <figure><div class="shot"><img src="screenshots/app-grid.webp" width="1920" height="1080" alt="App grid" loading="lazy"></div><figcaption>The app grid, opened from the Apps icon</figcaption></figure>
+          <p>Like the Apps view on a Mac, the app grid shows every installed app as a large icon, sorted by name, over your blurred desktop.</p>
+          <ul>
+            <li>Start typing to filter: names, descriptions and keywords all count.</li>
+            <li>Click an app, or use the arrow keys and <kbd>Enter</kbd>, to open it.</li>
+            <li><kbd>Escape</kbd> clears the search, then closes the grid. Clicking an empty area also closes it (when the grid has more apps than fit, the area around it).</li>
+            <li>The dock stays visible above the grid, so you can still open apps from it.</li>
+          </ul>
+
+          <h2 id="search">Search</h2>
+          <p>Press <kbd>Super</kbd>+<kbd>D</kbd> or click the magnifier for a Spotlight-style search. Before you type, it suggests the apps you use most. As you type, it shows:</p>
+          <ul>
+            <li><strong>Apps</strong>, ranked by how well they match and how often you use them.</li>
+            <li><strong>Actions</strong>: settings, wallpapers, control centre, clipboard, screenshot, night light, dark style, do not disturb and lock. Sleep, restart, power off and log out appear only after three letters, so a stray <kbd>Enter</kbd> can't restart your computer.</li>
+            <li><strong>Files</strong> from your home folders.</li>
+            <li><strong>Calculations</strong>: type <code>18*7+2</code> and press <kbd>Enter</kbd> to copy the answer.</li>
+          </ul>
+
+          <h2 id="windows">Windows</h2>
+          <p>Windows float and overlap as on a Mac, and open in the middle of the screen at the size the app asks for.</p>
+          <ul>
+            <li><strong>Window buttons</strong> are on the left: close, minimise and zoom. In light mode apps use the WhiteSur theme, with red, yellow and green buttons.</li>
+            <li><strong>Move</strong> a window by its title bar, or hold <kbd>Super</kbd> and drag anywhere in it. <kbd>Super</kbd> and the right mouse button resizes.</li>
+            <li><strong>Tile</strong>: <kbd>Super</kbd>+<kbd>T</kbd> fits the window into a side-by-side layout with other tiled windows; press it again to float it.</li>
+            <li><strong>Full screen</strong>: the app menu (its name in the menu bar) or <kbd>Super</kbd>+<kbd>Alt</kbd>+<kbd>F</kbd> to maximise.</li>
+            <li><strong>Close</strong>: the red button, Quit in the app menu, or <kbd>Super</kbd>+<kbd>Q</kbd>.</li>
+            <li><strong>Workspaces</strong>: <kbd>Super</kbd>+<kbd>1</kbd>…<kbd>0</kbd> switches, add <kbd>Shift</kbd> to move the window there; three fingers sideways on a touchpad.</li>
+          </ul>
+
+          <h2 id="control-centre">Control centre</h2>
+          <figure><div class="shot"><img src="screenshots/control-centre.webp" width="410" height="330" alt="Control centre" loading="lazy"></div></figure>
+          <p>Click the network, volume and battery icons at the top right.</p>
+          <ul>
+            <li><strong>Toggles</strong>: Wi-Fi (or Wired), Bluetooth, power mode, night light, dark style, do not disturb and the equaliser. Those with an arrow open more settings: networks, Bluetooth devices, the equaliser.</li>
+            <li><strong>Sliders</strong>: volume, and brightness on screens that support it. The arrow beside volume opens the Sound window: output and input devices and the volume of each app.</li>
+            <li><strong>Buttons</strong> at the top: screenshot, Settings, lock, and a power menu (suspend, restart, power off, log out).</li>
+          </ul>
+          <p><kbd>Escape</kbd> or a click outside closes it.</p>
+
+          <h2 id="notifications">Notifications</h2>
+          <ul>
+            <li><strong>Banners</strong> slide in at the top right, with the app's icon, any picture sent with them, and action buttons. They wait while the pointer is over them; swipe one to the right to dismiss it. Critical alerts stay until you dismiss them.</li>
+            <li><strong>Notification centre</strong>: click the date and time. It lists your notifications (with Clear all), has a Do Not Disturb switch, and shows a month calendar with a link to the full calendar and weather.</li>
+            <li><strong>Do Not Disturb</strong> holds back every banner except critical alerts; everything still reaches the notification centre.</li>
+          </ul>
+
+          <h2 id="sound">Sound and equaliser</h2>
+          <figure><div class="shot"><img src="screenshots/equalizer.webp" width="700" height="600" alt="Equaliser window" loading="lazy"></div></figure>
+          <p>Open the equaliser with the arrow on the control centre's <strong>Equaliser</strong> toggle; the toggle itself turns it on and off.</p>
+          <ul>
+            <li><strong>Presets</strong>: Flat, Bass, Treble, Vocal, Pop, Rock, Jazz and Classic.</li>
+            <li><strong>Bands</strong>: ten bands from 32 Hz to 16 kHz, ±12 dB. Drag a dot up or down, scroll on it, or double-click it to reset it. The curve shows what you'll actually hear, including how neighbouring bands add up.</li>
+            <li><strong>Balance</strong>, <strong>Mono audio</strong> and <strong>Swap left and right</strong>.</li>
+            <li><strong>Dynamics</strong>: <em>Even out</em> gently narrows the gap between quiet and loud parts; <em>Night</em> does so strongly, for listening quietly. This needs the <code>ladspa-swh-plugins</code> package, which MuhOS installs by default.</li>
+            <li><strong>Test speakers</strong> plays a tone on the left, then the right, then both.</li>
+          </ul>
+          <p>The equaliser runs on PipeWire itself and follows whichever output you use (speakers, headphones, Bluetooth). It applies to everything played to your default output, only in the MuhOS session, and it's switched off completely while it's flat. Your settings are kept across restarts. The music window (<kbd>Super</kbd>+<kbd>M</kbd>) has the same equaliser in its EQ tab.</p>
+
+          <h2 id="appearance">Appearance</h2>
+          <h3>Themes and accent colours</h3>
+          <p>Settings → Theme has preset themes (new users start with <strong>macOS</strong>; <strong>macOS Dark</strong> is next to it) or <strong>Matugen</strong>, which takes its colours from your wallpaper. <strong>Accent colour</strong> picks one of ten colours for highlights, toggles and selections, on top of any theme.</p>
+          <h3>Light and dark</h3>
+          <p>The Dark Style toggle in the control centre switches between light and dark. In dark mode, apps use GNOME's own dark style rather than WhiteSur, whose dark version doesn't display GNOME 50 apps correctly yet. If you switch while apps are using WhiteSur, apps change at your next login.</p>
+          <h3>Wallpapers</h3>
+          <p>Press <kbd>Super</kbd>+<kbd>W</kbd>. MuhOS comes with light and dark wallpapers; put your own pictures (or videos) in <code>~/Pictures/Wallpapers</code>.</p>
+          <h3>Apps, icons and fonts</h3>
+          <p>In the MuhOS session, apps use the WhiteSur theme and icons and the Inter font. These live in MuhOS's own settings profile, so your GNOME session keeps its own theme. Settings → Theme → Font changes the shell's font.</p>
+
+          <h2 id="lock">Lock, sleep and power</h2>
+          <ul>
+            <li><strong>Lock</strong>: <kbd>Super</kbd>+<kbd>L</kbd>, the logo menu or the control centre. The lock screen shows the time, what's playing and notification titles only. Your normal password unlocks it.</li>
+            <li><strong>When idle</strong>, by default: the screen dims after 2½ minutes, locks after 5, turns off after 7½, and the computer sleeps after 10. Media playing keeps it awake. Change this in Settings → Idle.</li>
+            <li><strong>Sleep, restart, shut down, log out</strong>: the logo menu or the control centre's power menu.</li>
+          </ul>
+
+          <h2 id="shortcuts">Keyboard shortcuts</h2>
+          <div class="table-wrap">
+            <table>
+              <tr><th>Shortcut</th><th>Action</th></tr>
+              <tr><td><kbd>Super</kbd>+<kbd>D</kbd></td><td>Search: apps, files, actions, calculator</td></tr>
+              <tr><td><kbd>Super</kbd>+<kbd>Enter</kbd></td><td>Terminal</td></tr>
+              <tr><td><kbd>Super</kbd>+<kbd>E</kbd></td><td>Files</td></tr>
+              <tr><td><kbd>Super</kbd>+<kbd>F</kbd></td><td>Firefox</td></tr>
+              <tr><td><kbd>Super</kbd>+<kbd>Q</kbd></td><td>Close the window</td></tr>
+              <tr><td><kbd>Super</kbd>+<kbd>T</kbd></td><td>Tile the window, or float it again</td></tr>
+              <tr><td><kbd>Super</kbd>+<kbd>Alt</kbd>+<kbd>F</kbd></td><td>Maximise the window</td></tr>
+              <tr><td><kbd>Super</kbd>+drag</td><td>Move (left button) or resize (right button) a window</td></tr>
+              <tr><td><kbd>Super</kbd>+<kbd>←↑↓→</kbd></td><td>Focus the window in that direction</td></tr>
+              <tr><td><kbd>Super</kbd>+<kbd>1</kbd>…<kbd>0</kbd></td><td>Go to workspace 1–10 (<kbd>Shift</kbd>: move the window there)</td></tr>
+              <tr><td><kbd>Super</kbd>+<kbd>H</kbd></td><td>Settings</td></tr>
+              <tr><td><kbd>Super</kbd>+<kbd>L</kbd></td><td>Lock the screen</td></tr>
+              <tr><td><kbd>Super</kbd>+<kbd>C</kbd></td><td>Clipboard history</td></tr>
+              <tr><td><kbd>Super</kbd>+<kbd>W</kbd></td><td>Wallpapers</td></tr>
+              <tr><td><kbd>Super</kbd>+<kbd>M</kbd></td><td>Music</td></tr>
+              <tr><td><kbd>Super</kbd>+<kbd>V</kbd></td><td>Sound</td></tr>
+              <tr><td><kbd>Super</kbd>+<kbd>N</kbd></td><td>Network</td></tr>
+              <tr><td><kbd>Super</kbd>+<kbd>S</kbd></td><td>Calendar</td></tr>
+              <tr><td><kbd>Super</kbd>+<kbd>Space</kbd></td><td>Play or pause</td></tr>
+              <tr><td><kbd>Print</kbd></td><td>Screenshot of an area (<kbd>Shift</kbd>: open it in the editor)</td></tr>
+              <tr><td><kbd>Super</kbd>+<kbd>Print</kbd></td><td>Screenshot of the whole screen</td></tr>
+              <tr><td><kbd>Super</kbd>+<kbd>R</kbd></td><td>Reload the shell</td></tr>
+              <tr><td>Media, volume and brightness keys</td><td>Work as labelled, also on the lock screen</td></tr>
+            </table>
+          </div>
+
+          <h2 id="settings">The Settings app</h2>
+          <p>Open it with <kbd>Super</kbd>+<kbd>H</kbd>, System Settings in the logo menu, or "MuhOS Settings" in the dock. Its sections:</p>
+          <div class="table-wrap">
+            <table>
+              <tr><th>Section</th><th>What's there</th></tr>
+              <tr><td>General</td><td>Your picture, language, interface sounds, location for weather, screenshot behaviour</td></tr>
+              <tr><td>Display</td><td>Screens, scaling and the blue light filter; desktop widgets</td></tr>
+              <tr><td>Theme</td><td>Wallpaper folder, accent colour, font, corner radius, transparency, colour themes</td></tr>
+              <tr><td>Bar</td><td>Position and behaviour of the bar, and which modules it shows</td></tr>
+              <tr><td>Launcher</td><td>The search window's size and ranking</td></tr>
+              <tr><td>Dock</td><td>Size, magnification, auto-hide, pinned and running apps</td></tr>
+              <tr><td>On-Screen Display</td><td>The volume, brightness and caps lock indicator</td></tr>
+              <tr><td>Notifications</td><td>Position, sounds, Do Not Disturb</td></tr>
+              <tr><td>Wellbeing</td><td>Screen time per app</td></tr>
+              <tr><td>Idle</td><td>Dim, lock, screen off and sleep timers</td></tr>
+              <tr><td>About</td><td>Version, licence and credits</td></tr>
+            </table>
+          </div>
+
+          <h2 id="configuration">Configuration files</h2>
+          <p>Most things are in the Settings app. Under the hood:</p>
+          <div class="table-wrap">
+            <table>
+              <tr><th>File</th><th>Holds</th></tr>
+              <tr><td><code>~/.config/serpantinum/settings.json</code></td><td>Shell settings (written by the Settings app)</td></tr>
+              <tr><td><code>~/.config/muhos/hypr/user.lua</code></td><td>Your own Hyprland settings and shortcuts (create it)</td></tr>
+              <tr><td><code>~/.config/dconf/muhos</code></td><td>App settings (theme, icons, font) for the MuhOS session only</td></tr>
+              <tr><td><code>~/.local/state/serpantinum/</code></td><td>Generated colours, the equaliser and other state</td></tr>
+            </table>
+          </div>
+          <h3>Settings worth knowing</h3>
+          <div class="table-wrap">
+            <table>
+              <tr><th>In <code>settings.json</code></th><th>Effect</th></tr>
+              <tr><td><code>"bar": { "layout": "hybrid" }</code></td><td>The GNOME-style bar: workspace dots on the left and a clock island in the middle that becomes a player</td></tr>
+              <tr><td><code>"bar": { "design": "classic" }</code></td><td>Serpantinum's original design everywhere</td></tr>
+              <tr><td><code>"theme": { "accent": "#FF9500" }</code></td><td>Any accent colour; <code>""</code> keeps the theme's own</td></tr>
+              <tr><td><code>"muhos": { "solidPanels": true }</code></td><td>Solid panels instead of glass, like "Reduce transparency" on a Mac</td></tr>
+              <tr><td><code>"general": { "ipGeolocation": true }</code></td><td>Find your location from your IP address for the weather (off by default)</td></tr>
+            </table>
+          </div>
+          <h3>Your own Hyprland settings</h3>
+          <p>Put them in <code>~/.config/muhos/hypr/user.lua</code>; it's loaded after MuhOS's defaults, so yours win, and updates never overwrite it.</p>
+          <pre data-copy><code><span class="comment">-- ~/.config/muhos/hypr/user.lua</span>
+hl.bind("SUPER + X", hl.dsp.exec_cmd("ptyxis"))     <span class="comment">-- a second terminal</span>
+hl.monitor({ output = "DP-1", mode = "2560x1440@144", position = "0x0", scale = 1.0 })</code></pre>
+          <p>Check it with <code>Hyprland --verify-config -c ~/.config/muhos/hypr/hyprland.lua</code>. The <a href="https://github.com/Alex-Muhscience/MuhOS#configuration">README</a> covers more.</p>
+
+          <h2 id="updating">Updating and removing</h2>
+          <p><strong>Update</strong> by running the install command again: it installs the newest release over the old one and keeps your settings.</p>
+          <p><strong>Remove</strong> MuhOS with:</p>
+          <pre data-copy><code>sudo dnf remove muhos whitesur-gtk-theme whitesur-icon-theme
+rm -r ~/.config/muhos ~/.config/dconf/muhos                <span class="comment"># optional: MuhOS settings</span>
+rm -r ~/.config/serpantinum ~/.local/state/serpantinum     <span class="comment"># optional: shell settings</span></code></pre>
+          <p>MuhOS never changes your GNOME setup, so nothing else needs restoring.</p>
+
+          <h2 id="privacy">Privacy</h2>
+          <ul>
+            <li>No telemetry, and no update checks in the background: updates come through dnf.</li>
+            <li>Your location is not looked up automatically. The weather stays off until you set a location in Settings → General → Location; forecasts then come from <a href="https://open-meteo.com/">Open-Meteo</a>. The Detect button does a one-time lookup through ipapi.co.</li>
+            <li>The lock screen shows notification titles, never their contents.</li>
+          </ul>
+
+          <h2 id="troubleshooting">Troubleshooting</h2>
+          <details>
+            <summary>"MuhOS (Hyprland)" isn't on the login screen</summary>
+            <p>Check that Hyprland installed; it comes from the COPR that the installer enables: <code>rpm -q hyprland muhos</code>.</p>
+          </details>
+          <details>
+            <summary>Apps look like GNOME in dark mode</summary>
+            <p>That's expected for now: in dark mode, apps use GNOME's own dark style. See <a href="#appearance">Appearance</a>.</p>
+          </details>
+          <details>
+            <summary>The equaliser does nothing</summary>
+            <p>Check that its toggle in the control centre is on and that it isn't set to Flat (a flat equaliser switches itself off). Then check its engine: <code>systemctl --user status serpantinum-eq</code>. Dynamics needs <code>sudo dnf install ladspa-swh-plugins</code>.</p>
+          </details>
+          <details>
+            <summary>Firefox doesn't look like the other apps</summary>
+            <p>Firefox draws its own interface, so GTK themes don't style it.</p>
+          </details>
+          <details>
+            <summary>The dock has tiles or doesn't magnify</summary>
+            <p>MuhOS's dock settings are defaults for new users. If you changed dock settings before, turn on floating, magnification and cascade in Settings → Dock.</p>
+          </details>
+          <details>
+            <summary>Something looks wrong or the shell crashed</summary>
+            <p>These commands show what happened; include their output when you <a href="https://github.com/Alex-Muhscience/MuhOS/issues/new/choose">report a bug</a>:</p>
+            <pre data-copy><code>journalctl --user -u muhos-shell -b             <span class="comment"># shell logs</span>
 systemctl --user status muhos-session.target    <span class="comment"># is the session running?</span>
 Hyprland --verify-config -c ~/.config/muhos/hypr/hyprland.lua
 muhos reload                                     <span class="comment"># restart the shell's interface</span></code></pre>
-        </details>
-        <details>
-          <summary>Does MuhOS change my GNOME session?</summary>
-          <p>No. MuhOS keeps its own app settings (theme, icons, font, window buttons) in a separate profile that's only used in the MuhOS session, and clears it when you log out.</p>
-        </details>
+          </details>
+          <details>
+            <summary>Does MuhOS change my GNOME session?</summary>
+            <p>No. MuhOS keeps its app settings in a separate profile that's used only in the MuhOS session, and clears it when you log out; its equaliser stops at logout too.</p>
+          </details>
+
+          <h2 id="help">Getting help</h2>
+          <ul>
+            <li>Questions and ideas: <a href="https://github.com/Alex-Muhscience/MuhOS/discussions">GitHub Discussions</a>.</li>
+            <li>Bugs: <a href="https://github.com/Alex-Muhscience/MuhOS/issues/new/choose">open an issue</a> with the shell log.</li>
+            <li>How it runs on your hardware, even when everything works: the <a href="https://github.com/Alex-Muhscience/MuhOS/issues/new/choose">hardware report</a> form.</li>
+          </ul>
+        </article>
       </div>
     </section>
   </main>
