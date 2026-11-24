@@ -75,6 +75,10 @@ check "no EasyEffects recommendation" bash -c "! rpm -q --recommends muhos | gre
 check "screens scale automatically" grep -q 'scale = "auto"' /usr/share/muhos/hypr/config/monitors.lua
 check "terminal helper installed" test -x /usr/libexec/muhos/muhos-terminal
 check "Hyprland terminal is the helper, not kitty" grep -q 'muhos-terminal' /usr/share/muhos/hypr/config/variables.lua
+check "click to focus" grep -q 'follow_mouse = 2' /usr/share/muhos/hypr/config/muhos.lua
+check "minimize handled" grep -q 'window.minimize' /usr/share/muhos/hypr/config/muhos.lua
+check "logout detaches from the shell's service" grep -q 'SERPANTINUM_EXIT_DETACHED' /usr/share/muhos/src/scripts/system/exit.sh
+check "updater offline in background" bash -c 'python3 -I /usr/share/muhos/src/scripts/updater.py --state-dir /tmp/u --background | grep -q "\"has_update\": false"'
 check "dock shows open apps for new users" bash -c "jq -e '.dock.showRunningApps == true' /usr/share/muhos/defaults/settings.json"
 check "no kitty pin for new users" bash -c "! jq -e '.dock.apps[] | select(.desktop_id == \"kitty\")' /usr/share/muhos/defaults/settings.json"
 check "file chooser helper installed" test -f /usr/share/muhos/src/quickshell/muhos/pick_file.py
