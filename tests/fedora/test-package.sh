@@ -24,7 +24,10 @@ check() { local desc="$1"; shift; if "$@" >/dev/null 2>&1; then pass "$desc"; el
 as_user() { runuser -u "$user" -- env HOME="/home/$user" XDG_CONFIG_HOME= "$@"; }
 tree_hash() { (cd "$1" && find . -type f -print0 | sort -z | xargs -0 sha256sum | sha256sum); }
 
-rpm -i --nodeps "$@"
+# --nosignature: MuhOS packages are not signed yet, and RPM 6 (Fedora 45)
+# refuses unsigned packages by default (dnf installs them; users verify
+# SHA256SUMS).
+rpm -i --nodeps --nosignature "$@"
 
 # Layout
 check "muhos command resolves" test -x "$(readlink -f /usr/bin/muhos)"
