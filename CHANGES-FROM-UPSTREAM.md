@@ -37,6 +37,7 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - Menu bar: show the app's name once the app list has loaded (9fce7ce)
 - Settings: readable section and row icons on light themes (8aa2cfa)
 - Settings > Theme: accent colour choice (a1ab74d)
+- Notification centre under the clock; Dark Style leaves forced GTK themes alone (bc0138e)
 
 ## Fedora-specific
 
@@ -74,6 +75,8 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - WhiteSur icons in the shell too; rpm -V ignores the generated dconf db (74a8ea4)
 - Session: clear theme variables before stopping the shell (0fa6140)
 - Changelog: Settings icons and accent colours (1ecf7d8)
+- Dark mode: apps use libadwaita's dark style, not WhiteSur-Dark (2e447a1)
+- Changelog: dark mode apps (a90f21d)
 
 ## MuhOS branding
 
@@ -135,6 +138,8 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - README: the volume arrow and the Sound app (c28cd68)
 - README: the macOS layout, WhiteSur apps and install steps (6b833c7)
 - Regenerate CHANGES-FROM-UPSTREAM.md (1da1124)
+- Regenerate CHANGES-FROM-UPSTREAM.md (4ce0346)
+- README: screenshots of the macOS look (f6595d8)
 
 ## Upstream files changed by MuhOS
 
