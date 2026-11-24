@@ -72,6 +72,11 @@ check "equaliser runs on PipeWire, not EasyEffects" bash -c "grep -q eq_engine.p
 # Parsed, not compiled: compiling would leave a __pycache__ behind.
 check "equaliser engine parses" python3 -I -c "import ast, sys; ast.parse(open(sys.argv[1]).read())" /usr/share/muhos/src/quickshell/media/eq_engine.py
 check "no EasyEffects recommendation" bash -c "! rpm -q --recommends muhos | grep -qi easyeffects"
+check "screens scale automatically" grep -q 'scale = "auto"' /usr/share/muhos/hypr/config/monitors.lua
+check "terminal helper installed" test -x /usr/libexec/muhos/muhos-terminal
+check "Hyprland terminal is the helper, not kitty" grep -q 'muhos-terminal' /usr/share/muhos/hypr/config/variables.lua
+check "no kitty pin for new users" bash -c "! jq -e '.dock.apps[] | select(.desktop_id == \"kitty\")' /usr/share/muhos/defaults/settings.json"
+check "file chooser helper installed" test -f /usr/share/muhos/src/quickshell/muhos/pick_file.py
 check "systemd units verify" systemd-analyze verify /usr/lib/systemd/user/muhos-shell.service /usr/lib/systemd/user/muhos-session.target
 
 # Per-user setup must never overwrite existing files.

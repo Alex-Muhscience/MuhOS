@@ -1,0 +1,26 @@
+#!/bin/sh
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# MuhOS (Fedora): open a terminal, whichever one is installed: $TERMINAL if
+# set, otherwise the first of Ptyxis (Fedora Workstation's), kitty, GNOME
+# Terminal, Konsole, foot, Alacritty, WezTerm, xterm.
+#
+#   muhos-terminal                 a new terminal window
+#   muhos-terminal -e CMD [ARGS]   run CMD in it
+[ "$1" = "-e" ] && shift
+for t in "${TERMINAL:-}" ptyxis kitty gnome-terminal konsole foot alacritty wezterm xterm; do
+    [ -n "$t" ] || continue
+    command -v "$t" >/dev/null 2>&1 || continue
+    if [ $# -eq 0 ]; then
+        if [ "$t" = ptyxis ]; then exec ptyxis --new-window; fi
+        exec "$t"
+    fi
+    case "$t" in
+        ptyxis) exec ptyxis --new-window -- "$@" ;;
+        gnome-terminal) exec gnome-terminal -- "$@" ;;
+        kitty|foot) exec "$t" "$@" ;;
+        wezterm) exec wezterm start -- "$@" ;;
+        *) exec "$t" -e "$@" ;;
+    esac
+done
+command -v notify-send >/dev/null && notify-send -a MuhOS "No terminal found" "Install one, for example: sudo dnf install ptyxis"
+exit 1

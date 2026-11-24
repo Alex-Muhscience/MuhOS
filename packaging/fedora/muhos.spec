@@ -5,7 +5,7 @@
 
 Name:           muhos
 Version:        0.1.0
-Release:        0.15%{?dist}
+Release:        0.16%{?dist}
 Summary:        Desktop shell for Hyprland on Fedora, based on Serpantinum
 
 # Code, MuhOS sounds and images: AGPL-3.0-or-later.
@@ -141,6 +141,7 @@ python3 -I tools/brand-languages "$share/src/assets/languages"
 install -d "$share/hypr"
 cp -a compositors/hyprland/. "$share/hypr/"
 install -m 0644 packaging/fedora/hypr/autostart.lua "$share/hypr/config/autostart.lua"
+install -m 0644 packaging/fedora/hypr/variables.lua "$share/hypr/config/variables.lua"
 install -m 0644 packaging/fedora/hypr/muhos.lua "$share/hypr/config/muhos.lua"
 echo 'require("config/muhos")' >> "$share/hypr/hyprland.lua"
 install -Dm 0644 packaging/fedora/hypr/hyprland.lua "$share/skel/hyprland.lua"
@@ -151,6 +152,7 @@ install -d %{buildroot}%{_libexecdir}/%{name}
 ln -s ../../share/%{name}/bin/serpantinum  %{buildroot}%{_libexecdir}/%{name}/serpantinum
 ln -s ../../share/%{name}/bin/serpantinumd %{buildroot}%{_libexecdir}/%{name}/serpantinumd
 install -m 0755 packaging/fedora/muhos-shell %{buildroot}%{_libexecdir}/%{name}/muhos-shell
+install -m 0755 packaging/fedora/muhos-terminal %{buildroot}%{_libexecdir}/%{name}/muhos-terminal
 
 # Public MuhOS commands.
 install -d %{buildroot}%{_bindir}
@@ -173,6 +175,7 @@ install -Dm 0644 packaging/fedora/dconf/00-muhos %{buildroot}%{_sysconfdir}/dcon
 %check
 bash -n %{buildroot}%{_bindir}/muhos-session
 sh -n %{buildroot}%{_libexecdir}/%{name}/muhos-shell
+sh -n %{buildroot}%{_libexecdir}/%{name}/muhos-terminal
 for f in %{buildroot}%{_datadir}/%{name}/bin/*; do bash -n "$f"; done
 desktop-file-validate %{buildroot}%{_datadir}/applications/muhos-settings.desktop
 desktop-file-validate %{buildroot}%{_datadir}/applications/muhos-sound.desktop
@@ -209,6 +212,16 @@ dconf update &>/dev/null || :
 %ghost %verify(not md5 size mtime mode) %{_sysconfdir}/dconf/db/muhos
 
 %changelog
+* Wed Nov 25 2026 MuhOS contributors - 0.1.0-0.16
+- Screens scale automatically: HiDPI screens (e.g. 4K laptops) were at
+  scale 1, so text was tiny (found on real hardware)
+- Terminal shortcut, launcher and dock no longer assume kitty: muhos-terminal
+  opens whichever terminal is installed (Ptyxis on Fedora Workstation);
+  no Terminal pin for new users
+- Wallpapers from anywhere: "Choose picture…" in the wallpaper picker and
+  Settings, and "Choose folder…" in Settings, open the file chooser (every
+  folder and disk); a chosen picture is applied and its folder remembered
+
 * Tue Nov 24 2026 MuhOS contributors - 0.1.0-0.15
 - Equaliser on PipeWire's filter-chain instead of EasyEffects, with a new
   glass Equaliser window and control-centre toggle; settings survive reboots
