@@ -40,6 +40,9 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - Notification centre under the clock; Dark Style leaves forced GTK themes alone (bc0138e)
 - Equaliser on PipeWire's filter-chain; new glass Equaliser window (bde246f)
 - App grid, like the Apps view (Launchpad) on macOS (1f7aab4)
+- App grid: the dock stays visible above it; opening an app closes it (1a34915)
+- App grid: a click between icons closes it when nothing needs scrolling (a491c13)
+- Equaliser window follows the state file even when it is created after startup (2078af7)
 
 ## Fedora-specific
 
@@ -151,6 +154,12 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - README: the equaliser (78dbb16)
 - Regenerate CHANGES-FROM-UPSTREAM.md (75b379c)
 - One-command installer: curl … install.sh | bash (f5ae2d9)
+- Regenerate CHANGES-FROM-UPSTREAM.md (3e3bd0e)
+- ASSETS.md: the Apps icon (057aa27)
+- Installer: Fedora 44 and 45, with the packages built for the running version (0a137c5)
+- Docs: Fedora 44 and 45, Hyprland 0.56 or newer (tested with 0.57.2) (6c6a474)
+- Screenshots of the equaliser and app grid; the website's full guide (c109a6d)
+- Test VMs: dnf uses the fastest mirror and parallel downloads (23fbe41)
 
 ## Upstream files changed by MuhOS
 
