@@ -76,6 +76,7 @@ check "screens scale automatically" grep -q 'scale = "auto"' /usr/share/muhos/hy
 check "terminal helper installed" test -x /usr/libexec/muhos/muhos-terminal
 check "Hyprland terminal is the helper, not kitty" grep -q 'muhos-terminal' /usr/share/muhos/hypr/config/variables.lua
 check "click to focus" grep -q 'follow_mouse = 2' /usr/share/muhos/hypr/config/muhos.lua
+check "zoom is a normal window, not Hyprland maximize" grep -q 'hl.on("window.fullscreen"' /usr/share/muhos/hypr/config/muhos.lua
 check "minimize handled" grep -q 'window.minimize' /usr/share/muhos/hypr/config/muhos.lua
 check "logout detaches from the shell's service" grep -q 'SERPANTINUM_EXIT_DETACHED' /usr/share/muhos/src/scripts/system/exit.sh
 check "muhos-update installed" test -x /usr/bin/muhos-update

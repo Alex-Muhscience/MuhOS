@@ -216,7 +216,9 @@ when you log in, and leaves GNOME exactly as it was.
 - **Windows and apps.** Windows float and open centred;
   <kbd>Super</kbd>+<kbd>T</kbd> tiles one. A click focuses a window and
   brings it forward; <kbd>Super</kbd>+<kbd>Tab</kbd> or <kbd>Alt</kbd>+<kbd>Tab</kbd>
-  switches; a new window opening over another is cascaded. Minimise with
+  switches; a new window opening over another is cascaded. Zoom (green)
+  fills the space between the menu bar and the dock but stays an ordinary
+  window, so other windows can still come in front of it. Minimise with
   <kbd>Super</kbd>+<kbd>M</kbd> or the app menu and restore from the dock
   (apps' own title bars only have close and zoom: Hyprland ignores their
   minimise requests). Apps use the WhiteSur GTK theme and icons and the

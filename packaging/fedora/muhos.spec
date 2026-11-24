@@ -5,7 +5,7 @@
 
 Name:           muhos
 Version:        0.1.0
-Release:        0.18%{?dist}
+Release:        0.19%{?dist}
 Summary:        Desktop shell for Hyprland on Fedora, based on Serpantinum
 
 # Code, MuhOS sounds and images: AGPL-3.0-or-later.
@@ -238,6 +238,12 @@ dconf update &>/dev/null || :
 %ghost %verify(not md5 size mtime mode) %{_sysconfdir}/dconf/db/muhos
 
 %changelog
+* Wed Nov 25 2026 MuhOS contributors - 0.1.0-0.19
+- Zoom/maximize makes a window fill the screen as an ordinary window, as on
+  macOS: Hyprland's maximize is a kind of full screen that stayed above
+  every other window and took focus back, so other windows seemed frozen
+  while e.g. a maximized Chrome window was open
+
 * Wed Nov 25 2026 MuhOS contributors - 0.1.0-0.18
 - muhos-update: update MuhOS from the terminal; Settings' Update runs it
 - Choose how MuhOS updates: manually (default), notify once a day, or
