@@ -203,6 +203,15 @@ QtObject {
         }
     }
 
+    // Minimize and restore (Hyprland config: window.minimize moves a window to
+    // the hidden workspace "special:minimized").
+    function minimizeWindow(toplevel) { if (toplevel) toplevel.minimized = true; }
+    function restoreWindow(address) {
+        if (!address) return;
+        const a = String(address).startsWith("0x") ? String(address) : "0x" + address;
+        Quickshell.execDetached(["hyprctl", "dispatch", 'hl.dsp.window.move({ workspace = "e+0", window = "address:' + a + '" })']);
+    }
+
     // An app's icon: a theme icon name or a file path (some apps, e.g. ones in
     // /opt, give a path), falling back to a generic app icon.
     function appIcon(entry) {

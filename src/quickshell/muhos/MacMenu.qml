@@ -43,6 +43,7 @@ PanelWindow {
         { text: t("lock", "Lock Screen"), shortcut: "⌘L", run: () => MuhosState.run("lock") },
         { text: t("log_out", "Log Out"), run: () => MuhosState.run("logout") }
     ] : kind === "app" ? [
+        { text: t("minimize", "Minimize"), shortcut: "⌘M", enabled: !!toplevel, run: () => MuhosState.minimizeWindow(win.toplevel) },
         { text: (toplevel && toplevel.fullscreen) ? t("exit_full_screen", "Exit Full Screen") : t("full_screen", "Enter Full Screen"),
           enabled: !!toplevel, run: () => { if (win.toplevel) win.toplevel.fullscreen = !win.toplevel.fullscreen; } },
         { sep: true },
