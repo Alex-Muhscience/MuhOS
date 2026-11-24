@@ -47,6 +47,9 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - Wallpapers from any folder or disk (692d417)
 - Dock: stay visible when a window is maximized (e4b4e18)
 - App grid readable on any wallpaper; icons given as file paths (12d8c3b)
+- Logout: never leave a black screen (16ff56c)
+- Dock: open pins stored with .desktop; bring minimized windows back (2b15dc8)
+- App grid in pages, as in Launchpad (00f0c75)
 
 ## Fedora-specific
 
@@ -92,6 +95,8 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - Package tests: install with --nosignature (RPM 6 on Fedora 45 refuses unsigned packages) (7273478)
 - muhos-terminal: open whichever terminal is installed; muhos 0.1.0-0.16 (7ad0df6)
 - Dock shows open apps; no minimise button; 0.16 changelog (44ca74f)
+- Windows: click to focus, Super/Alt+Tab, cascade, minimize (9c0aa51)
+- Updates: check MuhOS releases on demand; Update runs the installer (f613da9)
 
 ## MuhOS branding
 
@@ -173,6 +178,7 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - README: the terminal shortcut (e7fc008)
 - Regenerate CHANGES-FROM-UPSTREAM.md (c0920ea)
 - Docs: close and zoom buttons, no minimise (499a04c)
+- Regenerate CHANGES-FROM-UPSTREAM.md (a7cbbb1)
 
 ## Upstream files changed by MuhOS
 
@@ -208,6 +214,7 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - `src/quickshell/dock/DockContainer.qml` (modified since 2026-10-18)
 - `src/quickshell/dock/DockRunningButton.qml` (modified since 2026-10-18)
 - `src/quickshell/dock/DockWindow.qml` (modified since 2026-10-18)
+- `src/quickshell/dock/DockWindowApps.qml` (modified since 2026-10-18)
 - `src/quickshell/dock/DockWindowState.qml` (modified since 2026-10-18)
 - `src/quickshell/guide/AboutTab.qml` (modified since 2026-10-18)
 - `src/quickshell/guide/GuidePopup.qml` (modified since 2026-10-18)
@@ -229,6 +236,7 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - `src/quickshell/serp/Start.qml` (modified since 2026-10-18)
 - `src/quickshell/singletons/audio/Sounds.qml` (modified since 2026-10-18)
 - `src/quickshell/singletons/system/FirstLaunch.qml` (modified since 2026-10-18)
+- `src/quickshell/singletons/system/Updater.qml` (modified since 2026-10-18)
 - `src/quickshell/singletons/theme/ThemeBackend.qml` (modified since 2026-10-18)
 - `src/quickshell/volume/VolumePopup.qml` (modified since 2026-10-18)
 - `src/quickshell/wallpaper/WallpaperPicker.qml` (modified since 2026-10-18)
@@ -238,6 +246,7 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - `src/scripts/system/exit.sh` (modified since 2026-10-18)
 - `src/scripts/system/poweroff.sh` (modified since 2026-10-18)
 - `src/scripts/system/reboot.sh` (modified since 2026-10-18)
+- `src/scripts/updater.py` (modified since 2026-10-18)
 - `src/scripts/weather.sh` (modified since 2026-10-18)
 - `version.txt` (modified since 2026-10-18)
 
