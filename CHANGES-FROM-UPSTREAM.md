@@ -100,6 +100,9 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - Updates: check MuhOS releases on demand; Update runs the installer (f613da9)
 - muhos 0.1.0-0.17 (369bc6b)
 - Tests: focus, minimize, logout and updater (d0f4cc3)
+- Installer: sizes, total download, progress bars, numbered steps (31a6780)
+- muhos-update, and a choice of how MuhOS updates (0e0adaf)
+- muhos 0.1.0-0.18: package muhos-update and its timers (bd68e58)
 
 ## MuhOS branding
 
@@ -113,6 +116,7 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - Welcome screen: animate an Item rather than the window (4b054b6)
 - Draw the MuhOS mark in white (c7ae538)
 - Docs: minimise, window switching, app grid pages, updates (6cc9017)
+- Docs: muhos-update and the update modes (f7fb126)
 
 ## Fork infrastructure
 
@@ -184,6 +188,7 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - Docs: close and zoom buttons, no minimise (499a04c)
 - Regenerate CHANGES-FROM-UPSTREAM.md (a7cbbb1)
 - Regenerate CHANGES-FROM-UPSTREAM.md (de9b60f)
+- Regenerate CHANGES-FROM-UPSTREAM.md (b891052)
 
 ## Upstream files changed by MuhOS
 
