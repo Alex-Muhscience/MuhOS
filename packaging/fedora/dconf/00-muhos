@@ -10,5 +10,7 @@ document-font-name='Inter 11'
 cursor-theme='Adwaita'
 
 [org/gnome/desktop/wm/preferences]
-button-layout='close,minimize,maximize:'
+# No minimize: Hyprland ignores apps' minimize requests, so the button
+# would do nothing.
+button-layout='close,maximize:'
 titlebar-font='Inter Bold 11'

@@ -221,6 +221,11 @@ dconf update &>/dev/null || :
 - Wallpapers from anywhere: "Choose picture…" in the wallpaper picker and
   Settings, and "Choose folder…" in Settings, open the file chooser (every
   folder and disk); a chosen picture is applied and its folder remembered
+- The dock stays visible when a window is maximized (only real full screen
+  hides it) and shows open apps that aren't pinned
+- No minimise button: Hyprland ignores apps' minimise requests
+- App grid readable on any wallpaper (dark backdrop, white labels); app icons
+  given as file paths show in the grid and search
 
 * Tue Nov 24 2026 MuhOS contributors - 0.1.0-0.15
 - Equaliser on PipeWire's filter-chain instead of EasyEffects, with a new

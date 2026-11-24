@@ -73,7 +73,7 @@
     "cascadeScale": true,
     "focusRunning": true,
     "showRunningIndicators": true,
-    "showRunningApps": false,
+    "showRunningApps": true,
     "runningScope": "auto"
   },
   "theme": {

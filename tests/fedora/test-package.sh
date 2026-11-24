@@ -62,7 +62,7 @@ check "no Serpantinum outside installer strings" bash -c "! jq -r 'del(.installe
 check "MuhOS version shown" bash -c "[ \"\$(cat /usr/share/muhos/version.txt)\" = \"\$(rpm -q --qf '%{VERSION}' muhos)\" ]"
 check "MuhOS logo installed" grep -q "MuhOS mark" /usr/share/muhos/src/assets/logo.svg
 check "MuhOS-only dconf profile installed" grep -qx 'user-db:muhos' /etc/dconf/profile/muhos
-check "app look defaults: WhiteSur, Inter, left window buttons" bash -c "grep -q \"gtk-theme='WhiteSur-Light'\" /etc/dconf/db/muhos.d/00-muhos && grep -q \"icon-theme='WhiteSur'\" /etc/dconf/db/muhos.d/00-muhos && grep -q \"font-name='Inter 11'\" /etc/dconf/db/muhos.d/00-muhos && grep -q \"button-layout='close,minimize,maximize:'\" /etc/dconf/db/muhos.d/00-muhos"
+check "app look defaults: WhiteSur, Inter, left window buttons" bash -c "grep -q \"gtk-theme='WhiteSur-Light'\" /etc/dconf/db/muhos.d/00-muhos && grep -q \"icon-theme='WhiteSur'\" /etc/dconf/db/muhos.d/00-muhos && grep -q \"font-name='Inter 11'\" /etc/dconf/db/muhos.d/00-muhos && grep -q \"button-layout='close,maximize:'\" /etc/dconf/db/muhos.d/00-muhos"
 check "session uses the MuhOS dconf profile" grep -q 'export DCONF_PROFILE=muhos' /usr/bin/muhos-session
 check "session clears its profile for the next session" grep -q 'unset-environment DCONF_PROFILE GTK_THEME' /usr/bin/muhos-session
 check "windows float by default" grep -q 'name = "muhos-float"' /usr/share/muhos/hypr/config/muhos.lua
@@ -75,6 +75,7 @@ check "no EasyEffects recommendation" bash -c "! rpm -q --recommends muhos | gre
 check "screens scale automatically" grep -q 'scale = "auto"' /usr/share/muhos/hypr/config/monitors.lua
 check "terminal helper installed" test -x /usr/libexec/muhos/muhos-terminal
 check "Hyprland terminal is the helper, not kitty" grep -q 'muhos-terminal' /usr/share/muhos/hypr/config/variables.lua
+check "dock shows open apps for new users" bash -c "jq -e '.dock.showRunningApps == true' /usr/share/muhos/defaults/settings.json"
 check "no kitty pin for new users" bash -c "! jq -e '.dock.apps[] | select(.desktop_id == \"kitty\")' /usr/share/muhos/defaults/settings.json"
 check "file chooser helper installed" test -f /usr/share/muhos/src/quickshell/muhos/pick_file.py
 check "systemd units verify" systemd-analyze verify /usr/lib/systemd/user/muhos-shell.service /usr/lib/systemd/user/muhos-session.target
