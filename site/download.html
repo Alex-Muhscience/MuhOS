@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Download MuhOS</title>
-  <meta name="description" content="Download and install MuhOS on Fedora 44: ready-made RPM packages, checksums and step-by-step instructions.">
+  <meta name="description" content="Download and install MuhOS on Fedora 44 or 45: ready-made RPM packages, checksums and step-by-step instructions.">
   <link rel="icon" href="muhos-tile.svg" type="image/svg+xml">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -24,7 +24,7 @@
   <main>
     <header class="hero narrow" style="padding-bottom:24px">
       <h1>Download MuhOS</h1>
-      <p class="lead">Ready-made packages for Fedora 44 Workstation (x86_64), installed with one command. Then you choose MuhOS when you log in.</p>
+      <p class="lead">Ready-made packages for Fedora 44 and 45 Workstation (x86_64), installed with one command. Then you choose MuhOS when you log in.</p>
     </header>
 
     <section style="padding-top:0">
@@ -47,9 +47,9 @@
         <h2 style="margin-top:48px">Before you start</h2>
         <div class="table-wrap">
           <table>
-            <tr><th>System</th><td>Fedora 44 Workstation, x86_64</td></tr>
+            <tr><th>System</th><td>Fedora 44 or 45 Workstation, x86_64</td></tr>
             <tr><th>Login screen</th><td>GDM (Fedora's default). MuhOS adds itself as a choice; GNOME stays available.</td></tr>
-            <tr><th>Compositor</th><td>Hyprland 0.56, from the <a href="https://copr.fedorainfracloud.org/coprs/lionheartp/Hyprland/"><code>lionheartp/Hyprland</code></a> COPR (step 2)</td></tr>
+            <tr><th>Compositor</th><td>Hyprland 0.56 or newer (tested with 0.57.2), from the <a href="https://copr.fedorainfracloud.org/coprs/lionheartp/Hyprland/"><code>lionheartp/Hyprland</code></a> COPR (step 2)</td></tr>
             <tr><th>Graphics</th><td>Any GPU that Hyprland supports</td></tr>
           </table>
         </div>
@@ -57,7 +57,7 @@
         <h2 style="margin-top:48px">Install with one command</h2>
         <p>Open a terminal and run:</p>
         <pre data-copy><code>curl -fsSL https://alex-muhscience.github.io/MuhOS/install.sh | bash</code></pre>
-        <p>The installer checks that you're on Fedora 44, downloads the newest release from GitHub, checks every package against the release's <code>SHA256SUMS</code> (it stops if anything doesn't match), enables the Hyprland COPR and installs with dnf. It asks before changing anything, and dnf shows you the full list first. The packages aren't signed yet, so dnf mentions that it skipped signature checks.</p>
+        <p>The installer checks that you're on Fedora 44 or 45, downloads the newest release's packages for your version from GitHub, checks every package against the release's <code>SHA256SUMS</code> (it stops if anything doesn't match), enables the Hyprland COPR and installs with dnf. It asks before changing anything, and dnf shows you the full list first. The packages aren't signed yet, so dnf mentions that it skipped signature checks.</p>
         <p>Then <strong>log out</strong>, click your name on the login screen, choose <strong>MuhOS (Hyprland)</strong> with the gear button at the bottom right, and sign in.</p>
         <details>
           <summary>Prefer to read the installer first?</summary>

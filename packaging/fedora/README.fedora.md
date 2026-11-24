@@ -1,6 +1,6 @@
 # MuhOS on Fedora
 
-Target: Fedora 44 Workstation, x86_64, Hyprland. GDM stays your login manager.
+Target: Fedora 44 and 45 Workstation, x86_64, Hyprland. GDM stays your login manager.
 
 > Every bundled font, sound and image is listed with its source and license in
 > `ASSETS.md`; the package build fails if any is not cleared for
@@ -59,7 +59,7 @@ starts `muhos-shell.service`.
 ## Dependencies outside Fedora
 
 Upstream 2.2.13 was tested with Quickshell 0.3.2 and Matugen 4.2.0 (its Nix
-pin). Fedora 44 has Quickshell 0.2.1 and Matugen 3.1.0, and no Hyprland.
+pin). Fedora 44 and 45 have Quickshell 0.2.1 and Matugen 3.1.0, and no Hyprland.
 
 | Package | Version | Source |
 |---|---|---|
@@ -68,7 +68,7 @@ pin). Fedora 44 has Quickshell 0.2.1 and Matugen 3.1.0, and no Hyprland.
 | WhiteSur GTK theme | 2026-09-10 | MuhOS: `packaging/fedora/whitesur/whitesur-gtk-theme.spec` (upstream's prebuilt Light/Dark, GTK parts only) |
 | WhiteSur icon theme | 2026-09-10 | MuhOS: `packaging/fedora/whitesur/whitesur-icon-theme.spec` (Apple logo icons removed) |
 | hyprland-guiutils | 0.2.2 | Same COPR as Hyprland: its dialogs (app not responding, permissions) |
-| Hyprland | 0.56.2 | Third-party COPR [`lionheartp/Hyprland`](https://copr.fedorainfracloud.org/coprs/lionheartp/Hyprland/) (fork of solopasha/hyprland); fallback [`mineiro/hyprland`](https://copr.fedorainfracloud.org/coprs/mineiro/hyprland/) |
+| Hyprland | 0.56 or newer (tested with 0.57.2) | Third-party COPR [`lionheartp/Hyprland`](https://copr.fedorainfracloud.org/coprs/lionheartp/Hyprland/) (fork of solopasha/hyprland); fallback [`mineiro/hyprland`](https://copr.fedorainfracloud.org/coprs/mineiro/hyprland/) |
 
 Until the MuhOS COPR exists, the Quickshell and Matugen source RPMs are
 attached to GitHub releases. For testing:

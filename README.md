@@ -12,8 +12,8 @@
 <p align="center">
   <a href="https://github.com/Alex-Muhscience/MuhOS/actions/workflows/ci.yml"><img src="https://github.com/Alex-Muhscience/MuhOS/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
   <a href="LICENSE.md"><img src="https://img.shields.io/badge/license-AGPL--3.0--or--later-6a4fbf" alt="License: AGPL-3.0-or-later"></a>
-  <img src="https://img.shields.io/badge/Fedora-44-51a2da?logo=fedora&logoColor=white" alt="Fedora 44">
-  <img src="https://img.shields.io/badge/Hyprland-0.56-58e1ff" alt="Hyprland 0.56">
+  <img src="https://img.shields.io/badge/Fedora-44%20%7C%2045-51a2da?logo=fedora&logoColor=white" alt="Fedora 44 and 45">
+  <img src="https://img.shields.io/badge/Hyprland-0.57-58e1ff" alt="Hyprland 0.57">
   <img src="https://img.shields.io/badge/Quickshell-0.3.2-9b86f2" alt="Quickshell 0.3.2">
   <img src="https://img.shields.io/badge/status-pre--release-orange" alt="Status: pre-release">
 </p>
@@ -237,9 +237,9 @@ The full list of changes is in
 
 | | |
 |---|---|
-| Distribution | Fedora 44 Workstation, x86_64 |
-| Compositor | Hyprland 0.56, from the [`lionheartp/Hyprland`](https://copr.fedorainfracloud.org/coprs/lionheartp/Hyprland/) COPR |
-| Shell toolkit | Quickshell 0.3.2 and Matugen 4.2, packaged by MuhOS (Fedora 44 ships older versions) |
+| Distribution | Fedora 44 or 45 Workstation, x86_64 |
+| Compositor | Hyprland 0.56 or newer (tested with 0.57.2), from the [`lionheartp/Hyprland`](https://copr.fedorainfracloud.org/coprs/lionheartp/Hyprland/) COPR |
+| Shell toolkit | Quickshell 0.3.2 and Matugen 4.2, packaged by MuhOS (Fedora 44 and 45 ship older versions) |
 | App theme | WhiteSur GTK theme and icons, packaged by MuhOS; Inter font from Fedora |
 | Login manager | GDM (kept; MuhOS adds a session entry) |
 | Graphics | Any GPU Hyprland supports; a GPU makes the glass blur cheaper |
@@ -251,7 +251,7 @@ tree but untested in MuhOS.
 
 MuhOS is not in a package repository yet. Each
 [release](https://github.com/Alex-Muhscience/MuhOS/releases) has ready-made
-RPMs for Fedora 44 x86_64, plus source RPMs if you prefer to build them.
+RPMs for Fedora 44 and Fedora 45 (x86_64), plus source RPMs if you prefer to build them.
 
 ### Quick install: one command
 
@@ -259,8 +259,8 @@ RPMs for Fedora 44 x86_64, plus source RPMs if you prefer to build them.
 curl -fsSL https://alex-muhscience.github.io/MuhOS/install.sh | bash
 ```
 
-[`site/install.sh`](site/install.sh) checks for Fedora 44 x86_64, downloads
-the newest release from GitHub, verifies every package against the release's
+[`site/install.sh`](site/install.sh) checks for Fedora 44 or 45 (x86_64),
+downloads the newest release's packages for your Fedora version from GitHub, verifies every package against the release's
 `SHA256SUMS` (and stops if one doesn't match), enables the Hyprland COPR and
 installs with dnf, asking first. Run it again to update. `| bash -s -- --dry-run`
 downloads and verifies without installing.
@@ -274,7 +274,7 @@ Download `muhos-*.noarch.rpm`, `quickshell-*.x86_64.rpm`,
 
 ```sh
 sha256sum --check --ignore-missing SHA256SUMS     # verify the downloads
-sudo dnf copr enable lionheartp/Hyprland           # Hyprland 0.56
+sudo dnf copr enable lionheartp/Hyprland           # Hyprland
 sudo dnf install ./muhos-*.noarch.rpm ./quickshell-*.x86_64.rpm ./matugen-*.x86_64.rpm ./whitesur-*.noarch.rpm
 ```
 

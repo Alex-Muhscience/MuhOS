@@ -21,7 +21,8 @@ BuildRequires:  bash
 BuildRequires:  desktop-file-utils
 
 # Versions the upstream base release was tested with (its Nix pin).
-# Fedora 44 ships older Quickshell/Matugen and no Hyprland; these come from COPR.
+# Fedora 44 and 45 ship older Quickshell/Matugen and no Hyprland; Quickshell
+# and Matugen are packaged by MuhOS, Hyprland comes from a COPR.
 Requires:       quickshell >= 0.3.2
 Requires:       matugen >= 4
 Requires:       hyprland >= 0.56
