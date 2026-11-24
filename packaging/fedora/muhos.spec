@@ -5,7 +5,7 @@
 
 Name:           muhos
 Version:        0.1.0
-Release:        0.13%{?dist}
+Release:        0.14%{?dist}
 Summary:        Desktop shell for Hyprland on Fedora, based on Serpantinum
 
 # Code, MuhOS sounds and images: AGPL-3.0-or-later.
@@ -70,6 +70,13 @@ Requires:       systemd
 # Default interface font and app icon theme (see muhos-session, muhos-shell).
 Requires:       adwaita-sans-fonts
 Requires:       adwaita-icon-theme
+# macOS look for apps in the MuhOS session (packaging/fedora/dconf): WhiteSur
+# GTK theme and icons (MuhOS packages, packaging/fedora/whitesur) and Inter as
+# the app font. Applied through a MuhOS-only dconf profile.
+Requires:       whitesur-gtk-theme
+Requires:       whitesur-icon-theme
+Requires:       rsms-inter-fonts
+Requires:       dconf
 
 # Features degrade without these; the split is provisional until VM testing.
 Recommends:     xdg-desktop-portal-hyprland
@@ -157,6 +164,8 @@ install -Dm 0644 packaging/fedora/icons/muhos-sound.svg %{buildroot}%{_datadir}/
 install -Dm 0644 packaging/fedora/muhos-shell.service %{buildroot}%{_userunitdir}/muhos-shell.service
 install -Dm 0644 packaging/fedora/muhos-session.target %{buildroot}%{_userunitdir}/muhos-session.target
 install -Dm 0644 packaging/fedora/pam-serpantinum %{buildroot}%{_sysconfdir}/pam.d/serpantinum
+install -Dm 0644 packaging/fedora/dconf/profile-muhos %{buildroot}%{_sysconfdir}/dconf/profile/muhos
+install -Dm 0644 packaging/fedora/dconf/00-muhos %{buildroot}%{_sysconfdir}/dconf/db/muhos.d/00-muhos
 
 %check
 bash -n %{buildroot}%{_bindir}/muhos-session
@@ -165,6 +174,12 @@ for f in %{buildroot}%{_datadir}/%{name}/bin/*; do bash -n "$f"; done
 desktop-file-validate %{buildroot}%{_datadir}/applications/muhos-settings.desktop
 desktop-file-validate %{buildroot}%{_datadir}/applications/muhos-sound.desktop
 python3 -I tools/asset-inventory --strict
+
+%post
+dconf update &>/dev/null || :
+
+%postun
+dconf update &>/dev/null || :
 
 %files
 %license LICENSE.md NOTICE ASSETS.md src/assets/fonts/LICENSES
@@ -182,8 +197,20 @@ python3 -I tools/asset-inventory --strict
 %{_userunitdir}/muhos-shell.service
 %{_userunitdir}/muhos-session.target
 %config(noreplace) %{_sysconfdir}/pam.d/serpantinum
+%{_sysconfdir}/dconf/profile/muhos
+%dir %{_sysconfdir}/dconf/db/muhos.d
+%{_sysconfdir}/dconf/db/muhos.d/00-muhos
+%ghost %{_sysconfdir}/dconf/db/muhos
 
 %changelog
+* Tue Nov 24 2026 MuhOS contributors - 0.1.0-0.14
+- macOS look: menu bar with logo menu, app name and clock on the right;
+  floating windows; WhiteSur GTK theme and icons, Inter font and left-hand
+  window buttons for apps in the MuhOS session only (own dconf profile)
+- macOS and macOS Dark theme presets; soft window shadows, new animations
+- Fixed-size windows (Settings, calendar) shrink to fit small screens
+- Default pinned dock apps for new users
+
 * Sun Oct 25 2026 MuhOS contributors - 0.1.0-0.13
 - Sound app entry and icon for the MuhOS sound window; close button on it
 - Control centre: arrow beside the volume slider opens the sound window

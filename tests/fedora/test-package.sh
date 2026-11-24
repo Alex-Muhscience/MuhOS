@@ -55,6 +55,13 @@ check "command help names muhos" bash -c "jq -e '.cli.usage | startswith(\"Usage
 check "no Serpantinum outside installer strings" bash -c "! jq -r 'del(.installer, .muhos) | .. | strings' $L/*.json | grep -qi serpantinum"
 check "MuhOS version shown" bash -c "[ \"\$(cat /usr/share/muhos/version.txt)\" = \"\$(rpm -q --qf '%{VERSION}' muhos)\" ]"
 check "MuhOS logo installed" grep -q "MuhOS mark" /usr/share/muhos/src/assets/logo.svg
+check "MuhOS-only dconf profile installed" grep -qx 'user-db:muhos' /etc/dconf/profile/muhos
+check "app look defaults: WhiteSur, Inter, left window buttons" bash -c "grep -q \"gtk-theme='WhiteSur-Light'\" /etc/dconf/db/muhos.d/00-muhos && grep -q \"icon-theme='WhiteSur'\" /etc/dconf/db/muhos.d/00-muhos && grep -q \"font-name='Inter 11'\" /etc/dconf/db/muhos.d/00-muhos && grep -q \"button-layout='close,minimize,maximize:'\" /etc/dconf/db/muhos.d/00-muhos"
+check "session uses the MuhOS dconf profile" grep -q 'export DCONF_PROFILE=muhos' /usr/bin/muhos-session
+check "session clears its profile for the next session" grep -q 'unset-environment DCONF_PROFILE GTK_THEME' /usr/bin/muhos-session
+check "windows float by default" grep -q 'name = "muhos-float"' /usr/share/muhos/hypr/config/muhos.lua
+check "new users get pinned dock apps" bash -c "jq -e '.dock.apps | length > 0' /usr/share/muhos/defaults/settings.json"
+check "macOS wallpapers installed" test -f /usr/share/muhos/src/assets/wallpapers/muhos-tide-light.jpg
 check "systemd units verify" systemd-analyze verify /usr/lib/systemd/user/muhos-shell.service /usr/lib/systemd/user/muhos-session.target
 
 # Per-user setup must never overwrite existing files.

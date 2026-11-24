@@ -1,0 +1,14 @@
+# MuhOS (Fedora): GNOME/GTK defaults for the MuhOS session only. The session
+# runs with DCONF_PROFILE=muhos, so these and the user's own changes in MuhOS
+# live in ~/.config/dconf/muhos and never touch their GNOME settings.
+
+[org/gnome/desktop/interface]
+gtk-theme='WhiteSur-Light'
+icon-theme='WhiteSur'
+font-name='Inter 11'
+document-font-name='Inter 11'
+cursor-theme='Adwaita'
+
+[org/gnome/desktop/wm/preferences]
+button-layout='close,minimize,maximize:'
+titlebar-font='Inter Bold 11'
