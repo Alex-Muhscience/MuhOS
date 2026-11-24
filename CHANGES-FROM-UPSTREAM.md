@@ -39,6 +39,7 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - Settings > Theme: accent colour choice (a1ab74d)
 - Notification centre under the clock; Dark Style leaves forced GTK themes alone (bc0138e)
 - Equaliser on PipeWire's filter-chain; new glass Equaliser window (bde246f)
+- App grid, like the Apps view (Launchpad) on macOS (1f7aab4)
 
 ## Fedora-specific
 
@@ -80,6 +81,7 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - Changelog: dark mode apps (a90f21d)
 - muhos 0.1.0-0.15: recommend ladspa-swh-plugins instead of EasyEffects; equaliser package tests (0113d40)
 - Package tests: look for EasyEffects commands, parse the engine without leaving __pycache__ (5a7ab64)
+- An "Apps" entry for the app grid, pinned first in the dock for new users (0240c20)
 
 ## MuhOS branding
 
@@ -147,6 +149,8 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - Website on GitHub Pages; contributing guide, issue forms, PR template (6f85446)
 - Regenerate CHANGES-FROM-UPSTREAM.md (6fc929b)
 - README: the equaliser (78dbb16)
+- Regenerate CHANGES-FROM-UPSTREAM.md (75b379c)
+- One-command installer: curl … install.sh | bash (f5ae2d9)
 
 ## Upstream files changed by MuhOS
 
