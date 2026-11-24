@@ -40,6 +40,9 @@ check "Adwaita symbolic icons installed" test -f /usr/share/icons/Adwaita/symbol
 check "MuhOS Settings app entry" grep -q "^Exec=muhos msg open guide$" /usr/share/applications/muhos-settings.desktop
 check "Sound app entry opens the MuhOS sound window" grep -q "^Exec=muhos msg open volume$" /usr/share/applications/muhos-sound.desktop
 check "Sound app icon installed" test -f /usr/share/icons/hicolor/scalable/apps/muhos-sound.svg
+check "Apps entry opens the app grid" grep -q "^Exec=muhos ipc call muhos appGrid$" /usr/share/applications/muhos-apps.desktop
+check "Apps icon installed" test -f /usr/share/icons/hicolor/scalable/apps/muhos-apps.svg
+check "Apps pinned first in the dock for new users" bash -c "jq -e '.dock.apps[0].desktop_id == \"muhos-apps\"' /usr/share/muhos/defaults/settings.json"
 check "session entry for GDM" grep -q '^Exec=/usr/bin/muhos-session$' /usr/share/wayland-sessions/muhos.desktop
 check "PAM service uses system-auth" grep -q 'include *system-auth' /etc/pam.d/serpantinum
 check "no installer or telemetry shipped" bash -c '! rpm -ql muhos | grep -qE "/install/|telemetry"'

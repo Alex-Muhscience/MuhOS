@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Name=Apps
+Comment=All your apps in a grid
+Exec=muhos ipc call muhos appGrid
+Icon=muhos-apps
+Terminal=false
+Categories=Utility;
+Keywords=apps;applications;launchpad;grid;all;
+# Opens the MuhOS app grid, so it is hidden in other desktops (see
+# muhos-settings.desktop).
+NotShowIn=GNOME;KDE;XFCE;

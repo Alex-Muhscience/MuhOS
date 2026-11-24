@@ -55,6 +55,7 @@
     "autohideTimeout": 1000,
     "editing": false,
     "apps": [
+      { "name": "Apps", "comment": "All your apps in a grid", "desktop_id": "muhos-apps", "icon": "muhos-apps" },
       { "name": "Files", "comment": "Access and organize files", "desktop_id": "org.gnome.Nautilus", "icon": "org.gnome.Nautilus" },
       { "name": "Terminal", "comment": "Fast, GPU-based terminal emulator", "desktop_id": "kitty", "icon": "kitty" },
       { "name": "MuhOS Settings", "comment": "Configure the MuhOS desktop", "desktop_id": "muhos-settings", "icon": "preferences-system" },

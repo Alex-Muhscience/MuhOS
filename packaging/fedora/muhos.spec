@@ -161,6 +161,8 @@ install -Dm 0644 packaging/fedora/muhos.desktop %{buildroot}%{_datadir}/wayland-
 install -Dm 0644 packaging/fedora/muhos-settings.desktop %{buildroot}%{_datadir}/applications/muhos-settings.desktop
 install -Dm 0644 packaging/fedora/muhos-sound.desktop %{buildroot}%{_datadir}/applications/muhos-sound.desktop
 install -Dm 0644 packaging/fedora/icons/muhos-sound.svg %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/muhos-sound.svg
+install -Dm 0644 packaging/fedora/muhos-apps.desktop %{buildroot}%{_datadir}/applications/muhos-apps.desktop
+install -Dm 0644 packaging/fedora/icons/muhos-apps.svg %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/muhos-apps.svg
 install -Dm 0644 packaging/fedora/muhos-shell.service %{buildroot}%{_userunitdir}/muhos-shell.service
 install -Dm 0644 packaging/fedora/muhos-session.target %{buildroot}%{_userunitdir}/muhos-session.target
 install -Dm 0644 packaging/fedora/pam-serpantinum %{buildroot}%{_sysconfdir}/pam.d/serpantinum
@@ -173,6 +175,7 @@ sh -n %{buildroot}%{_libexecdir}/%{name}/muhos-shell
 for f in %{buildroot}%{_datadir}/%{name}/bin/*; do bash -n "$f"; done
 desktop-file-validate %{buildroot}%{_datadir}/applications/muhos-settings.desktop
 desktop-file-validate %{buildroot}%{_datadir}/applications/muhos-sound.desktop
+desktop-file-validate %{buildroot}%{_datadir}/applications/muhos-apps.desktop
 python3 -I tools/asset-inventory --strict
 
 %post
@@ -194,6 +197,8 @@ dconf update &>/dev/null || :
 %{_datadir}/applications/muhos-settings.desktop
 %{_datadir}/applications/muhos-sound.desktop
 %{_datadir}/icons/hicolor/scalable/apps/muhos-sound.svg
+%{_datadir}/applications/muhos-apps.desktop
+%{_datadir}/icons/hicolor/scalable/apps/muhos-apps.svg
 %{_userunitdir}/muhos-shell.service
 %{_userunitdir}/muhos-session.target
 %config(noreplace) %{_sysconfdir}/pam.d/serpantinum
@@ -207,6 +212,8 @@ dconf update &>/dev/null || :
 - Equaliser on PipeWire's filter-chain instead of EasyEffects, with a new
   glass Equaliser window and control-centre toggle; settings survive reboots
 - Recommend ladspa-swh-plugins (equaliser dynamics) instead of EasyEffects
+- App grid (macOS Apps view) with an "Apps" entry pinned first in the dock
+- One-command installer on the website
 
 * Tue Nov 24 2026 MuhOS contributors - 0.1.0-0.14
 - macOS look: menu bar with logo menu, app name and clock on the right;
