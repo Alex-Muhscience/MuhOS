@@ -45,6 +45,8 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - Equaliser window follows the state file even when it is created after startup (2078af7)
 - Screens scale automatically (73bbbea)
 - Wallpapers from any folder or disk (692d417)
+- Dock: stay visible when a window is maximized (e4b4e18)
+- App grid readable on any wallpaper; icons given as file paths (12d8c3b)
 
 ## Fedora-specific
 
@@ -89,6 +91,7 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - An "Apps" entry for the app grid, pinned first in the dock for new users (0240c20)
 - Package tests: install with --nosignature (RPM 6 on Fedora 45 refuses unsigned packages) (7273478)
 - muhos-terminal: open whichever terminal is installed; muhos 0.1.0-0.16 (7ad0df6)
+- Dock shows open apps; no minimise button; 0.16 changelog (44ca74f)
 
 ## MuhOS branding
 
@@ -168,6 +171,8 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - ASSETS.md: the equaliser and app grid screenshots (2a5b631)
 - README redesigned: quick links and install up front, highlights, full documentation (d5ea133)
 - README: the terminal shortcut (e7fc008)
+- Regenerate CHANGES-FROM-UPSTREAM.md (c0920ea)
+- Docs: close and zoom buttons, no minimise (499a04c)
 
 ## Upstream files changed by MuhOS
 
