@@ -5,102 +5,153 @@
 <h1 align="center">MuhOS</h1>
 
 <p align="center">
-  <b>A calm, modern desktop for Hyprland on Fedora.</b><br>
-  GNOME's layout, macOS-style glass, colours from your wallpaper.
+  <b>The Mac feel, on Fedora.</b><br>
+  A free desktop for Hyprland: a macOS-style menu bar, a glass dock,<br>
+  floating windows and apps to match.
 </p>
 
 <p align="center">
   <a href="https://github.com/Alex-Muhscience/MuhOS/actions/workflows/ci.yml"><img src="https://github.com/Alex-Muhscience/MuhOS/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
-  <a href="LICENSE.md"><img src="https://img.shields.io/badge/license-AGPL--3.0--or--later-6a4fbf" alt="License: AGPL-3.0-or-later"></a>
+  <a href="https://github.com/Alex-Muhscience/MuhOS/releases"><img src="https://img.shields.io/github/v/release/Alex-Muhscience/MuhOS?include_prereleases&label=release&color=007aff" alt="Latest release"></a>
   <img src="https://img.shields.io/badge/Fedora-44%20%7C%2045-51a2da?logo=fedora&logoColor=white" alt="Fedora 44 and 45">
   <img src="https://img.shields.io/badge/Hyprland-0.57-58e1ff" alt="Hyprland 0.57">
-  <img src="https://img.shields.io/badge/Quickshell-0.3.2-9b86f2" alt="Quickshell 0.3.2">
-  <img src="https://img.shields.io/badge/status-pre--release-orange" alt="Status: pre-release">
+  <a href="LICENSE.md"><img src="https://img.shields.io/badge/license-AGPL--3.0--or--later-6a4fbf" alt="License: AGPL-3.0-or-later"></a>
 </p>
 
 <p align="center">
-  <img src="docs/screenshots/desktop-dark.webp" alt="MuhOS desktop in dark mode: a macOS-style menu bar with the logo and the Files app name, Files and Text Editor windows floating over a dark blue wallpaper, and the glass dock" width="100%">
+  <a href="https://alex-muhscience.github.io/MuhOS/"><b>Website</b></a> ·
+  <a href="https://alex-muhscience.github.io/MuhOS/download.html"><b>Download</b></a> ·
+  <a href="https://alex-muhscience.github.io/MuhOS/docs.html"><b>User guide</b></a> ·
+  <a href="https://github.com/Alex-Muhscience/MuhOS/discussions"><b>Discussions</b></a> ·
+  <a href="CONTRIBUTING.md"><b>Contribute</b></a>
 </p>
 
+<p align="center">
+  <img src="docs/screenshots/desktop-light.webp" alt="MuhOS desktop: a macOS-style menu bar with the logo and the Files app name, Files with red, yellow and green window buttons and macOS-style folders, a Text Editor window, a light blue wallpaper and the glass dock" width="100%">
+</p>
+
+```sh
+curl -fsSL https://alex-muhscience.github.io/MuhOS/install.sh | bash
+```
+
+<p align="center"><sub>Fedora 44 or 45 Workstation, x86_64. The installer checks every package before installing it with dnf, and asks first. <a href="#installation">Other ways to install</a>.</sub></p>
+
 MuhOS is a desktop shell for the [Hyprland](https://hyprland.org/) compositor
-on Fedora: the menu bar, control centre, launcher, dock, notifications, lock
-screen, desktop widgets and theming of a complete desktop. It is built on
-[Quickshell](https://quickshell.org/) (Qt 6 / QML) and is a Fedora-focused
-fork of [Serpantinum](https://github.com/ilyamiro/serpantinum) by Illia
-Miroshnichenko. Website: **[alex-muhscience.github.io/MuhOS](https://alex-muhscience.github.io/MuhOS/)**.
+on Fedora: the menu bar, dock, app grid, search, control centre,
+notifications, equaliser, lock screen and theming of a complete desktop.
+It's built on [Quickshell](https://quickshell.org/) (Qt 6 / QML) and is a
+Fedora-focused fork of [Serpantinum](https://github.com/ilyamiro/serpantinum)
+by Illia Miroshnichenko. It installs next to GNOME, as a session you choose
+when you log in, and leaves GNOME exactly as it was.
 
 > [!NOTE]
-> **Pre-release.** The package builds, passes its install tests, and a full
-> GDM login session works in Fedora 44 virtual machines. It has not been
-> validated on real hardware yet. The menu bar, control centre, dock,
-> launcher, notifications, on-screen indicator and lock screen are MuhOS's
-> own glass design; the music, network, wallpaper and settings windows still
-> use Serpantinum's. Expect rough edges, and please
-> [report them](https://github.com/Alex-Muhscience/MuhOS/issues).
+> **Pre-release.** MuhOS builds and passes its tests on Fedora 44 and 45, and
+> full login sessions work in Fedora 44 and Fedora 45 virtual machines. It
+> hasn't been validated on real hardware yet, so expect rough edges and please
+> [report them](https://github.com/Alex-Muhscience/MuhOS/issues/new/choose),
+> or tell us how it runs on your machine with a
+> [hardware report](https://github.com/Alex-Muhscience/MuhOS/issues/new/choose).
 
 ## Contents
 
-- [Screenshots](#screenshots)
-- [Features](#features)
-- [How MuhOS differs from Serpantinum](#how-muhos-differs-from-serpantinum)
-- [Requirements](#requirements)
-- [Installation](#installation)
-- [First steps](#first-steps)
-- [Keyboard shortcuts](#keyboard-shortcuts)
-- [Configuration](#configuration)
-- [Command line](#command-line)
-- [Privacy](#privacy)
-- [Performance](#performance)
-- [Troubleshooting](#troubleshooting)
-- [Uninstalling](#uninstalling)
-- [Building and testing](#building-and-testing)
-- [Roadmap](#roadmap)
-- [Contributing](#contributing)
-- [Credits](#credits)
-- [License](#license)
+| Using MuhOS | Setting it up | The project |
+|---|---|---|
+| [Highlights](#highlights) | [Requirements](#requirements) | [How MuhOS differs from Serpantinum](#how-muhos-differs-from-serpantinum) |
+| [Screenshots](#screenshots) | [Installation](#installation) | [Performance](#performance) |
+| [Features](#features) | [Configuration](#configuration) | [Building and testing](#building-and-testing) |
+| [Getting started](#getting-started) | [Command line](#command-line) | [Roadmap](#roadmap) |
+| [Keyboard shortcuts](#keyboard-shortcuts) | [Troubleshooting](#troubleshooting) | [Contributing](#contributing) |
+| [Privacy](#privacy) | [Updating and uninstalling](#updating-and-uninstalling) | [Credits](#credits) · [License](#license) |
+
+## Highlights
+
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <img src="docs/screenshots/menu.webp" alt="The logo menu: About MuhOS, System Settings, Search, Sleep, Restart, Shut Down, Lock Screen and Log Out" width="180" align="right">
+      <h3>A real menu bar</h3>
+      The MuhOS logo menu for settings, sleep, restart and log out; the app
+      you're using in bold, with Full Screen and Quit; search, status icons and
+      the date and time on the right.
+    </td>
+    <td width="50%" valign="top">
+      <h3>Apps that look the part</h3>
+      Red, yellow and green window buttons, macOS-style icons (WhiteSur) and
+      the Inter font, in the MuhOS session only. Windows float and open
+      centred; <kbd>Super</kbd>+<kbd>T</kbd> tiles one when you want it.
+    </td>
+  </tr>
+  <tr>
+    <td valign="top">
+      <h3>Glass everywhere</h3>
+      The dock, control centre, search, notifications, on-screen indicator and
+      lock screen are frosted glass over a live blur of what's behind them.
+    </td>
+    <td valign="top">
+      <h3>All your apps, one click away</h3>
+      The <b>Apps</b> icon in the dock shows every app in a grid, like the Apps
+      view on a Mac. <kbd>Super</kbd>+<kbd>D</kbd> opens a Spotlight-style
+      search for apps, files, actions and quick sums.
+    </td>
+  </tr>
+  <tr>
+    <td valign="top">
+      <h3>A light equaliser</h3>
+      Ten bands, presets, balance and a night mode, built on PipeWire itself:
+      about 5 MiB of memory where the EasyEffects engine it replaced used
+      120 MiB, and switched off while flat.
+    </td>
+    <td valign="top">
+      <h3>Your colours, your GNOME untouched</h3>
+      Light and dark, macOS presets or colours from your wallpaper, ten accent
+      colours. MuhOS keeps its own app settings, so your GNOME session never
+      changes.
+    </td>
+  </tr>
+</table>
 
 ## Screenshots
 
 <table>
   <tr>
-    <td width="50%"><img src="docs/screenshots/desktop-light.webp" alt="Light mode: Files with red, yellow and green window buttons and macOS-style folders, a Text Editor window behind it, a light blue wallpaper and the glass dock"></td>
-    <td width="50%"><img src="docs/screenshots/tiling.webp" alt="Tiled windows: Text Editor and Files side by side under the transparent menu bar"></td>
+    <td width="50%"><img src="docs/screenshots/desktop-dark.webp" alt="Dark mode: Files and Text Editor in dark style over a dark blue wallpaper, with the glass dock"></td>
+    <td width="50%"><img src="docs/screenshots/app-grid.webp" alt="App grid: every installed app as a large icon over the blurred desktop, a search field on top and the dock below"></td>
   </tr>
   <tr>
-    <td align="center"><b>Light mode.</b> Apps in WhiteSur with macOS window buttons and icons.</td>
-    <td align="center"><b>Tiling.</b> Windows float like on macOS; <kbd>Super</kbd>+<kbd>T</kbd> tiles them.</td>
+    <td align="center"><b>Dark mode.</b> Apps follow it too.</td>
+    <td align="center"><b>Apps.</b> Every app in a grid, from the dock; type to search.</td>
   </tr>
   <tr>
-    <td><img src="docs/screenshots/launcher.webp" alt="Spotlight-style launcher: the query fi finds Files, Firefox and other apps, and the Turn Night Light On action"></td>
-    <td><img src="docs/screenshots/notifications.webp" alt="Three glass notification banners: a screenshot with its preview, software updates with Later and Restart buttons, and a calendar reminder"></td>
-  </tr>
-  <tr>
-    <td align="center"><b>Launcher.</b> Apps, system actions, files and a calculator in one search.</td>
-    <td align="center"><b>Notifications.</b> Glass banners with pictures and action buttons.</td>
-  </tr>
-  <tr>
-    <td><img src="docs/screenshots/notification-centre.webp" alt="Notification centre: a list of notifications with Clear all and a Do Not Disturb switch, beside today's date and a month calendar"></td>
-    <td><img src="docs/screenshots/lock-screen.webp" alt="Lock screen: blurred blue wallpaper, the date and a large clock, notification titles, the user's picture and a glass password field"></td>
-  </tr>
-  <tr>
-    <td align="center"><b>Notification centre.</b> Click the date and time: notifications and a calendar.</td>
-    <td align="center"><b>Lock screen.</b> Notification titles only; message contents stay private.</td>
-  </tr>
-  <tr>
-    <td><img src="docs/screenshots/music.webp" alt="Music popup with cover, playback controls and a ten-band equalizer with presets"></td>
-    <td><img src="docs/screenshots/settings.webp" alt="MuhOS Settings on the Theme page: coloured section icons from Welcome to About, and the accent colour choices"></td>
-  </tr>
-  <tr>
-    <td align="center"><b>Music.</b> Equalizer with presets, lyrics, output switching.</td>
-    <td align="center"><b>Settings.</b> Accent colours, presets, fonts, bar, dock, notifications and more.</td>
-  </tr>
-  <tr>
-    <td><img src="docs/screenshots/app-grid.webp" alt="App grid: every installed app as a large icon over the blurred desktop, a search field on top and the dock below"></td>
+    <td><img src="docs/screenshots/launcher.webp" alt="Spotlight-style search: the query fi finds Files, Firefox and other apps, and the Turn Night Light On action"></td>
     <td><img src="docs/screenshots/equalizer.webp" alt="Equaliser window: preset chips with Rock selected, a frequency-response curve with ten draggable bands, balance, mono, swap and dynamics controls"></td>
   </tr>
   <tr>
-    <td align="center"><b>Apps.</b> Every app in a grid, from the dock; type to search.</td>
-    <td align="center"><b>Equaliser.</b> Ten bands on PipeWire, presets, balance and dynamics.</td>
+    <td align="center"><b>Search.</b> Apps, files, actions and a calculator.</td>
+    <td align="center"><b>Equaliser.</b> Drag the bands; the curve shows what you'll hear.</td>
+  </tr>
+  <tr>
+    <td><img src="docs/screenshots/notifications.webp" alt="Three glass notification banners: a screenshot with its preview, software updates with Later and Restart buttons, and a calendar reminder"></td>
+    <td><img src="docs/screenshots/notification-centre.webp" alt="Notification centre: a list of notifications with Clear all and a Do Not Disturb switch, beside today's date and a month calendar"></td>
+  </tr>
+  <tr>
+    <td align="center"><b>Notifications.</b> Pictures and action buttons.</td>
+    <td align="center"><b>Notification centre.</b> Click the date and time.</td>
+  </tr>
+  <tr>
+    <td><img src="docs/screenshots/lock-screen.webp" alt="Lock screen: blurred blue wallpaper, the date and a large clock, notification titles, the user's picture and a glass password field"></td>
+    <td><img src="docs/screenshots/settings.webp" alt="MuhOS Settings on the Theme page: coloured section icons from Welcome to About, and the accent colour choices"></td>
+  </tr>
+  <tr>
+    <td align="center"><b>Lock screen.</b> Notification titles only, never their contents.</td>
+    <td align="center"><b>Settings.</b> Accent colours, themes, fonts, dock and more.</td>
+  </tr>
+  <tr>
+    <td><img src="docs/screenshots/tiling.webp" alt="Tiled windows: Text Editor and Files side by side under the transparent menu bar"></td>
+    <td><img src="docs/screenshots/music.webp" alt="Music popup with cover, playback controls and a ten-band equalizer with presets"></td>
+  </tr>
+  <tr>
+    <td align="center"><b>Tiling,</b> when you want it.</td>
+    <td align="center"><b>Music.</b> Cover, lyrics, equaliser and output switching.</td>
   </tr>
 </table>
 
@@ -108,98 +159,71 @@ Miroshnichenko. Website: **[alex-muhscience.github.io/MuhOS](https://alex-muhsci
 
 ### The MuhOS interface
 
-Every MuhOS surface is frosted glass: translucent panels over a blur of
-whatever is behind them, with a soft sheen and a light edge, as on macOS.
+<img src="docs/screenshots/control-centre.webp" alt="Control centre in dark mode: toggles for wired network, power mode, night light, dark style, do not disturb and the equaliser (Rock), a volume slider with an arrow, and session buttons" width="340" align="right">
 
-<img src="docs/screenshots/control-centre.webp" alt="Control centre in dark mode: toggles for wired network, power mode, night light, dark style, do not disturb and the equaliser (Rock), a volume slider with an arrow, and session buttons" width="360" align="right">
-
-- **Menu bar.** Transparent over the wallpaper and laid out like macOS. On
-  the left, the MuhOS logo opens a menu (About, System Settings, Search,
-  Sleep, Restart, Shut Down, Lock Screen, Log Out), followed by the focused
-  app's name in bold (Full Screen, Quit). On the right are the tray, search,
-  network, volume and battery, and the date and time, which open the
-  notification centre. Its text turns dark over light wallpapers and light
-  over dark ones, per screen. Scroll on the status icons to change the
-  volume.
-- **Hybrid layout.** Set `"bar": { "layout": "hybrid" }` for the earlier
-  GNOME-style layout: workspace dots on the left and a clock island in the
-  middle. While music plays, the island shows the cover and a small live
-  visualizer, and a click expands it into a player.
-- **Apps look like macOS.** In the MuhOS session, apps use the WhiteSur GTK
-  theme and icons, the Inter font, and close/minimise/zoom buttons on the
-  left. These settings live in MuhOS's own dconf profile, so your GNOME
-  session keeps its own theme. In dark mode, apps use GNOME's own dark style
-  instead, because WhiteSur's dark variant does not yet render GNOME 50 apps
-  correctly. Switching Dark Style while apps use WhiteSur takes effect for
-  apps at the next login. Windows float and open centred as on macOS;
-  <kbd>Super</kbd>+<kbd>T</kbd> tiles one.
-- **Control centre.** GNOME's system menu in glass: toggles for Wi-Fi (or
-  Wired), Bluetooth, power mode, night light, dark style, do not disturb and
-  the equaliser,
-  with arrows into the network and Bluetooth panels; volume and brightness
-  sliders (brightness only where a backlight or DDC display exists), with an
-  arrow from volume into the sound window (devices, inputs, per-app sound;
-  also the "Sound" app);
-  screenshot, settings and lock buttons; and a power menu with suspend,
-  restart, power off and log out. Escape or a click outside closes it.
-- **Equaliser.** A glass window from the control centre's Equaliser toggle:
-  presets, ten bands drawn as a live frequency-response curve (drag a dot),
-  balance, mono, swap, "dynamics" (Even out or Night) and a speaker test.
-  It runs on PipeWire itself, inside the MuhOS session only, and follows
-  whichever output you use; it is off, costing nothing, while flat. In the
-  test VM it used 4.9 MiB and 1.3 % of a core, where the EasyEffects engine
-  it replaces used 120 MiB and 2.3 %
-  ([report](bench/results/2026-11-24-vm-eq-easyeffects-vs-filterchain.md)).
-  Dynamics needs the `ladspa-swh-plugins` package (recommended, so installed
-  by default).
-- **App grid.** Like the Apps view on macOS: the "Apps" icon, first in the
-  dock, shows every installed app as a large icon over the blurred desktop,
-  with a search field. Type to filter, Enter or a click opens, Escape
-  closes; the dock stays visible above it.
-- **Dock.** A floating glass dock: icons sit on the glass without tiles and
-  magnify under the pointer, with their neighbours growing a little too.
-  Running apps get a dot; pinned apps, app menus and auto-hide work as before.
+- **Menu bar.** Transparent over the wallpaper, laid out like macOS. Left:
+  the MuhOS logo menu (About, System Settings, Search, Sleep, Restart, Shut
+  Down, Lock Screen, Log Out), then the focused app's name in bold (Full
+  Screen, Quit). Right: the tray, search, network, volume and battery, and the
+  date and time. Its text turns dark over light wallpapers and light over
+  dark ones, per screen.
+- **Control centre.** Toggles for Wi-Fi (or Wired), Bluetooth, power mode,
+  night light, dark style, do not disturb and the equaliser, with arrows into
+  networks, Bluetooth devices and the equaliser; volume and brightness
+  sliders (the volume arrow opens the Sound window: devices, inputs and
+  per-app volume); screenshot, settings, lock and power buttons.
+- **Dock.** Frosted glass, icons magnify under the pointer, open apps get a
+  dot. Right-click an icon to pin or unpin it. The first icon, **Apps**,
+  opens the app grid.
+- **App grid.** Every installed app as a large icon over the blurred
+  desktop, sorted by name, with search. The dock stays visible above it, and
+  opening an app closes it.
 
 <br clear="right">
 
-<img src="docs/screenshots/calculator.webp" alt="Launcher answering 18*7+2 with 128, ready to copy" width="420" align="right">
+<img src="docs/screenshots/calculator.webp" alt="Search answering 18*7+2 with 128, ready to copy" width="380" align="right">
 
-- **Launcher.** Spotlight-style: <kbd>Super</kbd>+<kbd>D</kbd> or the logo
-  opens one search field. Before you type it suggests the apps you use most;
-  as you type it shows apps (ranked by how well they match and how often you
-  use them), system actions (settings, wallpapers, control centre, clipboard,
-  screenshot, night light, dark style, do not disturb, lock, and after three
-  letters sleep, restart, power off and log out), files from your main
-  folders, and a calculator answer that <kbd>Enter</kbd> copies.
-- **Notifications.** Banners slide in at the top right with the app icon,
-  any picture sent with them (a screenshot preview, say) and action buttons.
-  They wait while you hover, swipe away to the right, and critical alerts
-  stay until dismissed. Do Not Disturb holds back everything but critical
-  alerts, which still reach the notification centre.
-- **Notification centre.** Opened from the clock: your notifications with
-  dismiss and Clear all, a Do Not Disturb switch, and today's date with a
-  month calendar that links to the full calendar and weather.
+- **Search.** <kbd>Super</kbd>+<kbd>D</kbd> or the magnifier. Apps (ranked
+  by match and by how often you use them), actions (settings, wallpapers,
+  clipboard, screenshot, night light, dark style, do not disturb, lock; sleep,
+  restart, power off and log out only after three letters), files from your
+  home folders, and a calculator answer that <kbd>Enter</kbd> copies.
+- **Notifications.** Glass banners at the top right with pictures and action
+  buttons; they wait while you hover, swipe away to the right, and critical
+  alerts stay. Do Not Disturb holds back everything but critical alerts.
+- **Notification centre.** From the date and time: notifications with Clear
+  all, a Do Not Disturb switch, and a month calendar.
 
 <br clear="right">
 
-<img src="docs/screenshots/osd.webp" alt="Volume indicator: a glass pill with a speaker icon, a level bar and 50%" width="320" align="right">
+<img src="docs/screenshots/osd.webp" alt="Volume indicator: a glass pill with a speaker icon, a level bar and 50%" width="300" align="right">
 
-- **On-screen indicator.** A glass pill under the status icons for volume,
-  microphone and brightness (drag or scroll it to adjust) and for caps lock,
-  num lock and airplane mode.
-- **Lock screen.** The wallpaper blurred, a large clock, what is playing and
-  notification titles (never their contents), and your picture with a glass
-  password field. It authenticates through PAM (`system-auth`), so your
-  normal password works.
-- **Themes and wallpapers.** New users start with the macOS theme (macOS
-  blue accent) and two original macOS-style wallpapers, light and dark.
-  Shell symbols come from GNOME's Adwaita icon theme. Choose another preset,
-  or colours generated from your wallpaper, in Settings → Theme. Light and
-  dark modes are both supported.
+- **Equaliser.** Ten bands (32 Hz–16 kHz, ±12 dB) drawn as a live
+  frequency-response curve, eight presets, balance, mono, swap, "dynamics"
+  (Even out or Night) and a speaker test. It runs on PipeWire's own filters,
+  only in the MuhOS session, follows whichever output you use, and switches
+  off while flat. Dynamics uses `ladspa-swh-plugins`, installed by default.
+- **On-screen indicator.** A glass pill for volume, microphone and
+  brightness (drag or scroll it) and for caps lock, num lock and airplane
+  mode.
+- **Lock screen.** Your blurred wallpaper, a large clock, what's playing and
+  notification titles, never their contents. It authenticates through PAM,
+  so your normal password works.
 
 <br clear="right">
 
-<img src="docs/screenshots/menu.webp" alt="The logo menu: About MuhOS, System Settings, Search, Sleep, Restart, Shut Down, Lock Screen and Log Out" width="250">
+- **Windows and apps.** Windows float and open centred;
+  <kbd>Super</kbd>+<kbd>T</kbd> tiles one. Apps use the WhiteSur GTK theme
+  and icons, the Inter font and close/minimise/zoom on the left, in the MuhOS
+  session only. In dark mode, apps use GNOME's own dark style, because
+  WhiteSur's dark variant doesn't display GNOME 50 apps correctly yet.
+- **Themes and colours.** New users start with the macOS theme and two
+  original macOS-style wallpapers, light and dark. Choose another preset, or
+  colours generated from your wallpaper (Matugen), and one of ten accent
+  colours in Settings → Theme. Shell icons come from WhiteSur, falling back
+  to Adwaita.
+- **Readable everywhere.** Fixed-size windows shrink to fit small screens;
+  Settings uses coloured section icons, as on a Mac.
 
 ### From Serpantinum
 
@@ -207,44 +231,88 @@ These come from Serpantinum and keep its design:
 
 | | |
 |---|---|
-| **Music** | Player popup with cover, ten-band equalizer and presets, synced lyrics, audio output switching. |
+| **Music** | Player with cover, the same equaliser, synced lyrics and audio output switching. |
 | **Clipboard** | History of copied text and images (cliphist), searchable. |
-| **Wallpapers and themes** | Picker for images and video wallpapers; colours generated from the wallpaper (Matugen) or one of 96 preset themes. |
+| **Wallpapers and themes** | Picker for images and video wallpapers; colours from the wallpaper (Matugen) or one of 96 preset themes. |
 | **Screenshots** | Region or full screen, an editor, screen recording and QR-code scanning. |
-| **Network, Bluetooth, volume** | Popups for Wi-Fi networks, Bluetooth devices, and per-app volume. |
+| **Network and Bluetooth** | Popups for Wi-Fi networks and Bluetooth devices. |
 | **Calendar and weather** | Month view and forecast. |
 | **Desktop widgets** | Clock, weather, music, visualizer, battery, system usage, user, image and GitHub widgets, placed with a built-in editor. |
 | **Night light** | Colour temperature with an automatic day/night schedule. |
-| **Idle** | Dim, lock and suspend after configurable times; a keep-awake switch. |
+| **Idle** | Dim, lock, screen off and suspend after set times; a keep-awake switch. |
 | **Wellbeing** | Focus-time tracking. |
-| **System** | Polkit authentication dialogs, UI sounds, 23 interface languages. |
+| **System** | Polkit authentication dialogs, interface sounds, 23 languages. |
 
-## How MuhOS differs from Serpantinum
+## Getting started
 
-- **Installed as an RPM**, not by a `curl | bash` script. There is no
-  telemetry and no network update check; updates come from the package.
-- **Does not take over your system.** GDM stays your login manager, no
-  services are enabled permanently, nothing is written to `/usr/local`, and
-  your existing `~/.config/hypr`, kitty, cava and fastfetch configuration is
-  never touched.
-- **A session you choose at login.** Pick "MuhOS (Hyprland)" on the GDM login
-  screen. The shell runs as a systemd user service tied to the session and is
-  restarted if it crashes.
-- **Configuration that survives updates.** Your Hyprland configuration lives
-  in `~/.config/muhos/hypr/`: a small `hyprland.lua` that loads the packaged
-  defaults, plus your own `user.lua`. Package updates improve the defaults
-  without overwriting your changes.
-- **Its own interface.** The menu bar, control centre, launcher,
-  notifications, on-screen indicator and lock screen are rebuilt and the dock
-  restyled (see [Features](#features)); they open popups directly instead of
-  starting a helper script and a second Quickshell process for every click.
-- **Every bundled asset is cleared for redistribution.** Fonts, sounds and
-  images each have a recorded source and license ([ASSETS.md](ASSETS.md));
-  material without one was removed or replaced with openly licensed or
-  original work.
+1. **Install** with the command at the top, then **log out**.
+2. On the login screen, click your name, then the **gear button** at the
+   bottom right, choose **MuhOS (Hyprland)**, and sign in. The first start
+   shows a short welcome with the most useful shortcuts.
+3. Explore:
+   - **Settings**: <kbd>Super</kbd>+<kbd>H</kbd>, System Settings in the logo
+     menu, or "MuhOS Settings" in the dock.
+   - **Apps**: the Apps icon in the dock; **search**: <kbd>Super</kbd>+<kbd>D</kbd>.
+   - **Quick settings**: click the network and volume icons at the top right.
+   - **Notifications and calendar**: click the date and time.
+   - **Wallpaper**: <kbd>Super</kbd>+<kbd>W</kbd>; add your own pictures to
+     `~/Pictures/Wallpapers`.
+   - **Weather**: set a location in Settings → General → Location (it stays
+     off until you do).
 
-The full list of changes is in
-[CHANGES-FROM-UPSTREAM.md](CHANGES-FROM-UPSTREAM.md).
+To go back to GNOME, log out and choose GNOME the same way. The
+[user guide](https://alex-muhscience.github.io/MuhOS/docs.html) explains every
+part of MuhOS in detail.
+
+## Keyboard shortcuts
+
+<kbd>Super</kbd> is the Windows key; in MuhOS it plays the role of
+<kbd>⌘</kbd>.
+
+| Shortcut | Action |
+|---|---|
+| <kbd>Super</kbd>+<kbd>D</kbd> | Search: apps, files, actions, calculator |
+| <kbd>Super</kbd>+<kbd>Enter</kbd> | Terminal (kitty) |
+| <kbd>Super</kbd>+<kbd>E</kbd> | Files |
+| <kbd>Super</kbd>+<kbd>F</kbd> | Firefox |
+| <kbd>Super</kbd>+<kbd>Q</kbd> | Close the window |
+| <kbd>Super</kbd>+<kbd>T</kbd> or <kbd>Super</kbd>+<kbd>Shift</kbd>+<kbd>F</kbd> | Tile the window, or float it again |
+| <kbd>Super</kbd>+<kbd>Alt</kbd>+<kbd>F</kbd> | Maximise the window |
+| <kbd>Super</kbd>+drag | Move (left button) or resize (right button) a window |
+| <kbd>Super</kbd>+<kbd>←↑↓→</kbd> | Focus the window in that direction |
+| <kbd>Super</kbd>+<kbd>Ctrl</kbd>+<kbd>←↑↓→</kbd> | Move the window |
+| <kbd>Super</kbd>+<kbd>Shift</kbd>+<kbd>←↑↓→</kbd> | Resize the window |
+| <kbd>Super</kbd>+<kbd>1</kbd>…<kbd>0</kbd> | Go to workspace 1–10 (<kbd>Shift</kbd>: move the window there) |
+| Three-finger swipe | Switch workspace (touchpad) |
+| <kbd>Super</kbd>+<kbd>H</kbd> | Settings |
+| <kbd>Super</kbd>+<kbd>L</kbd> | Lock the screen |
+| <kbd>Super</kbd>+<kbd>C</kbd> | Clipboard history |
+| <kbd>Super</kbd>+<kbd>W</kbd> | Wallpapers |
+| <kbd>Super</kbd>+<kbd>M</kbd> | Music |
+| <kbd>Super</kbd>+<kbd>V</kbd> | Sound |
+| <kbd>Super</kbd>+<kbd>N</kbd> | Network |
+| <kbd>Super</kbd>+<kbd>S</kbd> | Calendar |
+| <kbd>Super</kbd>+<kbd>B</kbd> | System panel |
+| <kbd>Super</kbd>+<kbd>Space</kbd> | Play or pause |
+| <kbd>Super</kbd>+<kbd>R</kbd> | Reload the shell |
+| <kbd>Super</kbd>+<kbd>A</kbd> | Auto-hide the bar on or off |
+| <kbd>Print</kbd> | Screenshot of an area (<kbd>Shift</kbd>: open it in the editor) |
+| <kbd>Super</kbd>+<kbd>Print</kbd> | Screenshot of the whole screen (<kbd>Shift</kbd>: editor) |
+| Media, volume and brightness keys | Work as labelled, also on the lock screen |
+
+Change or add shortcuts in `~/.config/muhos/hypr/user.lua` (see
+[Configuration](#configuration)).
+
+## Privacy
+
+- No telemetry and no background update checks: MuhOS doesn't contact any
+  server of its own, and updates come through dnf.
+- Your location isn't looked up automatically. The weather stays off until
+  you set a location; forecasts then come from [Open-Meteo](https://open-meteo.com/).
+  The Detect button does a one-time lookup through ipapi.co, and
+  `general.ipGeolocation` turns automatic lookup on if you want it.
+- Lyrics, when you use them, come from the public services Serpantinum uses.
+- The lock screen shows notification titles, never their contents.
 
 ## Requirements
 
@@ -253,234 +321,166 @@ The full list of changes is in
 | Distribution | Fedora 44 or 45 Workstation, x86_64 |
 | Compositor | Hyprland 0.56 or newer (tested with 0.57.2), from the [`lionheartp/Hyprland`](https://copr.fedorainfracloud.org/coprs/lionheartp/Hyprland/) COPR |
 | Shell toolkit | Quickshell 0.3.2 and Matugen 4.2, packaged by MuhOS (Fedora 44 and 45 ship older versions) |
-| App theme | WhiteSur GTK theme and icons, packaged by MuhOS; Inter font from Fedora |
-| Login manager | GDM (kept; MuhOS adds a session entry) |
-| Graphics | Any GPU Hyprland supports; a GPU makes the glass blur cheaper |
+| App theme | WhiteSur GTK theme and icons, packaged by MuhOS; Inter from Fedora |
+| Login manager | GDM (kept; MuhOS adds a session to it) |
+| Graphics | Any GPU Hyprland supports; a real GPU makes the glass blur cheaper |
 
 Other compositors supported upstream (Niri, Sway, Mango) are still in the
 tree but untested in MuhOS.
 
 ## Installation
 
-MuhOS is not in a package repository yet. Each
+MuhOS isn't in a package repository yet. Each
 [release](https://github.com/Alex-Muhscience/MuhOS/releases) has ready-made
-RPMs for Fedora 44 and Fedora 45 (x86_64), plus source RPMs if you prefer to build them.
+RPMs for Fedora 44 and Fedora 45 (x86_64), source RPMs, and a `SHA256SUMS`
+file.
 
-### Quick install: one command
+### One command
 
 ```sh
 curl -fsSL https://alex-muhscience.github.io/MuhOS/install.sh | bash
 ```
 
-[`site/install.sh`](site/install.sh) checks for Fedora 44 or 45 (x86_64),
-downloads the newest release's packages for your Fedora version from GitHub, verifies every package against the release's
-`SHA256SUMS` (and stops if one doesn't match), enables the Hyprland COPR and
-installs with dnf, asking first. Run it again to update. `| bash -s -- --dry-run`
-downloads and verifies without installing.
+[`site/install.sh`](site/install.sh) checks that you're on Fedora 44 or 45
+(x86_64), downloads the newest release's packages for your version from
+GitHub, verifies each one against the release's `SHA256SUMS` and stops if any
+doesn't match, enables the Hyprland COPR, and installs with dnf after asking.
+Everything runs from a function called on its last line, so a download cut
+off halfway runs nothing.
 
-### Install from a release by hand
+| Option (add <code>&#124; bash -s -- …</code>) | Effect |
+|---|---|
+| `--dry-run` | Download and verify only |
+| `--keep DIR` | Keep the downloaded packages in `DIR` |
+| `--tag v0.1.0-pre.5` | Install a specific release |
+| `--yes` | Don't ask (dnf runs with `-y`) |
 
-Download `muhos-*.noarch.rpm`, `quickshell-*.x86_64.rpm`,
-`matugen-*.x86_64.rpm`, `whitesur-gtk-theme-*.noarch.rpm`,
-`whitesur-icon-theme-*.noarch.rpm` and `SHA256SUMS` from the
+To read it first: `curl -fsSLO https://alex-muhscience.github.io/MuhOS/install.sh`,
+look through it, then `bash install.sh`.
+
+<details>
+<summary><b>Install by hand from a release</b></summary>
+
+Download the `.noarch.rpm` and `.x86_64.rpm` files for your Fedora version
+(`fc44` or `fc45` in the name) and `SHA256SUMS` from the
 [latest release](https://github.com/Alex-Muhscience/MuhOS/releases), then:
 
 ```sh
-sha256sum --check --ignore-missing SHA256SUMS     # verify the downloads
+sha256sum --check --ignore-missing SHA256SUMS     # every file should say OK
 sudo dnf copr enable lionheartp/Hyprland           # Hyprland
 sudo dnf install ./muhos-*.noarch.rpm ./quickshell-*.x86_64.rpm ./matugen-*.x86_64.rpm ./whitesur-*.noarch.rpm
 ```
 
-The packages are not signed yet, so dnf notes that it skipped signature
+The packages aren't signed yet, so dnf notes that it skipped signature
 checks; the checksums are how you verify them for now.
 
-Then log out, click the gear on the GDM login screen, choose
-**MuhOS (Hyprland)** and sign in.
+</details>
 
-### Build it yourself
+<details>
+<summary><b>Build it yourself</b></summary>
 
 Building happens as your user; only the final install needs `sudo`.
 
-**1. Enable Hyprland and install the build tools**
+1. Enable Hyprland and install the build tools:
 
-```sh
-sudo dnf copr enable lionheartp/Hyprland
-sudo dnf install rpm-build dnf-plugins-core git
-```
+   ```sh
+   sudo dnf copr enable lionheartp/Hyprland
+   sudo dnf install rpm-build dnf-plugins-core git
+   ```
 
-**2. Build Quickshell, Matugen and WhiteSur** from the source RPMs on the
-[release page](https://github.com/Alex-Muhscience/MuhOS/releases)
-(`quickshell-*.src.rpm`, `matugen-*.src.rpm` and `whitesur-*.src.rpm`;
-everything they need is included, so they build offline):
+2. Build Quickshell, Matugen and WhiteSur from the source RPMs on the
+   [release page](https://github.com/Alex-Muhscience/MuhOS/releases)
+   (everything they need is included, so they build offline):
 
-```sh
-sudo dnf builddep ./quickshell-*.src.rpm ./matugen-*.src.rpm ./whitesur-*.src.rpm
-rpmbuild --rebuild ./quickshell-*.src.rpm ./matugen-*.src.rpm ./whitesur-*.src.rpm
-```
+   ```sh
+   sudo dnf builddep ./quickshell-*.src.rpm ./matugen-*.src.rpm ./whitesur-*.src.rpm
+   rpmbuild --rebuild ./quickshell-*.src.rpm ./matugen-*.src.rpm ./whitesur-*.src.rpm
+   ```
 
-**3. Build MuhOS** from this repository:
+3. Build MuhOS from this repository:
 
-```sh
-git clone https://github.com/Alex-Muhscience/MuhOS.git
-cd MuhOS
-sudo dnf builddep packaging/fedora/muhos.spec
-packaging/fedora/build-rpm out
-```
+   ```sh
+   git clone https://github.com/Alex-Muhscience/MuhOS.git
+   cd MuhOS
+   sudo dnf builddep packaging/fedora/muhos.spec
+   packaging/fedora/build-rpm out
+   ```
 
-**4. Install everything**
+4. Install everything:
 
-```sh
-sudo dnf install ~/rpmbuild/RPMS/x86_64/{quickshell,matugen}-*.rpm ~/rpmbuild/RPMS/noarch/whitesur-*.rpm out/muhos-*.noarch.rpm
-```
+   ```sh
+   sudo dnf install ~/rpmbuild/RPMS/x86_64/{quickshell,matugen}-*.rpm ~/rpmbuild/RPMS/noarch/whitesur-*.rpm out/muhos-*.noarch.rpm
+   ```
 
-This pulls in Hyprland and the other dependencies. Then log out, click the
-gear on the GDM login screen, choose **MuhOS (Hyprland)** and sign in.
+</details>
 
-[packaging/fedora/README.fedora.md](packaging/fedora/README.fedora.md)
-lists exactly what the package installs and what it creates in your home
-folder.
-
-## First steps
-
-- **Welcome screen.** The first login shows a short welcome with the most
-  useful shortcuts; it appears once.
-- **Settings.** Press <kbd>Super</kbd>+<kbd>H</kbd>, choose System Settings
-  in the logo menu, or open "MuhOS Settings" from the dock or launcher.
-  Settings → Theme has the accent colours and presets.
-- **Wallpaper.** Press <kbd>Super</kbd>+<kbd>W</kbd>. Put your own images or
-  videos in `~/Pictures/Wallpapers`; the colours follow the wallpaper you
-  pick.
-- **Weather.** Stays off until you set a location in Settings → General →
-  Location (see [Privacy](#privacy)).
-- **Apps and search.** Press <kbd>Super</kbd>+<kbd>D</kbd> or click the
-  magnifier in the menu bar.
-- **Notifications and calendar.** Click the date and time.
-- **Quick settings.** Click the network, volume and battery icons at the top
-  right.
-
-## Keyboard shortcuts
-
-<kbd>Super</kbd> is the Windows key.
-
-| Shortcut | Action |
-|---|---|
-| <kbd>Super</kbd>+<kbd>D</kbd> | Launcher: apps, files, actions, calculator |
-| <kbd>Super</kbd>+<kbd>Enter</kbd> | Terminal (kitty) |
-| <kbd>Super</kbd>+<kbd>E</kbd> | Files |
-| <kbd>Super</kbd>+<kbd>F</kbd> | Firefox |
-| <kbd>Super</kbd>+<kbd>Q</kbd> | Close window |
-| <kbd>Super</kbd>+<kbd>Alt</kbd>+<kbd>F</kbd> | Maximize window |
-| <kbd>Super</kbd>+<kbd>T</kbd> or <kbd>Super</kbd>+<kbd>Shift</kbd>+<kbd>F</kbd> | Tile or float window (windows float by default) |
-| <kbd>Super</kbd>+<kbd>←↑↓→</kbd> | Focus window in that direction |
-| <kbd>Super</kbd>+<kbd>Ctrl</kbd>+<kbd>←↑↓→</kbd> | Move window |
-| <kbd>Super</kbd>+<kbd>Shift</kbd>+<kbd>←↑↓→</kbd> | Resize window |
-| <kbd>Super</kbd>+drag | Move (left button) or resize (right button) a window |
-| <kbd>Super</kbd>+<kbd>1</kbd>…<kbd>0</kbd> | Go to workspace 1–10 |
-| <kbd>Super</kbd>+<kbd>Shift</kbd>+<kbd>1</kbd>…<kbd>0</kbd> | Move window to workspace 1–10 |
-| Three-finger swipe | Switch workspace (touchpad) |
-| <kbd>Super</kbd>+<kbd>C</kbd> | Clipboard history |
-| <kbd>Super</kbd>+<kbd>M</kbd> | Music |
-| <kbd>Super</kbd>+<kbd>S</kbd> | Calendar |
-| <kbd>Super</kbd>+<kbd>N</kbd> | Network |
-| <kbd>Super</kbd>+<kbd>V</kbd> | Volume |
-| <kbd>Super</kbd>+<kbd>B</kbd> | System panel |
-| <kbd>Super</kbd>+<kbd>W</kbd> | Wallpapers |
-| <kbd>Super</kbd>+<kbd>H</kbd> | Settings |
-| <kbd>Super</kbd>+<kbd>L</kbd> | Lock screen |
-| <kbd>Super</kbd>+<kbd>Space</kbd> | Play or pause media |
-| <kbd>Super</kbd>+<kbd>R</kbd> | Reload the shell |
-| <kbd>Super</kbd>+<kbd>A</kbd> | Auto-hide the bar on or off |
-| <kbd>Print</kbd> | Screenshot of a region (<kbd>Shift</kbd>: open in the editor) |
-| <kbd>Super</kbd>+<kbd>Print</kbd> | Screenshot of the whole screen (<kbd>Shift</kbd>: editor) |
-| Media, volume and brightness keys | Work as labelled, also on the lock screen |
-
-Change or add shortcuts in `~/.config/muhos/hypr/user.lua` (see
-[Configuration](#configuration)).
+Then log out, choose **MuhOS (Hyprland)** with the gear button on the login
+screen, and sign in.
+[packaging/fedora/README.fedora.md](packaging/fedora/README.fedora.md) lists
+exactly what the package installs and what it creates in your home folder.
 
 ## Configuration
 
-Most things are set in the Settings app. Under the hood:
+Most things are in the Settings app. Under the hood:
 
-| File | What it holds |
+| File | Holds |
 |---|---|
 | `~/.config/serpantinum/settings.json` | Shell settings (written by the Settings app) |
 | `~/.config/muhos/hypr/hyprland.lua` | Loads the packaged Hyprland defaults, then your `user.lua`; created once, never overwritten |
-| `~/.config/muhos/hypr/user.lua` | Your Hyprland changes (create it) |
-| `~/.local/state/serpantinum/` | Generated colours and other state |
-| `/usr/share/muhos/hypr/` | Packaged Hyprland defaults (read-only; copy what you want to change into `user.lua`) |
+| `~/.config/muhos/hypr/user.lua` | Your own Hyprland settings and shortcuts (create it) |
+| `~/.config/dconf/muhos` | App settings (theme, icons, font, window buttons) for the MuhOS session only |
+| `~/.local/state/serpantinum/` | Generated colours, the equaliser and other state |
+| `/usr/share/muhos/hypr/` | The packaged Hyprland defaults (read-only; copy what you want to change into `user.lua`) |
 
-**Hyprland: add your own settings in `user.lua`.** It runs after the
-defaults, so anything there wins. For example:
+**Your own Hyprland settings** go in `user.lua`. It runs after the defaults,
+so it wins, and updates never overwrite it:
 
 ```lua
 -- ~/.config/muhos/hypr/user.lua
 hl.bind("SUPER + X", hl.dsp.exec_cmd("ptyxis"))      -- a second terminal
-
 hl.monitor({ output = "DP-1", mode = "2560x1440@144", position = "0x0", scale = 1.0 })
 ```
 
 Check it with `Hyprland --verify-config -c ~/.config/muhos/hypr/hyprland.lua`.
 
-**MuhOS-specific settings** in `settings.json`:
+**MuhOS settings** in `settings.json`:
 
 | Setting | Effect |
 |---|---|
-| `"bar": { "design": "classic" }` | Use Serpantinum's original design everywhere: its bar, dock style, launcher, notifications, indicator and lock screen. |
-| `"bar": { "position": "left" }` or `"autohide": true` | The MuhOS menu bar does not cover side bars or auto-hiding yet, so these use Serpantinum's bar (the rest stays MuhOS). |
-| `"dock": { "hoverScale": 160, "cascadeScale": true }` | Dock magnification (percent) and whether neighbours grow too; also in Settings → Dock. |
-| `"bar": { "layout": "hybrid" }` | The earlier GNOME-style menu bar: workspace dots on the left and a clock island in the middle (default `"macos"`). |
-| `"theme": { "accent": "#FF9500" }` | Accent colour over any preset (Settings → Theme → Accent colour); `""` keeps the preset's own. |
-| `"muhos": { "solidPanels": true }` | Solid panels instead of glass (like "reduce transparency" on macOS). |
-| `"general": { "ipGeolocation": true }` | Look up your location from your IP address automatically (off by default). |
+| `"bar": { "layout": "hybrid" }` | The GNOME-style bar: workspace dots on the left, and a clock island in the middle that shows the cover while music plays and expands into a player (default `"macos"`) |
+| `"bar": { "design": "classic" }` | Serpantinum's original design everywhere: its bar, dock style, launcher, notifications, indicator and lock screen |
+| `"bar": { "position": "left" }` or `"autohide": true` | Side and auto-hiding bars use Serpantinum's bar for now (the rest stays MuhOS) |
+| `"theme": { "accent": "#FF9500" }` | Any accent colour, over any theme; `""` keeps the theme's own |
+| `"dock": { "hoverScale": 160, "cascadeScale": true }` | Dock magnification (percent) and whether neighbours grow too; also in Settings → Dock |
+| `"muhos": { "solidPanels": true }` | Solid panels instead of glass, like "Reduce transparency" on a Mac |
+| `"general": { "ipGeolocation": true }` | Find your location from your IP address for the weather (off by default) |
 
 ## Command line
 
 `muhos` controls the running shell:
 
 ```sh
-muhos msg toggle launcher        # open or close a popup: launcher, music, calendar,
-                                 #   network, volume, system, wallpaper, guide, clipboard
-muhos msg workspace 3            # switch workspace (add "move" to move the window)
+muhos msg toggle launcher                 # a popup: launcher, music, calendar, network,
+                                          #   volume, system, wallpaper, guide, clipboard
+muhos msg workspace 3                     # switch workspace (add "move" to move the window)
 muhos ipc call muhos controlCentre        # open or close the control centre
-muhos ipc call muhos notificationCentre   # open or close the notification centre
-muhos screenshot --full --edit   # also: --record, --scan-qr
-muhos lock                       # lock the screen
-muhos reload                     # reload the shell
-muhos --help                     # everything else
+muhos ipc call muhos notificationCentre   # the notification centre
+muhos ipc call muhos appGrid              # the app grid
+muhos ipc call muhos equalizer            # the equaliser
+muhos screenshot --full --edit            # also: --record, --scan-qr
+muhos lock                                # lock the screen
+muhos reload                              # reload the shell
+muhos --help                              # everything else
 ```
+
+The equaliser can also be scripted:
+`/usr/share/muhos/src/quickshell/media/equalizer.sh preset Rock`
+(also `enable true|false`, `set_band_live N GAIN`, `set_balance`, `set_mono`,
+`set_swap`, `set_dynamics off|balanced|night`, `get`).
 
 Inside the shell, MuhOS keeps Serpantinum's internal command names
 (`serpantinum`, `serpantinumd`) so upstream scripts keep working; they live in
-`/usr/libexec/muhos/` and are not on your `PATH`.
-
-## Privacy
-
-- No telemetry, no analytics, no update checks: MuhOS does not contact any
-  server of its own.
-- Your location is **not** looked up from your IP address unless you turn
-  that on. The weather stays offline until you set a location (or press
-  "detect" for a one-time lookup).
-- Weather and lyrics, when used, are fetched from the public services
-  Serpantinum uses; nothing else leaves your machine.
-
-## Performance
-
-Every claim here comes from a reproducible benchmark:
-[tests/vm/](tests/vm/README.md) installs MuhOS in a fresh Fedora 44 VM
-(software rendering, no GPU) and measures Quickshell and Hyprland, 5 runs per
-scenario, median reported. Reports are in [bench/results/](bench/results/).
-
-| Change | Measured effect |
-|---|---|
-| New welcome screen (0.1.0-0.5) | Shell CPU while the first-run screen is shown: 130% → 0.5% of a core |
-| New menu bar (0.1.0-0.10) | Idle shell CPU 0.52% → 0.07%; shell memory 503 → 473 MiB |
-| Hybrid design (0.1.0-0.11) | Shell unchanged (0.07%, 471 MiB) |
-| Glass design (0.1.0-0.12) | No measurable change: shell 0.07%, 473 MiB; Hyprland 203 MiB |
-
-Known regression: Hyprland's own memory has grown from 175 MiB (0.1.0-0.1) to
-203 MiB (0.1.0-0.11, unchanged in 0.12). A stronger blur and the newly
-blurred dock did not move it; the cause is still being investigated. Not yet measured: blur cost on a real GPU while windows move
-under the glass.
+`/usr/libexec/muhos/` and aren't on your `PATH`.
 
 ## Troubleshooting
 
@@ -491,36 +491,125 @@ Hyprland --verify-config -c ~/.config/muhos/hypr/hyprland.lua
 muhos reload                                     # restart the shell's interface
 ```
 
-- **"MuhOS (Hyprland)" is missing at login.** Check that `hyprland` installed
-  (it comes from the COPR in step 1).
-- **The bar looks like Serpantinum's.** The MuhOS bar is replaced by the
-  classic one when the bar is set to a side or to auto-hide, or when
-  `bar.design` is `"classic"`.
-- **The dock has tiles or does not magnify.** The MuhOS dock settings are
-  defaults for new users; if you changed dock settings before, set
-  floating, magnification and cascade in Settings → Dock.
-- **Dark Style does nothing.** It switches the wallpaper-generated colours
-  between light and dark; with a preset theme selected in Settings → Theme,
-  pick a light or dark preset there instead.
+<details>
+<summary><b>"MuhOS (Hyprland)" is missing on the login screen</b></summary>
 
-## Uninstalling
+Check that Hyprland installed; it comes from the COPR the installer enables:
+`rpm -q hyprland muhos`.
+
+</details>
+
+<details>
+<summary><b>Apps look like GNOME in dark mode</b></summary>
+
+Expected for now: in dark mode apps use GNOME's own dark style, because
+WhiteSur's dark variant doesn't display GNOME 50 apps correctly. If you
+switch Dark Style while apps use WhiteSur, they change at your next login.
+
+</details>
+
+<details>
+<summary><b>The equaliser does nothing</b></summary>
+
+Check that its toggle in the control centre is on and that it isn't set to
+Flat (a flat equaliser switches itself off), then
+`systemctl --user status serpantinum-eq`. Dynamics needs
+`sudo dnf install ladspa-swh-plugins`.
+
+</details>
+
+<details>
+<summary><b>The bar looks like Serpantinum's</b></summary>
+
+The MuhOS bar is replaced by the classic one when the bar is on a side,
+auto-hides, or `bar.design` is `"classic"`.
+
+</details>
+
+<details>
+<summary><b>The dock has tiles or doesn't magnify</b></summary>
+
+MuhOS's dock settings are defaults for new users. If you changed dock
+settings before, turn on floating, magnification and cascade in
+Settings → Dock.
+
+</details>
+
+<details>
+<summary><b>Firefox doesn't look like the other apps</b></summary>
+
+Firefox draws its own interface, so GTK themes don't style it.
+
+</details>
+
+## Updating and uninstalling
+
+**Update** by running the install command again: it installs the newest
+release over the old one and keeps your settings.
+
+**Uninstall**:
 
 ```sh
 sudo dnf remove muhos whitesur-gtk-theme whitesur-icon-theme
-rm -r ~/.config/dconf/muhos                         # optional: MuhOS app settings
-rm -r ~/.config/muhos                               # optional: your MuhOS Hyprland config
+rm -r ~/.config/dconf/muhos                              # optional: MuhOS app settings
+rm -r ~/.config/muhos                                    # optional: your MuhOS Hyprland config
 rm -r ~/.config/serpantinum ~/.local/state/serpantinum   # optional: shell settings and state
 ```
 
-Your other configuration was never changed, so nothing else needs restoring.
+MuhOS never changes your GNOME setup or other configuration, so nothing else
+needs restoring.
+
+## How MuhOS differs from Serpantinum
+
+- **Installed as Fedora packages.** RPMs installed with dnf; the one-line
+  installer only downloads, verifies and installs those packages. No
+  telemetry, no network update check; updates come through dnf.
+- **Doesn't take over your system.** GDM stays your login manager, no
+  services are enabled permanently, nothing is written to `/usr/local`, and
+  your `~/.config/hypr`, kitty, cava and fastfetch configuration is never
+  touched. App themes and settings live in a MuhOS-only profile, cleared when
+  you log out.
+- **A session you choose at login.** The shell runs as a systemd user
+  service tied to the session and restarts if it crashes.
+- **Configuration that survives updates.** Your Hyprland configuration lives
+  in `~/.config/muhos/hypr/`: a small `hyprland.lua` that loads the packaged
+  defaults, plus your `user.lua`.
+- **Its own interface.** The menu bar, control centre, app grid, search,
+  notifications, equaliser window, on-screen indicator and lock screen are
+  MuhOS's own, the dock is restyled, and the equaliser runs on PipeWire
+  instead of EasyEffects.
+- **Every bundled asset is cleared for redistribution.** Fonts, sounds and
+  images each have a recorded source and licence ([ASSETS.md](ASSETS.md));
+  anything without one was removed or replaced with openly licensed or
+  original work.
+
+The full list of changes is in
+[CHANGES-FROM-UPSTREAM.md](CHANGES-FROM-UPSTREAM.md).
+
+## Performance
+
+Every claim here comes from a reproducible benchmark in a Fedora 44 VM
+([tests/vm/](tests/vm/README.md), software rendering, no GPU; median of
+several runs). Reports are in [bench/results/](bench/results/).
+
+| Change | Measured effect |
+|---|---|
+| New welcome screen (0.1.0-0.5) | Shell CPU while the first-run screen shows: 130% → 0.5% of a core |
+| New menu bar (0.1.0-0.10) | Idle shell CPU 0.52% → 0.07%; shell memory 503 → 473 MiB |
+| Glass design (0.1.0-0.12) | No measurable change: shell 0.07%, 473 MiB; Hyprland 203 MiB |
+| Equaliser on PipeWire (0.1.0-0.15) | Engine 4.9 MiB and 1.3% of a core, where EasyEffects used 119.8 MiB and 2.25% ([report](bench/results/2026-11-24-vm-eq-easyeffects-vs-filterchain.md)) |
+
+Known issue: Hyprland's own memory grew from 175 MiB (0.1.0-0.1) to 203 MiB
+(0.1.0-0.11); the cause is still being looked for. Not measured yet: the blur's
+cost on a real GPU while windows move under the glass, and the macOS look
+added in 0.1.0-0.14.
 
 ## Building and testing
 
-Builds and checks run in a Fedora 44 container, so your system stays
-untouched:
+Builds and checks run in Fedora containers, so your system stays untouched:
 
 ```sh
-podman run --rm -v "$PWD":/src:Z -w /src registry.fedoraproject.org/fedora:44 bash -c '
+podman run --rm -v "$PWD":/src:Z -w /src registry.fedoraproject.org/fedora:45 bash -c '
   dnf -y install git python3 rpm-build systemd systemd-rpm-macros desktop-file-utils jq xdg-user-dirs adwaita-icon-theme &&
   git config --global --add safe.directory /src &&
   packaging/fedora/build-rpm out &&
@@ -530,10 +619,10 @@ python3 -I tools/asset-inventory --strict   # every asset licensed and cleared
 python3 -I tools/lint-baseline --check      # shellcheck/qmllint findings must not grow
 ```
 
-`tests/vm/` builds Fedora 44 virtual machines with MuhOS installed, checks
-the login session and runs the benchmarks; see
-[tests/vm/README.md](tests/vm/README.md). CI runs the package build, the
-asset check and the lint check on every push.
+CI builds and tests the package on Fedora 44 and 45 and runs the asset and
+lint checks on every push. `tests/vm/` builds Fedora virtual machines with
+MuhOS installed, checks the login session and runs the benchmarks
+([tests/vm/README.md](tests/vm/README.md)).
 
 <details>
 <summary><b>Repository layout</b></summary>
@@ -541,12 +630,14 @@ asset check and the lint check on every push.
 | Path | Contents |
 |---|---|
 | `src/quickshell/` | The shell (QML) |
-| `src/quickshell/muhos/` | MuhOS's own interface: menu bar, control centre, launcher, notifications, indicator, lock screen, glass and design tokens |
+| `src/quickshell/muhos/` | MuhOS's own interface: menu bar, control centre, app grid, search, notifications, equaliser, indicator, lock screen, glass and design tokens |
+| `src/quickshell/media/` | Music window and the equaliser engine (`eq_engine.py`) |
 | `src/scripts/`, `bin/` | Helper scripts and the command-line tools |
 | `src/assets/` | Fonts, sounds, shaders, themes, translations, wallpapers |
 | `compositors/` | Default compositor configuration (Hyprland is the one MuhOS uses) |
-| `packaging/fedora/` | RPM specs, session entry, systemd units, Hyprland defaults |
-| `tools/` | Asset inventory, lint baseline, upstream sync, asset build scripts |
+| `packaging/fedora/` | RPM specs (MuhOS, Quickshell, Matugen, WhiteSur), session, units, Hyprland defaults, dconf profile |
+| `site/` | The website and the installer |
+| `tools/` | Asset inventory, lint baseline, upstream sync, image generation |
 | `tests/fedora/` | Package install tests |
 | `tests/vm/` | VM images, session checks, benchmarks |
 | `bench/results/` | Benchmark reports |
@@ -559,51 +650,54 @@ asset check and the lint check on every push.
 - [x] RPM packaging, GDM session, systemd integration
 - [x] Assets cleared for redistribution; MuhOS branding
 - [x] VM test harness and reproducible benchmarks
-- [x] New welcome screen, menu bar, clock island, control centre
-- [x] Glass design: dock with magnification, Spotlight-style launcher, notifications and notification centre, on-screen indicator, lock screen
+- [x] Glass design: menu bar, control centre, dock, search, notifications, indicator, lock screen
+- [x] macOS look: logo menu, floating windows, WhiteSur apps and icons, accent colours
+- [x] Equaliser on PipeWire, app grid, one-command installer, website
+- [x] Fedora 45
+- [ ] Validate on real hardware (Intel, AMD, NVIDIA, hybrid graphics)
 - [ ] Music, network, wallpaper and settings windows in the glass style
-- [ ] Desktop clock and weather widget in the new style
-- [ ] Find and fix Hyprland's memory growth from blur
-- [ ] Optional macOS-style icon theme (WhiteSur)
-- [ ] Validate on real hardware (Intel, AMD, NVIDIA)
-- [ ] Publish RPMs in a COPR repository
+- [ ] Find and fix Hyprland's memory growth
+- [ ] Sign the packages and publish them in a COPR repository
 
 ## Contributing
 
-Bug reports, testing on real hardware and pull requests are welcome. Start
-with [CONTRIBUTING.md](CONTRIBUTING.md) or the
+Bug reports, hardware reports and pull requests are all welcome. Start with
+[CONTRIBUTING.md](CONTRIBUTING.md) or the
 [website's contribute page](https://alex-muhscience.github.io/MuhOS/contribute.html);
 questions and ideas go to [Discussions](https://github.com/Alex-Muhscience/MuhOS/discussions).
 
 MuhOS tracks upstream Serpantinum releases and keeps its changes small and
-clearly labelled, so fixes can flow back upstream. Every commit is labelled
-`[general]` (useful upstream), `[fedora]`, `[brand]`, `[bench]` or `[fork]`.
-[FORK.md](FORK.md) explains the labels, how upstream releases are merged, and
-the rule for evidence: no performance claim without a benchmark.
+labelled, so fixes can flow back upstream: every commit starts with
+`[general]` (useful upstream), `[fedora]`, `[brand]`, `[fork]`, `[ci]` or
+`[bench]`. [FORK.md](FORK.md) explains the labels, how upstream releases are
+merged, and the rule for evidence: no performance claim without a benchmark.
 
 ## Credits
 
 - [Serpantinum](https://github.com/ilyamiro/serpantinum) by Illia Miroshnichenko
   and its [contributors](https://github.com/ilyamiro/serpantinum/graphs/contributors):
   the shell MuhOS is built on.
-- [Quickshell](https://quickshell.org/), the toolkit the shell runs on, and
-  [Hyprland](https://hyprland.org/), the compositor.
+- [Quickshell](https://quickshell.org/), the toolkit the shell runs on;
+  [Hyprland](https://hyprland.org/), the compositor; and
+  [PipeWire](https://pipewire.org/), which runs the equaliser.
 - [Matugen](https://github.com/InioX/matugen) for wallpaper colours.
-- The [Adwaita icon theme](https://gitlab.gnome.org/GNOME/adwaita-icon-theme)
-  by the GNOME project, used from Fedora's package.
 - [WhiteSur](https://github.com/vinceliuice/WhiteSur-gtk-theme) GTK theme
   (MIT) and [icon theme](https://github.com/vinceliuice/WhiteSur-icon-theme)
-  (GPL-3.0) by Vince Liuice, packaged by MuhOS without the Apple logo icons,
-  and the [Inter](https://rsms.me/inter/) font by Rasmus Andersson, from
-  Fedora's package.
+  (GPL-3.0) by Vince Liuice, packaged by MuhOS without the Apple logo icons;
+  the [Adwaita icon theme](https://gitlab.gnome.org/GNOME/adwaita-icon-theme)
+  by the GNOME project; and the [Inter](https://rsms.me/inter/) font by
+  Rasmus Andersson.
+- The [SWH LADSPA plugins](https://github.com/swh/ladspa) by Steve Harris
+  for the equaliser's dynamics.
 - Sounds by [Kenney](https://kenney.nl) (CC0) and Romain Raynal's
   [Open Sounds](https://romainraynal.gumroad.com/) (CC0).
 - Fonts from [Nerd Fonts](https://www.nerdfonts.com/) and the font projects
   listed in [ASSETS.md](ASSETS.md).
 
-The design takes cues from GNOME and macOS; MuhOS is not affiliated with the
-GNOME Foundation or Apple. Screenshots show third-party apps and icons (such
-as Firefox, a Mozilla trademark) as they appear on the desktop.
+The design takes cues from GNOME and macOS; MuhOS isn't affiliated with Apple,
+the GNOME Foundation or the Fedora Project. Screenshots show third-party apps
+and icons (such as Firefox, a Mozilla trademark) as they appear on the
+desktop.
 
 ## License
 
@@ -611,5 +705,5 @@ Copyright (C) 2026 Illia Miroshnichenko (Serpantinum) and MuhOS contributors.
 
 MuhOS is licensed under the GNU Affero General Public License version 3, or
 (at your option) any later version; see [LICENSE.md](LICENSE.md) and
-[NOTICE](NOTICE). Bundled fonts, sounds and images have their own licenses,
+[NOTICE](NOTICE). Bundled fonts, sounds and images have their own licences,
 listed in [ASSETS.md](ASSETS.md).
