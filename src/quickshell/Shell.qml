@@ -12,10 +12,19 @@ ShellRoot {
     // The control centre is created on first use and kept, so it can animate out.
     property bool controlCentreUsed: false
     property bool notificationCentreUsed: false
+    property bool equalizerUsed: false
     Connections {
         target: MuhosCommands
         function onControlCentreOpenChanged() { if (MuhosCommands.controlCentreOpen) controlCentreUsed = true; }
         function onNotificationCentreOpenChanged() { if (MuhosCommands.notificationCentreOpen) notificationCentreUsed = true; }
+        function onEqualizerOpenChanged() { if (MuhosCommands.equalizerOpen) equalizerUsed = true; }
+    }
+
+    // MuhOS: bring back the equaliser (PipeWire filter-chain) saved last time;
+    // it does nothing when the equaliser is off or flat.
+    Process {
+        running: Caching.qsDir !== ""
+        command: ["bash", Caching.qsDir + "/media/equalizer.sh", "restore"]
     }
 
     Connections {
@@ -64,6 +73,10 @@ ShellRoot {
     LazyLoader {
         active: muhosBar && MuhosStyle.macLayout
         MacMenu {}
+    }
+    LazyLoader {
+        active: muhosBar && equalizerUsed
+        MuhosEqualizer {}
     }
     Loader {
         active: !muhosBar

@@ -212,9 +212,10 @@ MusicPlayerState {
     }
 
     // equalizer.sh keeps its state in this file; watch it instead of polling the script.
+    // MuhOS: in the state directory, so the equaliser survives a reboot.
     FileView {
         id: eqStateFile
-        path: Caching.runDir + "/music/eq_state.json"
+        path: Caching.stateDir + "/music/eq_state.json"
         watchChanges: true
         printErrors: false
         onFileChanged: reload()

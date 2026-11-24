@@ -371,32 +371,6 @@ PanelWindow {
         }
     }
 
-    // A small on/off switch in the MuhOS style.
-    component MuhosSwitch: Rectangle {
-        id: sw
-        property bool checked: false
-        signal toggled()
-        width: MuhosStyle.s(42)
-        height: MuhosStyle.s(24)
-        radius: height / 2
-        color: checked ? MuhosStyle.accent : MuhosStyle.chipPressed
-        Behavior on color { ColorAnimation { duration: MuhosStyle.normal } }
-        Rectangle {
-            width: parent.height - MuhosStyle.s(6)
-            height: width
-            radius: width / 2
-            y: MuhosStyle.s(3)
-            x: sw.checked ? parent.width - width - MuhosStyle.s(3) : MuhosStyle.s(3)
-            color: "#ffffff"
-            Behavior on x { NumberAnimation { duration: MuhosStyle.normal; easing.type: MuhosStyle.easingEmphasis } }
-        }
-        MouseArea {
-            anchors.fill: parent
-            cursorShape: Qt.PointingHandCursor
-            onClicked: sw.toggled()
-        }
-    }
-
     // Month grid with today marked; arrows page through months.
     component MonthCalendar: Column {
         id: cal

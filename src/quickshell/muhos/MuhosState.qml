@@ -104,6 +104,71 @@ QtObject {
     readonly property bool dnd: Config.getSetting("notifications", {}).dnd === true
     function setDnd(on) { Config.setSetting("notifications.dnd", on); }
 
+    // Equaliser (media/equalizer.sh, PipeWire filter-chain). The script keeps
+    // the state in a file; local changes show at once and the file catches up.
+    readonly property var eqFreqs: [32, 63, 125, 250, 500, 1000, 2000, 4000, 8000, 16000]
+    readonly property var eqPresets: ["Flat", "Bass", "Treble", "Vocal", "Pop", "Rock", "Jazz", "Classic"]
+    readonly property var eqPresetGains: ({
+        "Flat": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "Bass": [5, 7, 5, 2, 1, 0, 0, 0, 1, 2],
+        "Treble": [-2, -1, 0, 1, 2, 3, 4, 5, 6, 6], "Vocal": [-2, -1, 1, 3, 5, 5, 4, 2, 1, 0],
+        "Pop": [2, 4, 2, 0, 1, 2, 4, 2, 1, 2], "Rock": [5, 4, 2, -1, -2, -1, 2, 4, 5, 6],
+        "Jazz": [3, 3, 1, 1, 1, 1, 2, 1, 2, 3], "Classic": [0, 1, 2, 2, 2, 2, 1, 2, 3, 4]
+    })
+    property var eq: ({ b1: 0, b2: 0, b3: 0, b4: 0, b5: 0, b6: 0, b7: 0, b8: 0, b9: 0, b10: 0,
+                        preset: "Flat", balance: 0, mono: false, swap: false, dynamics: "off",
+                        enabled: true, active: false, dynamicsAvailable: false })
+    property real _eqLocalAt: 0
+    function eqGain(i) { return Number(eq["b" + (i + 1)] || 0); }
+    function _eqLocal(changes) {
+        eq = Object.assign({}, eq, changes);
+        _eqLocalAt = Date.now();
+    }
+    function eqRun(args) {
+        Quickshell.execDetached(["bash", Caching.qsDir + "/media/equalizer.sh"].concat(args));
+    }
+    function eqSetBand(i, gain) {
+        const g = Math.round(Math.max(-12, Math.min(12, gain)) * 2) / 2;
+        const c = { preset: "Custom" };
+        c["b" + (i + 1)] = g;
+        _eqLocal(c);
+        eqRun(["set_band_live", String(i + 1), String(g)]);
+    }
+    function eqSetPreset(name) {
+        const c = { preset: name };
+        (eqPresetGains[name] || []).forEach((g, i) => c["b" + (i + 1)] = g);
+        _eqLocal(c);
+        eqRun(["preset", name]);
+    }
+    function eqSetEnabled(on) { _eqLocal({ enabled: on }); eqRun(["enable", on ? "true" : "false"]); }
+    function eqSetBalance(b) {
+        const v = Math.round(Math.max(-1, Math.min(1, b)) * 20) / 20;
+        _eqLocal({ balance: v });
+        eqRun(["set_balance", String(v)]);
+    }
+    function eqSetFlag(name, on) { const c = {}; c[name] = on; _eqLocal(c); eqRun(["set_" + name, on ? "true" : "false"]); }
+    function eqSetDynamics(mode) { _eqLocal({ dynamics: mode }); eqRun(["set_dynamics", mode]); }
+    function eqReset() {
+        _eqLocal({ balance: 0, mono: false, swap: false, dynamics: "off" });
+        eqRun(["reset_audio"]);
+        eqSetPreset("Flat");
+    }
+    readonly property FileView _eqFile: FileView {
+        path: Caching.stateDir ? Caching.stateDir + "/music/eq_state.json" : ""
+        watchChanges: true
+        printErrors: false
+        onFileChanged: eqReread.restart()
+        onLoaded: {
+            // Our own writes arrive here too; let them settle first.
+            if (Date.now() - root._eqLocalAt < 1200) { eqReread.restart(); return; }
+            try { root.eq = Object.assign({}, root.eq, JSON.parse(text())); } catch (e) {}
+        }
+    }
+    readonly property Timer _eqReread: Timer {
+        id: eqReread
+        interval: 1300
+        onTriggered: root._eqFile.reload()
+    }
+
     // Focused app's display name for the macOS-layout menu bar ("MuhOS" on
     // the bare desktop, as macOS shows Finder there).
     function appName(toplevel) {

@@ -221,6 +221,18 @@ PanelWindow {
                     checked: MuhosState.dnd
                     onToggled: MuhosState.setDnd(!MuhosState.dnd)
                 }
+                CcToggle {
+                    width: toggles.cell
+                    icon: "multimedia-equalizer"
+                    title: win.t("equalizer", "Equaliser")
+                    subtitle: MuhosState.eq.enabled === false ? win.t("off", "Off")
+                            : MuhosState.eq.preset === "Custom" ? win.t("custom", "Custom")
+                            : (MuhosState.eq.preset || "Flat")
+                    checked: MuhosState.eq.enabled !== false && MuhosState.eq.active === true
+                    hasMenu: true
+                    onToggled: MuhosState.eqSetEnabled(MuhosState.eq.enabled === false)
+                    onMenuRequested: { win.close(); MuhosCommands.toggleEqualizer(win.screen); }
+                }
             }
 
             // Sliders
