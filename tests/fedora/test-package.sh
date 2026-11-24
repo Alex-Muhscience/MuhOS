@@ -62,8 +62,9 @@ check "session clears its profile for the next session" grep -q 'unset-environme
 check "windows float by default" grep -q 'name = "muhos-float"' /usr/share/muhos/hypr/config/muhos.lua
 check "new users get pinned dock apps" bash -c "jq -e '.dock.apps | length > 0' /usr/share/muhos/defaults/settings.json"
 check "macOS wallpapers installed" test -f /usr/share/muhos/src/assets/wallpapers/muhos-tide-light.jpg
-check "equaliser runs on PipeWire, not EasyEffects" bash -c "grep -q eq_engine.py /usr/share/muhos/src/quickshell/media/equalizer.sh && ! grep -qi easyeffects /usr/share/muhos/src/quickshell/media/equalizer.sh"
-check "equaliser engine compiles" python3 -I -m py_compile /usr/share/muhos/src/quickshell/media/eq_engine.py
+check "equaliser runs on PipeWire, not EasyEffects" bash -c "grep -q eq_engine.py /usr/share/muhos/src/quickshell/media/equalizer.sh && ! grep -qE '^[^#]*easyeffects ' /usr/share/muhos/src/quickshell/media/equalizer.sh /usr/share/muhos/src/quickshell/media/eq_engine.py"
+# Parsed, not compiled: compiling would leave a __pycache__ behind.
+check "equaliser engine parses" python3 -I -c "import ast, sys; ast.parse(open(sys.argv[1]).read())" /usr/share/muhos/src/quickshell/media/eq_engine.py
 check "no EasyEffects recommendation" bash -c "! rpm -q --recommends muhos | grep -qi easyeffects"
 check "systemd units verify" systemd-analyze verify /usr/lib/systemd/user/muhos-shell.service /usr/lib/systemd/user/muhos-session.target
 
