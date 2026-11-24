@@ -28,7 +28,7 @@ QtObject {
 
     // Colour
     readonly property bool dark: luminance(ThemeBackend.base) < 0.5
-    readonly property color accent: ThemeBackend.mauve
+    readonly property color accent: ThemeBackend.blue
     // Light accents (e.g. lavender from the wallpaper) need dark text.
     readonly property color textOnAccent: luminance(accent) > 0.55 ? "#1b1530" : "#ffffff"
     readonly property color text: dark ? "#f6f5f8" : "#1d1b24"

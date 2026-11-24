@@ -25,17 +25,12 @@
     "modules": {
       "left": [
         "left",
-        "workspaces",
-        "media" 
+        "workspaces"
       ],
-     "center": [
-        [
-          "timedate",
-          "info",
-          "weather"
-        ]
-      ],      
-     "right": [
+      "center": [
+        "timedate"
+      ],
+      "right": [
         "tray",
         [
           "kb",
@@ -47,11 +42,67 @@
       ]
     }
   },
+  "dock": {
+    "enabled": true,
+    "position": "bottom",
+    "onTop": true,
+    "elementSize": 48,
+    "floating": true,
+    "background": true,
+    "exclusive": false,
+    "autohide": false,
+    "smartAutohide": false,
+    "autohideTimeout": 1000,
+    "editing": false,
+    "apps": [
+      { "name": "Files", "comment": "Access and organize files", "desktop_id": "org.gnome.Nautilus", "icon": "org.gnome.Nautilus" },
+      { "name": "Terminal", "comment": "Fast, GPU-based terminal emulator", "desktop_id": "kitty", "icon": "kitty" },
+      { "name": "MuhOS Settings", "comment": "Configure the MuhOS desktop", "desktop_id": "muhos-settings", "icon": "preferences-system" },
+      { "name": "Sound", "comment": "Output and input devices, volume and per-app sound", "desktop_id": "muhos-sound", "icon": "muhos-sound" }
+    ],
+    "overrideBoundsCorrection": false,
+    "enableScrolling": false,
+    "visibleElements": 7,
+    "scrollingElements": 7,
+    "maxVisibleElements": 7,
+    "maxElements": 7,
+    "hoverScale": 160,
+    "cascadeScale": true,
+    "focusRunning": true,
+    "showRunningIndicators": true,
+    "showRunningApps": false,
+    "runningScope": "auto"
+  },
   "theme": {
-    "fontFamily": "Adwaita Mono",
-    "borderRadius": 10,
-    "activePreset": "Matugen",
-    "matugen": true
+    "fontFamily": "Adwaita Sans",
+    "borderRadius": 12,
+    "activePreset": "macOS",
+    "matugen": false,
+    "mode": "light",
+    "colors": {
+      "base": "#F5F5F7",
+      "mantle": "#ECECEF",
+      "crust": "#E3E3E6",
+      "text": "#1D1D1F",
+      "subtext0": "#6E6E73",
+      "subtext1": "#48484A",
+      "surface0": "#E9E9EE",
+      "surface1": "#DCDCE1",
+      "surface2": "#D1D1D6",
+      "overlay0": "#A1A1A6",
+      "overlay1": "#8E8E93",
+      "overlay2": "#7A7A7E",
+      "blue": "#007AFF",
+      "sapphire": "#5AC8FA",
+      "peach": "#FF9F0A",
+      "green": "#34C759",
+      "red": "#FF3B30",
+      "mauve": "#AF52DE",
+      "pink": "#FF2D55",
+      "yellow": "#FFCC00",
+      "maroon": "#FF375F",
+      "teal": "#64D2FF"
+    }
   },
   "idle": {
     "enabled": true,

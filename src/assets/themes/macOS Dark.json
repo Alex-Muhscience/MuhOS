@@ -1,0 +1,28 @@
+{
+  "name": "macOS Dark",
+  "mode": "dark",
+  "colors": {
+    "base": "#1E1E1E",
+    "mantle": "#252525",
+    "crust": "#1C1C1E",
+    "text": "#F5F5F7",
+    "subtext0": "#A1A1A6",
+    "subtext1": "#D1D1D6",
+    "surface0": "#3A3A3C",
+    "surface1": "#48484A",
+    "surface2": "#636366",
+    "overlay0": "#8E8E93",
+    "overlay1": "#98989D",
+    "overlay2": "#AEAEB2",
+    "blue": "#0A84FF",
+    "sapphire": "#64D2FF",
+    "peach": "#FF9F0A",
+    "green": "#30D158",
+    "red": "#FF453A",
+    "mauve": "#BF5AF2",
+    "pink": "#FF375F",
+    "yellow": "#FFD60A",
+    "maroon": "#FF453A",
+    "teal": "#64D2FF"
+  }
+}

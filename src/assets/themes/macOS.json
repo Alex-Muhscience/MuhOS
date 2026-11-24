@@ -1,0 +1,28 @@
+{
+  "name": "macOS",
+  "mode": "light",
+  "colors": {
+    "base": "#F5F5F7",
+    "mantle": "#ECECEF",
+    "crust": "#E3E3E6",
+    "text": "#1D1D1F",
+    "subtext0": "#6E6E73",
+    "subtext1": "#48484A",
+    "surface0": "#E9E9EE",
+    "surface1": "#DCDCE1",
+    "surface2": "#D1D1D6",
+    "overlay0": "#A1A1A6",
+    "overlay1": "#8E8E93",
+    "overlay2": "#7A7A7E",
+    "blue": "#007AFF",
+    "sapphire": "#5AC8FA",
+    "peach": "#FF9F0A",
+    "green": "#34C759",
+    "red": "#FF3B30",
+    "mauve": "#AF52DE",
+    "pink": "#FF2D55",
+    "yellow": "#FFCC00",
+    "maroon": "#FF375F",
+    "teal": "#64D2FF"
+  }
+}

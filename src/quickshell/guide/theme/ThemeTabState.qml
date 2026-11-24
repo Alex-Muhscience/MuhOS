@@ -569,6 +569,8 @@ GuideTab {
         if (!isMatugen) {
             current.colors = modelData.colors;
         }
+        if (modelData.mode !== undefined) current.mode = modelData.mode;
+        if (modelData.schemeType !== undefined) current.schemeType = modelData.schemeType;
 
         Config.setSetting("theme", current);
 
