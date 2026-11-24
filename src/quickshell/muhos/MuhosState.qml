@@ -126,8 +126,10 @@ QtObject {
         const mode = on ? "dark" : "light";
         Config.setSetting("theme.mode", mode);
         // Apps follow too, but only through MuhOS's own dconf profile (set by
-        // muhos-session), never the user's GNOME settings.
-        if (Quickshell.env("DCONF_PROFILE") === "muhos")
+        // muhos-session), never the user's GNOME settings, and only while no
+        // GTK_THEME is forced: WhiteSur breaks under the dark colour scheme, so
+        // a session started light switches its apps at the next login.
+        if (Quickshell.env("DCONF_PROFILE") === "muhos" && !Quickshell.env("GTK_THEME"))
             Quickshell.execDetached(["gsettings", "set", "org.gnome.desktop.interface", "color-scheme", on ? "prefer-dark" : "default"]);
         let wall = Matugen.lastWallpaper;
         if (!wall) {

@@ -61,12 +61,14 @@ PanelWindow {
         readonly property int pad: MuhosStyle.s(16)
         width: Math.min(MuhosStyle.s(760), win.width - MuhosStyle.s(24))
         height: MuhosStyle.s(500)
-        x: Math.round((win.width - width) / 2)
+        // Under the clock: top right in the macOS layout, centred under the
+        // island in the hybrid one.
+        x: MuhosStyle.macLayout ? win.width - width - MuhosStyle.s(10) : Math.round((win.width - width) / 2)
         y: MuhosStyle.barBand + MuhosStyle.s(6)
 
         opacity: win.shown ? 1 : 0
         scale: win.shown ? 1 : 0.95
-        transformOrigin: Item.Top
+        transformOrigin: MuhosStyle.macLayout ? Item.TopRight : Item.Top
         Behavior on opacity { NumberAnimation { duration: win.shown ? MuhosStyle.normal : 150; easing.type: MuhosStyle.easing } }
         Behavior on scale { NumberAnimation { duration: win.shown ? MuhosStyle.slow : 150; easing.type: win.shown ? MuhosStyle.easingEmphasis : MuhosStyle.easing } }
 
