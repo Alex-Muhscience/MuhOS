@@ -22,8 +22,8 @@ Excluded from this inventory: nothing.
 | Status | Files | Size | Redistributable |
 |---|---:|---:|:---:|
 | generated | 27 | 135.9 KiB | yes |
-| ok | 90 | 96.3 MiB | yes |
-| **total** | **117** | **96.4 MiB** | |
+| ok | 91 | 96.3 MiB | yes |
+| **total** | **118** | **96.4 MiB** | |
 
 ## Assets
 
@@ -70,6 +70,7 @@ Excluded from this inventory: nothing.
 | `docs/screenshots/osd.webp` | image | 1.5 KiB | ok | AGPL-3.0-or-later (screenshots of MuhOS… |  |  | `763ad9b517d5` |
 | `docs/screenshots/settings.webp` | image | 42.6 KiB | ok | AGPL-3.0-or-later (screenshots of MuhOS… |  |  | `2b93e87ce6b4` |
 | `docs/screenshots/tiling.webp` | image | 28.9 KiB | ok | AGPL-3.0-or-later (screenshots of MuhOS… |  |  | `c4935a4e25f5` |
+| `packaging/fedora/icons/muhos-apps.svg` | image | 1015 B | ok | AGPL-3.0-or-later (MuhOS original app i… |  |  | `69a8ab8a070d` |
 | `packaging/fedora/icons/muhos-sound.svg` | image | 829 B | ok | AGPL-3.0-or-later (MuhOS original app i… |  |  | `16dd88abf54a` |
 | `src/assets/fonts/0xProtoNerdFont-Regular.ttf` | font | 2.3 MiB | ok | OFL-1.1 — 0xProto-LICENSE.txt | 0xType Project Authors (https://github.com/0xType) |  | `014921bcefcb` |
 | `src/assets/fonts/3270NerdFont-Regular.ttf` | font | 2.5 MiB | ok | OFL-1.1 — 3270-LICENSE.txt | This Font Software is licensed under the SIL Open Font License, Version 1.1. This license… |  | `78540c388022` |
