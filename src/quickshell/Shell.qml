@@ -13,11 +13,13 @@ ShellRoot {
     property bool controlCentreUsed: false
     property bool notificationCentreUsed: false
     property bool equalizerUsed: false
+    property bool appGridUsed: false
     Connections {
         target: MuhosCommands
         function onControlCentreOpenChanged() { if (MuhosCommands.controlCentreOpen) controlCentreUsed = true; }
         function onNotificationCentreOpenChanged() { if (MuhosCommands.notificationCentreOpen) notificationCentreUsed = true; }
         function onEqualizerOpenChanged() { if (MuhosCommands.equalizerOpen) equalizerUsed = true; }
+        function onAppGridOpenChanged() { if (MuhosCommands.appGridOpen) appGridUsed = true; }
     }
 
     // MuhOS: bring back the equaliser (PipeWire filter-chain) saved last time;
@@ -77,6 +79,10 @@ ShellRoot {
     LazyLoader {
         active: muhosBar && equalizerUsed
         MuhosEqualizer {}
+    }
+    LazyLoader {
+        active: appGridUsed
+        MuhosAppGrid {}
     }
     Loader {
         active: !muhosBar

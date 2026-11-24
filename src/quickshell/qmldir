@@ -15,6 +15,7 @@ MuhosLockScreen 1.0 muhos/MuhosLockScreen.qml
 NotificationCentre 1.0 muhos/NotificationCentre.qml
 MacMenu 1.0 muhos/MacMenu.qml
 MuhosEqualizer 1.0 muhos/MuhosEqualizer.qml
+MuhosAppGrid 1.0 muhos/MuhosAppGrid.qml
 Floating 1.0 quickactions/Floating.qml
 Clipboard 1.0 clipboard/Clipboard.qml
 Launcher 1.0 launcher/Launcher.qml
