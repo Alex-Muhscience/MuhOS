@@ -108,6 +108,8 @@ QtObject {
     // the bare desktop, as macOS shows Finder there).
     function appName(toplevel) {
         if (!toplevel) return "MuhOS";
+        // Re-evaluate once the app list has loaded (it is empty at startup).
+        const apps = DesktopEntries.applications.values;
         const id = toplevel.appId || "";
         const entry = id ? DesktopEntries.heuristicLookup(id) : null;
         if (entry && entry.name) return entry.name;
