@@ -133,6 +133,16 @@ whatever is behind them, with a soft sheen and a light edge, as on macOS.
   also the "Sound" app);
   screenshot, settings and lock buttons; and a power menu with suspend,
   restart, power off and log out. Escape or a click outside closes it.
+- **Equaliser.** A glass window from the control centre's Equaliser toggle:
+  presets, ten bands drawn as a live frequency-response curve (drag a dot),
+  balance, mono, swap, "dynamics" (Even out or Night) and a speaker test.
+  It runs on PipeWire itself, inside the MuhOS session only, and follows
+  whichever output you use; it is off, costing nothing, while flat. In the
+  test VM it used 4.9 MiB and 1.3 % of a core, where the EasyEffects engine
+  it replaces used 120 MiB and 2.3 %
+  ([report](bench/results/2026-11-24-vm-eq-easyeffects-vs-filterchain.md)).
+  Dynamics needs the `ladspa-swh-plugins` package (recommended, so installed
+  by default).
 - **Dock.** A floating glass dock: icons sit on the glass without tiles and
   magnify under the pointer, with their neighbours growing a little too.
   Running apps get a dot; pinned apps, app menus and auto-hide work as before.
