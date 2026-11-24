@@ -106,6 +106,7 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - Tests: mark an intended single-quoted expansion for ShellCheck (63c82bc)
 - Zoom: an ordinary window filling the screen, not Hyprland's maximize (28c4ed6)
 - muhos 0.1.0-0.19: zoom as on macOS (440a0d9)
+- muhos 0.1.0-1: first release (2ec2772)
 
 ## MuhOS branding
 
@@ -120,6 +121,7 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - Draw the MuhOS mark in white (c7ae538)
 - Docs: minimise, window switching, app grid pages, updates (6cc9017)
 - Docs: muhos-update and the update modes (f7fb126)
+- Website and README: MuhOS 0.1.0 is the first release (8e96030)
 
 ## Fork infrastructure
 
@@ -193,6 +195,7 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - Regenerate CHANGES-FROM-UPSTREAM.md (de9b60f)
 - Regenerate CHANGES-FROM-UPSTREAM.md (b891052)
 - Regenerate CHANGES-FROM-UPSTREAM.md (2407120)
+- Regenerate CHANGES-FROM-UPSTREAM.md (1a40ef8)
 
 ## Upstream files changed by MuhOS
 
