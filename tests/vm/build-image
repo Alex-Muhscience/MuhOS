@@ -53,6 +53,7 @@ EOF
         --hostname muhos-test \
         --run-command 'touch /etc/cloud/cloud-init.disabled' \
         --run-command "echo install_weak_deps=$weak >> /etc/dnf/dnf.conf" \
+        --run-command "printf 'fastestmirror=True\\nmax_parallel_downloads=20\\n' >> /etc/dnf/dnf.conf" \
         --install dnf5-plugins \
         --run-command 'dnf -y copr enable lionheartp/Hyprland' \
         --install gdm,hyprland,xdg-desktop-portal-hyprland \
