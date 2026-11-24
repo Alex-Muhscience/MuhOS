@@ -1,0 +1,11 @@
+[Unit]
+Description=MuhOS update notifications (enabled by: muhos-update --mode notify or auto)
+
+[Timer]
+# Goes online at most once a day (in notify mode); the hourly run only reads
+# the installed version, to tell you after an automatic update.
+OnStartupSec=5min
+OnUnitActiveSec=1h
+
+[Install]
+WantedBy=timers.target

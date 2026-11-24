@@ -1,0 +1,11 @@
+[Unit]
+Description=Install MuhOS updates (automatic updates)
+Documentation=https://alex-muhscience.github.io/MuhOS/docs.html#updating
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/muhos-update --timer-system
+Nice=10
+IOSchedulingClass=idle

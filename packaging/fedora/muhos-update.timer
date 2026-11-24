@@ -1,0 +1,11 @@
+[Unit]
+Description=Install MuhOS updates once a day (enabled by: muhos-update --mode auto)
+
+[Timer]
+OnBootSec=15min
+OnCalendar=daily
+RandomizedDelaySec=1h
+Persistent=true
+
+[Install]
+WantedBy=timers.target

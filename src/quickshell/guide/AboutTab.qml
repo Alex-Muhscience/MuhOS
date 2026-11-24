@@ -184,7 +184,7 @@ GuideTab {
                             accentColor: ThemeBackend.surface0
                             textColor: ThemeBackend.text
 
-                            onTriggered: Quickshell.execDetached(["xdg-open", "https://github.com/ilyamiro/serpantinum/blob/master/CHANGELOG.md"])
+                            onTriggered: Quickshell.execDetached(["xdg-open", "https://github.com/Alex-Muhscience/MuhOS/releases"])
                         }
 
                         FillButton {
@@ -203,10 +203,10 @@ GuideTab {
                             fillDuration: 1200
 
                             onTriggered: {
-                                // MuhOS: run the MuhOS installer in a terminal (it verifies the
-                                // release's packages and asks before installing them with dnf).
-                                Quickshell.execDetached(["muhos-terminal", "-e", "bash", "-c",
-                                    "curl -fsSL https://alex-muhscience.github.io/MuhOS/install.sh | bash; echo; read -rp 'Press Enter to close this window. ' _"]);
+                                // MuhOS: run muhos-update in a terminal (it shows the download's size
+                                // and progress, verifies the release and asks before installing).
+                                Quickshell.execDetached(["/usr/libexec/muhos/muhos-terminal", "-e", "bash", "-c",
+                                    "muhos-update; echo; read -rp 'Press Enter to close this window. ' _"]);
                                 Quickshell.execDetached(["bash", rootObj.appPaths.serpantinumDir + "/scripts/qs_manager.sh", "close"]);
                             }
                         }

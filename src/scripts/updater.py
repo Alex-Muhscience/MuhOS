@@ -5,7 +5,7 @@ import sys
 import time
 import urllib.request
 
-REPO = "ilyamiro/serpantinum"
+REPO = "Alex-Muhscience/MuhOS"
 DEFAULT_VER = "2.0.0"
 
 state_dir = os.path.expanduser("~/.local/state/serpantinum")
@@ -142,16 +142,8 @@ if package_managed:
         local_ver = installed_muhos() or local_ver
         remote_ver = local_ver
 
-if not package_managed:
-    try:
-        req = urllib.request.Request(
-            f"https://raw.githubusercontent.com/{REPO}/master/version.txt",
-            headers={"User-Agent": "updater-script"}
-        )
-        res = urllib.request.urlopen(req, timeout=5)
-        remote_ver = res.read().decode("utf-8").strip()
-    except Exception:
-        remote_ver = local_ver
+# MuhOS: a copy run from source (no package) is updated with git; it never
+# asks upstream Serpantinum for its version, which is not MuhOS's.
 
 has_update = parse_v(remote_ver) > parse_v(local_ver)
 

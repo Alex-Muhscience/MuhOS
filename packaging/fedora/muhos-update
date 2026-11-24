@@ -1,0 +1,204 @@
+#!/usr/bin/env bash
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# MuhOS: update MuhOS from its GitHub releases, and choose how it updates.
+#
+#   muhos-update                 check for a newer release and install it
+#   muhos-update --check         only say whether a newer release exists
+#                                (exit 0: there is one, 1: up to date)
+#   muhos-update --yes           install without asking
+#   muhos-update --mode          show how MuhOS updates
+#   muhos-update --mode MODE     change it (asks for your password):
+#       manual  nothing in the background (default)
+#       notify  check once a day; a notification offers to update
+#       auto    install new releases once a day, in the background
+#
+# The installing is done by the MuhOS installer shipped in the package
+# (/usr/libexec/muhos/muhos-install, the same script as install.sh on the
+# website): it shows sizes and progress, verifies the release's SHA256SUMS
+# and installs with dnf.
+#
+# Used by the timers, not by people:
+#   --timer-system   muhos-update.service (root): in auto mode, install
+#   --timer-user     muhos-update-notify.service (user): notifications
+#
+# Everything is inside main(), called on the last line: an update replaces
+# this file while it runs.
+
+set -euo pipefail
+
+REPO="Alex-Muhscience/MuhOS"
+CONF=/etc/muhos/update.conf
+INSTALLER=/usr/libexec/muhos/muhos-install
+
+say() { printf '\033[1m%s\033[0m\n' "$*"; }
+fail() { printf '\033[1;31mError:\033[0m %s\n' "$*" >&2; exit 2; }
+
+mode() {
+    local m=""
+    [ -r "$CONF" ] && m="$(sed -n 's/^MODE=//p' "$CONF" | tail -1)"
+    case "$m" in notify|auto) echo "$m" ;; *) echo manual ;; esac
+}
+
+installed() {
+    rpm -q --qf '%{VERSION}-%{RELEASE}' muhos 2>/dev/null | sed 's/\.fc[0-9]*$//'
+}
+
+# Prints "TAG VERSION-RELEASE TOTAL_BYTES" of the newest release's package
+# for this Fedora version.
+newest() {
+    local fedora
+    fedora="$(. /etc/os-release && echo "$VERSION_ID")"
+    curl -fsSL --max-time 20 -H "Accept: application/vnd.github+json" \
+        "https://api.github.com/repos/$REPO/releases?per_page=1" < /dev/null |
+        FC="$fedora" python3 -I -c '
+import json, os, re, sys
+fc = os.environ["FC"]
+r = json.load(sys.stdin)
+if not r:
+    sys.exit("no releases")
+r = r[0]
+version, total = "", 0
+for a in r.get("assets", []):
+    n = a["name"]
+    if ".fc" + fc + "." in n:
+        total += a.get("size") or 0
+    m = re.match(r"muhos-(\d[^-]*-[^-]+?)\.fc" + fc + r"\.noarch\.rpm$", n)
+    if m:
+        version = m.group(1)
+if not version:
+    sys.exit("no MuhOS package for Fedora " + fc + " in " + r["tag_name"])
+print(r["tag_name"], version, total)
+'
+}
+
+# 1 when $1 is newer than $2.
+newer() {
+    [ "$(rpm --eval "%{lua: print(rpm.vercmp('$1', '$2'))}")" = 1 ]
+}
+
+human() {
+    numfmt --to=si --suffix=B --format=%.1f "$1" 2>/dev/null | sed 's/\([0-9]\)\([kMGT]\?B\)$/\1 \2/' || echo "$1 B"
+}
+
+set_mode() {
+    local new="$1"
+    case "$new" in manual|notify|auto) ;; *) fail "the modes are manual, notify and auto" ;; esac
+    if [ "$(id -u)" != 0 ]; then
+        echo "Changing how MuhOS updates needs your password."
+        sudo "$0" --mode "$new"
+        # This user's own timer (others get it at their next login).
+        systemctl --user daemon-reload 2>/dev/null || :
+        if [ "$new" = manual ]; then
+            systemctl --user stop muhos-update-notify.timer 2>/dev/null || :
+        else
+            systemctl --user start muhos-update-notify.timer 2>/dev/null || :
+        fi
+        return 0
+    fi
+    mkdir -p "$(dirname "$CONF")"
+    printf '# How MuhOS updates: manual, notify or auto. Change with: muhos-update --mode\nMODE=%s\n' "$new" > "$CONF"
+    if [ "$new" = auto ]; then
+        systemctl enable --now muhos-update.timer >/dev/null 2>&1 || :
+    else
+        systemctl disable --now muhos-update.timer >/dev/null 2>&1 || :
+    fi
+    # Notifications for every user: of new releases (notify), or that MuhOS
+    # was updated and a new login uses it (auto).
+    if [ "$new" = manual ]; then
+        systemctl --global disable muhos-update-notify.timer >/dev/null 2>&1 || :
+    else
+        systemctl --global enable muhos-update-notify.timer >/dev/null 2>&1 || :
+    fi
+    case "$new" in
+        manual) echo "MuhOS updates manually: run muhos-update, or use Update in Settings." ;;
+        notify) echo "MuhOS checks for updates once a day and notifies you." ;;
+        auto)   echo "MuhOS installs updates automatically once a day." ;;
+    esac
+}
+
+timer_system() {
+    [ "$(mode)" = auto ] || exit 0
+    local tag version total current
+    current="$(installed)" || exit 0
+    read -r tag version total < <(newest) || { echo "could not check for updates"; exit 0; }
+    if newer "$version" "$current"; then
+        echo "Updating MuhOS $current to $version ($tag)"
+        exec bash "$INSTALLER" --tag "$tag" --yes --from-update
+    fi
+    echo "MuhOS $current is up to date"
+}
+
+timer_user() {
+    local m state current
+    m="$(mode)"
+    state="${XDG_STATE_HOME:-$HOME/.local/state}/muhos"
+    mkdir -p "$state"
+    current="$(installed)" || exit 0
+    if [ "$m" = auto ]; then
+        # Tell the user once after an automatic update.
+        local seen=""
+        seen="$(cat "$state/update-seen" 2>/dev/null)" || :
+        if [ -n "$seen" ] && [ "$seen" != "$current" ]; then
+            notify-send -a MuhOS -i system-software-update "MuhOS was updated" \
+                "MuhOS $current is installed. Log out and back in to use it." || :
+        fi
+        echo "$current" > "$state/update-seen"
+        exit 0
+    fi
+    [ "$m" = notify ] || exit 0
+    # Go online at most once a day, whatever the timer's rhythm.
+    local last=0 now
+    now="$(date +%s)"
+    last="$(cat "$state/update-checked" 2>/dev/null)" || last=0
+    [ $((now - last)) -ge 72000 ] || exit 0
+    local tag version total
+    read -r tag version total < <(newest) || exit 0
+    echo "$now" > "$state/update-checked"
+    newer "$version" "$current" || exit 0
+    [ "$(cat "$state/update-notified" 2>/dev/null)" = "$version" ] && exit 0
+    echo "$version" > "$state/update-notified"
+    local action
+    action="$(notify-send -a MuhOS -i system-software-update --action=update=Update \
+        "MuhOS update available" \
+        "MuhOS $version ($tag) is out; you have $current. Download: $(human "$total")." 2>/dev/null)" || :
+    if [ "$action" = update ]; then
+        # Keep the window open afterwards, so the result can be read.
+        exec /usr/libexec/muhos/muhos-terminal -e bash -c \
+            "muhos-update; echo; read -rp 'Press Enter to close this window. ' _"
+    fi
+}
+
+main() {
+    local check=false yes=false
+    while [ $# -gt 0 ]; do
+        case "$1" in
+            --check) check=true ;;
+            --yes|-y) yes=true ;;
+            --mode)
+                if [ $# -ge 2 ] && [ "${2#-}" = "$2" ]; then set_mode "$2"; else echo "MuhOS updates: $(mode)"; fi
+                exit 0 ;;
+            --timer-system) timer_system; exit 0 ;;
+            --timer-user) timer_user; exit 0 ;;
+            -h|--help) sed -n '3,16p' "$0" | sed 's/^# \{0,1\}//'; exit 0 ;;
+            *) fail "unknown option: $1 (see muhos-update --help)" ;;
+        esac
+        shift
+    done
+
+    local current tag version total
+    current="$(installed)" || fail "the muhos package is not installed"
+    say "Checking for MuhOS updates…"
+    read -r tag version total < <(newest) || fail "could not reach GitHub"
+    if ! newer "$version" "$current"; then
+        echo "MuhOS $current is up to date (newest release: $tag)."
+        $check && exit 1
+        exit 0
+    fi
+    echo "MuhOS $version ($tag) is available; you have $current. Download: $(human "$total")."
+    $check && exit 0
+    local args=(--tag "$tag" --from-update)
+    $yes && args+=(--yes)
+    exec bash "$INSTALLER" "${args[@]}"
+}
+
+main "$@"

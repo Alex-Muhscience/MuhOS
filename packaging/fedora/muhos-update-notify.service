@@ -1,0 +1,8 @@
+[Unit]
+Description=MuhOS update notifications
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/muhos-update --timer-user
+# The notification waits for a click on Update.
+TimeoutStartSec=12h
