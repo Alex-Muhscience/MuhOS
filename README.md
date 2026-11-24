@@ -176,7 +176,8 @@ when you log in, and leaves GNOME exactly as it was.
   dot. Right-click an icon to pin or unpin it. The first icon, **Apps**,
   opens the app grid.
 - **App grid.** Every installed app as a large icon over the blurred
-  desktop, sorted by name, with search. The dock stays visible above it, and
+  desktop, sorted by name, in pages as in Launchpad (swipe, scroll, the
+  page dots or the arrow keys turn them), with search. The dock stays visible above it, and
   opening an app closes it.
 
 <br clear="right">
@@ -213,9 +214,13 @@ when you log in, and leaves GNOME exactly as it was.
 <br clear="right">
 
 - **Windows and apps.** Windows float and open centred;
-  <kbd>Super</kbd>+<kbd>T</kbd> tiles one. Apps use the WhiteSur GTK theme
-  and icons, the Inter font and close and zoom buttons on the left (Hyprland has no minimise), in the MuhOS
-  session only. In dark mode, apps use GNOME's own dark style, because
+  <kbd>Super</kbd>+<kbd>T</kbd> tiles one. A click focuses a window and
+  brings it forward; <kbd>Super</kbd>+<kbd>Tab</kbd> or <kbd>Alt</kbd>+<kbd>Tab</kbd>
+  switches; a new window opening over another is cascaded. Minimise with
+  <kbd>Super</kbd>+<kbd>M</kbd> or the app menu and restore from the dock
+  (apps' own title bars only have close and zoom: Hyprland ignores their
+  minimise requests). Apps use the WhiteSur GTK theme and icons and the
+  Inter font, in the MuhOS session only. In dark mode, apps use GNOME's own dark style, because
   WhiteSur's dark variant doesn't display GNOME 50 apps correctly yet.
 - **Themes and colours.** New users start with the macOS theme and two
   original macOS-style wallpapers, light and dark. Choose another preset, or
@@ -276,6 +281,8 @@ part of MuhOS in detail.
 | <kbd>Super</kbd>+<kbd>E</kbd> | Files |
 | <kbd>Super</kbd>+<kbd>F</kbd> | Firefox |
 | <kbd>Super</kbd>+<kbd>Q</kbd> | Close the window |
+| <kbd>Super</kbd>+<kbd>M</kbd> | Minimise the window (the dock brings it back) |
+| <kbd>Super</kbd>+<kbd>Tab</kbd> or <kbd>Alt</kbd>+<kbd>Tab</kbd> | Next window (<kbd>Shift</kbd>: previous) |
 | <kbd>Super</kbd>+<kbd>T</kbd> or <kbd>Super</kbd>+<kbd>Shift</kbd>+<kbd>F</kbd> | Tile the window, or float it again |
 | <kbd>Super</kbd>+<kbd>Alt</kbd>+<kbd>F</kbd> | Maximise the window |
 | <kbd>Super</kbd>+drag | Move (left button) or resize (right button) a window |
@@ -288,7 +295,7 @@ part of MuhOS in detail.
 | <kbd>Super</kbd>+<kbd>L</kbd> | Lock the screen |
 | <kbd>Super</kbd>+<kbd>C</kbd> | Clipboard history |
 | <kbd>Super</kbd>+<kbd>W</kbd> | Wallpapers |
-| <kbd>Super</kbd>+<kbd>M</kbd> | Music |
+| <kbd>Super</kbd>+<kbd>Shift</kbd>+<kbd>M</kbd> | Music |
 | <kbd>Super</kbd>+<kbd>V</kbd> | Sound |
 | <kbd>Super</kbd>+<kbd>N</kbd> | Network |
 | <kbd>Super</kbd>+<kbd>S</kbd> | Calendar |
@@ -305,8 +312,9 @@ Change or add shortcuts in `~/.config/muhos/hypr/user.lua` (see
 
 ## Privacy
 
-- No telemetry and no background update checks: MuhOS doesn't contact any
-  server of its own, and updates come through dnf.
+- No telemetry and no background update checks. Only when you open
+  Settings does MuhOS ask GitHub for its newest release, to offer an
+  update; nothing about you is sent.
 - Your location isn't looked up automatically. The weather stays off until
   you set a location; forecasts then come from [Open-Meteo](https://open-meteo.com/).
   The Detect button does a one-time lookup through ipapi.co, and
@@ -545,7 +553,8 @@ Firefox draws its own interface, so GTK themes don't style it.
 ## Updating and uninstalling
 
 **Update** by running the install command again: it installs the newest
-release over the old one and keeps your settings.
+release over the old one and keeps your settings. When Settings shows an
+update, its Update button runs that command for you in a terminal.
 
 **Uninstall**:
 

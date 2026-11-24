@@ -90,7 +90,7 @@
 
           <h2 id="apps">App grid</h2>
           <figure><div class="shot"><img src="screenshots/app-grid.webp" width="1920" height="1080" alt="App grid" loading="lazy"></div><figcaption>The app grid, opened from the Apps icon</figcaption></figure>
-          <p>Like the Apps view on a Mac, the app grid shows every installed app as a large icon, sorted by name, over your blurred desktop.</p>
+          <p>Like the Apps view on a Mac, the app grid shows every installed app as a large icon, sorted by name, over your blurred desktop, in pages as in Launchpad: swipe or scroll sideways, click the dots under the icons, or press <kbd>←</kbd>/<kbd>→</kbd> to turn them.</p>
           <ul>
             <li>Start typing to filter: names, descriptions and keywords all count.</li>
             <li>Click an app, or use the arrow keys and <kbd>Enter</kbd>, to open it.</li>
@@ -110,7 +110,9 @@
           <h2 id="windows">Windows</h2>
           <p>Windows float and overlap as on a Mac, and open in the middle of the screen at the size the app asks for.</p>
           <ul>
-            <li><strong>Window buttons</strong> are on the left: close (red) and zoom (green), which maximizes the window or restores it. There is no minimise: Hyprland ignores apps' minimise requests. Use another workspace (<kbd>Super</kbd>+<kbd>Shift</kbd>+<kbd>2</kbd>) to put a window out of the way.</li>
+            <li><strong>Window buttons</strong> are on the left: close (red) and zoom (green), which maximizes the window or restores it. Apps' title bars have no minimise button because Hyprland ignores apps' own minimise requests.</li>
+            <li><strong>Minimise</strong>: <kbd>Super</kbd>+<kbd>M</kbd> or Minimize in the app menu. Click the app in the dock to bring the window back.</li>
+            <li><strong>Focus and switch</strong>: a click focuses a window and brings it forward (pointing at it does not). <kbd>Super</kbd>+<kbd>Tab</kbd> or <kbd>Alt</kbd>+<kbd>Tab</kbd> goes to the next window, add <kbd>Shift</kbd> for the previous one. A new window that would open exactly over another is moved down and to the right.</li>
             <li><strong>Move</strong> a window by its title bar, or hold <kbd>Super</kbd> and drag anywhere in it. <kbd>Super</kbd> and the right mouse button resizes.</li>
             <li><strong>Tile</strong>: <kbd>Super</kbd>+<kbd>T</kbd> fits the window into a side-by-side layout with other tiled windows; press it again to float it.</li>
             <li><strong>Full screen</strong>: the app menu (its name in the menu bar) or <kbd>Super</kbd>+<kbd>Alt</kbd>+<kbd>F</kbd> to maximise.</li>
@@ -145,7 +147,7 @@
             <li><strong>Dynamics</strong>: <em>Even out</em> gently narrows the gap between quiet and loud parts; <em>Night</em> does so strongly, for listening quietly. This needs the <code>ladspa-swh-plugins</code> package, which MuhOS installs by default.</li>
             <li><strong>Test speakers</strong> plays a tone on the left, then the right, then both.</li>
           </ul>
-          <p>The equaliser runs on PipeWire itself and follows whichever output you use (speakers, headphones, Bluetooth). It applies to everything played to your default output, only in the MuhOS session, and it's switched off completely while it's flat. Your settings are kept across restarts. The music window (<kbd>Super</kbd>+<kbd>M</kbd>) has the same equaliser in its EQ tab.</p>
+          <p>The equaliser runs on PipeWire itself and follows whichever output you use (speakers, headphones, Bluetooth). It applies to everything played to your default output, only in the MuhOS session, and it's switched off completely while it's flat. Your settings are kept across restarts. The music window (<kbd>Super</kbd>+<kbd>Shift</kbd>+<kbd>M</kbd>) has the same equaliser in its EQ tab.</p>
 
           <h2 id="appearance">Appearance</h2>
           <h3>Themes and accent colours</h3>
@@ -173,6 +175,8 @@
               <tr><td><kbd>Super</kbd>+<kbd>E</kbd></td><td>Files</td></tr>
               <tr><td><kbd>Super</kbd>+<kbd>F</kbd></td><td>Firefox</td></tr>
               <tr><td><kbd>Super</kbd>+<kbd>Q</kbd></td><td>Close the window</td></tr>
+              <tr><td><kbd>Super</kbd>+<kbd>M</kbd></td><td>Minimise the window (the dock brings it back)</td></tr>
+              <tr><td><kbd>Super</kbd>+<kbd>Tab</kbd> or <kbd>Alt</kbd>+<kbd>Tab</kbd></td><td>Next window (<kbd>Shift</kbd>: previous)</td></tr>
               <tr><td><kbd>Super</kbd>+<kbd>T</kbd></td><td>Tile the window, or float it again</td></tr>
               <tr><td><kbd>Super</kbd>+<kbd>Alt</kbd>+<kbd>F</kbd></td><td>Maximise the window</td></tr>
               <tr><td><kbd>Super</kbd>+drag</td><td>Move (left button) or resize (right button) a window</td></tr>
@@ -182,7 +186,7 @@
               <tr><td><kbd>Super</kbd>+<kbd>L</kbd></td><td>Lock the screen</td></tr>
               <tr><td><kbd>Super</kbd>+<kbd>C</kbd></td><td>Clipboard history</td></tr>
               <tr><td><kbd>Super</kbd>+<kbd>W</kbd></td><td>Wallpapers</td></tr>
-              <tr><td><kbd>Super</kbd>+<kbd>M</kbd></td><td>Music</td></tr>
+              <tr><td><kbd>Super</kbd>+<kbd>Shift</kbd>+<kbd>M</kbd></td><td>Music</td></tr>
               <tr><td><kbd>Super</kbd>+<kbd>V</kbd></td><td>Sound</td></tr>
               <tr><td><kbd>Super</kbd>+<kbd>N</kbd></td><td>Network</td></tr>
               <tr><td><kbd>Super</kbd>+<kbd>S</kbd></td><td>Calendar</td></tr>
@@ -243,7 +247,7 @@ hl.monitor({ output = "DP-1", mode = "2560x1440@144", position = "0x0", scale = 
           <p>Check it with <code>Hyprland --verify-config -c ~/.config/muhos/hypr/hyprland.lua</code>. The <a href="https://github.com/Alex-Muhscience/MuhOS#configuration">README</a> covers more.</p>
 
           <h2 id="updating">Updating and removing</h2>
-          <p><strong>Update</strong> by running the install command again: it installs the newest release over the old one and keeps your settings.</p>
+          <p><strong>Update</strong> by running the install command again: it installs the newest release over the old one and keeps your settings. When Settings shows an update, its Update button runs that command for you in a terminal.</p>
           <p><strong>Remove</strong> MuhOS with:</p>
           <pre data-copy><code>sudo dnf remove muhos whitesur-gtk-theme whitesur-icon-theme
 rm -r ~/.config/muhos ~/.config/dconf/muhos                <span class="comment"># optional: MuhOS settings</span>
@@ -252,7 +256,7 @@ rm -r ~/.config/serpantinum ~/.local/state/serpantinum     <span class="comment"
 
           <h2 id="privacy">Privacy</h2>
           <ul>
-            <li>No telemetry, and no update checks in the background: updates come through dnf.</li>
+            <li>No telemetry and no background update checks. Only when you open Settings does MuhOS ask GitHub for its newest release, to offer an update; nothing about you is sent.</li>
             <li>Your location is not looked up automatically. The weather stays off until you set a location in Settings → General → Location; forecasts then come from <a href="https://open-meteo.com/">Open-Meteo</a>. The Detect button does a one-time lookup through ipapi.co.</li>
             <li>The lock screen shows notification titles, never their contents.</li>
           </ul>
