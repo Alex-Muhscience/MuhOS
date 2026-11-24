@@ -45,8 +45,10 @@ touch `~/.config/hypr`, kitty, cava or fastfetch configuration.
 It also sets two variables for this session only. `DCONF_PROFILE=muhos`
 makes apps read and write their GNOME/GTK settings in
 `~/.config/dconf/muhos`, on top of the MuhOS defaults, instead of your
-GNOME settings. `GTK_THEME` gives libadwaita apps WhiteSur, Light or Dark to
-match the shell's theme mode. When the session ends, both are cleared from
+GNOME settings. In light mode `GTK_THEME` gives libadwaita apps WhiteSur;
+in dark mode it is left unset and apps use libadwaita's own dark style,
+because WhiteSur's dark variant does not render GNOME 50 apps correctly.
+When the session ends, both are cleared from
 the systemd user manager, so a GNOME session started afterwards is
 unaffected.
 

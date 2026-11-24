@@ -83,12 +83,13 @@ export PATH="$libexecdir:$PATH"
 # session could otherwise carry over.
 unset GTK_THEME
 [ -e /etc/dconf/profile/muhos ] && export DCONF_PROFILE=muhos
+# WhiteSur's dark variant does not render libadwaita (GNOME 50) apps
+# correctly, so in dark mode apps use libadwaita's own dark style instead.
 mode="$(jq -r '.theme.mode // "dark"' "$settings" 2>/dev/null || echo dark)"
 if [ "$mode" = light ]; then
     [ -d /usr/share/themes/WhiteSur-Light ] && export GTK_THEME=WhiteSur-Light
     scheme=default
 else
-    [ -d /usr/share/themes/WhiteSur-Dark ] && export GTK_THEME=WhiteSur-Dark
     scheme=prefer-dark
 fi
 [ "${DCONF_PROFILE:-}" = muhos ] && { gsettings set org.gnome.desktop.interface color-scheme "$scheme" 2>/dev/null || true; }

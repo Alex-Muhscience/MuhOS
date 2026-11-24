@@ -120,7 +120,10 @@ whatever is behind them, with a soft sheen and a light edge, as on macOS.
 - **Apps look like macOS.** In the MuhOS session, apps use the WhiteSur GTK
   theme and icons, the Inter font, and close/minimise/zoom buttons on the
   left. These settings live in MuhOS's own dconf profile, so your GNOME
-  session keeps its own theme. Windows float and open centred as on macOS;
+  session keeps its own theme. In dark mode, apps use GNOME's own dark style
+  instead, because WhiteSur's dark variant does not yet render GNOME 50 apps
+  correctly. Switching Dark Style while apps use WhiteSur takes effect for
+  apps at the next login. Windows float and open centred as on macOS;
   <kbd>Super</kbd>+<kbd>T</kbd> tiles one.
 - **Control centre.** GNOME's system menu in glass: toggles for Wi-Fi (or
   Wired), Bluetooth, power mode, night light, dark style and do not disturb,
