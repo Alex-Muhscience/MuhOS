@@ -272,7 +272,7 @@ part of MuhOS in detail.
 | Shortcut | Action |
 |---|---|
 | <kbd>Super</kbd>+<kbd>D</kbd> | Search: apps, files, actions, calculator |
-| <kbd>Super</kbd>+<kbd>Enter</kbd> | Terminal (kitty) |
+| <kbd>Super</kbd>+<kbd>Enter</kbd> | Terminal (Ptyxis, or whichever is installed) |
 | <kbd>Super</kbd>+<kbd>E</kbd> | Files |
 | <kbd>Super</kbd>+<kbd>F</kbd> | Firefox |
 | <kbd>Super</kbd>+<kbd>Q</kbd> | Close the window |
