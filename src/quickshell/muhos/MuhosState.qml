@@ -203,6 +203,16 @@ QtObject {
         }
     }
 
+    // An app's icon: a theme icon name or a file path (some apps, e.g. ones in
+    // /opt, give a path), falling back to a generic app icon.
+    function appIcon(entry) {
+        const icon = entry ? String(entry.icon || "") : "";
+        if (icon.startsWith("/")) return "file://" + icon;
+        return (icon && Quickshell.iconPath(icon, true))
+            || Quickshell.iconPath("application-x-executable", true)
+            || "file:///usr/share/icons/Adwaita/scalable/mimetypes/application-x-executable.svg";
+    }
+
     // Focused app's display name for the macOS-layout menu bar ("MuhOS" on
     // the bare desktop, as macOS shows Finder there).
     function appName(toplevel) {

@@ -116,7 +116,7 @@ PanelWindow {
     }
 
     function appIcon(e) {
-        return (e.icon && Quickshell.iconPath(e.icon, true)) || Quickshell.iconPath("application-x-executable", true) || "";
+        return MuhosState.appIcon(e);
     }
 
     // System actions. Power actions need 3 typed letters, so a stray Enter

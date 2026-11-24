@@ -20,9 +20,7 @@ PanelWindow {
         const v = I18n.t(k);
         return (v && v !== k) ? v : fallback;
     }
-    function iconFor(e) {
-        return (e.icon && Quickshell.iconPath(e.icon, true)) || Quickshell.iconPath("application-x-executable", true) || "";
-    }
+    function iconFor(e) { return MuhosState.appIcon(e); }
     function launch(e) {
         if (!e) return;
         e.execute();
@@ -83,10 +81,12 @@ PanelWindow {
     WlrLayershell.keyboardFocus: shown ? WlrKeyboardFocus.Exclusive : WlrKeyboardFocus.None
     mask: Region { width: win.shown ? win.width : 0; height: win.shown ? win.height : 0 }
 
-    // Dims and blurs (through the compositor) everything behind.
+    // Dims and blurs (through the compositor) everything behind. Dark in light
+    // mode too, as on macOS, so the white labels read on any wallpaper.
+    readonly property color ink: "#ffffff"
     Rectangle {
         anchors.fill: parent
-        color: MuhosStyle.dark ? Qt.rgba(0, 0, 0, 0.42) : Qt.rgba(1, 1, 1, 0.38)
+        color: Qt.rgba(0.04, 0.05, 0.09, MuhosStyle.dark ? 0.55 : 0.45)
         opacity: content.opacity
     }
     MouseArea {
@@ -110,9 +110,9 @@ PanelWindow {
             width: Math.min(MuhosStyle.s(320), parent.width - MuhosStyle.s(48))
             height: MuhosStyle.s(38)
             radius: height / 2
-            color: MuhosStyle.dark ? Qt.rgba(1, 1, 1, 0.14) : Qt.rgba(0, 0, 0, 0.08)
+            color: Qt.rgba(1, 1, 1, 0.16)
             border.width: 1
-            border.color: MuhosStyle.dark ? Qt.rgba(1, 1, 1, 0.16) : Qt.rgba(0, 0, 0, 0.08)
+            border.color: Qt.rgba(1, 1, 1, 0.22)
 
             MouseArea { anchors.fill: parent; onClicked: search.forceActiveFocus() }
             AdwIcon {
@@ -120,7 +120,7 @@ PanelWindow {
                 x: MuhosStyle.s(14)
                 anchors.verticalCenter: parent.verticalCenter
                 name: "system-search"
-                color: MuhosStyle.textDim
+                color: Qt.rgba(1, 1, 1, 0.75)
             }
             TextInput {
                 id: search
@@ -129,7 +129,7 @@ PanelWindow {
                 anchors.right: parent.right
                 anchors.rightMargin: MuhosStyle.s(14)
                 anchors.verticalCenter: parent.verticalCenter
-                color: MuhosStyle.text
+                color: win.ink
                 selectionColor: MuhosStyle.accent
                 selectedTextColor: MuhosStyle.textOnAccent
                 font.family: MuhosStyle.font
@@ -147,7 +147,7 @@ PanelWindow {
                     anchors.verticalCenter: parent.verticalCenter
                     visible: !search.text
                     text: win.t("search", "Search")
-                    color: MuhosStyle.textDim
+                    color: Qt.rgba(1, 1, 1, 0.6)
                     font: search.font
                 }
             }
@@ -187,7 +187,7 @@ PanelWindow {
                     width: icon.width + MuhosStyle.s(20)
                     height: width
                     radius: MuhosStyle.s(22)
-                    color: MuhosStyle.dark ? Qt.rgba(1, 1, 1, 0.16) : Qt.rgba(0, 0, 0, 0.08)
+                    color: Qt.rgba(1, 1, 1, 0.18)
                     visible: cell.current
                 }
                 Image {
@@ -210,9 +210,12 @@ PanelWindow {
                     width: parent.width - MuhosStyle.s(12)
                     horizontalAlignment: Text.AlignHCenter
                     text: cell.modelData.name
-                    color: MuhosStyle.text
+                    color: win.ink
+                    style: Text.Raised
+                    styleColor: Qt.rgba(0, 0, 0, 0.55)
                     font.family: MuhosStyle.font
                     font.pixelSize: MuhosStyle.s(13)
+                    font.weight: Font.Medium
                     elide: Text.ElideRight
                     maximumLineCount: 2
                     wrapMode: Text.WordWrap
@@ -232,7 +235,7 @@ PanelWindow {
             anchors.centerIn: grid
             visible: win.apps.length === 0
             text: win.t("none", "No apps match “%1”").arg(win.query)
-            color: MuhosStyle.textDim
+            color: Qt.rgba(1, 1, 1, 0.7)
             font.family: MuhosStyle.font
             font.pixelSize: MuhosStyle.textTitle
         }
