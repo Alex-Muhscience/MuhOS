@@ -22,8 +22,8 @@ Excluded from this inventory: nothing.
 | Status | Files | Size | Redistributable |
 |---|---:|---:|:---:|
 | generated | 27 | 135.9 KiB | yes |
-| ok | 88 | 95.5 MiB | yes |
-| **total** | **115** | **95.7 MiB** | |
+| ok | 90 | 96.2 MiB | yes |
+| **total** | **117** | **96.4 MiB** | |
 
 ## Assets
 
@@ -144,3 +144,5 @@ Excluded from this inventory: nothing.
 | `src/assets/sounds/tutorial/tip_guide.wav` | sound | 50.0 KiB | ok | CC0-1.0 (Kenney, https://kenney.nl; see… |  |  | `4a4a8b0853c5` |
 | `src/assets/wallpapers/muhos-dawn.jpg` | image | 334.6 KiB | ok | AGPL-3.0-or-later (MuhOS original, draw… |  |  | `cc716b961158` |
 | `src/assets/wallpapers/muhos-dusk.jpg` | image | 326.6 KiB | ok | AGPL-3.0-or-later (MuhOS original, draw… |  |  | `aed9aaac6ec0` |
+| `src/assets/wallpapers/muhos-tide-dark.jpg` | image | 347.4 KiB | ok | AGPL-3.0-or-later (MuhOS original, draw… |  |  | `2be0490faf0a` |
+| `src/assets/wallpapers/muhos-tide-light.jpg` | image | 366.3 KiB | ok | AGPL-3.0-or-later (MuhOS original, draw… |  |  | `eccaf7f0c831` |
