@@ -210,6 +210,7 @@ dconf update &>/dev/null || :
 - macOS and macOS Dark theme presets; soft window shadows, new animations
 - Fixed-size windows (Settings, calendar) shrink to fit small screens
 - Default pinned dock apps for new users
+- Settings: readable icons on light themes; accent colour choice in Theme
 
 * Sun Oct 25 2026 MuhOS contributors - 0.1.0-0.13
 - Sound app entry and icon for the MuhOS sound window; close button on it
