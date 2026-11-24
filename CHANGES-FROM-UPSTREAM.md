@@ -122,6 +122,8 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - Docs: minimise, window switching, app grid pages, updates (6cc9017)
 - Docs: muhos-update and the update modes (f7fb126)
 - Website and README: MuhOS 0.1.0 is the first release (8e96030)
+- Screenshots: current music window, app grid pages, Settings (69c1b89)
+- Website: a changelog page (45afae4)
 
 ## Fork infrastructure
 
@@ -196,6 +198,7 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - Regenerate CHANGES-FROM-UPSTREAM.md (b891052)
 - Regenerate CHANGES-FROM-UPSTREAM.md (2407120)
 - Regenerate CHANGES-FROM-UPSTREAM.md (1a40ef8)
+- Regenerate CHANGES-FROM-UPSTREAM.md (f50aa13)
 
 ## Upstream files changed by MuhOS
 
