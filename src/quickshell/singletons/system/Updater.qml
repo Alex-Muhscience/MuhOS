@@ -101,11 +101,15 @@ Item {
         Quickshell.execDetached(["bash", "-c", script]);
     }
 
-    function checkUpdate() {
+    // background: the timers' checks. MuhOS's updater.py does not go online
+    // for those on a package install; it only checks when Settings opens.
+    function checkUpdate(background) {
         if (typeof SystemInfo !== "undefined" && SystemInfo.osName.toLowerCase().indexOf("nixos") !== -1) return;
         if (typeof Caching === "undefined" || !Caching.serpantinumDir) return;
         if (updateProc.running) return;
         root.isChecking = true;
+        updateProc.command = ["python3", Caching.serpantinumDir + "/scripts/updater.py",
+                              "--state-dir", Caching.getStateDir()].concat(background ? ["--background"] : []);
         updateProc.running = true;
     }
 
@@ -171,7 +175,7 @@ Item {
         repeat: false
         running: false
         onTriggered: {
-            root.checkUpdate();
+            root.checkUpdate(true);
             periodicTimer.restart();
         }
     }
@@ -181,7 +185,7 @@ Item {
         interval: 60 * 60 * 1000
         repeat: true
         running: true
-        onTriggered: root.checkUpdate()
+        onTriggered: root.checkUpdate(true)
     }
 
     Process {

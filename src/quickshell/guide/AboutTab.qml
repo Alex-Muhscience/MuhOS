@@ -203,8 +203,10 @@ GuideTab {
                             fillDuration: 1200
 
                             onTriggered: {
-                                // MuhOS is updated by the package manager, never by upstream's install script.
-                                Quickshell.execDetached(["notify-send", "-a", "MuhOS", I18n.t("muhos.update_hint")]);
+                                // MuhOS: run the MuhOS installer in a terminal (it verifies the
+                                // release's packages and asks before installing them with dnf).
+                                Quickshell.execDetached(["muhos-terminal", "-e", "bash", "-c",
+                                    "curl -fsSL https://alex-muhscience.github.io/MuhOS/install.sh | bash; echo; read -rp 'Press Enter to close this window. ' _"]);
                                 Quickshell.execDetached(["bash", rootObj.appPaths.serpantinumDir + "/scripts/qs_manager.sh", "close"]);
                             }
                         }

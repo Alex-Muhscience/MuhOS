@@ -88,6 +88,60 @@ except Exception:
 local_ver = get_local_ver()
 remote_ver = local_ver
 
+
+def installed_muhos():
+    """The installed muhos package as VERSION-RELEASE without the dist tag."""
+    import subprocess
+    try:
+        out = subprocess.run(["rpm", "-q", "--qf", "%{VERSION}-%{RELEASE}", "muhos"],
+                             stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, text=True)
+    except OSError:
+        return None
+    return re.sub(r"\.fc\d+$", "", out.stdout.strip()) if out.returncode == 0 else None
+
+
+def muhos_versions():
+    """MuhOS (package-managed): the installed muhos package and the newest
+    MuhOS release's package for this Fedora version, as VERSION-RELEASE
+    without the dist tag (e.g. 0.1.0-0.16). Asked only on demand (when
+    Settings opens), never by the background timers."""
+    import json as _json
+    local = installed_muhos()
+    if not local:
+        return None
+    fedora = ""
+    try:
+        with open("/etc/os-release") as f:
+            for line in f:
+                if line.startswith("VERSION_ID="):
+                    fedora = line.split("=", 1)[1].strip().strip('"')
+    except OSError:
+        pass
+    req = urllib.request.Request(
+        "https://api.github.com/repos/Alex-Muhscience/MuhOS/releases?per_page=1",
+        headers={"User-Agent": "muhos-updater", "Accept": "application/vnd.github+json"})
+    releases = _json.loads(urllib.request.urlopen(req, timeout=5).read().decode("utf-8"))
+    remote = local
+    for asset in (releases[0].get("assets", []) if releases else []):
+        m = re.match(r"muhos-(\d[^-]*-[^-]+?)\.fc(\d+)\.noarch\.rpm$", asset.get("name", ""))
+        if m and (not fedora or m.group(2) == fedora):
+            remote = m.group(1)
+    return local, remote
+
+
+if package_managed:
+    local_ver = re.sub(r"\.fc\d+$", "", local_ver)
+    if "--background" not in sys.argv:
+        try:
+            found = muhos_versions()
+            if found:
+                local_ver, remote_ver = found
+        except Exception:
+            remote_ver = local_ver
+    else:
+        local_ver = installed_muhos() or local_ver
+        remote_ver = local_ver
+
 if not package_managed:
     try:
         req = urllib.request.Request(
