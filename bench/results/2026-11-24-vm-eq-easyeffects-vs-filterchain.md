@@ -49,6 +49,25 @@ Medians: EasyEffects 119.8 MiB, 2.25 %; filter-chain 4.7 MiB, 1.25 %.
   Recommended); installing it in this VM pulled in 78 packages. PipeWire is
   already on every Fedora system.
 
+## Follow-up: MuhOS's engine
+
+The equaliser now runs on `src/quickshell/media/eq_engine.py`: the same ten
+peaking filters per channel plus a mixer for balance, mono and swap,
+linked in by WirePlumber as a smart filter. Same VM, same EQ and audio,
+`tests/vm/eq-bench muhos 60 3`, measured process: the `serpantinum-eq` unit.
+
+| Engine | Run | PSS (MiB) | CPU (% of one core) |
+|---|---|---:|---:|
+| MuhOS engine | 1 | 5.0 | 1.28 |
+| MuhOS engine | 2 | 4.9 | 1.35 |
+| MuhOS engine | 3 | 4.9 | 1.27 |
+
+Median 4.9 MiB and 1.28 %, against EasyEffects' 119.8 MiB and 2.25 % above.
+Separately checked by recording the speakers' output (1 kHz test tone):
+a band at -12 dB lowered it by 11.7 dB, +8.5 dB raised it by 8.8 dB, full
+balance silenced the other channel, and the changes applied without
+restarting the engine.
+
 ## Limits
 
 - One VM, software audio device, one EQ setting; no real hardware.

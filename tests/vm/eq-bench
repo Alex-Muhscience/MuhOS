@@ -3,18 +3,20 @@
 # MuhOS: compare equaliser engines inside a running MuhOS session (run in the
 # test VM, as the session user).
 #
-#   tests/vm/eq-bench easyeffects|filterchain [seconds] [runs]
+#   tests/vm/eq-bench easyeffects|filterchain|muhos [seconds] [runs]
 #
 # Both engines get the same 10-band EQ (32 Hz-16 kHz, the shell's bands, the
 # same gains) while the same test audio plays. Reports, per run, the engine
 # process's memory (PSS, median of samples every 2 s) and CPU (share of one
 # core over the playback). easyeffects: MuhOS's current backend
 # (src/quickshell/media/equalizer.sh). filterchain: a separate PipeWire
-# process with ten built-in peaking filters per channel.
+# process with ten built-in peaking filters per channel. muhos: MuhOS's
+# equaliser engine (src/quickshell/media/eq_engine.py, same filters plus the
+# balance/mono/swap mixer), driven through equalizer.sh.
 
 set -euo pipefail
 
-engine="${1:?usage: eq-bench easyeffects|filterchain [seconds] [runs]}"
+engine="${1:?usage: eq-bench easyeffects|filterchain|muhos [seconds] [runs]}"
 secs="${2:-60}"
 runs="${3:-3}"
 work="${XDG_RUNTIME_DIR:-/tmp}/muhos-eq-bench"
@@ -107,8 +109,20 @@ EOF
     target=muhos_eq_bench
 }
 
+start_muhos() {
+    local eq=/usr/share/muhos/src/quickshell/media/equalizer.sh
+    bash "$eq" reset_audio
+    for i in "${!gains[@]}"; do bash "$eq" set_band_live "$((i + 1))" "${gains[$i]}"; done
+    sleep 2
+    pid=$(systemctl --user show -p MainPID --value serpantinum-eq)
+    [ "${pid:-0}" -gt 0 ] || { echo "the MuhOS equaliser did not start" >&2; exit 1; }
+    target=""   # plays to the default output; WirePlumber routes it through the filter
+}
+
 stop_engine() {
-    if [ "$engine" = easyeffects ]; then
+    if [ "$engine" = muhos ]; then
+        bash /usr/share/muhos/src/quickshell/media/equalizer.sh preset Flat
+    elif [ "$engine" = easyeffects ]; then
         easyeffects -q >/dev/null 2>&1 || kill "$pid" 2>/dev/null || true
     else
         kill "$pid" 2>/dev/null || true
@@ -120,7 +134,7 @@ echo "engine=$engine seconds=$secs runs=$runs"
 for run in $(seq "$runs"); do
     "start_$engine"
     t0=$(ticks "$pid")
-    pw-play --target="$target" "$audio" &
+    pw-play ${target:+--target="$target"} "$audio" &
     player=$!
     samples=()
     for _ in $(seq $((secs / 2))); do
