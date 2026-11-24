@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MuhOS Changelog</title>
+  <meta name="description" content="What changed in each MuhOS release, from the first pre-release to MuhOS 0.1.0.">
+  <link rel="icon" href="muhos-tile.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav class="nav" aria-label="Main">
+    <div class="wrap">
+      <a class="brand" href="./"><img src="muhos-tile.svg" alt=""><span>MuhOS</span></a>
+      <ul>
+        <li><a href="./" class="hide-small">Overview</a></li>
+        <li><a href="docs.html">Docs</a></li>
+        <li><a href="changelog.html" aria-current="page">Changelog</a></li>
+        <li><a href="contribute.html" class="hide-small">Contribute</a></li>
+        <li><a class="cta" href="download.html">Download</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+    <header class="hero narrow" style="padding-bottom:24px">
+      <h1>Changelog</h1>
+      <p class="lead">What changed in each release. Update to the newest with <code>muhos-update</code>.</p>
+    </header>
+
+    <section style="padding-top:0">
+      <div class="narrow changelog" id="changelog">
+        <!-- A summary of each release, shown as it is when GitHub can't be
+             reached; main.js replaces it with the full notes of every
+             release from GitHub. -->
+        <article class="entry">
+          <h2>MuhOS 0.1.0</h2>
+          <p class="meta">v0.1.0 · 24 November 2026</p>
+          <p><strong>The first release</strong>, the same software as pre-release 9: a macOS-style desktop for Fedora 44 and 45 on Hyprland, installed with one command and updated with <code>muhos-update</code>.</p>
+        </article>
+        <article class="entry">
+          <h2>Pre-release 9</h2>
+          <p class="meta">v0.1.0-pre.9 · 24 November 2026</p>
+          <ul>
+            <li>Other windows no longer freeze while a maximized window is open: zoom makes a window fill the screen as an ordinary window, as on macOS.</li>
+          </ul>
+        </article>
+        <article class="entry">
+          <h2>Pre-release 8</h2>
+          <p class="meta">v0.1.0-pre.8 · 24 November 2026</p>
+          <ul>
+            <li><code>muhos-update</code>, and a choice of how MuhOS updates: manually, a daily notification, or automatically.</li>
+            <li>The installer shows file sizes, the total download and a progress bar for each file.</li>
+            <li>Nothing asks upstream Serpantinum for updates any more.</li>
+          </ul>
+        </article>
+        <article class="entry">
+          <h2>Pre-release 7</h2>
+          <p class="meta">v0.1.0-pre.7 · 24 November 2026</p>
+          <ul>
+            <li>Logging out returns to the login screen instead of a black screen.</li>
+            <li>Click to focus, Super+Tab and Alt+Tab, cascading new windows, and minimise with Super+M or the app menu.</li>
+            <li>Apps pinned from a running window open from the dock.</li>
+            <li>The app grid shows apps in pages, as in Launchpad.</li>
+            <li>Settings checks MuhOS releases and its Update button installs them.</li>
+          </ul>
+        </article>
+        <article class="entry">
+          <h2>Pre-release 6</h2>
+          <p class="meta">v0.1.0-pre.6 · 24 November 2026</p>
+          <ul>
+            <li>Fixes from the first test on real hardware: screens scale automatically, running apps appear in the dock, a terminal that works without kitty, and wallpapers from anywhere on your disks.</li>
+          </ul>
+        </article>
+        <article class="entry">
+          <h2>Pre-release 5</h2>
+          <p class="meta">v0.1.0-pre.5 · 24 November 2026</p>
+          <ul>
+            <li>Fedora 45 support, an equaliser built on PipeWire, an app grid and the one-command installer.</li>
+          </ul>
+        </article>
+        <article class="entry">
+          <h2>Pre-release 4</h2>
+          <p class="meta">v0.1.0-pre.4 · 24 November 2026</p>
+          <ul>
+            <li>The macOS look and behaviour: a macOS menu bar, floating windows, and apps with macOS-style window buttons, icons and fonts.</li>
+          </ul>
+        </article>
+        <article class="entry">
+          <h2>Pre-release 3</h2>
+          <p class="meta">v0.1.0-pre.3 · 25 October 2026</p>
+          <ul>
+            <li>Frosted glass throughout: the dock, launcher, notifications, on-screen indicator and lock screen.</li>
+          </ul>
+        </article>
+        <article class="entry">
+          <h2>Pre-release 2</h2>
+          <p class="meta">v0.1.0-pre.2 · 19 October 2026</p>
+          <ul>
+            <li>MuhOS's own interface: a GNOME-style layout with a transparent menu bar and glass panels.</li>
+          </ul>
+        </article>
+        <article class="entry">
+          <h2>Pre-release 1</h2>
+          <p class="meta">v0.1.0-pre.1 · 18 October 2026</p>
+          <ul>
+            <li>The first packages for Fedora 44 with Hyprland, with a MuhOS login session.</li>
+          </ul>
+        </article>
+        <p class="more"><a href="https://github.com/Alex-Muhscience/MuhOS/releases">Full release notes on GitHub</a></p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div>
+        <h4>MuhOS</h4>
+        <p>A Fedora-focused fork of <a href="https://github.com/ilyamiro/serpantinum">Serpantinum</a> by Illia Miroshnichenko. Free software under the AGPL-3.0.</p>
+        <p>Not affiliated with Apple, the GNOME Foundation or the Fedora Project.</p>
+      </div>
+      <div>
+        <h4>Get it</h4>
+        <ul>
+          <li><a href="download.html">Download</a></li>
+          <li><a href="changelog.html">Changelog</a></li>
+          <li><a href="https://github.com/Alex-Muhscience/MuhOS/releases">All releases</a></li>
+          <li><a href="docs.html">Docs</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Community</h4>
+        <ul>
+          <li><a href="https://github.com/Alex-Muhscience/MuhOS/discussions">Discussions</a></li>
+          <li><a href="https://github.com/Alex-Muhscience/MuhOS/issues">Report a bug</a></li>
+          <li><a href="contribute.html">Contribute</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Source</h4>
+        <ul>
+          <li><a href="https://github.com/Alex-Muhscience/MuhOS">GitHub</a></li>
+          <li><a href="https://github.com/Alex-Muhscience/MuhOS/blob/main/LICENSE.md">Licence</a></li>
+          <li><a href="https://github.com/Alex-Muhscience/MuhOS/blob/main/ASSETS.md">Asset licences</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+  <script src="main.js" defer></script>
+</body>
+</html>

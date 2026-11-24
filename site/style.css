@@ -239,3 +239,16 @@ footer a { color: var(--text-dim); }
   .docs nav.toc { position: static; border: 1px solid var(--line); border-radius: 14px; padding: 14px 8px; background: var(--bg-raised); }
   .docs nav.toc ol { grid-template-columns: 1fr 1fr; }
 }
+
+/* Changelog */
+.changelog .entry { padding: 32px 0; border-top: 1px solid var(--line); scroll-margin-top: 72px; }
+.changelog .entry:first-child { border-top: 0; padding-top: 8px; }
+.changelog .entry h2 { font-size: clamp(24px, 3.2vw, 30px); margin: 0 0 4px; }
+.changelog .entry .meta { color: var(--text-dim); font-size: 15px; margin: 0 0 16px; }
+.changelog .entry ul { padding-left: 22px; }
+.changelog .entry li { margin: 4px 0; }
+.changelog .body h2 { font-size: 20px; margin: 24px 0 8px; }
+.changelog .body h3 { font-size: 17px; margin: 20px 0 6px; }
+.changelog .body pre { overflow-x: auto; }
+.changelog .body img { max-width: 100%; height: auto; }
+.changelog .more { margin-top: 24px; }

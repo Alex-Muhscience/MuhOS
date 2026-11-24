@@ -72,3 +72,60 @@ async function showRelease() {
 }
 
 showRelease();
+
+// Changelog page: every release's notes, as GitHub renders them. The page
+// keeps its built-in summary if GitHub can't be reached.
+async function showChangelog() {
+  const box = document.getElementById("changelog");
+  if (!box) return;
+  try {
+    const response = await fetch(`https://api.github.com/repos/${REPO}/releases?per_page=100`, {
+      headers: { Accept: "application/vnd.github.html+json" },
+    });
+    if (!response.ok) throw new Error(response.status);
+    const releases = (await response.json()).filter(r => !r.draft);
+    if (!releases.length) throw new Error("no releases");
+
+    const entries = releases.map(release => {
+      const entry = document.createElement("article");
+      entry.className = "entry";
+      entry.id = release.tag_name;
+
+      const title = document.createElement("h2");
+      title.append(release.name || release.tag_name);
+      if (release.prerelease) {
+        const badge = document.createElement("span");
+        badge.className = "badge";
+        badge.textContent = "Pre-release";
+        title.append(badge);
+      }
+      const meta = document.createElement("p");
+      meta.className = "meta";
+      const date = new Date(release.published_at).toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" });
+      const link = document.createElement("a");
+      link.href = release.html_url;
+      link.textContent = release.tag_name;
+      meta.append(link, ` · ${date}`);
+
+      const body = document.createElement("div");
+      body.className = "body";
+      // GitHub's own rendering of this repository's release notes (sanitised by GitHub).
+      body.innerHTML = release.body_html || "";
+      for (const table of body.querySelectorAll("table")) {
+        const wrap = document.createElement("div");
+        wrap.className = "table-wrap";
+        table.replaceWith(wrap);
+        wrap.append(table);
+      }
+      entry.append(title, meta, body);
+      return entry;
+    });
+    const more = box.querySelector(".more");
+    box.replaceChildren(...entries, ...(more ? [more] : []));
+    if (location.hash) document.getElementById(decodeURIComponent(location.hash.slice(1)))?.scrollIntoView();
+  } catch {
+    // Keep the summary that is already on the page.
+  }
+}
+
+showChangelog();
