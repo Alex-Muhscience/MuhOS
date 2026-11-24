@@ -200,7 +200,7 @@ dconf update &>/dev/null || :
 %{_sysconfdir}/dconf/profile/muhos
 %dir %{_sysconfdir}/dconf/db/muhos.d
 %{_sysconfdir}/dconf/db/muhos.d/00-muhos
-%ghost %{_sysconfdir}/dconf/db/muhos
+%ghost %verify(not md5 size mtime) %{_sysconfdir}/dconf/db/muhos
 
 %changelog
 * Tue Nov 24 2026 MuhOS contributors - 0.1.0-0.14

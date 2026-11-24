@@ -4,10 +4,15 @@
 # names the shell calls internally on PATH, then runs the shell daemon.
 PATH="/usr/libexec/muhos:$PATH"
 export PATH
-# One consistent icon theme for app icons in the shell (dock, launcher, tray);
-# only the shell is affected, not the user's GTK/Qt apps.
-if [ -z "${QS_ICON_THEME:-}" ] && [ -d /usr/share/icons/Adwaita ]; then
-    QS_ICON_THEME=Adwaita
-    export QS_ICON_THEME
+# One consistent icon theme for app icons and symbols in the shell (dock,
+# launcher, tray, menu bar): WhiteSur, as for apps in the MuhOS session
+# (falls back to Adwaita for anything it lacks). Only the shell is affected.
+if [ -z "${QS_ICON_THEME:-}" ]; then
+    if [ -d /usr/share/icons/WhiteSur ]; then
+        QS_ICON_THEME=WhiteSur
+    elif [ -d /usr/share/icons/Adwaita ]; then
+        QS_ICON_THEME=Adwaita
+    fi
+    [ -n "${QS_ICON_THEME:-}" ] && export QS_ICON_THEME
 fi
 exec /usr/libexec/muhos/serpantinumd start
