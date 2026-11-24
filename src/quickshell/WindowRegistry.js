@@ -162,8 +162,11 @@ function getLayout(name, mx, my, mw, mh, userScale, barPosition) {
     let t = base[name];
     let p = t.pos[barPosition] || t.pos["top"];
 
-    let finalW = t.w === "fill" ? mw : s(t.w, scale);
-    let finalH = t.h === "fill" ? mh : s(t.h, scale);
+    // MuhOS: never larger than the screen (less a margin), so fixed-size
+    // windows such as Settings still fit on small or scaled-up displays.
+    let fitMargin = s(16, scale);
+    let finalW = t.w === "fill" ? mw : Math.min(s(t.w, scale), mw - 2 * fitMargin);
+    let finalH = t.h === "fill" ? mh : Math.min(s(t.h, scale), mh - 2 * fitMargin);
 
     let rx = 0;
     let ry = 0;
