@@ -157,6 +157,9 @@ QtObject {
         watchChanges: true
         printErrors: false
         onFileChanged: eqReread.restart()
+        // On a fresh install the file appears only after equalizer.sh first
+        // runs (at shell start); keep looking until it does.
+        onLoadFailed: eqReread.restart()
         onLoaded: {
             // Our own writes arrive here too; let them settle first.
             if (Date.now() - root._eqLocalAt < 1200) { eqReread.restart(); return; }
