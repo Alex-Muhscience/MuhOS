@@ -426,9 +426,15 @@ DockWindowState {
 
     function launchApp(desktopId) {
         if (typeof DesktopEntries !== "undefined") {
-            let entry = DesktopEntries.byId(desktopId);
+            // MuhOS: pins made from a running window store the id with
+            // ".desktop" (e.g. "google-chrome.desktop"), which byId does not
+            // find; the app then silently failed to open from the dock.
+            let id = String(desktopId || "").replace(/\.desktop$/, "");
+            let entry = DesktopEntries.byId(id) || DesktopEntries.byId(desktopId) || DesktopEntries.heuristicLookup(id);
             if (entry) {
                 entry.execute();
+            } else if (id) {
+                Quickshell.execDetached(["gtk-launch", id]);
             }
         }
     }
@@ -445,6 +451,22 @@ DockWindowState {
         let info = dockWindow.getRunningInfoForApp(desktopId);
         if (!info || !info.hasWindows) {
             dockWindow.launchApp(desktopId);
+            return;
+        }
+
+        // MuhOS: minimized windows wait on Hyprland's "special:minimized"
+        // workspace. They are never focused in place (that would open the
+        // hidden workspace); when all of the app's windows are minimized, a
+        // click brings one back, as on macOS.
+        const isMin = w => String(w.workspaceLabel || "") === "special:minimized";
+        const minimized = (info.here || []).concat(info.elsewhere || []).filter(isMin);
+        info = Object.assign({}, info, {
+            here: (info.here || []).filter(w => !isMin(w)),
+            elsewhere: (info.elsewhere || []).filter(w => !isMin(w))
+        });
+        if (info.here.length === 0 && info.elsewhere.length === 0) {
+            if (minimized.length > 0) MuhosState.restoreWindow(minimized[0].nativeId);
+            else dockWindow.launchApp(desktopId);
             return;
         }
 
