@@ -109,7 +109,7 @@ PanelWindow {
                     id: row
                     required property var modelData
                     readonly property bool sep: modelData.sep === true
-                    readonly property bool enabled: !sep && modelData.enabled !== false
+                    readonly property bool usable: !sep && modelData.enabled !== false
                     width: list.width
                     height: sep ? MuhosStyle.s(11) : MuhosStyle.s(26)
                     implicitWidth: sep ? 0 : label.implicitWidth + keys.implicitWidth + MuhosStyle.s(48)
@@ -126,7 +126,7 @@ PanelWindow {
                         anchors.fill: parent
                         visible: !row.sep
                         radius: MuhosStyle.s(7)
-                        color: area.containsMouse && row.enabled ? MuhosStyle.accent : "transparent"
+                        color: area.containsMouse && row.usable ? MuhosStyle.accent : "transparent"
                     }
                     Text {
                         id: label
@@ -135,7 +135,7 @@ PanelWindow {
                         anchors.leftMargin: MuhosStyle.s(10)
                         anchors.verticalCenter: parent.verticalCenter
                         text: row.modelData.text || ""
-                        color: !row.enabled ? MuhosStyle.textDim : area.containsMouse ? MuhosStyle.textOnAccent : MuhosStyle.text
+                        color: !row.usable ? MuhosStyle.textDim : area.containsMouse ? MuhosStyle.textOnAccent : MuhosStyle.text
                         font.family: MuhosStyle.font
                         font.pixelSize: MuhosStyle.s(13)
                     }
@@ -146,7 +146,7 @@ PanelWindow {
                         anchors.rightMargin: MuhosStyle.s(10)
                         anchors.verticalCenter: parent.verticalCenter
                         text: row.modelData.shortcut || ""
-                        color: area.containsMouse && row.enabled ? MuhosStyle.textOnAccent : MuhosStyle.textDim
+                        color: area.containsMouse && row.usable ? MuhosStyle.textOnAccent : MuhosStyle.textDim
                         font.family: MuhosStyle.font
                         font.pixelSize: MuhosStyle.s(13)
                     }
@@ -156,7 +156,7 @@ PanelWindow {
                         enabled: !row.sep
                         hoverEnabled: true
                         onClicked: {
-                            if (!row.enabled) return;
+                            if (!row.usable) return;
                             const run = row.modelData.run;
                             win.close();
                             run();

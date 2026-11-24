@@ -104,11 +104,29 @@ QtObject {
     readonly property bool dnd: Config.getSetting("notifications", {}).dnd === true
     function setDnd(on) { Config.setSetting("notifications.dnd", on); }
 
+    // Focused app's display name for the macOS-layout menu bar ("MuhOS" on
+    // the bare desktop, as macOS shows Finder there).
+    function appName(toplevel) {
+        if (!toplevel) return "MuhOS";
+        const id = toplevel.appId || "";
+        const entry = id ? DesktopEntries.heuristicLookup(id) : null;
+        if (entry && entry.name) return entry.name;
+        if (id) {
+            const last = id.split(".").pop();
+            return last.charAt(0).toUpperCase() + last.slice(1);
+        }
+        return toplevel.title || "MuhOS";
+    }
+
     // Dark style: the theme mode, regenerated from the current wallpaper.
     readonly property bool darkStyle: (Config.getSetting("theme", {}).mode || "dark") === "dark"
     function setDarkStyle(on) {
         const mode = on ? "dark" : "light";
         Config.setSetting("theme.mode", mode);
+        // Apps follow too, but only through MuhOS's own dconf profile (set by
+        // muhos-session), never the user's GNOME settings.
+        if (Quickshell.env("DCONF_PROFILE") === "muhos")
+            Quickshell.execDetached(["gsettings", "set", "org.gnome.desktop.interface", "color-scheme", on ? "prefer-dark" : "default"]);
         let wall = Matugen.lastWallpaper;
         if (!wall) {
             const paths = Wallpaper.screenWallpaperPaths || {};

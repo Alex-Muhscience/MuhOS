@@ -1,8 +1,10 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
-// MuhOS menu bar ("Hybrid"): transparent over the wallpaper like macOS, laid
-// out like GNOME. Left: apps button and workspace dots. Centre: the clock
-// island (expands into a player). Right: tray and the status button that
-// opens the control centre. Replaces upstream's Bar while MuhosStyle.barActive.
+// MuhOS menu bar: transparent over the wallpaper like macOS. In the macOS
+// layout (default): logo menu and the focused app's name on the left; tray,
+// search, status (control centre) and the clock (notification centre) on the
+// right. In the hybrid layout: apps button and workspace dots on the left, the
+// clock island in the centre (expands into a player), tray and status on the
+// right. Replaces upstream's Bar while MuhosStyle.barActive.
 import QtQuick
 import QtQuick.Effects
 import Quickshell
@@ -117,6 +119,7 @@ Variants {
                     inBar: true
                     lightWallpaper: win.lightWallpaper
                     padding: MuhosStyle.s(8)
+                    visible: !MuhosStyle.macLayout
                     active: LauncherController.isVisible === true
                     onClicked: MuhosCommands.toggle("launcher")
                     onRightClicked: MuhosCommands.toggle("guide")
@@ -145,7 +148,45 @@ Variants {
                         }
                     }
                 }
-                BarWorkspaces { lightWallpaper: win.lightWallpaper }
+                // macOS layout: a plain logo that opens the logo menu.
+                GlassButton {
+                    id: logoButton
+                    inBar: true
+                    lightWallpaper: win.lightWallpaper
+                    visible: MuhosStyle.macLayout
+                    padding: MuhosStyle.s(10)
+                    radius: MuhosStyle.s(7)
+                    active: MuhosCommands.barMenu === "logo"
+                    onClicked: MuhosCommands.toggleBarMenu("logo", win.screen, mapToItem(null, 0, 0).x)
+
+                    Image {
+                        id: plainMark
+                        anchors.verticalCenter: parent.verticalCenter
+                        width: MuhosStyle.s(16)
+                        height: width
+                        sourceSize: Qt.size(width * 2, height * 2)
+                        source: Caching.serpantinumDir ? "file://" + Caching.serpantinumDir + "/assets/logo.svg" : ""
+                        visible: false
+                    }
+                    MultiEffect {
+                        anchors.verticalCenter: parent.verticalCenter
+                        width: plainMark.width
+                        height: plainMark.height
+                        source: plainMark
+                        colorization: 1.0
+                        colorizationColor: MuhosStyle.barText(win.lightWallpaper)
+                    }
+                }
+                BarAppName {
+                    visible: MuhosStyle.macLayout
+                    anchors.verticalCenter: parent.verticalCenter
+                    barScreen: win.screen
+                    lightWallpaper: win.lightWallpaper
+                }
+                BarWorkspaces {
+                    visible: !MuhosStyle.macLayout
+                    lightWallpaper: win.lightWallpaper
+                }
             }
 
             Row {
@@ -161,7 +202,27 @@ Variants {
                     atBottom: win.atBottom
                     lightWallpaper: win.lightWallpaper
                 }
+                // macOS layout: Spotlight-style search.
+                GlassButton {
+                    inBar: true
+                    lightWallpaper: win.lightWallpaper
+                    visible: MuhosStyle.macLayout
+                    anchors.verticalCenter: parent.verticalCenter
+                    active: LauncherController.isVisible === true
+                    onClicked: MuhosCommands.toggle("launcher")
+                    AdwIcon {
+                        anchors.verticalCenter: parent.verticalCenter
+                        name: "system-search"
+                        color: MuhosStyle.barText(win.lightWallpaper)
+                    }
+                }
                 BarStatus {
+                    anchors.verticalCenter: parent.verticalCenter
+                    barScreen: win.screen
+                    lightWallpaper: win.lightWallpaper
+                }
+                BarClock {
+                    visible: MuhosStyle.macLayout
                     anchors.verticalCenter: parent.verticalCenter
                     barScreen: win.screen
                     lightWallpaper: win.lightWallpaper
@@ -171,6 +232,7 @@ Variants {
 
         BarIsland {
             id: island
+            visible: !MuhosStyle.macLayout
             anchors.horizontalCenter: parent.horizontalCenter
             y: win.atBottom ? parent.height - height - MuhosStyle.s(4) : MuhosStyle.s(4)
             onOpenCentre: MuhosCommands.toggleNotificationCentre(win.screen)

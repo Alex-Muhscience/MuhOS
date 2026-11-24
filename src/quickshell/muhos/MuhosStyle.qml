@@ -22,6 +22,9 @@ QtObject {
     readonly property bool barActive: barSettings.design !== "classic"
         && barSettings.position !== "left" && barSettings.position !== "right"
         && !barSettings.autohide
+    // Menu-bar layout: "macos" (logo menu and app name left, clock right) or
+    // "hybrid" (workspace dots left, clock island in the centre).
+    readonly property bool macLayout: (barSettings.layout || "macos") === "macos"
 
     // "Reduce transparency": solid panels instead of glass (no compositor blur).
     readonly property bool solid: Config.getSetting("muhos", {}).solidPanels === true

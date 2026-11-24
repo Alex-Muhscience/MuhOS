@@ -19,3 +19,6 @@ MuhosBar 1.0 MuhosBar.qml
 singleton MuhosStyle 1.0 MuhosStyle.qml
 singleton MuhosCommands 1.0 MuhosCommands.qml
 singleton MuhosState 1.0 MuhosState.qml
+MacMenu 1.0 MacMenu.qml
+BarClock 1.0 BarClock.qml
+BarAppName 1.0 BarAppName.qml

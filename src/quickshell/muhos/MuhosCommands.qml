@@ -18,10 +18,15 @@ QtObject {
     property bool notificationCentreOpen: false
     property var notificationCentreScreen: null
     property var controlCentreScreen: null
+    // macOS-layout menu-bar menu: "logo", "app" or "" (closed), and where.
+    property string barMenu: ""
+    property var barMenuScreen: null
+    property real barMenuX: 0
 
     function toggle(target, arg) {
         controlCentreOpen = false;
         notificationCentreOpen = false;
+        barMenu = "";
         // The wallpaper picker prepares thumbnails in the script first.
         if (target === "wallpaper" || arg) {
             Quickshell.execDetached(["bash", Caching.serpantinumDir + "/scripts/qs_manager.sh", "toggle", target].concat(arg ? [arg] : []));
@@ -39,10 +44,24 @@ QtObject {
         function notificationCentre(): void { root.toggleNotificationCentre(null); }
     }
 
+    function toggleBarMenu(kind, screen, x) {
+        if (barMenu === kind) {
+            barMenu = "";
+            return;
+        }
+        commandRequested("close", "", "");
+        controlCentreOpen = false;
+        notificationCentreOpen = false;
+        barMenuScreen = screen || null;
+        barMenuX = x || 0;
+        barMenu = kind;
+    }
+
     function toggleControlCentre(screen) {
         if (!controlCentreOpen) {
             commandRequested("close", "", "");
             notificationCentreOpen = false;
+            barMenu = "";
             controlCentreScreen = screen || null;
         }
         controlCentreOpen = !controlCentreOpen;
@@ -53,6 +72,7 @@ QtObject {
         if (!notificationCentreOpen) {
             commandRequested("close", "", "");
             controlCentreOpen = false;
+            barMenu = "";
             notificationCentreScreen = screen || null;
         }
         notificationCentreOpen = !notificationCentreOpen;

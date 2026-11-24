@@ -61,6 +61,10 @@ ShellRoot {
         active: muhosBar && controlCentreUsed
         ControlCentre {}
     }
+    LazyLoader {
+        active: muhosBar && MuhosStyle.macLayout
+        MacMenu {}
+    }
     Loader {
         active: !muhosBar
         sourceComponent: Bar {}
