@@ -26,8 +26,13 @@ jobs:
         run: python3 -I tools/lint-baseline --check
 
   rpm:
+    name: rpm (Fedora ${{ matrix.fedora }})
     runs-on: ubuntu-latest
-    container: registry.fedoraproject.org/fedora:44
+    strategy:
+      fail-fast: false
+      matrix:
+        fedora: ["44", "45"]
+    container: registry.fedoraproject.org/fedora:${{ matrix.fedora }}
     steps:
       - name: Install tools
         run: dnf -y install git python3 rpm-build rpmlint dnf-plugins-core jq xdg-user-dirs adwaita-icon-theme systemd
