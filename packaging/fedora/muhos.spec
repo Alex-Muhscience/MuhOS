@@ -5,7 +5,7 @@
 
 Name:           muhos
 Version:        0.1.0
-Release:        0.16%{?dist}
+Release:        0.17%{?dist}
 Summary:        Desktop shell for Hyprland on Fedora, based on Serpantinum
 
 # Code, MuhOS sounds and images: AGPL-3.0-or-later.
@@ -212,6 +212,17 @@ dconf update &>/dev/null || :
 %ghost %verify(not md5 size mtime mode) %{_sysconfdir}/dconf/db/muhos
 
 %changelog
+* Wed Nov 25 2026 MuhOS contributors - 0.1.0-0.17
+- Logout no longer leaves a black screen (the logout script was killed with
+  the shell before it told Hyprland to exit)
+- Windows: click to focus, Super/Alt+Tab to switch, new windows cascade,
+  apps may raise their own new windows; minimize with Super+M or the app
+  menu, restore from the dock (Music moves to Super+Shift+M)
+- Dock opens apps pinned from a running window (e.g. Google Chrome)
+- App grid in pages, as in Launchpad
+- Updates: Settings checks MuhOS releases when opened and Update runs the
+  installer ("sudo dnf upgrade" could not find MuhOS updates)
+
 * Wed Nov 25 2026 MuhOS contributors - 0.1.0-0.16
 - Screens scale automatically: HiDPI screens (e.g. 4K laptops) were at
   scale 1, so text was tiny (found on real hardware)
