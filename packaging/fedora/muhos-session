@@ -10,7 +10,7 @@
 #                                       plus an optional user.lua next to it
 #   ~/.config/serpantinum/settings.json shell settings, seeded from the template,
 #                                       with IP geolocation off (privacy default)
-#                                       and Adwaita Sans as the interface font
+#                                       and Inter as the interface font (as apps)
 #   ~/Pictures/Wallpapers                MuhOS default wallpapers copied in, only
 #                                       during that first setup and only if the
 #                                       folder has no images yet
@@ -58,7 +58,7 @@ prepare() {
         if [ -z "$(find "$wallpapers" -maxdepth 1 -type f \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' -o -iname '*.webp' \) -print -quit)" ]; then
             cp -n "$datadir/src/assets/wallpapers/"*.jpg "$wallpapers/" 2>/dev/null || true
         fi
-        seeded="$(jq --arg wp "$wallpapers" '. * {wallpaperDir: $wp, general: {ipGeolocation: false}, theme: {fontFamily: "Adwaita Sans"}, dock: {floating: true, hoverScale: 160, cascadeScale: true, elementSize: 48}}' "$datadir/defaults/settings.json")"
+        seeded="$(jq --arg wp "$wallpapers" '. * {wallpaperDir: $wp, general: {ipGeolocation: false}, theme: {fontFamily: "Inter"}, dock: {floating: true, hoverScale: 160, cascadeScale: true, elementSize: 48}}' "$datadir/defaults/settings.json")"
         create_once "$settings" "$seeded
 "
     fi
@@ -79,27 +79,31 @@ export PATH="$libexecdir:$PATH"
 # icons, Inter, left-hand window buttons), so changes made here never reach
 # the user's GNOME session and theirs never reach MuhOS. libadwaita apps
 # ignore the gtk-theme key and only take a theme from GTK_THEME.
-if [ -z "${DCONF_PROFILE:-}" ] && [ -e /etc/dconf/profile/muhos ]; then
-    export DCONF_PROFILE=muhos
+# Set on every login, since a value left in the user manager by an earlier
+# session could otherwise carry over.
+unset GTK_THEME
+[ -e /etc/dconf/profile/muhos ] && export DCONF_PROFILE=muhos
+mode="$(jq -r '.theme.mode // "dark"' "$settings" 2>/dev/null || echo dark)"
+if [ "$mode" = light ]; then
+    [ -d /usr/share/themes/WhiteSur-Light ] && export GTK_THEME=WhiteSur-Light
+    scheme=default
+else
+    [ -d /usr/share/themes/WhiteSur-Dark ] && export GTK_THEME=WhiteSur-Dark
+    scheme=prefer-dark
 fi
-if [ -z "${GTK_THEME:-}" ]; then
-    mode="$(jq -r '.theme.mode // "dark"' "$settings" 2>/dev/null || echo dark)"
-    if [ "$mode" = light ]; then
-        [ -d /usr/share/themes/WhiteSur-Light ] && export GTK_THEME=WhiteSur-Light
-        scheme=default
-    else
-        [ -d /usr/share/themes/WhiteSur-Dark ] && export GTK_THEME=WhiteSur-Dark
-        scheme=prefer-dark
-    fi
-    gsettings set org.gnome.desktop.interface color-scheme "$scheme" 2>/dev/null || true
-fi
+[ "${DCONF_PROFILE:-}" = muhos ] && { gsettings set org.gnome.desktop.interface color-scheme "$scheme" 2>/dev/null || true; }
+
+# When the session ends (normally, or by a signal such as a forced logout),
+# take the shell down and don't leave MuhOS's settings profile and theme in
+# the user manager for the next session, e.g. GNOME.
+cleanup() {
+    systemctl --user stop muhos-session.target 2>/dev/null || true
+    systemctl --user unset-environment DCONF_PROFILE GTK_THEME 2>/dev/null || true
+    dbus-update-activation-environment --systemd DCONF_PROFILE= GTK_THEME= 2>/dev/null || true
+}
+trap cleanup EXIT
+trap 'exit 143' TERM HUP INT
 
 status=0
 start-hyprland -- --config "$hypr_dir/hyprland.lua" || status=$?
-
-# The compositor is gone; take the shell and anything else bound to the session down.
-systemctl --user stop muhos-session.target 2>/dev/null || true
-# Don't leave MuhOS's settings profile and theme to the next session (GNOME).
-systemctl --user unset-environment DCONF_PROFILE GTK_THEME 2>/dev/null || true
-dbus-update-activation-environment --systemd DCONF_PROFILE= GTK_THEME= 2>/dev/null || true
 exit "$status"

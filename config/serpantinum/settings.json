@@ -74,7 +74,7 @@
     "runningScope": "auto"
   },
   "theme": {
-    "fontFamily": "Adwaita Sans",
+    "fontFamily": "Inter",
     "borderRadius": 12,
     "activePreset": "macOS",
     "matugen": false,
