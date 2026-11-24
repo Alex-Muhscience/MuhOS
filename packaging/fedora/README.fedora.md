@@ -18,6 +18,7 @@ Target: Fedora 44 Workstation, x86_64, Hyprland. GDM stays your login manager.
 | `/usr/lib/systemd/user/muhos-shell.service` | Runs the shell; restarts it if it crashes |
 | `/usr/lib/systemd/user/muhos-session.target` | Bound to the graphical session; pulls in the shell |
 | `/etc/pam.d/serpantinum` | Lock screen authentication (`system-auth`) |
+| `/etc/dconf/profile/muhos`, `/etc/dconf/db/muhos.d/` | MuhOS-only GNOME/GTK settings: WhiteSur theme and icons, Inter, window buttons on the left |
 
 It does **not** replace GDM, enable any service, write to `/usr/local`, or
 touch `~/.config/hypr`, kitty, cava or fastfetch configuration.
@@ -41,6 +42,14 @@ touch `~/.config/hypr`, kitty, cava or fastfetch configuration.
   this first setup, only if the folder has no images, so the first launch
   has one to apply.
 
+It also sets two variables for this session only. `DCONF_PROFILE=muhos`
+makes apps read and write their GNOME/GTK settings in
+`~/.config/dconf/muhos`, on top of the MuhOS defaults, instead of your
+GNOME settings. `GTK_THEME` gives libadwaita apps WhiteSur, Light or Dark to
+match the shell's theme mode. When the session ends, both are cleared from
+the systemd user manager, so a GNOME session started afterwards is
+unaffected.
+
 Then it starts Hyprland with that config. Hyprland's autostart imports the
 session environment into systemd and starts `muhos-session.target`, which
 starts `muhos-shell.service`.
@@ -54,6 +63,8 @@ pin). Fedora 44 has Quickshell 0.2.1 and Matugen 3.1.0, and no Hyprland.
 |---|---|---|
 | Quickshell | 0.3.2 | MuhOS: `packaging/fedora/quickshell/quickshell.spec` (Fedora's spec, updated) |
 | Matugen | 4.2.0 | MuhOS: `packaging/fedora/matugen/matugen.spec` (vendored crates) |
+| WhiteSur GTK theme | 2026-09-10 | MuhOS: `packaging/fedora/whitesur/whitesur-gtk-theme.spec` (upstream's prebuilt Light/Dark, GTK parts only) |
+| WhiteSur icon theme | 2026-09-10 | MuhOS: `packaging/fedora/whitesur/whitesur-icon-theme.spec` (Apple logo icons removed) |
 | hyprland-guiutils | 0.2.2 | Same COPR as Hyprland: its dialogs (app not responding, permissions) |
 | Hyprland | 0.56.2 | Third-party COPR [`lionheartp/Hyprland`](https://copr.fedorainfracloud.org/coprs/lionheartp/Hyprland/) (fork of solopasha/hyprland); fallback [`mineiro/hyprland`](https://copr.fedorainfracloud.org/coprs/mineiro/hyprland/) |
 
@@ -62,7 +73,7 @@ attached to GitHub releases. For testing:
 
 ```sh
 sudo dnf copr enable lionheartp/Hyprland
-sudo dnf install ./quickshell-*.rpm ./matugen-*.rpm ./muhos-*.noarch.rpm
+sudo dnf install ./quickshell-*.rpm ./matugen-*.rpm ./whitesur-*.noarch.rpm ./muhos-*.noarch.rpm
 ```
 
 ## Building

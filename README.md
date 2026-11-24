@@ -105,16 +105,23 @@ whatever is behind them, with a soft sheen and a light edge, as on macOS.
 
 <img src="docs/screenshots/control-centre.webp" alt="Control centre: pill toggles, volume slider and session buttons" width="360" align="right">
 
-- **Menu bar.** Transparent over the wallpaper and laid out like GNOME: the
-  apps button and workspace dots on the left (the current workspace is a
-  pill, workspaces with windows are brighter), the clock in the middle,
-  network, volume and battery on the right. Its text turns dark over light
-  wallpapers and light over dark ones, per screen. Scroll on the dots to
-  switch workspace, on the status icons to change the volume.
-- **Clock island.** While music plays, the clock shows the cover and a small
-  live visualizer; click it to expand it into a player. Otherwise a click
-  (or a right-click at any time) opens the notification centre. A dot marks
-  unread notifications.
+- **Menu bar.** Transparent over the wallpaper and laid out like macOS. On
+  the left, the MuhOS logo opens a menu (About, System Settings, Search,
+  Sleep, Restart, Shut Down, Lock Screen, Log Out), followed by the focused
+  app's name in bold (Full Screen, Quit). On the right are the tray, search,
+  network, volume and battery, and the date and time, which open the
+  notification centre. Its text turns dark over light wallpapers and light
+  over dark ones, per screen. Scroll on the status icons to change the
+  volume.
+- **Hybrid layout.** Set `"bar": { "layout": "hybrid" }` for the earlier
+  GNOME-style layout: workspace dots on the left and a clock island in the
+  middle. While music plays, the island shows the cover and a small live
+  visualizer, and a click expands it into a player.
+- **Apps look like macOS.** In the MuhOS session, apps use the WhiteSur GTK
+  theme and icons, the Inter font, and close/minimise/zoom buttons on the
+  left. These settings live in MuhOS's own dconf profile, so your GNOME
+  session keeps its own theme. Windows float and open centred as on macOS;
+  <kbd>Super</kbd>+<kbd>T</kbd> tiles one.
 - **Control centre.** GNOME's system menu in glass: toggles for Wi-Fi (or
   Wired), Bluetooth, power mode, night light, dark style and do not disturb,
   with arrows into the network and Bluetooth panels; volume and brightness
@@ -158,9 +165,11 @@ whatever is behind them, with a soft sheen and a light edge, as on macOS.
   notification titles (never their contents), and your picture with a glass
   password field. It authenticates through PAM (`system-auth`), so your
   normal password works.
-- **Adwaita icons and wallpaper colours.** Symbols come from GNOME's Adwaita
-  icon theme, apps show their own icons, and the accent colour is generated
-  from your wallpaper. Light and dark modes are both supported.
+- **Themes and wallpapers.** New users start with the macOS theme (macOS
+  blue accent) and two original macOS-style wallpapers, light and dark.
+  Shell symbols come from GNOME's Adwaita icon theme. Choose another preset,
+  or colours generated from your wallpaper, in Settings → Theme. Light and
+  dark modes are both supported.
 
 <br clear="right">
 
@@ -233,13 +242,14 @@ RPMs for Fedora 44 x86_64, plus source RPMs if you prefer to build them.
 ### Quick install from a release
 
 Download `muhos-*.noarch.rpm`, `quickshell-*.x86_64.rpm`,
-`matugen-*.x86_64.rpm` and `SHA256SUMS` from the
+`matugen-*.x86_64.rpm`, `whitesur-gtk-theme-*.noarch.rpm`,
+`whitesur-icon-theme-*.noarch.rpm` and `SHA256SUMS` from the
 [latest release](https://github.com/Alex-Muhscience/MuhOS/releases), then:
 
 ```sh
 sha256sum --check --ignore-missing SHA256SUMS     # verify the downloads
 sudo dnf copr enable lionheartp/Hyprland           # Hyprland 0.56
-sudo dnf install ./muhos-*.noarch.rpm ./quickshell-*.x86_64.rpm ./matugen-*.x86_64.rpm
+sudo dnf install ./muhos-*.noarch.rpm ./quickshell-*.x86_64.rpm ./matugen-*.x86_64.rpm ./whitesur-*.noarch.rpm
 ```
 
 The packages are not signed yet, so dnf notes that it skipped signature
@@ -259,14 +269,14 @@ sudo dnf copr enable lionheartp/Hyprland
 sudo dnf install rpm-build dnf-plugins-core git
 ```
 
-**2. Build Quickshell and Matugen** from the source RPMs on the
+**2. Build Quickshell, Matugen and WhiteSur** from the source RPMs on the
 [release page](https://github.com/Alex-Muhscience/MuhOS/releases)
-(`quickshell-*.src.rpm` and `matugen-*.src.rpm`; Matugen's Rust crates are
-included, so it builds offline):
+(`quickshell-*.src.rpm`, `matugen-*.src.rpm` and `whitesur-*.src.rpm`;
+everything they need is included, so they build offline):
 
 ```sh
-sudo dnf builddep ./quickshell-*.src.rpm ./matugen-*.src.rpm
-rpmbuild --rebuild ./quickshell-*.src.rpm ./matugen-*.src.rpm
+sudo dnf builddep ./quickshell-*.src.rpm ./matugen-*.src.rpm ./whitesur-*.src.rpm
+rpmbuild --rebuild ./quickshell-*.src.rpm ./matugen-*.src.rpm ./whitesur-*.src.rpm
 ```
 
 **3. Build MuhOS** from this repository:
@@ -281,7 +291,7 @@ packaging/fedora/build-rpm out
 **4. Install everything**
 
 ```sh
-sudo dnf install ~/rpmbuild/RPMS/x86_64/{quickshell,matugen}-*.rpm out/muhos-*.noarch.rpm
+sudo dnf install ~/rpmbuild/RPMS/x86_64/{quickshell,matugen}-*.rpm ~/rpmbuild/RPMS/noarch/whitesur-*.rpm out/muhos-*.noarch.rpm
 ```
 
 This pulls in Hyprland and the other dependencies. Then log out, click the
@@ -319,7 +329,7 @@ folder.
 | <kbd>Super</kbd>+<kbd>F</kbd> | Firefox |
 | <kbd>Super</kbd>+<kbd>Q</kbd> | Close window |
 | <kbd>Super</kbd>+<kbd>Alt</kbd>+<kbd>F</kbd> | Maximize window |
-| <kbd>Super</kbd>+<kbd>Shift</kbd>+<kbd>F</kbd> | Float or tile window |
+| <kbd>Super</kbd>+<kbd>T</kbd> or <kbd>Super</kbd>+<kbd>Shift</kbd>+<kbd>F</kbd> | Tile or float window (windows float by default) |
 | <kbd>Super</kbd>+<kbd>←↑↓→</kbd> | Focus window in that direction |
 | <kbd>Super</kbd>+<kbd>Ctrl</kbd>+<kbd>←↑↓→</kbd> | Move window |
 | <kbd>Super</kbd>+<kbd>Shift</kbd>+<kbd>←↑↓→</kbd> | Resize window |
@@ -534,6 +544,11 @@ the rule for evidence: no performance claim without a benchmark.
 - [Matugen](https://github.com/InioX/matugen) for wallpaper colours.
 - The [Adwaita icon theme](https://gitlab.gnome.org/GNOME/adwaita-icon-theme)
   by the GNOME project, used from Fedora's package.
+- [WhiteSur](https://github.com/vinceliuice/WhiteSur-gtk-theme) GTK theme
+  (MIT) and [icon theme](https://github.com/vinceliuice/WhiteSur-icon-theme)
+  (GPL-3.0) by Vince Liuice, packaged by MuhOS without the Apple logo icons,
+  and the [Inter](https://rsms.me/inter/) font by Rasmus Andersson, from
+  Fedora's package.
 - Sounds by [Kenney](https://kenney.nl) (CC0) and Romain Raynal's
   [Open Sounds](https://romainraynal.gumroad.com/) (CC0).
 - Fonts from [Nerd Fonts](https://www.nerdfonts.com/) and the font projects
