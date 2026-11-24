@@ -57,7 +57,7 @@ Excluded from this inventory: nothing.
 | `src/assets/shaders/widgets/pacman.frag.qsb` | shader-binary | 2.6 KiB | generated | AGPL-3.0-or-later (compiled from .frag) |  | Rebuild with qsb during RPM build | `ac77565dcb38` |
 | `src/assets/shaders/widgets/widget_outline.frag.qsb` | shader-binary | 4.1 KiB | generated | AGPL-3.0-or-later (compiled from .frag) |  | Rebuild with qsb during RPM build | `1981dcdd25a1` |
 | `docs/assets/muhos-tile.svg` | image | 1014 B | ok | AGPL-3.0-or-later (MuhOS mark on a tile… |  |  | `0d3b9593507a` |
-| `docs/screenshots/app-grid.webp` | image | 78.1 KiB | ok | AGPL-3.0-or-later (screenshots of MuhOS… |  |  | `9ae03660384b` |
+| `docs/screenshots/app-grid.webp` | image | 69.4 KiB | ok | AGPL-3.0-or-later (screenshots of MuhOS… |  |  | `a142a702d16d` |
 | `docs/screenshots/calculator.webp` | image | 5.0 KiB | ok | AGPL-3.0-or-later (screenshots of MuhOS… |  |  | `60fe22dced10` |
 | `docs/screenshots/control-centre.webp` | image | 12.2 KiB | ok | AGPL-3.0-or-later (screenshots of MuhOS… |  |  | `208b51c044a0` |
 | `docs/screenshots/desktop-dark.webp` | image | 40.9 KiB | ok | AGPL-3.0-or-later (screenshots of MuhOS… |  |  | `9839aff0d7e9` |
@@ -66,11 +66,11 @@ Excluded from this inventory: nothing.
 | `docs/screenshots/launcher.webp` | image | 16.4 KiB | ok | AGPL-3.0-or-later (screenshots of MuhOS… |  |  | `ee30189f72d2` |
 | `docs/screenshots/lock-screen.webp` | image | 35.1 KiB | ok | AGPL-3.0-or-later (screenshots of MuhOS… |  |  | `abe711280f5b` |
 | `docs/screenshots/menu.webp` | image | 5.5 KiB | ok | AGPL-3.0-or-later (screenshots of MuhOS… |  |  | `942c0d91d10e` |
-| `docs/screenshots/music.webp` | image | 18.4 KiB | ok | AGPL-3.0-or-later (screenshots of MuhOS… |  |  | `e1f72891452b` |
+| `docs/screenshots/music.webp` | image | 21.3 KiB | ok | AGPL-3.0-or-later (screenshots of MuhOS… |  |  | `eb81039a1ea1` |
 | `docs/screenshots/notification-centre.webp` | image | 21.8 KiB | ok | AGPL-3.0-or-later (screenshots of MuhOS… |  |  | `00fe6096bae7` |
 | `docs/screenshots/notifications.webp` | image | 12.5 KiB | ok | AGPL-3.0-or-later (screenshots of MuhOS… |  |  | `afc718d0ab62` |
 | `docs/screenshots/osd.webp` | image | 1.5 KiB | ok | AGPL-3.0-or-later (screenshots of MuhOS… |  |  | `763ad9b517d5` |
-| `docs/screenshots/settings.webp` | image | 42.6 KiB | ok | AGPL-3.0-or-later (screenshots of MuhOS… |  |  | `2b93e87ce6b4` |
+| `docs/screenshots/settings.webp` | image | 46.5 KiB | ok | AGPL-3.0-or-later (screenshots of MuhOS… |  |  | `2029abcd4686` |
 | `docs/screenshots/tiling.webp` | image | 28.9 KiB | ok | AGPL-3.0-or-later (screenshots of MuhOS… |  |  | `c4935a4e25f5` |
 | `packaging/fedora/icons/muhos-apps.svg` | image | 1015 B | ok | AGPL-3.0-or-later (MuhOS original app i… |  |  | `69a8ab8a070d` |
 | `packaging/fedora/icons/muhos-sound.svg` | image | 829 B | ok | AGPL-3.0-or-later (MuhOS original app i… |  |  | `16dd88abf54a` |

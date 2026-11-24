@@ -117,7 +117,7 @@ when you log in, and leaves GNOME exactly as it was.
 <table>
   <tr>
     <td width="50%"><img src="docs/screenshots/desktop-dark.webp" alt="Dark mode: Files and Text Editor in dark style over a dark blue wallpaper, with the glass dock"></td>
-    <td width="50%"><img src="docs/screenshots/app-grid.webp" alt="App grid: every installed app as a large icon over the blurred desktop, a search field on top and the dock below"></td>
+    <td width="50%"><img src="docs/screenshots/app-grid.webp" alt="App grid: installed apps as large icons on the first of two pages, with page dots, a search field on top and the dock below"></td>
   </tr>
   <tr>
     <td align="center"><b>Dark mode.</b> Apps follow it too.</td>
@@ -141,7 +141,7 @@ when you log in, and leaves GNOME exactly as it was.
   </tr>
   <tr>
     <td><img src="docs/screenshots/lock-screen.webp" alt="Lock screen: blurred blue wallpaper, the date and a large clock, notification titles, the user's picture and a glass password field"></td>
-    <td><img src="docs/screenshots/settings.webp" alt="MuhOS Settings on the Theme page: coloured section icons from Welcome to About, and the accent colour choices"></td>
+    <td><img src="docs/screenshots/settings.webp" alt="MuhOS Settings on the Theme page: Browse wallpapers, Choose picture and Choose folder buttons, and the accent colour choices"></td>
   </tr>
   <tr>
     <td align="center"><b>Lock screen.</b> Notification titles only, never their contents.</td>
@@ -149,7 +149,7 @@ when you log in, and leaves GNOME exactly as it was.
   </tr>
   <tr>
     <td><img src="docs/screenshots/tiling.webp" alt="Tiled windows: Text Editor and Files side by side under the transparent menu bar"></td>
-    <td><img src="docs/screenshots/music.webp" alt="Music popup with cover, playback controls and a ten-band equalizer with presets"></td>
+    <td><img src="docs/screenshots/music.webp" alt="Music window playing Northern Lights: cover art, playback controls and a ten-band equaliser with presets"></td>
   </tr>
   <tr>
     <td align="center"><b>Tiling,</b> when you want it.</td>
