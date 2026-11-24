@@ -312,9 +312,9 @@ Change or add shortcuts in `~/.config/muhos/hypr/user.lua` (see
 
 ## Privacy
 
-- No telemetry and no background update checks. Only when you open
-  Settings does MuhOS ask GitHub for its newest release, to offer an
-  update; nothing about you is sent.
+- No telemetry. Updates are checked against MuhOS's GitHub releases only
+  when you open Settings or run `muhos-update`, or once a day if you chose
+  the notify or auto update mode. Nothing about you is sent.
 - Your location isn't looked up automatically. The weather stays off until
   you set a location; forecasts then come from [Open-Meteo](https://open-meteo.com/).
   The Detect button does a one-time lookup through ipapi.co, and
@@ -552,9 +552,21 @@ Firefox draws its own interface, so GTK themes don't style it.
 
 ## Updating and uninstalling
 
-**Update** by running the install command again: it installs the newest
-release over the old one and keeps your settings. When Settings shows an
-update, its Update button runs that command for you in a terminal.
+**Update** with `muhos-update`: it shows what's new and how much there is to
+download, then downloads with progress bars, verifies the packages and asks
+before installing them. Settings' Update button runs it for you; running the
+install command again also works. Your settings are kept.
+
+**Choose how MuhOS updates.** The installer asks once; change it any time:
+
+| Command | What happens |
+| --- | --- |
+| `muhos-update --mode manual` | Default. Nothing in the background; update when you want. |
+| `muhos-update --mode notify` | Checks once a day; a notification offers to update. |
+| `muhos-update --mode auto` | Installs new releases once a day in the background, then tells you to log out and back in. |
+
+`muhos-update --check` only says whether a newer release exists;
+`muhos-update --mode` shows the current choice.
 
 **Uninstall**:
 
