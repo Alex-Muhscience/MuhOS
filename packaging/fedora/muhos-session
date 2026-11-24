@@ -96,10 +96,11 @@ fi
 # When the session ends (normally, or by a signal such as a forced logout),
 # take the shell down and don't leave MuhOS's settings profile and theme in
 # the user manager for the next session, e.g. GNOME.
+# Clearing the variables comes first: on a forced logout the script may be
+# killed while the shell is stopping.
 cleanup() {
-    systemctl --user stop muhos-session.target 2>/dev/null || true
     systemctl --user unset-environment DCONF_PROFILE GTK_THEME 2>/dev/null || true
-    dbus-update-activation-environment --systemd DCONF_PROFILE= GTK_THEME= 2>/dev/null || true
+    systemctl --user stop --no-block muhos-session.target 2>/dev/null || true
 }
 trap cleanup EXIT
 trap 'exit 143' TERM HUP INT
