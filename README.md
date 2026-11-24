@@ -76,7 +76,7 @@ when you log in, and leaves GNOME exactly as it was.
     </td>
     <td width="50%" valign="top">
       <h3>Apps that look the part</h3>
-      Red, yellow and green window buttons, macOS-style icons (WhiteSur) and
+      Red and green window buttons (close, zoom), macOS-style icons (WhiteSur) and
       the Inter font, in the MuhOS session only. Windows float and open
       centred; <kbd>Super</kbd>+<kbd>T</kbd> tiles one when you want it.
     </td>
@@ -214,7 +214,7 @@ when you log in, and leaves GNOME exactly as it was.
 
 - **Windows and apps.** Windows float and open centred;
   <kbd>Super</kbd>+<kbd>T</kbd> tiles one. Apps use the WhiteSur GTK theme
-  and icons, the Inter font and close/minimise/zoom on the left, in the MuhOS
+  and icons, the Inter font and close and zoom buttons on the left (Hyprland has no minimise), in the MuhOS
   session only. In dark mode, apps use GNOME's own dark style, because
   WhiteSur's dark variant doesn't display GNOME 50 apps correctly yet.
 - **Themes and colours.** New users start with the macOS theme and two
