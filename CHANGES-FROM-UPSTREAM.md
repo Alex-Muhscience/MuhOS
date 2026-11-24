@@ -34,6 +34,9 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - Fixed-size windows shrink to fit small screens (3677175)
 - macOS menu bar layout and logo menu (82fd473)
 - Two original macOS-style wallpapers (light and dark) (6fe1ab9)
+- Menu bar: show the app's name once the app list has loaded (9fce7ce)
+- Settings: readable section and row icons on light themes (8aa2cfa)
+- Settings > Theme: accent colour choice (a1ab74d)
 
 ## Fedora-specific
 
@@ -67,6 +70,10 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - A Sound app entry for the MuhOS sound window; muhos 0.1.0-0.13 (765ad9a)
 - macOS-style defaults for Hyprland and the shell (3bb239e)
 - macOS look for apps: WhiteSur, Inter, floating windows; muhos 0.1.0-0.14 (025dc40)
+- Session: clear its theme variables on any exit; Inter as the shell font (670a08b)
+- WhiteSur icons in the shell too; rpm -V ignores the generated dconf db (74a8ea4)
+- Session: clear theme variables before stopping the shell (0fa6140)
+- Changelog: Settings icons and accent colours (1ecf7d8)
 
 ## MuhOS branding
 
@@ -127,6 +134,7 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - README: glass design screenshots and features (e094e09)
 - README: the volume arrow and the Sound app (c28cd68)
 - README: the macOS layout, WhiteSur apps and install steps (6b833c7)
+- Regenerate CHANGES-FROM-UPSTREAM.md (1da1124)
 
 ## Upstream files changed by MuhOS
 
@@ -165,12 +173,15 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - `src/quickshell/guide/GuidePopup.qml` (modified since 2026-10-18)
 - `src/quickshell/guide/GuideSidebar.qml` (modified since 2026-10-18)
 - `src/quickshell/guide/WelcomeTab.qml` (modified since 2026-10-18)
+- `src/quickshell/guide/theme/ThemeAppearanceSection.qml` (modified since 2026-10-18)
 - `src/quickshell/guide/theme/ThemeTabState.qml` (modified since 2026-10-18)
 - `src/quickshell/launcher/Launcher.qml` (modified since 2026-10-18)
 - `src/quickshell/lock/LockSurface.qml` (modified since 2026-10-18)
 - `src/quickshell/notifications/types/Update.qml` (modified since 2026-10-18)
 - `src/quickshell/popouts/Osd.qml` (modified since 2026-10-18)
 - `src/quickshell/qmldir` (modified since 2026-10-18)
+- `src/quickshell/reusables/buttons/IconButton.qml` (modified since 2026-10-18)
+- `src/quickshell/reusables/guide/SettingsRow.qml` (modified since 2026-10-18)
 - `src/quickshell/serp/Start.qml` (modified since 2026-10-18)
 - `src/quickshell/singletons/audio/Sounds.qml` (modified since 2026-10-18)
 - `src/quickshell/singletons/system/FirstLaunch.qml` (modified since 2026-10-18)
