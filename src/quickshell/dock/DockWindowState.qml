@@ -406,7 +406,31 @@ PanelWindow {
         } catch (e) {}
         return false;
     }
-    readonly property bool isFullscreenActive: isOsdFullscreen || isToplevelFullscreen || isHyprlandFullscreen
+    // MuhOS: Hyprland reports a maximized window as fullscreen mode 1 (the
+    // workspace then "has a fullscreen window"); like macOS, only real full
+    // screen (mode 2) hides the dock. The mode comes from hyprctl, refreshed
+    // on Hyprland's fullscreen and focus events.
+    property int muhosFullscreenMode: 0
+    Connections {
+        target: Hyprland
+        function onRawEvent(event) {
+            if (event.name === "fullscreen" || event.name === "activewindowv2" || event.name === "workspacev2" || event.name === "closewindow")
+                muhosFsTimer.restart();
+        }
+    }
+    Timer { id: muhosFsTimer; interval: 80; onTriggered: { muhosFsProc.running = false; muhosFsProc.running = true; } }
+    Process {
+        id: muhosFsProc
+        command: ["hyprctl", "activewindow", "-j"]
+        stdout: StdioCollector {
+            onStreamFinished: {
+                try { dockWindow.muhosFullscreenMode = Number(JSON.parse(this.text).fullscreen) || 0; }
+                catch (e) { dockWindow.muhosFullscreenMode = 0; }
+            }
+        }
+    }
+    readonly property bool isFullscreenActive: isOsdFullscreen
+        || (MuhosStyle.designActive ? muhosFullscreenMode >= 2 : (isToplevelFullscreen || isHyprlandFullscreen))
 
     readonly property bool isBarEffectivelyHidden: barAutohide || isFullscreenActive
     readonly property bool sameSideAsBar: (dockPosition === barPosition) && !isBarEffectivelyHidden
