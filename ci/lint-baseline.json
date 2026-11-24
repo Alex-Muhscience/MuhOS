@@ -11,17 +11,17 @@
       "property-override": 10,
       "required": 9,
       "signal-handler-parameters": 5,
-      "unqualified": 8567,
+      "unqualified": 8576,
       "unresolved-type": 301,
       "unused-imports": 140
     },
     "by_type": {
       "info": 140,
-      "warning": 19552
+      "warning": 19561
     },
     "files": 319,
     "files_with_errors": 314,
-    "total": 19692,
+    "total": 19701,
     "version": "qmllint 6.11.2"
   },
   "shellcheck": {

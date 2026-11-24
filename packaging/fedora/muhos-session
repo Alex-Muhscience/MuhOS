@@ -98,6 +98,7 @@ fi
 # the user manager for the next session, e.g. GNOME.
 # Clearing the variables comes first: on a forced logout the script may be
 # killed while the shell is stopping.
+# shellcheck disable=SC2329  # invoked by the EXIT trap below
 cleanup() {
     systemctl --user unset-environment DCONF_PROFILE GTK_THEME 2>/dev/null || true
     systemctl --user stop --no-block muhos-session.target 2>/dev/null || true
