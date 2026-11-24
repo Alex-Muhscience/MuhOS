@@ -41,7 +41,7 @@
         <ul class="files" id="files"></ul>
 
         <div class="callout">
-          <strong>MuhOS is a pre-release.</strong> It's ready for testing and daily use by people who are comfortable reporting problems. It has been tested in Fedora virtual machines but not yet on a wide range of hardware.
+          <strong>MuhOS 0.1.0 is the first release.</strong> It's tested in Fedora 44 and 45 virtual machines and in daily use on a laptop with Intel and NVIDIA graphics. On other hardware, please <a href="https://github.com/Alex-Muhscience/MuhOS/issues/new/choose">report problems</a> or tell us how it runs with a hardware report.
         </div>
 
         <h2 style="margin-top:48px">Before you start</h2>
@@ -57,6 +57,7 @@
         <h2 style="margin-top:48px">Install with one command</h2>
         <p>Open a terminal and run:</p>
         <pre data-copy><code>curl -fsSL https://alex-muhscience.github.io/MuhOS/install.sh | bash</code></pre>
+        <p>It lists the files with their sizes and the total download, shows a progress bar for each, and at the end asks how MuhOS should update.</p>
         <p>The installer checks that you're on Fedora 44 or 45, downloads the newest release's packages for your version from GitHub, checks every package against the release's <code>SHA256SUMS</code> (it stops if anything doesn't match), enables the Hyprland COPR and installs with dnf. It asks before changing anything, and dnf shows you the full list first. The packages aren't signed yet, so dnf mentions that it skipped signature checks.</p>
         <p>Then <strong>log out</strong>, click your name on the login screen, choose <strong>MuhOS (Hyprland)</strong> with the gear button at the bottom right, and sign in.</p>
         <details>
@@ -65,7 +66,7 @@
           <pre data-copy><code>curl -fsSLO https://alex-muhscience.github.io/MuhOS/install.sh
 less install.sh
 bash install.sh</code></pre>
-          <p>Options: <code>--dry-run</code> downloads and checks without installing, <code>--keep DIR</code> keeps the packages, <code>--tag v0.1.0-pre.4</code> picks a release, and <code>--yes</code> doesn't ask. With the one-liner, pass them as <code>| bash -s -- --dry-run</code>. Source: <a href="https://github.com/Alex-Muhscience/MuhOS/blob/main/site/install.sh">site/install.sh</a>.</p>
+          <p>Options: <code>--dry-run</code> downloads and checks without installing, <code>--keep DIR</code> keeps the packages, <code>--tag v0.1.0</code> picks a release, and <code>--yes</code> doesn't ask. With the one-liner, pass them as <code>| bash -s -- --dry-run</code>. Source: <a href="https://github.com/Alex-Muhscience/MuhOS/blob/main/site/install.sh">site/install.sh</a>.</p>
         </details>
         <details>
           <summary>Install by hand instead</summary>
@@ -76,7 +77,17 @@ sudo dnf install ./muhos-*.noarch.rpm ./quickshell-*.x86_64.rpm ./matugen-*.x86_
         </details>
 
         <h2 style="margin-top:36px">Updating</h2>
-        <p>Run the same command again: it installs the newest release over the old one. Your settings are kept.</p>
+        <p>Once MuhOS is installed, update it with:</p>
+        <pre data-copy><code>muhos-update</code></pre>
+        <p>It shows what's new and the download size, downloads with progress bars, verifies the packages and asks before installing. Settings' <strong>Update</strong> button runs it for you, and your settings are kept. Coming from a pre-release older than pre.8, run the install command once more instead.</p>
+        <p>Choose how MuhOS updates (the installer asks once; change it any time):</p>
+        <div class="table-wrap">
+          <table>
+            <tr><th><code>muhos-update --mode manual</code></th><td>Default. Nothing in the background; update when you want.</td></tr>
+            <tr><th><code>muhos-update --mode notify</code></th><td>Checks once a day; a notification offers to update.</td></tr>
+            <tr><th><code>muhos-update --mode auto</code></th><td>Installs new releases once a day in the background, then tells you to log out and back in.</td></tr>
+          </table>
+        </div>
 
         <h2 style="margin-top:36px">Uninstalling</h2>
         <pre data-copy><code>sudo dnf remove muhos whitesur-gtk-theme whitesur-icon-theme

@@ -45,12 +45,14 @@ by Illia Miroshnichenko. It installs next to GNOME, as a session you choose
 when you log in, and leaves GNOME exactly as it was.
 
 > [!NOTE]
-> **Pre-release.** MuhOS builds and passes its tests on Fedora 44 and 45, and
-> full login sessions work in Fedora 44 and Fedora 45 virtual machines. It
-> hasn't been validated on real hardware yet, so expect rough edges and please
-> [report them](https://github.com/Alex-Muhscience/MuhOS/issues/new/choose),
-> or tell us how it runs on your machine with a
+> **MuhOS 0.1.0 is the first release.** It builds and passes its tests on
+> Fedora 44 and 45, full login sessions work in Fedora 44 and 45 virtual
+> machines, and it's in daily use on a laptop with Intel and NVIDIA graphics.
+> On other hardware, please
+> [report problems](https://github.com/Alex-Muhscience/MuhOS/issues/new/choose)
+> or tell us how it runs with a
 > [hardware report](https://github.com/Alex-Muhscience/MuhOS/issues/new/choose).
+> Want to help build it? See [where to start](https://github.com/Alex-Muhscience/MuhOS/issues/1).
 
 ## Contents
 
@@ -362,7 +364,7 @@ off halfway runs nothing.
 |---|---|
 | `--dry-run` | Download and verify only |
 | `--keep DIR` | Keep the downloaded packages in `DIR` |
-| `--tag v0.1.0-pre.5` | Install a specific release |
+| `--tag v0.1.0` | Install a specific release |
 | `--yes` | Don't ask (dnf runs with `-y`) |
 
 To read it first: `curl -fsSLO https://alex-muhscience.github.io/MuhOS/install.sh`,

@@ -10,7 +10,7 @@
 #
 # Options (pass them with: curl -fsSL … | bash -s -- --yes):
 #   --yes          don't ask before installing (dnf runs with -y)
-#   --tag TAG      install a specific release, e.g. v0.1.0-pre.4
+#   --tag TAG      install a specific release, e.g. v0.1.0
 #   --keep DIR     keep the downloaded packages in DIR
 #   --dry-run      download and verify only; install nothing
 #   --update-mode manual|notify|auto
