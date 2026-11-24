@@ -1,5 +1,15 @@
 #!/usr/bin/env bash
 
+# MuhOS: when the shell runs as a systemd user service, this script is part of
+# that service, so stopping graphical-session.target below would kill it
+# before it tells the compositor to exit: the session stayed on a black
+# screen with only a cursor. Re-run outside the service first.
+if [ -z "${SERPANTINUM_EXIT_DETACHED:-}" ] && [ -n "${INVOCATION_ID:-}" ] && command -v systemd-run &>/dev/null; then
+    exec systemd-run --user --scope --quiet --setenv=SERPANTINUM_EXIT_DETACHED=1 \
+        --setenv=HYPRLAND_INSTANCE_SIGNATURE="${HYPRLAND_INSTANCE_SIGNATURE:-}" \
+        --setenv=XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:-}" bash "$0" "$@"
+fi
+
 rm -f "${XDG_RUNTIME_DIR:-/tmp}/serpantinumd.lock" "${XDG_RUNTIME_DIR:-/tmp}/serpantinumd.pid" 2>/dev/null
 
 if command -v systemctl &>/dev/null; then
