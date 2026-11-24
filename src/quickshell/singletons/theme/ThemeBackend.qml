@@ -308,9 +308,13 @@ Item {
                      "blue", "sapphire", "peach", "green", "red", "mauve", "pink",
                      "yellow", "maroon", "teal"];
 
+        // MuhOS: an accent colour chosen in Settings > Theme replaces the
+        // preset's (or wallpaper's) accent roles: mauve (upstream) and blue (MuhOS).
+        let accent = (Config.getSetting("theme", {}) || {}).accent || "";
+
         let queue = [];
         for (let i = 0; i < names.length; i++) {
-            let hexColor = resolveHex(c[names[i]]);
+            let hexColor = (accent && (names[i] === "mauve" || names[i] === "blue")) ? accent : resolveHex(c[names[i]]);
             if (!hexColor) continue;
             let nextColor = Qt.color(hexColor);
             let slot = (names[i] === "text" || names[i] === "subtext0" || names[i] === "subtext1") ? "_" + names[i] : names[i];

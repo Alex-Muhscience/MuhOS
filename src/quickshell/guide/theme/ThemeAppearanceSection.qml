@@ -11,6 +11,77 @@ SettingsBlob {
     readonly property var rootObj: tab.rootObj
     property alias fontDropdown: fontDropdown
 
+    // MuhOS: accent colour, as in macOS (Appearance > Accent colour). The first
+    // swatch keeps the theme's own accent; the others replace it everywhere
+    // (stored as theme.accent, applied by ThemeBackend over any preset).
+    function tr(key, fallback) {
+        const v = I18n.t(key);
+        return (v && v !== key) ? v : fallback;
+    }
+    readonly property string currentAccent: (Config.getSetting("theme", {}) || {}).accent || ""
+    readonly property var accents: [
+        { name: section.tr("guide.theme.accent.theme", "Theme"), color: "" },
+        { name: section.tr("guide.theme.accent.blue", "Blue"), color: "#007AFF" },
+        { name: section.tr("guide.theme.accent.purple", "Purple"), color: "#AF52DE" },
+        { name: section.tr("guide.theme.accent.pink", "Pink"), color: "#FF2D55" },
+        { name: section.tr("guide.theme.accent.red", "Red"), color: "#FF3B30" },
+        { name: section.tr("guide.theme.accent.orange", "Orange"), color: "#FF9500" },
+        { name: section.tr("guide.theme.accent.yellow", "Yellow"), color: "#FFCC00" },
+        { name: section.tr("guide.theme.accent.green", "Green"), color: "#28CD41" },
+        { name: section.tr("guide.theme.accent.teal", "Teal"), color: "#30B0C7" },
+        { name: section.tr("guide.theme.accent.graphite", "Graphite"), color: "#8E8E93" }
+    ]
+
+    SettingsRow {
+        rootObj: section.tab.rootObj
+        settingId: "accent"
+        icon: "󰏘"
+        title: section.tr("guide.theme.accent.title", "Accent colour")
+        description: section.tr("guide.theme.accent.desc", "Colour of highlights, toggles and selections")
+        searchKeywords: "accent colour color highlight tint blue purple pink red orange yellow green graphite"
+
+        Row {
+            Layout.alignment: Qt.AlignVCenter
+            spacing: rootObj.s(8)
+
+            Repeater {
+                model: section.accents
+
+                Rectangle {
+                    id: swatch
+                    required property var modelData
+                    readonly property bool selected: section.currentAccent.toLowerCase() === modelData.color.toLowerCase()
+                    width: rootObj.s(22)
+                    height: width
+                    radius: width / 2
+                    // "Theme": the preset's (or wallpaper's) own accent.
+                    color: modelData.color || (((Config.getSetting("theme", {}) || {}).colors || {}).mauve || ThemeBackend.mauve)
+                    border.width: selected ? rootObj.s(2) : 1
+                    border.color: selected ? ThemeBackend.text : Qt.alpha(ThemeBackend.text, 0.15)
+                    scale: swatchArea.containsMouse ? 1.12 : 1.0
+                    Behavior on scale { NumberAnimation { duration: 120 } }
+
+                    Rectangle {
+                        anchors.centerIn: parent
+                        visible: swatch.selected
+                        width: rootObj.s(7)
+                        height: width
+                        radius: width / 2
+                        color: "#ffffff"
+                    }
+                    MouseArea {
+                        id: swatchArea
+                        anchors.fill: parent
+                        anchors.margins: -rootObj.s(3)
+                        hoverEnabled: true
+                        cursorShape: Qt.PointingHandCursor
+                        onClicked: Config.setSetting("theme.accent", swatch.modelData.color)
+                    }
+                }
+            }
+        }
+    }
+
     SettingsRow {
         rootObj: section.tab.rootObj
         settingId: "font"
