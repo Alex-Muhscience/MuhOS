@@ -43,6 +43,8 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - App grid: the dock stays visible above it; opening an app closes it (1a34915)
 - App grid: a click between icons closes it when nothing needs scrolling (a491c13)
 - Equaliser window follows the state file even when it is created after startup (2078af7)
+- Screens scale automatically (73bbbea)
+- Wallpapers from any folder or disk (692d417)
 
 ## Fedora-specific
 
@@ -85,6 +87,8 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - muhos 0.1.0-0.15: recommend ladspa-swh-plugins instead of EasyEffects; equaliser package tests (0113d40)
 - Package tests: look for EasyEffects commands, parse the engine without leaving __pycache__ (5a7ab64)
 - An "Apps" entry for the app grid, pinned first in the dock for new users (0240c20)
+- Package tests: install with --nosignature (RPM 6 on Fedora 45 refuses unsigned packages) (7273478)
+- muhos-terminal: open whichever terminal is installed; muhos 0.1.0-0.16 (7ad0df6)
 
 ## MuhOS branding
 
@@ -160,6 +164,10 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - Docs: Fedora 44 and 45, Hyprland 0.56 or newer (tested with 0.57.2) (6c6a474)
 - Screenshots of the equaliser and app grid; the website's full guide (c109a6d)
 - Test VMs: dnf uses the fastest mirror and parallel downloads (23fbe41)
+- Regenerate CHANGES-FROM-UPSTREAM.md (2072876)
+- ASSETS.md: the equaliser and app grid screenshots (2a5b631)
+- README redesigned: quick links and install up front, highlights, full documentation (d5ea133)
+- README: the terminal shortcut (e7fc008)
 
 ## Upstream files changed by MuhOS
 
@@ -170,6 +178,7 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - `README.md` (modified since 2026-10-18)
 - `bin/serpantinum` (modified since 2026-10-18)
 - `bin/serpantinumd` (modified since 2026-10-18)
+- `compositors/hyprland/config/monitors.lua` (modified since 2026-10-18)
 - `compositors/hyprland/config/settings.lua` (modified since 2026-10-18)
 - `config/serpantinum/settings.json` (modified since 2026-10-18)
 - `default.nix` (modified since 2026-10-18)
@@ -201,6 +210,8 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - `src/quickshell/guide/WelcomeTab.qml` (modified since 2026-10-18)
 - `src/quickshell/guide/theme/ThemeAppearanceSection.qml` (modified since 2026-10-18)
 - `src/quickshell/guide/theme/ThemeTabState.qml` (modified since 2026-10-18)
+- `src/quickshell/guide/theme/ThemeWallpaperDirRow.qml` (modified since 2026-10-18)
+- `src/quickshell/guide/theme/ThemeWallpaperPreview.qml` (modified since 2026-10-18)
 - `src/quickshell/launcher/Launcher.qml` (modified since 2026-10-18)
 - `src/quickshell/lock/LockSurface.qml` (modified since 2026-10-18)
 - `src/quickshell/media/MusicEqualizerState.qml` (modified since 2026-10-18)
@@ -215,6 +226,7 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - `src/quickshell/singletons/system/FirstLaunch.qml` (modified since 2026-10-18)
 - `src/quickshell/singletons/theme/ThemeBackend.qml` (modified since 2026-10-18)
 - `src/quickshell/volume/VolumePopup.qml` (modified since 2026-10-18)
+- `src/quickshell/wallpaper/WallpaperPicker.qml` (modified since 2026-10-18)
 - `src/scripts/caching.sh` (modified since 2026-10-18)
 - `src/scripts/first_launch.sh` (modified since 2026-10-18)
 - `src/scripts/location.sh` (modified since 2026-10-18)
