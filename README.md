@@ -19,7 +19,7 @@
 </p>
 
 <p align="center">
-  <img src="docs/screenshots/desktop-dark.webp" alt="MuhOS desktop in dark mode: transparent menu bar, the clock island expanded into a music player, the control centre open and the glass dock" width="100%">
+  <img src="docs/screenshots/desktop-dark.webp" alt="MuhOS desktop in dark mode: a macOS-style menu bar with the logo and the Files app name, Files and Text Editor windows floating over a dark blue wallpaper, and the glass dock" width="100%">
 </p>
 
 MuhOS is a desktop shell for the [Hyprland](https://hyprland.org/) compositor
@@ -63,16 +63,16 @@ Miroshnichenko.
 
 <table>
   <tr>
-    <td width="50%"><img src="docs/screenshots/desktop-light.webp" alt="Light mode: dark menu-bar text over a light wallpaper, the light control centre and the glass dock"></td>
-    <td width="50%"><img src="docs/screenshots/tiling.webp" alt="Tiled windows: the Decibels audio player and Files side by side under the transparent menu bar"></td>
+    <td width="50%"><img src="docs/screenshots/desktop-light.webp" alt="Light mode: Files with red, yellow and green window buttons and macOS-style folders, a Text Editor window behind it, a light blue wallpaper and the glass dock"></td>
+    <td width="50%"><img src="docs/screenshots/tiling.webp" alt="Tiled windows: Text Editor and Files side by side under the transparent menu bar"></td>
   </tr>
   <tr>
-    <td align="center"><b>Light mode.</b> Bar text adapts to the wallpaper; the accent comes from it too.</td>
-    <td align="center"><b>Tiling.</b> Hyprland arranges windows; the menu bar stays out of the way.</td>
+    <td align="center"><b>Light mode.</b> Apps in WhiteSur with macOS window buttons and icons.</td>
+    <td align="center"><b>Tiling.</b> Windows float like on macOS; <kbd>Super</kbd>+<kbd>T</kbd> tiles them.</td>
   </tr>
   <tr>
-    <td><img src="docs/screenshots/launcher.webp" alt="Spotlight-style launcher: the query muhos finds the MuhOS Settings app, the Settings action and three files"></td>
-    <td><img src="docs/screenshots/notifications.webp" alt="Three glass notification banners: a screenshot with its preview, a Firefox update with Restart and Later buttons, and a calendar reminder"></td>
+    <td><img src="docs/screenshots/launcher.webp" alt="Spotlight-style launcher: the query fi finds Files, Firefox and other apps, and the Turn Night Light On action"></td>
+    <td><img src="docs/screenshots/notifications.webp" alt="Three glass notification banners: a screenshot with its preview, software updates with Later and Restart buttons, and a calendar reminder"></td>
   </tr>
   <tr>
     <td align="center"><b>Launcher.</b> Apps, system actions, files and a calculator in one search.</td>
@@ -80,19 +80,19 @@ Miroshnichenko.
   </tr>
   <tr>
     <td><img src="docs/screenshots/notification-centre.webp" alt="Notification centre: a list of notifications with Clear all and a Do Not Disturb switch, beside today's date and a month calendar"></td>
-    <td><img src="docs/screenshots/lock-screen.webp" alt="Lock screen: blurred wallpaper, a large clock, now playing and notification titles, the user's picture and a glass password field"></td>
+    <td><img src="docs/screenshots/lock-screen.webp" alt="Lock screen: blurred blue wallpaper, the date and a large clock, notification titles, the user's picture and a glass password field"></td>
   </tr>
   <tr>
-    <td align="center"><b>Notification centre.</b> Click the clock: notifications and a calendar.</td>
+    <td align="center"><b>Notification centre.</b> Click the date and time: notifications and a calendar.</td>
     <td align="center"><b>Lock screen.</b> Notification titles only; message contents stay private.</td>
   </tr>
   <tr>
     <td><img src="docs/screenshots/music.webp" alt="Music popup with cover, playback controls and a ten-band equalizer with presets"></td>
-    <td><img src="docs/screenshots/settings.webp" alt="MuhOS Settings window with the red close button beside its title and sections from Welcome to About"></td>
+    <td><img src="docs/screenshots/settings.webp" alt="MuhOS Settings on the Theme page: coloured section icons from Welcome to About, and the accent colour choices"></td>
   </tr>
   <tr>
     <td align="center"><b>Music.</b> Equalizer with presets, lyrics, output switching.</td>
-    <td align="center"><b>Settings.</b> Display, theme, bar, dock, notifications, idle and more.</td>
+    <td align="center"><b>Settings.</b> Accent colours, presets, fonts, bar, dock, notifications and more.</td>
   </tr>
 </table>
 
@@ -103,7 +103,7 @@ Miroshnichenko.
 Every MuhOS surface is frosted glass: translucent panels over a blur of
 whatever is behind them, with a soft sheen and a light edge, as on macOS.
 
-<img src="docs/screenshots/control-centre.webp" alt="Control centre: pill toggles, volume slider and session buttons" width="360" align="right">
+<img src="docs/screenshots/control-centre.webp" alt="Control centre: blue pill toggles for wired network, power mode and do not disturb, night light and dark style, a volume slider with an arrow, and session buttons" width="360" align="right">
 
 - **Menu bar.** Transparent over the wallpaper and laid out like macOS. On
   the left, the MuhOS logo opens a menu (About, System Settings, Search,
@@ -159,7 +159,7 @@ whatever is behind them, with a soft sheen and a light edge, as on macOS.
 
 <br clear="right">
 
-<img src="docs/screenshots/osd.webp" alt="Volume indicator: a glass pill with a speaker icon, a level bar and 55%" width="320" align="right">
+<img src="docs/screenshots/osd.webp" alt="Volume indicator: a glass pill with a speaker icon, a level bar and 50%" width="320" align="right">
 
 - **On-screen indicator.** A glass pill under the status icons for volume,
   microphone and brightness (drag or scroll it to adjust) and for caps lock,
@@ -176,7 +176,7 @@ whatever is behind them, with a soft sheen and a light edge, as on macOS.
 
 <br clear="right">
 
-<img src="docs/screenshots/clock-island.webp" alt="Clock island expanded into a music player" width="420">
+<img src="docs/screenshots/menu.webp" alt="The logo menu: About MuhOS, System Settings, Search, Sleep, Restart, Shut Down, Lock Screen and Log Out" width="250">
 
 ### From Serpantinum
 
