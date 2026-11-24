@@ -140,9 +140,12 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - Regenerate CHANGES-FROM-UPSTREAM.md (1da1124)
 - Regenerate CHANGES-FROM-UPSTREAM.md (4ce0346)
 - README: screenshots of the macOS look (f6595d8)
+- Regenerate CHANGES-FROM-UPSTREAM.md (9261a31)
+- Website on GitHub Pages; contributing guide, issue forms, PR template (6f85446)
 
 ## Upstream files changed by MuhOS
 
+- `.github/pull_request_template.md` (modified since 2026-10-18)
 - `.gitignore` (modified since 2026-10-18)
 - `CHANGELOG.md` (modified since 2026-10-18)
 - `LICENSE.md` (modified since 2026-10-18)
