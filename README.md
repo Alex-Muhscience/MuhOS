@@ -253,7 +253,19 @@ MuhOS is not in a package repository yet. Each
 [release](https://github.com/Alex-Muhscience/MuhOS/releases) has ready-made
 RPMs for Fedora 44 x86_64, plus source RPMs if you prefer to build them.
 
-### Quick install from a release
+### Quick install: one command
+
+```sh
+curl -fsSL https://alex-muhscience.github.io/MuhOS/install.sh | bash
+```
+
+[`site/install.sh`](site/install.sh) checks for Fedora 44 x86_64, downloads
+the newest release from GitHub, verifies every package against the release's
+`SHA256SUMS` (and stops if one doesn't match), enables the Hyprland COPR and
+installs with dnf, asking first. Run it again to update. `| bash -s -- --dry-run`
+downloads and verifies without installing.
+
+### Install from a release by hand
 
 Download `muhos-*.noarch.rpm`, `quickshell-*.x86_64.rpm`,
 `matugen-*.x86_64.rpm`, `whitesur-gtk-theme-*.noarch.rpm`,

@@ -24,7 +24,7 @@
   <main>
     <header class="hero narrow" style="padding-bottom:24px">
       <h1>Download MuhOS</h1>
-      <p class="lead">Ready-made packages for Fedora 44 Workstation (x86_64). Installing takes a few minutes; then you choose MuhOS when you log in.</p>
+      <p class="lead">Ready-made packages for Fedora 44 Workstation (x86_64), installed with one command. Then you choose MuhOS when you log in.</p>
     </header>
 
     <section style="padding-top:0">
@@ -54,28 +54,29 @@
           </table>
         </div>
 
-        <h2 style="margin-top:48px">Install</h2>
-        <ol class="steps">
-          <li>
-            <h3>Download the packages</h3>
-            <p>From the <a href="https://github.com/Alex-Muhscience/MuhOS/releases">latest release</a>, download every <code>.noarch.rpm</code> and <code>.x86_64.rpm</code> file, plus <code>SHA256SUMS</code>, into one folder. You don't need the <code>.src.rpm</code> files unless you want to build from source.</p>
-          </li>
-          <li>
-            <h3>Open a terminal in that folder and install</h3>
-            <pre data-copy><code>cd ~/Downloads
-sha256sum --check --ignore-missing SHA256SUMS   <span class="comment"># every file should say OK</span>
+        <h2 style="margin-top:48px">Install with one command</h2>
+        <p>Open a terminal and run:</p>
+        <pre data-copy><code>curl -fsSL https://alex-muhscience.github.io/MuhOS/install.sh | bash</code></pre>
+        <p>The installer checks that you're on Fedora 44, downloads the newest release from GitHub, checks every package against the release's <code>SHA256SUMS</code> (it stops if anything doesn't match), enables the Hyprland COPR and installs with dnf. It asks before changing anything, and dnf shows you the full list first. The packages aren't signed yet, so dnf mentions that it skipped signature checks.</p>
+        <p>Then <strong>log out</strong>, click your name on the login screen, choose <strong>MuhOS (Hyprland)</strong> with the gear button at the bottom right, and sign in.</p>
+        <details>
+          <summary>Prefer to read the installer first?</summary>
+          <p>It's a short script; download it, look through it, then run it:</p>
+          <pre data-copy><code>curl -fsSLO https://alex-muhscience.github.io/MuhOS/install.sh
+less install.sh
+bash install.sh</code></pre>
+          <p>Options: <code>--dry-run</code> downloads and checks without installing, <code>--keep DIR</code> keeps the packages, <code>--tag v0.1.0-pre.4</code> picks a release, and <code>--yes</code> doesn't ask. With the one-liner, pass them as <code>| bash -s -- --dry-run</code>. Source: <a href="https://github.com/Alex-Muhscience/MuhOS/blob/main/site/install.sh">site/install.sh</a>.</p>
+        </details>
+        <details>
+          <summary>Install by hand instead</summary>
+          <p>From the <a href="https://github.com/Alex-Muhscience/MuhOS/releases">latest release</a>, download every <code>.noarch.rpm</code> and <code>.x86_64.rpm</code> file plus <code>SHA256SUMS</code> into one folder (the <code>.src.rpm</code> files are only for building from source). Then, in that folder:</p>
+          <pre data-copy><code>sha256sum --check --ignore-missing SHA256SUMS   <span class="comment"># every file should say OK</span>
 sudo dnf copr enable lionheartp/Hyprland
 sudo dnf install ./muhos-*.noarch.rpm ./quickshell-*.x86_64.rpm ./matugen-*.x86_64.rpm ./whitesur-*.noarch.rpm</code></pre>
-            <p>dnf will note that the packages aren't signed yet; the checksums are how you verify them for now.</p>
-          </li>
-          <li>
-            <h3>Log in to MuhOS</h3>
-            <p>Log out. On the login screen, click your name, then the gear button at the bottom right, choose <strong>MuhOS (Hyprland)</strong>, and sign in. The first start shows a short welcome.</p>
-          </li>
-        </ol>
+        </details>
 
-        <h2 style="margin-top:24px">Updating</h2>
-        <p>Download the new release and run the same <code>sudo dnf install</code> command. Your settings are kept.</p>
+        <h2 style="margin-top:36px">Updating</h2>
+        <p>Run the same command again: it installs the newest release over the old one. Your settings are kept.</p>
 
         <h2 style="margin-top:36px">Uninstalling</h2>
         <pre data-copy><code>sudo dnf remove muhos whitesur-gtk-theme whitesur-icon-theme
