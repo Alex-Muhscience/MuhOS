@@ -50,6 +50,7 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - Logout: never leave a black screen (16ff56c)
 - Dock: open pins stored with .desktop; bring minimized windows back (2b15dc8)
 - App grid in pages, as in Launchpad (00f0c75)
+- App grid: keep the dock above the grid (bab0f7d)
 
 ## Fedora-specific
 
@@ -97,6 +98,8 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - Dock shows open apps; no minimise button; 0.16 changelog (44ca74f)
 - Windows: click to focus, Super/Alt+Tab, cascade, minimize (9c0aa51)
 - Updates: check MuhOS releases on demand; Update runs the installer (f613da9)
+- muhos 0.1.0-0.17 (369bc6b)
+- Tests: focus, minimize, logout and updater (d0f4cc3)
 
 ## MuhOS branding
 
@@ -109,6 +112,7 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - Welcome screen: do not redeclare the window's closed() signal (99db4cc)
 - Welcome screen: animate an Item rather than the window (4b054b6)
 - Draw the MuhOS mark in white (c7ae538)
+- Docs: minimise, window switching, app grid pages, updates (6cc9017)
 
 ## Fork infrastructure
 
@@ -179,6 +183,7 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - Regenerate CHANGES-FROM-UPSTREAM.md (c0920ea)
 - Docs: close and zoom buttons, no minimise (499a04c)
 - Regenerate CHANGES-FROM-UPSTREAM.md (a7cbbb1)
+- Regenerate CHANGES-FROM-UPSTREAM.md (de9b60f)
 
 ## Upstream files changed by MuhOS
 
