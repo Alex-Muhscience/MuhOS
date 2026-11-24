@@ -88,7 +88,10 @@ PanelWindow {
     }
     exclusionMode: ExclusionMode.Ignore
     WlrLayershell.namespace: "muhos-panel"
-    WlrLayershell.layer: WlrLayer.Overlay
+    // The Top layer (above windows and the menu bar): the dock moves up to the
+    // Overlay layer while the grid is open, so it is always drawn above the
+    // grid (on one shared layer, whichever surface mapped last won).
+    WlrLayershell.layer: WlrLayer.Top
     WlrLayershell.keyboardFocus: shown ? WlrKeyboardFocus.Exclusive : WlrKeyboardFocus.None
     mask: Region { width: win.shown ? win.width : 0; height: win.shown ? win.height : 0 }
 
