@@ -1,7 +1,8 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 // App grid, like the Apps view (Launchpad) on macOS: every installed app as a
-// large icon over the blurred desktop, with a search field. Type to filter,
-// arrows and Enter to open, Escape to clear the search and then close.
+// large icon over the blurred desktop, in pages (swipe, scroll or the dots),
+// with a search field. Type to filter, arrows and Enter to open, Escape to
+// clear the search and then close.
 // Opened from the "Apps" entry in the dock or `muhos ipc call muhos appGrid`.
 import QtQuick
 import Quickshell
@@ -34,6 +35,15 @@ PanelWindow {
         return all.filter(e => !e.noDisplay && e.name && e.id !== "muhos-apps")
                   .sort((a, b) => a.name.localeCompare(b.name));
     }
+    // Keyboard selection (shown while searching) and the page it is on.
+    property int selected: 0
+    function goToPage(n) { pages.currentIndex = Math.max(0, Math.min(area.pageCount - 1, n)); }
+    function select(i) {
+        if (apps.length === 0) return;
+        selected = Math.max(0, Math.min(apps.length - 1, i));
+        goToPage(Math.floor(selected / area.perPage));
+    }
+
     readonly property var apps: {
         const q = query.trim().toLowerCase();
         if (!q) return allApps;
@@ -60,8 +70,9 @@ PanelWindow {
         if (shown) {
             query = "";
             search.text = "";
-            grid.currentIndex = 0;
-            Qt.callLater(() => grid.contentY = grid.originY);   // once laid out
+            selected = 0;
+            pages.positionViewAtBeginning();
+            pages.currentIndex = 0;
             search.forceActiveFocus();
         }
     }
@@ -135,14 +146,16 @@ PanelWindow {
                 font.family: MuhosStyle.font
                 font.pixelSize: MuhosStyle.s(15)
                 clip: true
-                onTextChanged: { win.query = text; grid.currentIndex = 0; }
+                onTextChanged: { win.query = text; win.selected = 0; pages.currentIndex = 0; }
                 Keys.onEscapePressed: { if (text) text = ""; else win.close(); }
-                Keys.onReturnPressed: win.launch(win.apps[grid.currentIndex])
-                Keys.onEnterPressed: win.launch(win.apps[grid.currentIndex])
-                Keys.onLeftPressed: grid.moveCurrentIndexLeft()
-                Keys.onRightPressed: grid.moveCurrentIndexRight()
-                Keys.onUpPressed: grid.moveCurrentIndexUp()
-                Keys.onDownPressed: grid.moveCurrentIndexDown()
+                Keys.onReturnPressed: win.launch(win.apps[win.selected])
+                Keys.onEnterPressed: win.launch(win.apps[win.selected])
+                // Without a search, left and right turn pages; while searching
+                // they move the selection.
+                Keys.onLeftPressed: win.query ? win.select(win.selected - 1) : win.goToPage(pages.currentIndex - 1)
+                Keys.onRightPressed: win.query ? win.select(win.selected + 1) : win.goToPage(pages.currentIndex + 1)
+                Keys.onUpPressed: win.select(win.selected - area.columns)
+                Keys.onDownPressed: win.select(win.selected + area.columns)
                 Text {
                     anchors.verticalCenter: parent.verticalCenter
                     visible: !search.text
@@ -153,86 +166,156 @@ PanelWindow {
             }
         }
 
-        // Grid
-        GridView {
-            id: grid
-            readonly property int columns: Math.max(3, Math.min(7, Math.floor((parent.width - MuhosStyle.s(96)) / MuhosStyle.s(140))))
-            width: columns * cellWidth
-            anchors.horizontalCenter: parent.horizontalCenter
+        // Pages of apps, as in Launchpad: as many columns and rows as fit,
+        // swipe or scroll sideways (or use the dots, or the arrow keys) to
+        // move between pages.
+        Item {
+            id: area
             anchors.top: searchBox.bottom
-            anchors.topMargin: MuhosStyle.s(36)
+            anchors.topMargin: MuhosStyle.s(28)
             anchors.bottom: parent.bottom
-            anchors.bottomMargin: MuhosStyle.s(110)    // clear of the dock
-            cellWidth: MuhosStyle.s(140)
-            cellHeight: MuhosStyle.s(132)
-            clip: true
-            // Scrolls only when the apps do not fit; otherwise a click between
-            // icons reaches the backdrop and closes the grid, as on macOS.
-            interactive: contentHeight > height
+            anchors.bottomMargin: MuhosStyle.s(130)    // dots, then clear of the dock
+            anchors.left: parent.left
+            anchors.right: parent.right
+
+            readonly property int cellW: MuhosStyle.s(140)
+            readonly property int cellH: MuhosStyle.s(132)
+            readonly property int columns: Math.max(3, Math.min(7, Math.floor((width - MuhosStyle.s(96)) / cellW)))
+            readonly property int rows: Math.max(2, Math.min(5, Math.floor(height / cellH)))
+            readonly property int perPage: columns * rows
+            readonly property int pageCount: Math.max(1, Math.ceil(win.apps.length / perPage))
+        }
+
+        ListView {
+            id: pages
+            anchors.fill: area
+            orientation: ListView.Horizontal
+            snapMode: ListView.SnapOneItem
+            highlightRangeMode: ListView.StrictlyEnforceRange
+            highlightMoveDuration: MuhosStyle.slow
             boundsBehavior: Flickable.StopAtBounds
-            model: win.apps
-            keyNavigationEnabled: false
-            highlightFollowsCurrentItem: false
+            clip: true
+            model: area.pageCount
+            interactive: area.pageCount > 1
+            cacheBuffer: width
 
             delegate: Item {
-                id: cell
-                required property var modelData
+                id: page
                 required property int index
-                readonly property bool current: GridView.isCurrentItem && win.query !== ""
-                width: grid.cellWidth
-                height: grid.cellHeight
+                width: pages.width
+                height: pages.height
 
+                // A click between icons closes, as on macOS.
+                MouseArea { anchors.fill: parent; onClicked: win.close() }
+
+                Grid {
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    columns: area.columns
+                    Repeater {
+                        model: win.apps.slice(page.index * area.perPage, (page.index + 1) * area.perPage)
+
+                        Item {
+                            id: cell
+                            required property var modelData
+                            required property int index
+                            readonly property int globalIndex: page.index * area.perPage + index
+                            readonly property bool current: win.selected === globalIndex && win.query !== ""
+                            width: area.cellW
+                            height: area.cellH
+
+                            Rectangle {
+                                anchors.centerIn: icon
+                                width: icon.width + MuhosStyle.s(20)
+                                height: width
+                                radius: MuhosStyle.s(22)
+                                color: Qt.rgba(1, 1, 1, 0.18)
+                                visible: cell.current
+                            }
+                            Image {
+                                id: icon
+                                anchors.horizontalCenter: parent.horizontalCenter
+                                y: MuhosStyle.s(10)
+                                width: MuhosStyle.s(72)
+                                height: width
+                                sourceSize: Qt.size(width * 2, height * 2)
+                                source: win.iconFor(cell.modelData)
+                                asynchronous: true
+                                smooth: true
+                                scale: cellArea.pressed ? 0.9 : cellArea.containsMouse ? 1.06 : 1
+                                Behavior on scale { NumberAnimation { duration: MuhosStyle.fast; easing.type: MuhosStyle.easing } }
+                            }
+                            Text {
+                                anchors.top: icon.bottom
+                                anchors.topMargin: MuhosStyle.s(8)
+                                anchors.horizontalCenter: parent.horizontalCenter
+                                width: parent.width - MuhosStyle.s(12)
+                                horizontalAlignment: Text.AlignHCenter
+                                text: cell.modelData.name
+                                color: win.ink
+                                style: Text.Raised
+                                styleColor: Qt.rgba(0, 0, 0, 0.55)
+                                font.family: MuhosStyle.font
+                                font.pixelSize: MuhosStyle.s(13)
+                                font.weight: Font.Medium
+                                elide: Text.ElideRight
+                                maximumLineCount: 2
+                                wrapMode: Text.WordWrap
+                            }
+                            MouseArea {
+                                id: cellArea
+                                anchors.fill: parent
+                                anchors.margins: MuhosStyle.s(6)
+                                hoverEnabled: true
+                                cursorShape: Qt.PointingHandCursor
+                                onClicked: win.launch(cell.modelData)
+                            }
+                        }
+                    }
+                }
+            }
+
+            // The mouse wheel turns pages (one per notch, with a short pause).
+            WheelHandler {
+                acceptedDevices: PointerDevice.Mouse | PointerDevice.TouchPad
+                onWheel: e => {
+                    if (pageTurn.running) return;
+                    const d = Math.abs(e.angleDelta.x) > Math.abs(e.angleDelta.y) ? e.angleDelta.x : e.angleDelta.y;
+                    if (Math.abs(d) < 30) return;
+                    win.goToPage(pages.currentIndex + (d < 0 ? 1 : -1));
+                    pageTurn.start();
+                }
+            }
+            Timer { id: pageTurn; interval: 350 }
+        }
+
+        // Page dots
+        Row {
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.top: area.bottom
+            anchors.topMargin: MuhosStyle.s(14)
+            spacing: MuhosStyle.s(10)
+            visible: area.pageCount > 1
+            Repeater {
+                model: area.pageCount
                 Rectangle {
-                    anchors.centerIn: icon
-                    width: icon.width + MuhosStyle.s(20)
+                    required property int index
+                    width: MuhosStyle.s(8)
                     height: width
-                    radius: MuhosStyle.s(22)
-                    color: Qt.rgba(1, 1, 1, 0.18)
-                    visible: cell.current
-                }
-                Image {
-                    id: icon
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    y: MuhosStyle.s(10)
-                    width: MuhosStyle.s(72)
-                    height: width
-                    sourceSize: Qt.size(width * 2, height * 2)
-                    source: win.iconFor(cell.modelData)
-                    asynchronous: true
-                    smooth: true
-                    scale: area.pressed ? 0.9 : area.containsMouse ? 1.06 : 1
-                    Behavior on scale { NumberAnimation { duration: MuhosStyle.fast; easing.type: MuhosStyle.easing } }
-                }
-                Text {
-                    anchors.top: icon.bottom
-                    anchors.topMargin: MuhosStyle.s(8)
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    width: parent.width - MuhosStyle.s(12)
-                    horizontalAlignment: Text.AlignHCenter
-                    text: cell.modelData.name
-                    color: win.ink
-                    style: Text.Raised
-                    styleColor: Qt.rgba(0, 0, 0, 0.55)
-                    font.family: MuhosStyle.font
-                    font.pixelSize: MuhosStyle.s(13)
-                    font.weight: Font.Medium
-                    elide: Text.ElideRight
-                    maximumLineCount: 2
-                    wrapMode: Text.WordWrap
-                }
-                MouseArea {
-                    id: area
-                    anchors.fill: parent
-                    anchors.margins: MuhosStyle.s(6)
-                    hoverEnabled: true
-                    cursorShape: Qt.PointingHandCursor
-                    onClicked: win.launch(cell.modelData)
+                    radius: width / 2
+                    color: Qt.rgba(1, 1, 1, pages.currentIndex === index ? 0.95 : 0.35)
+                    Behavior on color { ColorAnimation { duration: MuhosStyle.fast } }
+                    MouseArea {
+                        anchors.fill: parent
+                        anchors.margins: -MuhosStyle.s(6)
+                        cursorShape: Qt.PointingHandCursor
+                        onClicked: win.goToPage(parent.index)
+                    }
                 }
             }
         }
 
         Text {
-            anchors.centerIn: grid
+            anchors.centerIn: area
             visible: win.apps.length === 0
             text: win.t("none", "No apps match “%1”").arg(win.query)
             color: Qt.rgba(1, 1, 1, 0.7)
