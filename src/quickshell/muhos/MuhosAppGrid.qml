@@ -166,6 +166,9 @@ PanelWindow {
             cellWidth: MuhosStyle.s(140)
             cellHeight: MuhosStyle.s(132)
             clip: true
+            // Scrolls only when the apps do not fit; otherwise a click between
+            // icons reaches the backdrop and closes the grid, as on macOS.
+            interactive: contentHeight > height
             boundsBehavior: Flickable.StopAtBounds
             model: win.apps
             keyNavigationEnabled: false
