@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # SPDX-License-Identifier: AGPL-3.0-or-later
-# MuhOS installer: downloads the newest MuhOS release from GitHub, checks it
+# MuhOS installer for Fedora 44 and 45 (x86_64): downloads the newest MuhOS
+# release from GitHub (the packages built for this Fedora version), checks it
 # against the release's SHA256SUMS, and installs it with dnf. Running it again
 # updates MuhOS.
 #
@@ -57,7 +58,10 @@ main() {
     # shellcheck disable=SC1091
     . /etc/os-release
     [ "$ID" = fedora ] || fail "MuhOS packages are for Fedora; this is ${PRETTY_NAME:-unknown}"
-    [ "$VERSION_ID" = 44 ] || fail "MuhOS packages are built for Fedora 44; this is Fedora ${VERSION_ID:-?}"
+    case "$VERSION_ID" in
+        44|45) ;;
+        *) fail "MuhOS packages are built for Fedora 44 and 45; this is Fedora ${VERSION_ID:-?}" ;;
+    esac
     [ "$(uname -m)" = x86_64 ] || fail "MuhOS packages are for x86_64; this is $(uname -m)"
     local tool
     for tool in curl sha256sum python3 dnf sudo; do
@@ -76,8 +80,9 @@ main() {
     release_json="$(curl -fsSL -H "Accept: application/vnd.github+json" "$api" < /dev/null)" \
         || fail "could not reach GitHub"
     local -a release
-    mapfile -t release < <(python3 -I -c '
-import json, sys
+    mapfile -t release < <(FC="fc$VERSION_ID" python3 -I -c '
+import json, os, sys
+fc = "." + os.environ["FC"] + "."
 r = json.load(sys.stdin)
 if isinstance(r, list):
     r = r[0] if r else None
@@ -87,12 +92,12 @@ print(r["tag_name"])
 print(r.get("name") or r["tag_name"])
 for a in r.get("assets", []):
     n = a["name"]
-    if n == "SHA256SUMS" or (n.endswith((".noarch.rpm", ".x86_64.rpm")) and not n.endswith(".src.rpm")):
+    if n == "SHA256SUMS" or (fc in n and n.endswith((".noarch.rpm", ".x86_64.rpm"))):
         print(n + "\t" + a["browser_download_url"])
 ' <<< "$release_json")
     [ ${#release[@]} -ge 2 ] || fail "could not read the release information"
     tag="${release[0]}"
-    say "Found ${release[1]} ($tag)."
+    say "Found ${release[1]} ($tag), packages for Fedora $VERSION_ID."
 
     # 3. Download and verify
     local work
@@ -110,7 +115,7 @@ for a in r.get("assets", []):
         [ "$name" = SHA256SUMS ] || files+=("$name")
     done
     [ -f "$work/SHA256SUMS" ] || fail "the release has no SHA256SUMS; not installing unverified packages"
-    [ ${#files[@]} -gt 0 ] || fail "the release has no packages for this system"
+    [ ${#files[@]} -gt 0 ] || fail "release $tag has no packages for Fedora $VERSION_ID"
     say "Checking the downloads against SHA256SUMS…"
     local sums
     sums="$(cd "$work" && for f in "${files[@]}"; do
