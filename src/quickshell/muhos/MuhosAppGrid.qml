@@ -43,12 +43,27 @@ PanelWindow {
                                    .join(" ").toLowerCase().indexOf(q) !== -1);
     }
 
+    // An app opened from the dock while the grid is open: get out of its way.
+    // (The grid holds keyboard focus, so the new window does not become the
+    // active one until the grid closes; watch for new windows instead.)
+    property int windowCount: ToplevelManager.toplevels.values.length
+    property int _lastCount: 0
+    onWindowCountChanged: {
+        const opened = windowCount > _lastCount;
+        _lastCount = windowCount;
+        if (!shown || !opened) return;
+        close();
+        const all = ToplevelManager.toplevels.values;
+        const newest = all[all.length - 1];
+        if (newest) Qt.callLater(() => newest.activate());   // it opened behind the grid's focus
+    }
+
     onShownChanged: {
         if (shown) {
             query = "";
             search.text = "";
             grid.currentIndex = 0;
-            grid.positionViewAtBeginning();
+            Qt.callLater(() => grid.contentY = grid.originY);   // once laid out
             search.forceActiveFocus();
         }
     }

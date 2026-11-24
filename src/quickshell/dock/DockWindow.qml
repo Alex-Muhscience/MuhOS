@@ -14,7 +14,9 @@ DockWindowApps {
 
     // MuhOS: named so the compositor blurs behind the glass dock (hypr/muhos.lua).
     WlrLayershell.namespace: MuhosStyle.designActive ? "muhos-dock" : "qs-dock"
-    WlrLayershell.layer: (dockWindowRoot.dockOnTop || dockWindowRoot.editMode) ? WlrLayer.Top : WlrLayer.Bottom
+    // MuhOS: above the app grid (an overlay) while it is open, as on macOS.
+    WlrLayershell.layer: MuhosCommands.appGridOpen ? WlrLayer.Overlay
+                       : (dockWindowRoot.dockOnTop || dockWindowRoot.editMode) ? WlrLayer.Top : WlrLayer.Bottom
     focusable: dockWindowRoot.editMode
     color: "transparent"
     exclusionMode: ExclusionMode.Ignore
