@@ -34,6 +34,20 @@ SettingsRow {
         }
     }
 
+    // MuhOS: any folder, on any disk, through the file chooser.
+    ClickButton {
+        Layout.preferredHeight: rootObj.s(32)
+        Layout.alignment: Qt.AlignVCenter
+        cornerRadius: ThemeBackend.borderRadius
+        horizontalPadding: rootObj.s(12)
+        buttonText: "Choose folder…"
+        textFontSize: rootObj.s(11)
+        accentColor: ThemeBackend.surface0
+        textColor: ThemeBackend.text
+        contentAlignment: Qt.AlignHCenter
+        onClicked: MuhosState.pickWallpaper("folder")
+    }
+
     Dropdown {
         id: wpDirDropdown
         Layout.preferredWidth: rootObj.s(260)

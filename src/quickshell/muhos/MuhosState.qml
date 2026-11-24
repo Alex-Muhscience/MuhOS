@@ -172,6 +172,37 @@ QtObject {
         onTriggered: root._eqFile.reload()
     }
 
+    // Wallpaper from any picture or folder on any disk, through the desktop's
+    // file chooser (muhos/pick_file.py). A picture is applied straight away,
+    // the same way the wallpaper picker does, and its folder becomes the
+    // picker's folder; a folder only becomes the picker's folder.
+    property string _wpPickKind: ""
+    function pickWallpaper(kind) {
+        if (_wpPick.running) return;
+        // The picker and Settings sit above normal windows; get them out of the
+        // file chooser's way.
+        MuhosCommands.commandRequested("close", "", "");
+        _wpPickKind = kind === "folder" ? "folder" : "picture";
+        const start = Config.getSetting("wallpaperDir", "") || (Quickshell.env("HOME") + "/Pictures");
+        _wpPick.command = ["python3", "-I", Caching.qsDir + "/muhos/pick_file.py", _wpPickKind, start];
+        _wpPick.running = true;
+    }
+    readonly property Process _wpPick: Process {
+        stdout: StdioCollector {
+            onStreamFinished: {
+                const path = this.text.trim();
+                if (!path) return;
+                if (root._wpPickKind === "folder") {
+                    Config.setSetting("wallpaperDir", path);
+                    return;
+                }
+                Wallpaper.setWallpaper("all", path, "fade");
+                if (typeof Matugen !== "undefined" && typeof Matugen.generate === "function") Matugen.generate(path);
+                Config.setSetting("wallpaperDir", path.substring(0, path.lastIndexOf("/")));
+            }
+        }
+    }
+
     // Focused app's display name for the macOS-layout menu bar ("MuhOS" on
     // the bare desktop, as macOS shows Finder there).
     function appName(toplevel) {

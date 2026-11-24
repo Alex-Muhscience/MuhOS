@@ -259,7 +259,7 @@ Item {
             horizontalPadding: rootObj.s(14)
             buttonIcon: "󰸉"
             iconFontSize: rootObj.s(15)
-            buttonText: "Select wallpaper"
+            buttonText: "Browse wallpapers"
             textFontSize: rootObj.s(11)
             accentColor: ThemeBackend.mauve
             textColor: ThemeBackend.base
@@ -267,6 +267,21 @@ Item {
             onClicked: {
                 Quickshell.execDetached(["bash", Caching.serpantinumDir + "/scripts/qs_manager.sh", "toggle", "wallpaper"]);
             }
+        }
+
+        // MuhOS: any picture, from any folder or disk, through the file chooser.
+        ClickButton {
+            Layout.preferredHeight: rootObj.s(32)
+            cornerRadius: ThemeBackend.borderRadius
+            horizontalPadding: rootObj.s(14)
+            buttonIcon: "󰋩"
+            iconFontSize: rootObj.s(15)
+            buttonText: "Choose picture…"
+            textFontSize: rootObj.s(11)
+            accentColor: ThemeBackend.surface0
+            textColor: ThemeBackend.text
+            contentAlignment: Qt.AlignHCenter
+            onClicked: MuhosState.pickWallpaper("picture")
         }
 
         Item { Layout.fillWidth: true }

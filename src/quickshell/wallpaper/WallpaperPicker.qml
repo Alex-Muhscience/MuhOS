@@ -1983,6 +1983,21 @@ Item {
                 }
             }
 
+            // MuhOS: a picture from any folder or disk, through the file chooser.
+            ClickButton {
+                height: window.s(34)
+                cornerRadius: window.s(10)
+                horizontalPadding: window.s(12)
+                buttonText: "Choose picture…"
+                textFontSize: window.s(11)
+                accentColor: ThemeBackend.surface0
+                bgOpacity: ThemeBackend.elementOpacity
+                textColor: ThemeBackend.text
+                enabled: !window.isApplying
+                anchors.verticalCenter: parent ? parent.verticalCenter : undefined
+                onClicked: MuhosState.pickWallpaper("picture")
+            }
+
             Repeater {
                 model: window.filterData
                 delegate: Item {
