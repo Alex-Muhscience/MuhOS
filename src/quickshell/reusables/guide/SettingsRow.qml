@@ -386,8 +386,10 @@ Rectangle {
     property int iconSize: 32
     property int iconFontSize: 16
     property real iconCornerRadius: ThemeBackend.borderRadius
-    property color iconAccentColor: ThemeBackend.surface0
-    property color iconTextColor: "#ffffff"
+    // MuhOS: an accent-tinted tile with an accent symbol, readable on light
+    // themes too (upstream's white-on-surface0 tile is nearly invisible there).
+    property color iconAccentColor: MuhosStyle.designActive ? Qt.alpha(ThemeBackend.mauve, 0.16) : ThemeBackend.surface0
+    property color iconTextColor: MuhosStyle.designActive ? ThemeBackend.mauve : "#ffffff"
     property bool iconInteractive: false
 
     property string title: ""
@@ -509,6 +511,7 @@ Rectangle {
                 iconFontSize: root.s(root.iconFontSize)
                 accentColor: root.dimmed ? ThemeBackend.surface1 : root.iconAccentColor
                 textColor: root.dimmed ? ThemeBackend.subtext0 : root.iconTextColor
+                disabledOpacity: MuhosStyle.designActive ? 1.0 : 0.5
                 onClicked: root.iconClicked()
             }
 

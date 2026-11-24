@@ -18,6 +18,8 @@ Item {
 
     property color accentColor: ThemeBackend.surface0
     property color textColor: "#11111b"
+    // MuhOS: how faded a disabled button is (decorative uses pass 1.0).
+    property real disabledOpacity: 0.5
     property real bgOpacity: 1.0
     property real glassShadow: 1
     readonly property color displayTextColor: (ThemeBackend.liquidGlass && (0.2126 * textColor.r + 0.7152 * textColor.g + 0.0722 * textColor.b) < 0.5) ? ThemeBackend.text : textColor
@@ -56,7 +58,7 @@ Item {
             radius: root.cornerRadius
             clip: !glass.active
             color: ThemeBackend.liquidGlass ? "transparent" : (!root.enabled ? root.accentColor : (btnMa.pressed ? Qt.darker(root.accentColor, 1.12) : (root.isHoveredOrHighlighted ? Qt.lighter(root.accentColor, 1.12) : root.accentColor)))
-            opacity: (root.enabled ? 1.0 : 0.5) * root.bgOpacity
+            opacity: (root.enabled ? 1.0 : root.disabledOpacity) * root.bgOpacity
 
             Behavior on color { ColorAnimation { duration: 180 } }
             Behavior on opacity { NumberAnimation { duration: 180 } }
@@ -83,7 +85,7 @@ Item {
             color: root.displayTextColor
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
-            opacity: root.enabled ? 1.0 : 0.5
+            opacity: root.enabled ? 1.0 : root.disabledOpacity
         }
 
         Rectangle {

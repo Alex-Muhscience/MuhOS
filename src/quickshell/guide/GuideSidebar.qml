@@ -18,6 +18,20 @@ Rectangle {
     anchors.top: parent.top
     anchors.bottom: parent.bottom
     readonly property real targetWidth: popup.searchActive ? popup.s(340) : popup.s(260)
+
+    // MuhOS: a coloured tile per section, as in macOS System Settings, so the
+    // white symbols read on light themes too (upstream's surface0 tile is
+    // nearly white there).
+    readonly property var muhosTileColors: ({
+        welcome: "#007AFF", general: "#8E8E93", display: "#007AFF", display_general: "#007AFF",
+        display_widgets: "#5856D6", theme: "#AF52DE", bar: "#34C759", bar_general: "#34C759",
+        bar_modules: "#30B0C7", launcher: "#FF9500", dock: "#5AC8FA", osd: "#FF2D55",
+        notifications: "#FF3B30", wellbeing: "#5856D6", idle: "#636366", about: "#8E8E93"
+    })
+    function tileColor(tab) {
+        if (!MuhosStyle.designActive || !tab) return ThemeBackend.surface0;
+        return sidebar.muhosTileColors[tab.key] || MuhosStyle.accent;
+    }
     width: targetWidth
     
     topLeftRadius: !I18n.rtl ? ThemeBackend.clampedBorderRadius : 0
@@ -403,7 +417,8 @@ Rectangle {
                                         cornerRadius: ThemeBackend.borderRadius
                                         buttonIcon: tabDelegate.modelData.icon || "󰒓"
                                         iconFontSize: popup.s(16)
-                                        accentColor: ThemeBackend.surface0
+                                        accentColor: sidebar.tileColor(tabDelegate.modelData)
+                                        disabledOpacity: MuhosStyle.designActive ? 1.0 : 0.5
                                         textColor: "#ffffff"
                                     }
 
@@ -561,7 +576,8 @@ Rectangle {
                                                         cornerRadius: ThemeBackend.borderRadius
                                                         buttonIcon: subtabItem.modelData.icon || "󰒓"
                                                         iconFontSize: popup.s(13)
-                                                        accentColor: ThemeBackend.surface0
+                                                        accentColor: sidebar.tileColor(subtabItem.modelData)
+                                                        disabledOpacity: MuhosStyle.designActive ? 1.0 : 0.5
                                                         textColor: "#ffffff"
                                                     }
 
