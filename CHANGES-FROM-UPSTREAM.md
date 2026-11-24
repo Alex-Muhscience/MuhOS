@@ -103,6 +103,9 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - Installer: sizes, total download, progress bars, numbered steps (31a6780)
 - muhos-update, and a choice of how MuhOS updates (0e0adaf)
 - muhos 0.1.0-0.18: package muhos-update and its timers (bd68e58)
+- Tests: mark an intended single-quoted expansion for ShellCheck (63c82bc)
+- Zoom: an ordinary window filling the screen, not Hyprland's maximize (28c4ed6)
+- muhos 0.1.0-0.19: zoom as on macOS (440a0d9)
 
 ## MuhOS branding
 
@@ -189,6 +192,7 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - Regenerate CHANGES-FROM-UPSTREAM.md (a7cbbb1)
 - Regenerate CHANGES-FROM-UPSTREAM.md (de9b60f)
 - Regenerate CHANGES-FROM-UPSTREAM.md (b891052)
+- Regenerate CHANGES-FROM-UPSTREAM.md (2407120)
 
 ## Upstream files changed by MuhOS
 
