@@ -5,7 +5,7 @@
 
 Name:           muhos
 Version:        0.1.0
-Release:        0.14%{?dist}
+Release:        0.15%{?dist}
 Summary:        Desktop shell for Hyprland on Fedora, based on Serpantinum
 
 # Code, MuhOS sounds and images: AGPL-3.0-or-later.
@@ -98,9 +98,9 @@ Recommends:     ripgrep
 Recommends:     wmctrl
 Recommends:     cava
 Recommends:     fastfetch
-Recommends:     easyeffects
-Recommends:     calf
-Recommends:     lsp-plugins-lv2
+# The equaliser's "dynamics" (compressor and limiter, LADSPA); the EQ itself
+# needs only PipeWire.
+Recommends:     ladspa-swh-plugins
 # Not in Fedora; optional features (screenshot editor, recorder, night light).
 Suggests:       satty
 Suggests:       gpu-screen-recorder
@@ -203,6 +203,11 @@ dconf update &>/dev/null || :
 %ghost %verify(not md5 size mtime mode) %{_sysconfdir}/dconf/db/muhos
 
 %changelog
+* Tue Nov 24 2026 MuhOS contributors - 0.1.0-0.15
+- Equaliser on PipeWire's filter-chain instead of EasyEffects, with a new
+  glass Equaliser window and control-centre toggle; settings survive reboots
+- Recommend ladspa-swh-plugins (equaliser dynamics) instead of EasyEffects
+
 * Tue Nov 24 2026 MuhOS contributors - 0.1.0-0.14
 - macOS look: menu bar with logo menu, app name and clock on the right;
   floating windows; WhiteSur GTK theme and icons, Inter font and left-hand
