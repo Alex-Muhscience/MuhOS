@@ -78,6 +78,12 @@ check "Hyprland terminal is the helper, not kitty" grep -q 'muhos-terminal' /usr
 check "click to focus" grep -q 'follow_mouse = 2' /usr/share/muhos/hypr/config/muhos.lua
 check "minimize handled" grep -q 'window.minimize' /usr/share/muhos/hypr/config/muhos.lua
 check "logout detaches from the shell's service" grep -q 'SERPANTINUM_EXIT_DETACHED' /usr/share/muhos/src/scripts/system/exit.sh
+check "muhos-update installed" test -x /usr/bin/muhos-update
+check "muhos-update ships the installer" test -x /usr/libexec/muhos/muhos-install
+check "updates are manual until chosen" bash -c '[ "$(muhos-update --mode)" = "MuhOS updates: manual" ]'
+check "update timers installed, not enabled" bash -c 'test -f /usr/lib/systemd/system/muhos-update.timer -a -f /usr/lib/systemd/user/muhos-update-notify.timer && ! systemctl is-enabled -q muhos-update.timer 2>/dev/null'
+check "update mode can be set" bash -c 'muhos-update --mode notify >/dev/null && grep -q "^MODE=notify" /etc/muhos/update.conf && muhos-update --mode manual >/dev/null && grep -q "^MODE=manual" /etc/muhos/update.conf'
+check "nothing points at Serpantinum's releases" bash -c '! grep -rq "ilyamiro/serpantinum" /usr/share/muhos/src/scripts /usr/share/muhos/src/quickshell'
 check "updater offline in background" bash -c 'python3 -I /usr/share/muhos/src/scripts/updater.py --state-dir /tmp/u --background | grep -q "\"has_update\": false"'
 check "dock shows open apps for new users" bash -c "jq -e '.dock.showRunningApps == true' /usr/share/muhos/defaults/settings.json"
 check "no kitty pin for new users" bash -c "! jq -e '.dock.apps[] | select(.desktop_id == \"kitty\")' /usr/share/muhos/defaults/settings.json"

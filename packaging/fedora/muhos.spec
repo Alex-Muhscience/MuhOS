@@ -5,7 +5,7 @@
 
 Name:           muhos
 Version:        0.1.0
-Release:        0.17%{?dist}
+Release:        0.18%{?dist}
 Summary:        Desktop shell for Hyprland on Fedora, based on Serpantinum
 
 # Code, MuhOS sounds and images: AGPL-3.0-or-later.
@@ -153,12 +153,15 @@ ln -s ../../share/%{name}/bin/serpantinum  %{buildroot}%{_libexecdir}/%{name}/se
 ln -s ../../share/%{name}/bin/serpantinumd %{buildroot}%{_libexecdir}/%{name}/serpantinumd
 install -m 0755 packaging/fedora/muhos-shell %{buildroot}%{_libexecdir}/%{name}/muhos-shell
 install -m 0755 packaging/fedora/muhos-terminal %{buildroot}%{_libexecdir}/%{name}/muhos-terminal
+# The website's installer, run by muhos-update.
+install -m 0755 site/install.sh %{buildroot}%{_libexecdir}/%{name}/muhos-install
 
 # Public MuhOS commands.
 install -d %{buildroot}%{_bindir}
 ln -s ../share/%{name}/bin/serpantinum  %{buildroot}%{_bindir}/muhos
 ln -s ../share/%{name}/bin/serpantinumd %{buildroot}%{_bindir}/muhosd
 install -m 0755 packaging/fedora/muhos-session %{buildroot}%{_bindir}/muhos-session
+install -m 0755 packaging/fedora/muhos-update %{buildroot}%{_bindir}/muhos-update
 
 install -Dm 0644 packaging/fedora/muhos.desktop %{buildroot}%{_datadir}/wayland-sessions/muhos.desktop
 install -Dm 0644 packaging/fedora/muhos-settings.desktop %{buildroot}%{_datadir}/applications/muhos-settings.desktop
@@ -168,6 +171,13 @@ install -Dm 0644 packaging/fedora/muhos-apps.desktop %{buildroot}%{_datadir}/app
 install -Dm 0644 packaging/fedora/icons/muhos-apps.svg %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/muhos-apps.svg
 install -Dm 0644 packaging/fedora/muhos-shell.service %{buildroot}%{_userunitdir}/muhos-shell.service
 install -Dm 0644 packaging/fedora/muhos-session.target %{buildroot}%{_userunitdir}/muhos-session.target
+install -Dm 0644 packaging/fedora/muhos-update-notify.service %{buildroot}%{_userunitdir}/muhos-update-notify.service
+install -Dm 0644 packaging/fedora/muhos-update-notify.timer %{buildroot}%{_userunitdir}/muhos-update-notify.timer
+install -Dm 0644 packaging/fedora/muhos-update.service %{buildroot}%{_unitdir}/muhos-update.service
+install -Dm 0644 packaging/fedora/muhos-update.timer %{buildroot}%{_unitdir}/muhos-update.timer
+# How MuhOS updates (manual, notify, auto), written by muhos-update --mode.
+install -d %{buildroot}%{_sysconfdir}/muhos
+touch %{buildroot}%{_sysconfdir}/muhos/update.conf
 install -Dm 0644 packaging/fedora/pam-serpantinum %{buildroot}%{_sysconfdir}/pam.d/serpantinum
 install -Dm 0644 packaging/fedora/dconf/profile-muhos %{buildroot}%{_sysconfdir}/dconf/profile/muhos
 install -Dm 0644 packaging/fedora/dconf/00-muhos %{buildroot}%{_sysconfdir}/dconf/db/muhos.d/00-muhos
@@ -176,6 +186,8 @@ install -Dm 0644 packaging/fedora/dconf/00-muhos %{buildroot}%{_sysconfdir}/dcon
 bash -n %{buildroot}%{_bindir}/muhos-session
 sh -n %{buildroot}%{_libexecdir}/%{name}/muhos-shell
 sh -n %{buildroot}%{_libexecdir}/%{name}/muhos-terminal
+bash -n %{buildroot}%{_bindir}/muhos-update
+bash -n %{buildroot}%{_libexecdir}/%{name}/muhos-install
 for f in %{buildroot}%{_datadir}/%{name}/bin/*; do bash -n "$f"; done
 desktop-file-validate %{buildroot}%{_datadir}/applications/muhos-settings.desktop
 desktop-file-validate %{buildroot}%{_datadir}/applications/muhos-sound.desktop
@@ -184,9 +196,16 @@ python3 -I tools/asset-inventory --strict
 
 %post
 dconf update &>/dev/null || :
+%systemd_post muhos-update.timer
+%systemd_user_post muhos-update-notify.timer
+
+%preun
+%systemd_preun muhos-update.timer muhos-update.service
+%systemd_user_preun muhos-update-notify.timer
 
 %postun
 dconf update &>/dev/null || :
+%systemd_postun muhos-update.timer
 
 %files
 %license LICENSE.md NOTICE ASSETS.md src/assets/fonts/LICENSES
@@ -195,6 +214,13 @@ dconf update &>/dev/null || :
 %{_bindir}/muhos
 %{_bindir}/muhosd
 %{_bindir}/muhos-session
+%{_bindir}/muhos-update
+%{_unitdir}/muhos-update.service
+%{_unitdir}/muhos-update.timer
+%{_userunitdir}/muhos-update-notify.service
+%{_userunitdir}/muhos-update-notify.timer
+%dir %{_sysconfdir}/muhos
+%ghost %config(noreplace) %{_sysconfdir}/muhos/update.conf
 %{_libexecdir}/%{name}/
 %{_datadir}/%{name}/
 %{_datadir}/wayland-sessions/muhos.desktop
@@ -212,6 +238,13 @@ dconf update &>/dev/null || :
 %ghost %verify(not md5 size mtime mode) %{_sysconfdir}/dconf/db/muhos
 
 %changelog
+* Wed Nov 25 2026 MuhOS contributors - 0.1.0-0.18
+- muhos-update: update MuhOS from the terminal; Settings' Update runs it
+- Choose how MuhOS updates: manually (default), notify once a day, or
+  install automatically (muhos-update --mode; asked by the installer)
+- Installer: file sizes, total download, progress bars and numbered steps
+- Nothing refers to upstream Serpantinum's releases any more
+
 * Wed Nov 25 2026 MuhOS contributors - 0.1.0-0.17
 - Logout no longer leaves a black screen (the logout script was killed with
   the shell before it told Hyprland to exit)
