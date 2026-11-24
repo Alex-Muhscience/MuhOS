@@ -38,6 +38,7 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - Settings: readable section and row icons on light themes (8aa2cfa)
 - Settings > Theme: accent colour choice (a1ab74d)
 - Notification centre under the clock; Dark Style leaves forced GTK themes alone (bc0138e)
+- Equaliser on PipeWire's filter-chain; new glass Equaliser window (bde246f)
 
 ## Fedora-specific
 
@@ -77,6 +78,8 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - Changelog: Settings icons and accent colours (1ecf7d8)
 - Dark mode: apps use libadwaita's dark style, not WhiteSur-Dark (2e447a1)
 - Changelog: dark mode apps (a90f21d)
+- muhos 0.1.0-0.15: recommend ladspa-swh-plugins instead of EasyEffects; equaliser package tests (0113d40)
+- Package tests: look for EasyEffects commands, parse the engine without leaving __pycache__ (5a7ab64)
 
 ## MuhOS branding
 
@@ -142,6 +145,8 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - README: screenshots of the macOS look (f6595d8)
 - Regenerate CHANGES-FROM-UPSTREAM.md (9261a31)
 - Website on GitHub Pages; contributing guide, issue forms, PR template (6f85446)
+- Regenerate CHANGES-FROM-UPSTREAM.md (6fc929b)
+- README: the equaliser (78dbb16)
 
 ## Upstream files changed by MuhOS
 
@@ -185,6 +190,8 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - `src/quickshell/guide/theme/ThemeTabState.qml` (modified since 2026-10-18)
 - `src/quickshell/launcher/Launcher.qml` (modified since 2026-10-18)
 - `src/quickshell/lock/LockSurface.qml` (modified since 2026-10-18)
+- `src/quickshell/media/MusicEqualizerState.qml` (modified since 2026-10-18)
+- `src/quickshell/media/equalizer.sh` (modified since 2026-10-18)
 - `src/quickshell/notifications/types/Update.qml` (modified since 2026-10-18)
 - `src/quickshell/popouts/Osd.qml` (modified since 2026-10-18)
 - `src/quickshell/qmldir` (modified since 2026-10-18)
