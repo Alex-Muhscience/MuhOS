@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Questions and ideas
+    url: https://github.com/Alex-Muhscience/MuhOS/discussions
+    about: Ask a question, suggest a feature, or say you'd like to work on something.
+  - name: Security problem
+    url: https://github.com/Alex-Muhscience/MuhOS/security/advisories/new
+    about: Report a vulnerability privately instead of in a public issue.

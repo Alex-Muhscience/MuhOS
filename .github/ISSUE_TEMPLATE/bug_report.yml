@@ -1,0 +1,41 @@
+name: Bug report
+description: Something in MuhOS doesn't work as it should.
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What you did, what you expected, and what happened instead.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Open …
+        2. Click …
+  - type: input
+    id: version
+    attributes:
+      label: MuhOS version
+      description: Output of `rpm -q muhos hyprland quickshell`
+    validations:
+      required: true
+  - type: input
+    id: hardware
+    attributes:
+      label: Hardware
+      description: Laptop or desktop model, GPU (e.g. Intel, AMD, NVIDIA, hybrid), number of monitors.
+  - type: textarea
+    id: logs
+    attributes:
+      label: Shell log
+      description: Output of `journalctl --user -u muhos-shell -b` (the part around the problem is enough).
+      render: text
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots
+      description: Drag images here if the problem is visible.

@@ -1,0 +1,56 @@
+# MuhOS: publish the website (site/) to GitHub Pages, with the README
+# screenshots and logo copied in, so images live in one place.
+name: Website
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "site/**"
+      - "docs/screenshots/**"
+      - "docs/assets/muhos-tile.svg"
+      - ".github/workflows/pages.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Assemble the site
+        run: |
+          mkdir -p _site/screenshots
+          cp -r site/. _site/
+          cp docs/screenshots/*.webp _site/screenshots/
+          cp docs/assets/muhos-tile.svg _site/
+          # Every local link and image must exist.
+          missing=0
+          for page in _site/*.html; do
+            for ref in $(grep -oE '(src|href)="[^"#:]+"' "$page" | sed -E 's/^(src|href)="//; s/"$//'); do
+              [ "$ref" = "./" ] && continue
+              [ -e "_site/$ref" ] || { echo "missing in $page: $ref"; missing=1; }
+            done
+          done
+          exit $missing
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

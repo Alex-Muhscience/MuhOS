@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contribute to MuhOS</title>
+  <meta name="description" content="Help build MuhOS: test on your hardware, report bugs, translate, or write code. How to get in touch and how contributions work.">
+  <link rel="icon" href="muhos-tile.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav class="nav" aria-label="Main">
+    <div class="wrap">
+      <a class="brand" href="./"><img src="muhos-tile.svg" alt=""><span>MuhOS</span></a>
+      <ul>
+        <li><a href="./" class="hide-small">Overview</a></li>
+        <li><a href="docs.html">Docs</a></li>
+        <li><a href="contribute.html" aria-current="page">Contribute</a></li>
+        <li><a class="cta" href="download.html">Download</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+    <header class="hero narrow" style="padding-bottom:24px">
+      <h1>Help build MuhOS</h1>
+      <p class="lead">MuhOS is open source and made in the open. Whether you write code, design, translate or just use it every day, there's a way to help.</p>
+      <div class="buttons">
+        <a class="btn primary" href="https://github.com/Alex-Muhscience/MuhOS/discussions">Join the discussion</a>
+        <a class="btn secondary" href="https://github.com/Alex-Muhscience/MuhOS/blob/main/CONTRIBUTING.md">Contributing guide</a>
+      </div>
+    </header>
+
+    <section style="padding-top:24px">
+      <div class="wrap">
+        <div class="grid three">
+          <div class="card">
+            <div class="icon" style="background:#34c759" aria-hidden="true">✓</div>
+            <h3>Test on your hardware</h3>
+            <p>The most useful thing right now. Tell us how MuhOS runs on your laptop or desktop, especially with NVIDIA, hybrid graphics or several monitors, even if everything works.</p>
+          </div>
+          <div class="card">
+            <div class="icon" style="background:#ff3b30" aria-hidden="true">!</div>
+            <h3>Report bugs</h3>
+            <p>Use the bug form on GitHub and include the shell log (<code>journalctl --user -u muhos-shell -b</code>). Clear steps to reproduce get bugs fixed fastest.</p>
+          </div>
+          <div class="card">
+            <div class="icon" style="background:#ff9500" aria-hidden="true">✦</div>
+            <h3>Share ideas</h3>
+            <p>Suggest features in Discussions → Ideas. We agree on the design first, so nobody's work goes to waste.</p>
+          </div>
+          <div class="card">
+            <div class="icon" style="background:#5856d6" aria-hidden="true">文</div>
+            <h3>Translate</h3>
+            <p>Interface text lives in plain JSON files, one per language, in <code>src/assets/languages/</code>.</p>
+          </div>
+          <div class="card">
+            <div class="icon" style="background:#007aff" aria-hidden="true">{ }</div>
+            <h3>Write code</h3>
+            <p>QML for the interface, Bash and Python for helpers, and RPM packaging for Fedora. Issues labelled "good first issue" are a good place to start.</p>
+          </div>
+          <div class="card">
+            <div class="icon" style="background:#af52de" aria-hidden="true">✎</div>
+            <h3>Design</h3>
+            <p>Icons, wallpapers and layouts are welcome, as long as they're your own work or openly licensed.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="alt">
+      <div class="narrow">
+        <h2>Get in touch</h2>
+        <div class="table-wrap">
+          <table>
+            <tr><th>Questions, ideas, "I'd like to work on…"</th><td><a href="https://github.com/Alex-Muhscience/MuhOS/discussions">GitHub Discussions</a></td></tr>
+            <tr><th>Bugs</th><td><a href="https://github.com/Alex-Muhscience/MuhOS/issues/new/choose">Open an issue</a></td></tr>
+            <tr><th>Security problems</th><td><a href="https://github.com/Alex-Muhscience/MuhOS/security/advisories/new">Report privately</a>, not in a public issue</td></tr>
+          </table>
+        </div>
+        <p class="note">MuhOS is maintained by <a href="https://github.com/Alex-Muhscience">Alex M. Kamau</a>, who reviews every pull request.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="narrow">
+        <h2>How contributions work</h2>
+        <ol class="steps">
+          <li>
+            <h3>Talk first for big changes</h3>
+            <p>Open a discussion or comment on the issue, so the change fits where MuhOS is going and nobody duplicates work.</p>
+          </li>
+          <li>
+            <h3>One change per pull request</h3>
+            <p>Fork the repository, branch from <code>main</code>, and keep each pull request to one feature or fix. Start each commit with a label such as <code>[general]</code> or <code>[fedora]</code>.</p>
+          </li>
+          <li>
+            <h3>Run the checks</h3>
+            <p>CI builds the package, runs the install tests, and checks asset licences and lint. You can run the same checks locally:</p>
+            <pre data-copy><code>python3 -I tools/asset-inventory --strict
+python3 -I tools/lint-baseline --check</code></pre>
+          </li>
+          <li>
+            <h3>Show how you tested it</h3>
+            <p>Describe what you tried and include screenshots for anything visible. Performance claims need a benchmark.</p>
+          </li>
+        </ol>
+
+        <h2 style="margin-top:24px">Ground rules</h2>
+        <ul>
+          <li><strong>Evidence over claims.</strong> Describe what you tested, not what you expect.</li>
+          <li><strong>Licences matter.</strong> Every font, icon, sound and image needs a source and a redistributable licence. Apple's own artwork can't be used.</li>
+          <li><strong>Respect upstream.</strong> MuhOS builds on Serpantinum by Illia Miroshnichenko; attribution stays.</li>
+          <li><strong>Be kind.</strong> Assume good intent and help newcomers.</li>
+        </ul>
+        <p>Contributions are licensed under the AGPL-3.0-or-later, like the rest of MuhOS. The full guide is in <a href="https://github.com/Alex-Muhscience/MuhOS/blob/main/CONTRIBUTING.md">CONTRIBUTING.md</a>.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div>
+        <h4>MuhOS</h4>
+        <p>A Fedora-focused fork of <a href="https://github.com/ilyamiro/serpantinum">Serpantinum</a> by Illia Miroshnichenko. Free software under the AGPL-3.0.</p>
+        <p>Not affiliated with Apple, the GNOME Foundation or the Fedora Project.</p>
+      </div>
+      <div>
+        <h4>Get it</h4>
+        <ul>
+          <li><a href="download.html">Download</a></li>
+          <li><a href="https://github.com/Alex-Muhscience/MuhOS/releases">All releases</a></li>
+          <li><a href="docs.html">Docs</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Community</h4>
+        <ul>
+          <li><a href="https://github.com/Alex-Muhscience/MuhOS/discussions">Discussions</a></li>
+          <li><a href="https://github.com/Alex-Muhscience/MuhOS/issues">Report a bug</a></li>
+          <li><a href="contribute.html">Contribute</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Source</h4>
+        <ul>
+          <li><a href="https://github.com/Alex-Muhscience/MuhOS">GitHub</a></li>
+          <li><a href="https://github.com/Alex-Muhscience/MuhOS/blob/main/LICENSE.md">Licence</a></li>
+          <li><a href="https://github.com/Alex-Muhscience/MuhOS/blob/main/ASSETS.md">Asset licences</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+  <script src="main.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MuhOS: a macOS-style desktop for Fedora</title>
+  <meta name="description" content="MuhOS is a free, open-source desktop shell for Hyprland on Fedora, with a macOS-style menu bar, glass dock, floating windows and macOS-style apps.">
+  <meta property="og:title" content="MuhOS: a macOS-style desktop for Fedora">
+  <meta property="og:description" content="A free, open-source desktop shell for Hyprland on Fedora.">
+  <meta property="og:image" content="https://alex-muhscience.github.io/MuhOS/screenshots/desktop-light.webp">
+  <link rel="icon" href="muhos-tile.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav class="nav" aria-label="Main">
+    <div class="wrap">
+      <a class="brand" href="./"><img src="muhos-tile.svg" alt=""><span>MuhOS</span></a>
+      <ul>
+        <li><a href="./" aria-current="page" class="hide-small">Overview</a></li>
+        <li><a href="docs.html">Docs</a></li>
+        <li><a href="contribute.html">Contribute</a></li>
+        <li><a class="cta" href="download.html">Download</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+    <header class="hero wrap">
+      <img class="logo" src="muhos-tile.svg" alt="MuhOS logo">
+      <h1>The Mac feel,<br>on Fedora.</h1>
+      <p class="lead">MuhOS is a free, open-source desktop for Fedora Linux: a macOS-style menu bar, a glass dock, floating windows and apps to match, on the Hyprland compositor.</p>
+      <div class="buttons">
+        <a class="btn primary" href="download.html">Download MuhOS</a>
+        <a class="btn secondary" href="https://github.com/Alex-Muhscience/MuhOS">View on GitHub</a>
+      </div>
+      <p class="note">Pre-release · Fedora 44, x86_64 · AGPL-3.0</p>
+      <div class="shot">
+        <img src="screenshots/desktop-light.webp" width="1920" height="1080" alt="MuhOS desktop: a macOS-style menu bar, Files with red, yellow and green window buttons, a Text Editor window, a light blue wallpaper and the glass dock">
+      </div>
+    </header>
+
+    <section>
+      <div class="wrap">
+        <div class="center">
+          <h2>Everything where you expect it.</h2>
+          <p class="section-lead">If you've used a Mac, you already know your way around. If you haven't, it takes about a minute.</p>
+        </div>
+        <div class="grid three">
+          <div class="card">
+            <div class="icon" style="background:#007aff" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M3 9h18"/><circle cx="6.5" cy="6.5" r=".6"/></svg></div>
+            <h3>Menu bar</h3>
+            <p>The logo menu for settings, sleep, restart and log out; the app you're using in bold; status icons, search and the clock on the right.</p>
+          </div>
+          <div class="card">
+            <div class="icon" style="background:#5ac8fa" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="2" y="14" width="20" height="7" rx="3"/><path d="M7 17.5h.01M12 17.5h.01M17 17.5h.01"/><path d="M8 10l4-6 4 6"/></svg></div>
+            <h3>Glass dock</h3>
+            <p>Your apps on frosted glass. Icons magnify under the pointer, and running apps get a dot.</p>
+          </div>
+          <div class="card">
+            <div class="icon" style="background:#34c759" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="7" width="13" height="11" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-3"/></svg></div>
+            <h3>Floating windows</h3>
+            <p>Windows open centred and overlap, with close, minimise and zoom on the left. <kbd>Super</kbd>+<kbd>T</kbd> tiles one when you want it.</p>
+          </div>
+          <div class="card">
+            <div class="icon" style="background:#ff9500" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg></div>
+            <h3>Spotlight-style search</h3>
+            <p>One search for apps, files, system actions and quick sums. Apps you use most come first.</p>
+          </div>
+          <div class="card">
+            <div class="icon" style="background:#ff3b30" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4z"/><path d="M10 21h4"/></svg></div>
+            <h3>Notifications</h3>
+            <p>Glass banners with pictures and buttons, a notification centre with a calendar, and Do Not Disturb.</p>
+          </div>
+          <div class="card">
+            <div class="icon" style="background:#af52de" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg></div>
+            <h3>Your colours</h3>
+            <p>Light and dark modes, macOS-style presets or colours taken from your wallpaper, and ten accent colours.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="alt">
+      <div class="wrap split">
+        <div class="shot fit"><img src="screenshots/control-centre.webp" width="400" height="340" alt="Control centre with toggles for network, power mode, night light, dark style and do not disturb, and a volume slider" loading="lazy"></div>
+        <div>
+          <h2>Control centre, the way you know it.</h2>
+          <p class="section-lead">Network, Bluetooth, power mode, night light, dark style and Do Not Disturb in one glass panel, with volume and brightness sliders.</p>
+          <ul>
+            <li>Arrows lead into network, Bluetooth and sound settings.</li>
+            <li>Screenshot, settings, lock and power are one click away.</li>
+            <li>A glass indicator shows volume and brightness changes.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap split reverse">
+        <div class="shot"><img src="screenshots/launcher.webp" width="720" height="506" alt="Spotlight-style launcher listing Files, Firefox and other apps for the query fi" loading="lazy"></div>
+        <div>
+          <h2>Find anything, fast.</h2>
+          <p class="section-lead">Press <kbd>Super</kbd>+<kbd>D</kbd> or click the magnifier. Type a few letters to find an app, a file in your folders, a setting, or the answer to <code>18*7+2</code>.</p>
+          <ul>
+            <li>Power actions only appear after three letters, so a stray Enter can't restart your PC.</li>
+            <li>Results learn which apps you open most.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="alt">
+      <div class="wrap">
+        <div class="center">
+          <h2>Take a look.</h2>
+          <p class="section-lead">Real screenshots from MuhOS 0.1, in a Fedora 44 virtual machine.</p>
+        </div>
+        <div class="gallery">
+          <figure>
+            <div class="shot"><img src="screenshots/desktop-dark.webp" width="1920" height="1080" alt="Dark mode: Files and Text Editor in dark style over a dark blue wallpaper" loading="lazy"></div>
+            <figcaption>Dark mode</figcaption>
+          </figure>
+          <figure>
+            <div class="shot"><img src="screenshots/lock-screen.webp" width="1920" height="1080" alt="Lock screen with a large clock, notification titles and a password field" loading="lazy"></div>
+            <figcaption>Lock screen: notification titles only, never their contents</figcaption>
+          </figure>
+          <figure>
+            <div class="shot"><img src="screenshots/tiling.webp" width="1920" height="1080" alt="Text Editor and Files tiled side by side" loading="lazy"></div>
+            <figcaption>Tiling, when you want it</figcaption>
+          </figure>
+          <figure>
+            <div class="shot"><img src="screenshots/settings.webp" width="1200" height="750" alt="Settings on the Theme page with accent colour choices" loading="lazy"></div>
+            <figcaption>Settings: accent colours, themes, dock and more</figcaption>
+          </figure>
+          <figure>
+            <div class="shot"><img src="screenshots/notification-centre.webp" width="780" height="506" alt="Notification centre with three notifications beside a month calendar" loading="lazy"></div>
+            <figcaption>Notification centre</figcaption>
+          </figure>
+          <figure>
+            <div class="shot"><img src="screenshots/notifications.webp" width="408" height="332" alt="Three notification banners, one with Later and Restart buttons" loading="lazy"></div>
+            <figcaption>Notification banners</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="center">
+          <h2>Built properly for Fedora.</h2>
+          <p class="section-lead">MuhOS installs as ordinary Fedora packages and leaves the rest of your system alone.</p>
+        </div>
+        <div class="grid">
+          <div class="card">
+            <h3>Leaves your setup alone</h3>
+            <p>It adds a "MuhOS" choice to the login screen. GNOME and your existing settings are left as they were, and MuhOS keeps its own app theme so GNOME keeps its own.</p>
+          </div>
+          <div class="card">
+            <h3>Private by default</h3>
+            <p>No telemetry, no background location lookups, and no update checks that phone home. Updates come through dnf.</p>
+          </div>
+          <div class="card">
+            <h3>Measured, not guessed</h3>
+            <p>Every change is tested in Fedora virtual machines, and performance claims come with reproducible benchmarks.</p>
+          </div>
+          <div class="card">
+            <h3>Open source</h3>
+            <p>AGPL-3.0, built on Serpantinum by Illia Miroshnichenko and the Quickshell toolkit. Every bundled font, icon and sound has a listed licence.</p>
+          </div>
+        </div>
+        <div class="buttons" style="margin-top:36px">
+          <a class="btn primary" href="download.html">Get MuhOS</a>
+          <a class="btn secondary" href="contribute.html">Help build it</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div>
+        <h4>MuhOS</h4>
+        <p>A Fedora-focused fork of <a href="https://github.com/ilyamiro/serpantinum">Serpantinum</a> by Illia Miroshnichenko. Free software under the AGPL-3.0.</p>
+        <p>Not affiliated with Apple, the GNOME Foundation or the Fedora Project.</p>
+      </div>
+      <div>
+        <h4>Get it</h4>
+        <ul>
+          <li><a href="download.html">Download</a></li>
+          <li><a href="https://github.com/Alex-Muhscience/MuhOS/releases">All releases</a></li>
+          <li><a href="docs.html">Docs</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Community</h4>
+        <ul>
+          <li><a href="https://github.com/Alex-Muhscience/MuhOS/discussions">Discussions</a></li>
+          <li><a href="https://github.com/Alex-Muhscience/MuhOS/issues">Report a bug</a></li>
+          <li><a href="contribute.html">Contribute</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Source</h4>
+        <ul>
+          <li><a href="https://github.com/Alex-Muhscience/MuhOS">GitHub</a></li>
+          <li><a href="https://github.com/Alex-Muhscience/MuhOS/blob/main/LICENSE.md">Licence</a></li>
+          <li><a href="https://github.com/Alex-Muhscience/MuhOS/blob/main/ASSETS.md">Asset licences</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+  <script src="main.js" defer></script>
+</body>
+</html>

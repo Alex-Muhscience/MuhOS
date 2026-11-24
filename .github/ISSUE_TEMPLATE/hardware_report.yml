@@ -1,0 +1,46 @@
+name: Hardware report
+description: Tell us how MuhOS runs on your machine, even if everything works.
+labels: [hardware]
+body:
+  - type: input
+    id: hardware
+    attributes:
+      label: Machine
+      description: Laptop or desktop model.
+    validations:
+      required: true
+  - type: input
+    id: gpu
+    attributes:
+      label: Graphics
+      description: GPU(s) and driver, e.g. "Intel Iris Xe + NVIDIA RTX 3050 (akmod-nvidia 580)".
+    validations:
+      required: true
+  - type: input
+    id: displays
+    attributes:
+      label: Displays
+      description: Number of monitors, resolutions and scaling.
+  - type: input
+    id: version
+    attributes:
+      label: MuhOS version
+      description: Output of `rpm -q muhos hyprland`
+    validations:
+      required: true
+  - type: dropdown
+    id: overall
+    attributes:
+      label: Overall
+      options:
+        - Everything works
+        - Works, with small problems
+        - Major problems
+        - Doesn't start
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: What worked and what didn't
+      description: Login, menu bar, dock, blur, sleep and resume, brightness, sound, Wi-Fi, Bluetooth, external monitors…

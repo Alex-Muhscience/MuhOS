@@ -27,7 +27,7 @@ on Fedora: the menu bar, control centre, launcher, dock, notifications, lock
 screen, desktop widgets and theming of a complete desktop. It is built on
 [Quickshell](https://quickshell.org/) (Qt 6 / QML) and is a Fedora-focused
 fork of [Serpantinum](https://github.com/ilyamiro/serpantinum) by Illia
-Miroshnichenko.
+Miroshnichenko. Website: **[alex-muhscience.github.io/MuhOS](https://alex-muhscience.github.io/MuhOS/)**.
 
 > [!NOTE]
 > **Pre-release.** The package builds, passes its install tests, and a full
@@ -230,6 +230,7 @@ The full list of changes is in
 | Distribution | Fedora 44 Workstation, x86_64 |
 | Compositor | Hyprland 0.56, from the [`lionheartp/Hyprland`](https://copr.fedorainfracloud.org/coprs/lionheartp/Hyprland/) COPR |
 | Shell toolkit | Quickshell 0.3.2 and Matugen 4.2, packaged by MuhOS (Fedora 44 ships older versions) |
+| App theme | WhiteSur GTK theme and icons, packaged by MuhOS; Inter font from Fedora |
 | Login manager | GDM (kept; MuhOS adds a session entry) |
 | Graphics | Any GPU Hyprland supports; a GPU makes the glass blur cheaper |
 
@@ -308,15 +309,17 @@ folder.
 
 - **Welcome screen.** The first login shows a short welcome with the most
   useful shortcuts; it appears once.
-- **Settings.** Press <kbd>Super</kbd>+<kbd>H</kbd>, right-click the logo in
-  the menu bar, or open "MuhOS Settings" from the dock or launcher.
+- **Settings.** Press <kbd>Super</kbd>+<kbd>H</kbd>, choose System Settings
+  in the logo menu, or open "MuhOS Settings" from the dock or launcher.
+  Settings → Theme has the accent colours and presets.
 - **Wallpaper.** Press <kbd>Super</kbd>+<kbd>W</kbd>. Put your own images or
   videos in `~/Pictures/Wallpapers`; the colours follow the wallpaper you
   pick.
 - **Weather.** Stays off until you set a location in Settings → General →
   Location (see [Privacy](#privacy)).
-- **Apps and search.** Press <kbd>Super</kbd>+<kbd>D</kbd> or click the logo.
-- **Notifications and calendar.** Click the clock.
+- **Apps and search.** Press <kbd>Super</kbd>+<kbd>D</kbd> or click the
+  magnifier in the menu bar.
+- **Notifications and calendar.** Click the date and time.
 - **Quick settings.** Click the network, volume and battery icons at the top
   right.
 
@@ -376,7 +379,7 @@ defaults, so anything there wins. For example:
 
 ```lua
 -- ~/.config/muhos/hypr/user.lua
-hl.bind("SUPER + T", hl.dsp.exec_cmd("ptyxis"))      -- another terminal
+hl.bind("SUPER + X", hl.dsp.exec_cmd("ptyxis"))      -- a second terminal
 
 hl.monitor({ output = "DP-1", mode = "2560x1440@144", position = "0x0", scale = 1.0 })
 ```
@@ -390,6 +393,8 @@ Check it with `Hyprland --verify-config -c ~/.config/muhos/hypr/hyprland.lua`.
 | `"bar": { "design": "classic" }` | Use Serpantinum's original design everywhere: its bar, dock style, launcher, notifications, indicator and lock screen. |
 | `"bar": { "position": "left" }` or `"autohide": true` | The MuhOS menu bar does not cover side bars or auto-hiding yet, so these use Serpantinum's bar (the rest stays MuhOS). |
 | `"dock": { "hoverScale": 160, "cascadeScale": true }` | Dock magnification (percent) and whether neighbours grow too; also in Settings → Dock. |
+| `"bar": { "layout": "hybrid" }` | The earlier GNOME-style menu bar: workspace dots on the left and a clock island in the middle (default `"macos"`). |
+| `"theme": { "accent": "#FF9500" }` | Accent colour over any preset (Settings → Theme → Accent colour); `""` keeps the preset's own. |
 | `"muhos": { "solidPanels": true }` | Solid panels instead of glass (like "reduce transparency" on macOS). |
 | `"general": { "ipGeolocation": true }` | Look up your location from your IP address automatically (off by default). |
 
@@ -466,7 +471,8 @@ muhos reload                                     # restart the shell's interface
 ## Uninstalling
 
 ```sh
-sudo dnf remove muhos
+sudo dnf remove muhos whitesur-gtk-theme whitesur-icon-theme
+rm -r ~/.config/dconf/muhos                         # optional: MuhOS app settings
 rm -r ~/.config/muhos                               # optional: your MuhOS Hyprland config
 rm -r ~/.config/serpantinum ~/.local/state/serpantinum   # optional: shell settings and state
 ```
@@ -529,7 +535,10 @@ asset check and the lint check on every push.
 
 ## Contributing
 
-Bug reports, testing on real hardware and pull requests are welcome.
+Bug reports, testing on real hardware and pull requests are welcome. Start
+with [CONTRIBUTING.md](CONTRIBUTING.md) or the
+[website's contribute page](https://alex-muhscience.github.io/MuhOS/contribute.html);
+questions and ideas go to [Discussions](https://github.com/Alex-Muhscience/MuhOS/discussions).
 
 MuhOS tracks upstream Serpantinum releases and keeps its changes small and
 clearly labelled, so fixes can flow back upstream. Every commit is labelled

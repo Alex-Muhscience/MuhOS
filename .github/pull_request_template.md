@@ -1,23 +1,18 @@
-## PR guidelines: 
-### Before opening a pull request, please read the following:
+## What this changes
 
-Each pull request should focus on exactly one feature or one bug fix.
+<!-- One feature or one fix per pull request. Small, focused pull requests are reviewed faster. -->
 
-Good examples:
+## Why
 
-Add support for X
-Fix crash when Y happens 
-Improve performance of Z
+<!-- The problem it solves, or the issue/discussion it comes from (e.g. "Fixes #12"). -->
 
-Not good examples:
+## How I tested it
 
-Add support for X
-Fix three unrelated bugs
-Refactor several modules
-Update translations
+<!-- What you ran or tried. Screenshots for anything visible; a benchmark for any performance claim. -->
 
-all in the same PR. 
+## Checklist
 
-If you have multiple improvements to contribute, please split them into separate pull requests. Smaller, focused PRs are significantly more likely to get accepted. A pull request may be technically correct, well-written, and fully tested, and still not be accepted. I must be able to agree with every change included in the PR. If a PR contains several unrelated changes and even one of them is not something I want to include, the entire PR may be rejected or asked to be split apart, like I was already doing.
-
-Translation-related pull requests are always welcome.
+- [ ] Each commit subject starts with a label: `[general]`, `[fedora]`, `[brand]`, `[fork]`, `[ci]` or `[bench]` (see FORK.md)
+- [ ] `python3 -I tools/asset-inventory --strict` and `python3 -I tools/lint-baseline --check` pass
+- [ ] New fonts, icons, sounds or images have a source and a redistributable licence
+- [ ] If upstream Serpantinum files changed: ran `bash tools/changes-from-upstream` in the same commit

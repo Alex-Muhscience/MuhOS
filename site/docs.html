@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MuhOS docs</title>
+  <meta name="description" content="Getting started with MuhOS: first steps, keyboard shortcuts, settings and troubleshooting.">
+  <link rel="icon" href="muhos-tile.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav class="nav" aria-label="Main">
+    <div class="wrap">
+      <a class="brand" href="./"><img src="muhos-tile.svg" alt=""><span>MuhOS</span></a>
+      <ul>
+        <li><a href="./" class="hide-small">Overview</a></li>
+        <li><a href="docs.html" aria-current="page">Docs</a></li>
+        <li><a href="contribute.html">Contribute</a></li>
+        <li><a class="cta" href="download.html">Download</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+    <header class="hero narrow" style="padding-bottom:24px">
+      <h1>Docs</h1>
+      <p class="lead">Getting around MuhOS. For everything else, including configuration files and building from source, see the <a href="https://github.com/Alex-Muhscience/MuhOS#readme">full README</a>.</p>
+    </header>
+
+    <section style="padding-top:0">
+      <div class="narrow">
+        <h2 id="first-steps">First steps</h2>
+        <div class="table-wrap">
+          <table>
+            <tr><th>Settings</th><td><kbd>Super</kbd>+<kbd>H</kbd>, System Settings in the logo menu, or "MuhOS Settings" in the dock.</td></tr>
+            <tr><th>Find apps and files</th><td><kbd>Super</kbd>+<kbd>D</kbd> or the magnifier in the menu bar.</td></tr>
+            <tr><th>Quick settings</th><td>Click the network and volume icons at the top right.</td></tr>
+            <tr><th>Notifications</th><td>Click the date and time.</td></tr>
+            <tr><th>Wallpaper</th><td><kbd>Super</kbd>+<kbd>W</kbd>. Put your own pictures in <code>~/Pictures/Wallpapers</code>.</td></tr>
+            <tr><th>Accent colour</th><td>Settings → Theme → Accent colour.</td></tr>
+            <tr><th>Sleep, restart, log out</th><td>The MuhOS logo at the top left.</td></tr>
+            <tr><th>Weather</th><td>Off until you set a location in Settings → General → Location.</td></tr>
+          </table>
+        </div>
+
+        <h2 id="shortcuts" style="margin-top:48px">Keyboard shortcuts</h2>
+        <p><kbd>Super</kbd> is the Windows key. It plays the role of <kbd>⌘</kbd> in menus.</p>
+        <div class="table-wrap">
+          <table>
+            <tr><th>Shortcut</th><th>Action</th></tr>
+            <tr><td><kbd>Super</kbd>+<kbd>D</kbd></td><td>Search: apps, files, actions, calculator</td></tr>
+            <tr><td><kbd>Super</kbd>+<kbd>Enter</kbd></td><td>Terminal</td></tr>
+            <tr><td><kbd>Super</kbd>+<kbd>E</kbd></td><td>Files</td></tr>
+            <tr><td><kbd>Super</kbd>+<kbd>F</kbd></td><td>Firefox</td></tr>
+            <tr><td><kbd>Super</kbd>+<kbd>Q</kbd></td><td>Close window</td></tr>
+            <tr><td><kbd>Super</kbd>+<kbd>T</kbd></td><td>Tile the window, or float it again</td></tr>
+            <tr><td><kbd>Super</kbd>+<kbd>Alt</kbd>+<kbd>F</kbd></td><td>Maximise window</td></tr>
+            <tr><td><kbd>Super</kbd>+drag</td><td>Move (left button) or resize (right button) a window</td></tr>
+            <tr><td><kbd>Super</kbd>+<kbd>1</kbd>…<kbd>0</kbd></td><td>Go to workspace 1–10</td></tr>
+            <tr><td><kbd>Super</kbd>+<kbd>Shift</kbd>+<kbd>1</kbd>…<kbd>0</kbd></td><td>Move window to workspace 1–10</td></tr>
+            <tr><td>Three-finger swipe</td><td>Switch workspace (touchpad)</td></tr>
+            <tr><td><kbd>Super</kbd>+<kbd>H</kbd></td><td>Settings</td></tr>
+            <tr><td><kbd>Super</kbd>+<kbd>L</kbd></td><td>Lock screen</td></tr>
+            <tr><td><kbd>Super</kbd>+<kbd>C</kbd></td><td>Clipboard history</td></tr>
+            <tr><td><kbd>Super</kbd>+<kbd>W</kbd></td><td>Wallpapers</td></tr>
+            <tr><td><kbd>Super</kbd>+<kbd>M</kbd></td><td>Music</td></tr>
+            <tr><td><kbd>Super</kbd>+<kbd>V</kbd></td><td>Sound</td></tr>
+            <tr><td><kbd>Super</kbd>+<kbd>N</kbd></td><td>Network</td></tr>
+            <tr><td><kbd>Super</kbd>+<kbd>S</kbd></td><td>Calendar</td></tr>
+            <tr><td><kbd>Super</kbd>+<kbd>Space</kbd></td><td>Play or pause media</td></tr>
+            <tr><td><kbd>Print</kbd></td><td>Screenshot of a region (<kbd>Shift</kbd>: open in the editor)</td></tr>
+            <tr><td><kbd>Super</kbd>+<kbd>Print</kbd></td><td>Screenshot of the whole screen</td></tr>
+            <tr><td><kbd>Super</kbd>+<kbd>R</kbd></td><td>Reload the shell</td></tr>
+          </table>
+        </div>
+        <p>Change or add shortcuts in <code>~/.config/muhos/hypr/user.lua</code>. See <a href="https://github.com/Alex-Muhscience/MuhOS#configuration">Configuration</a>.</p>
+
+        <h2 id="settings" style="margin-top:48px">Useful settings</h2>
+        <p>Most things are in the Settings app. A few live in <code>~/.config/serpantinum/settings.json</code>:</p>
+        <div class="table-wrap">
+          <table>
+            <tr><th>Setting</th><th>Effect</th></tr>
+            <tr><td><code>"bar": { "layout": "hybrid" }</code></td><td>The earlier GNOME-style menu bar, with workspace dots and a clock island.</td></tr>
+            <tr><td><code>"bar": { "design": "classic" }</code></td><td>Serpantinum's original design everywhere.</td></tr>
+            <tr><td><code>"muhos": { "solidPanels": true }</code></td><td>Solid panels instead of glass, like "Reduce transparency" on a Mac.</td></tr>
+            <tr><td><code>"general": { "ipGeolocation": true }</code></td><td>Look up your location from your IP address (off by default).</td></tr>
+          </table>
+        </div>
+
+        <h2 id="faq" style="margin-top:48px">Troubleshooting</h2>
+        <details>
+          <summary>"MuhOS (Hyprland)" isn't on the login screen</summary>
+          <p>Check that Hyprland installed: it comes from the COPR enabled in the install steps. Run <code>rpm -q hyprland muhos</code>.</p>
+        </details>
+        <details>
+          <summary>Apps look like GNOME in dark mode</summary>
+          <p>That's expected for now. WhiteSur's dark theme doesn't render GNOME 50 apps correctly, so in dark mode apps use GNOME's own dark style. If you switch Dark Style while apps use WhiteSur, they change at your next login.</p>
+        </details>
+        <details>
+          <summary>Firefox doesn't look like the other apps</summary>
+          <p>Firefox draws its own interface, so GTK themes don't style it.</p>
+        </details>
+        <details>
+          <summary>Something looks wrong or the shell crashed</summary>
+          <p>These commands show what happened. Please include their output when you <a href="https://github.com/Alex-Muhscience/MuhOS/issues/new/choose">report a bug</a>:</p>
+          <pre data-copy><code>journalctl --user -u muhos-shell -b             <span class="comment"># shell logs</span>
+systemctl --user status muhos-session.target    <span class="comment"># is the session running?</span>
+Hyprland --verify-config -c ~/.config/muhos/hypr/hyprland.lua
+muhos reload                                     <span class="comment"># restart the shell's interface</span></code></pre>
+        </details>
+        <details>
+          <summary>Does MuhOS change my GNOME session?</summary>
+          <p>No. MuhOS keeps its own app settings (theme, icons, font, window buttons) in a separate profile that's only used in the MuhOS session, and clears it when you log out.</p>
+        </details>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div>
+        <h4>MuhOS</h4>
+        <p>A Fedora-focused fork of <a href="https://github.com/ilyamiro/serpantinum">Serpantinum</a> by Illia Miroshnichenko. Free software under the AGPL-3.0.</p>
+        <p>Not affiliated with Apple, the GNOME Foundation or the Fedora Project.</p>
+      </div>
+      <div>
+        <h4>Get it</h4>
+        <ul>
+          <li><a href="download.html">Download</a></li>
+          <li><a href="https://github.com/Alex-Muhscience/MuhOS/releases">All releases</a></li>
+          <li><a href="docs.html">Docs</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Community</h4>
+        <ul>
+          <li><a href="https://github.com/Alex-Muhscience/MuhOS/discussions">Discussions</a></li>
+          <li><a href="https://github.com/Alex-Muhscience/MuhOS/issues">Report a bug</a></li>
+          <li><a href="contribute.html">Contribute</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Source</h4>
+        <ul>
+          <li><a href="https://github.com/Alex-Muhscience/MuhOS">GitHub</a></li>
+          <li><a href="https://github.com/Alex-Muhscience/MuhOS/blob/main/LICENSE.md">Licence</a></li>
+          <li><a href="https://github.com/Alex-Muhscience/MuhOS/blob/main/ASSETS.md">Asset licences</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+  <script src="main.js" defer></script>
+</body>
+</html>

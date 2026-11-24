@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Download MuhOS</title>
+  <meta name="description" content="Download and install MuhOS on Fedora 44: ready-made RPM packages, checksums and step-by-step instructions.">
+  <link rel="icon" href="muhos-tile.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav class="nav" aria-label="Main">
+    <div class="wrap">
+      <a class="brand" href="./"><img src="muhos-tile.svg" alt=""><span>MuhOS</span></a>
+      <ul>
+        <li><a href="./" class="hide-small">Overview</a></li>
+        <li><a href="docs.html">Docs</a></li>
+        <li><a href="contribute.html">Contribute</a></li>
+        <li><a class="cta" href="download.html" aria-current="page">Download</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+    <header class="hero narrow" style="padding-bottom:24px">
+      <h1>Download MuhOS</h1>
+      <p class="lead">Ready-made packages for Fedora 44 Workstation (x86_64). Installing takes a few minutes; then you choose MuhOS when you log in.</p>
+    </header>
+
+    <section style="padding-top:0">
+      <div class="narrow">
+        <div class="release" id="release">
+          <div>
+            <div class="version">Latest release</div>
+            <div class="meta">See all versions on GitHub</div>
+          </div>
+          <a class="btn primary" href="https://github.com/Alex-Muhscience/MuhOS/releases">Release page</a>
+        </div>
+
+        <h2 id="files-heading" hidden style="font-size:24px">Files in this release</h2>
+        <ul class="files" id="files"></ul>
+
+        <div class="callout">
+          <strong>MuhOS is a pre-release.</strong> It's ready for testing and daily use by people who are comfortable reporting problems. It has been tested in Fedora virtual machines but not yet on a wide range of hardware.
+        </div>
+
+        <h2 style="margin-top:48px">Before you start</h2>
+        <div class="table-wrap">
+          <table>
+            <tr><th>System</th><td>Fedora 44 Workstation, x86_64</td></tr>
+            <tr><th>Login screen</th><td>GDM (Fedora's default). MuhOS adds itself as a choice; GNOME stays available.</td></tr>
+            <tr><th>Compositor</th><td>Hyprland 0.56, from the <a href="https://copr.fedorainfracloud.org/coprs/lionheartp/Hyprland/"><code>lionheartp/Hyprland</code></a> COPR (step 2)</td></tr>
+            <tr><th>Graphics</th><td>Any GPU that Hyprland supports</td></tr>
+          </table>
+        </div>
+
+        <h2 style="margin-top:48px">Install</h2>
+        <ol class="steps">
+          <li>
+            <h3>Download the packages</h3>
+            <p>From the <a href="https://github.com/Alex-Muhscience/MuhOS/releases">latest release</a>, download every <code>.noarch.rpm</code> and <code>.x86_64.rpm</code> file, plus <code>SHA256SUMS</code>, into one folder. You don't need the <code>.src.rpm</code> files unless you want to build from source.</p>
+          </li>
+          <li>
+            <h3>Open a terminal in that folder and install</h3>
+            <pre data-copy><code>cd ~/Downloads
+sha256sum --check --ignore-missing SHA256SUMS   <span class="comment"># every file should say OK</span>
+sudo dnf copr enable lionheartp/Hyprland
+sudo dnf install ./muhos-*.noarch.rpm ./quickshell-*.x86_64.rpm ./matugen-*.x86_64.rpm ./whitesur-*.noarch.rpm</code></pre>
+            <p>dnf will note that the packages aren't signed yet; the checksums are how you verify them for now.</p>
+          </li>
+          <li>
+            <h3>Log in to MuhOS</h3>
+            <p>Log out. On the login screen, click your name, then the gear button at the bottom right, choose <strong>MuhOS (Hyprland)</strong>, and sign in. The first start shows a short welcome.</p>
+          </li>
+        </ol>
+
+        <h2 style="margin-top:24px">Updating</h2>
+        <p>Download the new release and run the same <code>sudo dnf install</code> command. Your settings are kept.</p>
+
+        <h2 style="margin-top:36px">Uninstalling</h2>
+        <pre data-copy><code>sudo dnf remove muhos whitesur-gtk-theme whitesur-icon-theme
+rm -r ~/.config/muhos ~/.config/dconf/muhos                <span class="comment"># optional: MuhOS settings</span>
+rm -r ~/.config/serpantinum ~/.local/state/serpantinum     <span class="comment"># optional: shell settings</span></code></pre>
+        <p>MuhOS never changes your GNOME setup or other configuration, so nothing else needs restoring.</p>
+
+        <h2 style="margin-top:36px">Build it yourself</h2>
+        <p>Every release includes source RPMs, and the whole build is in the repository. See <a href="https://github.com/Alex-Muhscience/MuhOS#build-it-yourself">Build it yourself</a> in the README.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div>
+        <h4>MuhOS</h4>
+        <p>A Fedora-focused fork of <a href="https://github.com/ilyamiro/serpantinum">Serpantinum</a> by Illia Miroshnichenko. Free software under the AGPL-3.0.</p>
+        <p>Not affiliated with Apple, the GNOME Foundation or the Fedora Project.</p>
+      </div>
+      <div>
+        <h4>Get it</h4>
+        <ul>
+          <li><a href="download.html">Download</a></li>
+          <li><a href="https://github.com/Alex-Muhscience/MuhOS/releases">All releases</a></li>
+          <li><a href="docs.html">Docs</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Community</h4>
+        <ul>
+          <li><a href="https://github.com/Alex-Muhscience/MuhOS/discussions">Discussions</a></li>
+          <li><a href="https://github.com/Alex-Muhscience/MuhOS/issues">Report a bug</a></li>
+          <li><a href="contribute.html">Contribute</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Source</h4>
+        <ul>
+          <li><a href="https://github.com/Alex-Muhscience/MuhOS">GitHub</a></li>
+          <li><a href="https://github.com/Alex-Muhscience/MuhOS/blob/main/LICENSE.md">Licence</a></li>
+          <li><a href="https://github.com/Alex-Muhscience/MuhOS/blob/main/ASSETS.md">Asset licences</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+  <script src="main.js" defer></script>
+</body>
+</html>
