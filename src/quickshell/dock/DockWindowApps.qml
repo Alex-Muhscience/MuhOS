@@ -439,6 +439,18 @@ DockWindowState {
         }
     }
 
+    function isMinimizedWindow(w) {
+        return String(w.workspaceLabel || "") === "special:minimized";
+    }
+
+    // Windows offered by the dock's window picker (previews and the app
+    // menu): everything the app has open except minimized ones, which live
+    // on Hyprland's hidden workspace and have nothing to show.
+    function windowsForPicker(info) {
+        if (!info) return [];
+        return (info.here || []).concat(info.elsewhere || []).filter(w => !dockWindow.isMinimizedWindow(w));
+    }
+
     function activateOrLaunch(desktopId, modifiers) {
         if (!desktopId) return;
 
@@ -458,11 +470,10 @@ DockWindowState {
         // workspace. They are never focused in place (that would open the
         // hidden workspace); when all of the app's windows are minimized, a
         // click brings one back, as on macOS.
-        const isMin = w => String(w.workspaceLabel || "") === "special:minimized";
-        const minimized = (info.here || []).concat(info.elsewhere || []).filter(isMin);
+        const minimized = (info.here || []).concat(info.elsewhere || []).filter(w => dockWindow.isMinimizedWindow(w));
         info = Object.assign({}, info, {
-            here: (info.here || []).filter(w => !isMin(w)),
-            elsewhere: (info.elsewhere || []).filter(w => !isMin(w))
+            here: (info.here || []).filter(w => !dockWindow.isMinimizedWindow(w)),
+            elsewhere: (info.elsewhere || []).filter(w => !dockWindow.isMinimizedWindow(w))
         });
         if (info.here.length === 0 && info.elsewhere.length === 0) {
             if (minimized.length > 0) MuhosState.restoreWindow(minimized[0].nativeId);

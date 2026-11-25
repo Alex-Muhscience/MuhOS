@@ -441,8 +441,13 @@ Item {
         if (typeof Hyprland !== "undefined") {
             if (Hyprland.usingLua !== false) {
                 Hyprland.dispatch("hl.dsp.focus({ window = \"" + addr + "\" })");
+                // Focus alone does not always raise the window (e.g. floating
+                // or just-unminimised ones); bring it to the top as well, like
+                // Mission Control does.
+                Hyprland.dispatch("hl.dsp.window.bring_to_top({ window = \"" + addr + "\" })");
             } else {
                 Hyprland.dispatch("focuswindow " + addr);
+                Quickshell.execDetached(["hyprctl", "dispatch", "bringactivetotop"]);
             }
             return;
         }

@@ -456,11 +456,6 @@ Item {
                     let globX = pt.x + (dockButton.width / 2);
                     let globY = pt.y + (dockButton.height / 2);
                     let info = dockWindow.getRunningInfoForApp(model.desktop_id);
-                    let winList = [];
-                    if (info) {
-                        if (info.here) winList = winList.concat(info.here);
-                        if (info.elsewhere) winList = winList.concat(info.elsewhere);
-                    }
                     DockAppMenuController.toggle(
                         dockWindow.screen,
                         globX,
@@ -470,23 +465,31 @@ Item {
                         model.name || (info ? info.appId : ""),
                         model.icon || "",
                         true,
-                        winList,
+                        dockWindow.windowsForPicker(info),
                         dockButton.width
                     );
                     return;
                 }
 
                 if (mouse.button === Qt.LeftButton) {
+                    let info = dockWindow.getRunningInfoForApp(model.desktop_id);
+                    let winList = dockWindow.windowsForPicker(info);
+                    let forceNew = mouse.modifiers && (mouse.modifiers & Qt.ShiftModifier || mouse.modifiers & Qt.ControlModifier);
+
+                    // GNOME-style: clicking the icon whose window previews
+                    // are open just closes them.
+                    if (typeof DockWindowPreviewsController !== "undefined" && DockWindowPreviewsController.isVisible) {
+                        if (DockWindowPreviewsController.isSameApp(DockWindowPreviewsController.desktopId, model.desktop_id)) {
+                            DockWindowPreviewsController.hide();
+                            return;
+                        }
+                        DockWindowPreviewsController.hide();
+                    }
+
                     if (typeof DockAppMenuController !== "undefined" && DockAppMenuController.isVisible && !DockAppMenuController.isSameApp(DockAppMenuController.desktopId, model.desktop_id)) {
                         let pt = dockButton.mapToItem(null, 0, 0);
                         let globX = pt.x + (dockButton.width / 2);
                         let globY = pt.y + (dockButton.height / 2);
-                        let info = dockWindow.getRunningInfoForApp(model.desktop_id);
-                        let winList = [];
-                        if (info) {
-                            if (info.here) winList = winList.concat(info.here);
-                            if (info.elsewhere) winList = winList.concat(info.elsewhere);
-                        }
                         DockAppMenuController.show(
                             dockWindow.screen,
                             globX,
@@ -504,6 +507,25 @@ Item {
 
                     if (typeof DockAppMenuController !== "undefined" && DockAppMenuController.isVisible && DockAppMenuController.isSameApp(DockAppMenuController.desktopId, model.desktop_id)) {
                         DockAppMenuController.hide();
+                    }
+
+                    // Several windows: raise live previews above the icon so
+                    // the wanted window can be picked, as on GNOME's dash.
+                    if (!forceNew && typeof DockWindowPreviewsController !== "undefined" && winList.length > 1) {
+                        let pt = dockButton.mapToItem(null, 0, 0);
+                        let globX = pt.x + (dockButton.width / 2);
+                        let globY = pt.y + (dockButton.height / 2);
+                        DockWindowPreviewsController.show(
+                            dockWindow.screen,
+                            globX,
+                            globY,
+                            dockWindow.dockPosition,
+                            model.desktop_id,
+                            winList,
+                            dockButton.width
+                        );
+                        if (typeof Sounds !== "undefined") Sounds.playSfx("reusables/iconbutton/click.wav");
+                        return;
                     }
 
                     btnPopAnim.start();
