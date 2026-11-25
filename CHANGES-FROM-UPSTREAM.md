@@ -60,6 +60,7 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - Mission Control: every window on the workspace, side by side (c50fc20)
 - Menu bar: include centre modules in the window mask (308d212)
 - Dock: GNOME-style window previews and raise on focus (4a7bbc3)
+- Focus: raise with alter_zorder, bring_to_top takes no window (3f224e2)
 
 ## Fedora-specific
 
@@ -118,6 +119,8 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - muhos 0.1.0-1: first release (2ec2772)
 - Mission Control on Super+G and a three-finger swipe up (b1f186f)
 - muhos 0.1.1 (da961e4)
+- muhos 0.1.2 (2bcff15)
+- Windows: real cascade, restore to home workspace, raise fixes (7ef5671)
 
 ## MuhOS branding
 
@@ -137,6 +140,7 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - Website: a changelog page (45afae4)
 - Docs: Mission Control, moving apps in the grid, bar modules, translating (c4fee7c)
 - Website: no hard-coded version on the home page (e261012)
+- Docs: dock window previews, menu bar centre modules (b98de8a)
 
 ## Fork infrastructure
 
@@ -215,6 +219,7 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - Regenerate CHANGES-FROM-UPSTREAM.md (f729bb2)
 - Regenerate CHANGES-FROM-UPSTREAM.md (d3baeb0)
 - Regenerate CHANGES-FROM-UPSTREAM.md (0084efe)
+- Regenerate CHANGES-FROM-UPSTREAM.md (1286b58)
 
 ## Upstream files changed by MuhOS
 
