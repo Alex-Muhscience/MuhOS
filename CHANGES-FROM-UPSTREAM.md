@@ -58,6 +58,8 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - Translations for MuhOS's own wording; French first (08c94e3)
 - App grid: press and hold to move apps, as in Launchpad (d37e9c3)
 - Mission Control: every window on the workspace, side by side (c50fc20)
+- Menu bar: include centre modules in the window mask (308d212)
+- Dock: GNOME-style window previews and raise on focus (4a7bbc3)
 
 ## Fedora-specific
 
@@ -134,6 +136,7 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - Screenshots: current music window, app grid pages, Settings (69c1b89)
 - Website: a changelog page (45afae4)
 - Docs: Mission Control, moving apps in the grid, bar modules, translating (c4fee7c)
+- Website: no hard-coded version on the home page (e261012)
 
 ## Fork infrastructure
 
@@ -211,6 +214,7 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - Regenerate CHANGES-FROM-UPSTREAM.md (f50aa13)
 - Regenerate CHANGES-FROM-UPSTREAM.md (f729bb2)
 - Regenerate CHANGES-FROM-UPSTREAM.md (d3baeb0)
+- Regenerate CHANGES-FROM-UPSTREAM.md (0084efe)
 
 ## Upstream files changed by MuhOS
 
@@ -264,6 +268,7 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - `src/quickshell/notifications/types/Update.qml` (modified since 2026-10-18)
 - `src/quickshell/popouts/DockAppMenu.qml` (modified since 2026-10-18)
 - `src/quickshell/popouts/Osd.qml` (modified since 2026-10-18)
+- `src/quickshell/popouts/PopoutManager.qml` (modified since 2026-10-18)
 - `src/quickshell/qmldir` (modified since 2026-10-18)
 - `src/quickshell/reusables/buttons/IconButton.qml` (modified since 2026-10-18)
 - `src/quickshell/reusables/guide/SettingsRow.qml` (modified since 2026-10-18)
@@ -272,6 +277,7 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - `src/quickshell/singletons/audio/Sounds.qml` (modified since 2026-10-18)
 - `src/quickshell/singletons/system/FirstLaunch.qml` (modified since 2026-10-18)
 - `src/quickshell/singletons/system/Updater.qml` (modified since 2026-10-18)
+- `src/quickshell/singletons/system/WindowTracker.qml` (modified since 2026-10-18)
 - `src/quickshell/singletons/theme/ThemeBackend.qml` (modified since 2026-10-18)
 - `src/quickshell/volume/VolumePopup.qml` (modified since 2026-10-18)
 - `src/quickshell/wallpaper/WallpaperPicker.qml` (modified since 2026-10-18)
