@@ -2,15 +2,16 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 # MuhOS: apply MuhOS branding to the shell's language files, in place.
 #
-#   tools/brand-languages <languages-dir>
+#   tools/brand-languages <languages-dir> [<translations-dir>]
 #
 # Run by the RPM build on the installed copy (/usr/share/muhos/src/assets/
 # languages), so upstream's files stay untouched in the repository and upstream
 # syncs never conflict on them. In every string outside "installer.*" (the
 # upstream installer is not shipped), the product name Serpantinum becomes
 # MuhOS, and the command names serpantinum/serpantinumd become muhos/muhosd.
-# MuhOS-only keys (under "muhos.") are added in English; the shell falls back
-# to English for keys a language lacks.
+# MuhOS-only keys (under "muhos.") come from translations/muhos: en.json (all
+# of them, written by tools/muhos-strings) and <lang>.json for translations,
+# which may cover any subset; the shell falls back to English, key by key.
 
 import json
 import os
@@ -62,8 +63,28 @@ def walk(node, path):
     return node
 
 
+def merged(base, extra):
+    out = dict(base)
+    for key, value in extra.items():
+        if isinstance(value, dict) and isinstance(out.get(key), dict):
+            out[key] = merged(out[key], value)
+        else:
+            out[key] = value
+    return out
+
+
+def muhos_strings(translations, lang):
+    path = os.path.join(translations, lang + ".json")
+    if not os.path.isfile(path):
+        return None
+    with open(path, encoding="utf-8") as fh:
+        return json.load(fh)
+
+
 def main():
     directory = sys.argv[1]
+    translations = sys.argv[2] if len(sys.argv) > 2 else os.path.join(
+        os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "translations", "muhos")
     for name in sorted(os.listdir(directory)):
         if not name.endswith(".json"):
             continue
@@ -71,8 +92,12 @@ def main():
         with open(path, encoding="utf-8") as fh:
             data = json.load(fh)
         data = walk(data, ())
-        if name == "en.json":
-            data["muhos"] = dict(MUHOS_KEYS)
+        lang = name[:-len(".json")]
+        strings = muhos_strings(translations, lang)
+        if lang == "en":
+            data["muhos"] = merged(dict(MUHOS_KEYS), strings or {})
+        elif strings:
+            data["muhos"] = strings
         with open(path, "w", encoding="utf-8") as fh:
             json.dump(data, fh, ensure_ascii=False, indent=2)
             fh.write("\n")

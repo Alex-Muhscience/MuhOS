@@ -12,6 +12,8 @@ jobs:
       - uses: actions/checkout@v4
       - name: Asset inventory is current and fully classified
         run: python3 -I tools/asset-inventory --check
+      - name: MuhOS strings catalogue and translations
+        run: python3 -I tools/muhos-strings --check
 
   lint:
     runs-on: ubuntu-latest

@@ -1,0 +1,99 @@
+#!/usr/bin/env python3
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# MuhOS: collect MuhOS's own wording into translations/muhos/en.json, the
+# catalogue translators work from.
+#
+#   tools/muhos-strings           write translations/muhos/en.json
+#   tools/muhos-strings --check   fail if it is out of date (CI)
+#
+# MuhOS's QML looks its text up as "muhos.<section>.<key>" with the English
+# text as a fallback in the code:
+#     const k = "muhos.menu." + key ...   t("about", "About MuhOS")
+# This finds those pairs in src/quickshell/muhos, adds the flat keys from
+# tools/brand-languages (MUHOS_KEYS), and writes them as one JSON file.
+# Translations live next to it as <lang>.json (same structure, any subset of
+# the keys); tools/brand-languages merges them in at build time.
+
+import importlib.machinery
+import importlib.util
+import json
+import os
+import re
+import sys
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+QML_DIR = os.path.join(ROOT, "src", "quickshell", "muhos")
+OUT = os.path.join(ROOT, "translations", "muhos", "en.json")
+
+PREFIX = re.compile(r'const k = "muhos\.([a-z_]+)\." \+ key')
+# t("key", "Fallback"), win.t(...), root.t(...); fallbacks may contain \" escapes.
+CALL = re.compile(r'\bt\(\s*"([a-z0-9_]+)"\s*,\s*"((?:[^"\\]|\\.)*)"')
+
+
+def brand_keys():
+    path = os.path.join(ROOT, "tools", "brand-languages")
+    loader = importlib.machinery.SourceFileLoader("brand_languages", path)
+    spec = importlib.util.spec_from_loader("brand_languages", loader)
+    module = importlib.util.module_from_spec(spec)
+    loader.exec_module(module)
+    return dict(module.MUHOS_KEYS)
+
+
+def catalogue():
+    out = brand_keys()
+    for name in sorted(os.listdir(QML_DIR)):
+        if not name.endswith(".qml"):
+            continue
+        with open(os.path.join(QML_DIR, name), encoding="utf-8") as fh:
+            text = fh.read()
+        prefix = PREFIX.search(text)
+        if not prefix:
+            continue
+        section = out.setdefault(prefix.group(1), {})
+        for key, fallback in CALL.findall(text):
+            value = json.loads('"' + fallback + '"')
+            if section.get(key, value) != value:
+                sys.exit(f"{name}: muhos.{prefix.group(1)}.{key} has two different English texts")
+            section[key] = value
+    return {k: (dict(sorted(v.items())) if isinstance(v, dict) else v) for k, v in sorted(out.items())}
+
+
+def unknown_keys(english, translation, path=""):
+    for key, value in translation.items():
+        if key not in english:
+            yield path + key
+        elif isinstance(value, dict):
+            yield from unknown_keys(english[key], value, path + key + ".")
+
+
+def main():
+    english = catalogue()
+    text = json.dumps(english, ensure_ascii=False, indent=2) + "\n"
+    if "--check" in sys.argv[1:]:
+        failed = False
+        directory = os.path.dirname(OUT)
+        for name in sorted(os.listdir(directory)) if os.path.isdir(directory) else []:
+            if not name.endswith(".json") or name == "en.json":
+                continue
+            with open(os.path.join(directory, name), encoding="utf-8") as fh:
+                translation = json.load(fh)
+            for key in unknown_keys(english, translation):
+                print(f"translations/muhos/{name}: muhos.{key} is not in en.json", file=sys.stderr)
+                failed = True
+        try:
+            with open(OUT, encoding="utf-8") as fh:
+                current = fh.read()
+        except OSError:
+            current = ""
+        if current != text:
+            print("translations/muhos/en.json is out of date; run tools/muhos-strings", file=sys.stderr)
+            failed = True
+        return 1 if failed else 0
+    os.makedirs(os.path.dirname(OUT), exist_ok=True)
+    with open(OUT, "w", encoding="utf-8") as fh:
+        fh.write(text)
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
