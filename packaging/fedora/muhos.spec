@@ -4,7 +4,7 @@
 %global upstream_version 2.2.13
 
 Name:           muhos
-Version:        0.1.2
+Version:        0.1.3
 Release:        1%{?dist}
 Summary:        Desktop shell for Hyprland on Fedora, based on Serpantinum
 
@@ -240,6 +240,16 @@ dconf update &>/dev/null || :
 %ghost %verify(not md5 size mtime mode) %{_sysconfdir}/dconf/db/muhos
 
 %changelog
+* Wed Nov 25 2026 MuhOS contributors - 0.1.3-1
+- Windows cascade like Windows 11: each new window opens a step down and
+  right of the previous one, so several windows of the same app no longer
+  stack exactly on top of each other and look like one window
+- A window restored from the dock or the app menu returns to the
+  workspace it was minimised on, not always the first one
+- Clicking a window in the dock, the app menu or Mission Control really
+  raises it now: Hyprland 0.57's bring_to_top takes no window argument
+  and the call was failing
+
 * Wed Nov 25 2026 MuhOS contributors - 0.1.2-1
 - Dock: live window previews above the icon for apps with several windows;
   clicking one raises and focuses it, like the macOS dock
