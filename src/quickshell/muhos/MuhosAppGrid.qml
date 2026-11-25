@@ -24,7 +24,7 @@ PanelWindow {
     function iconFor(e) { return MuhosState.appIcon(e); }
     function launch(e) {
         if (!e) return;
-        e.execute();
+        MuhosState.launchEntry(e);
         Quickshell.execDetached(["python3", Caching.qsDir + "/launcher/app_rank.py", "--log-launch", "--name", e.name]);
         close();
     }

@@ -62,6 +62,8 @@ Requires:       pamixer
 Requires:       pipewire-utils
 Requires:       wireplumber
 Requires:       /usr/bin/notify-send
+# Apps are opened with gtk-launch, each in its own systemd scope.
+Requires:       /usr/bin/gtk-launch
 Requires:       NetworkManager
 Requires:       bluez
 Requires:       lm_sensors

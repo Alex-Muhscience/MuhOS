@@ -238,6 +238,24 @@ QtObject {
         return toplevel.title || "MuhOS";
     }
 
+    // Open an app in its own systemd scope (app-muhos-<id>-<n>.scope in
+    // app.slice), as GNOME does. Started directly, apps were children of the
+    // shell and lived in muhos-shell.service: their memory was counted as the
+    // shell's (a browser made the "shell" look like 8 GB), and stopping or
+    // restarting the shell (log out, a crash) took every app down with it.
+    // gtk-launch reads the desktop entry itself (field codes, D-Bus
+    // activation, flatpaks).
+    property int _launchCount: 0
+    function launchEntry(entry) {
+        if (!entry) return;
+        const id = String(entry.id || "").replace(/\.desktop$/, "");
+        if (!id) { entry.execute(); return; }
+        _launchCount++;
+        const unit = "app-muhos-" + id.replace(/[^A-Za-z0-9_.:-]/g, "_") + "-" + Date.now() + "-" + _launchCount + ".scope";
+        Quickshell.execDetached(["systemd-run", "--user", "--scope", "--quiet", "--collect",
+                                 "--slice=app.slice", "--unit=" + unit, "--", "gtk-launch", id]);
+    }
+
     // Dark style: the theme mode. With colours from the wallpaper (Matugen),
     // they are regenerated in the new mode. With a fixed colour preset (the
     // default, "macOS"), the preset's light or dark counterpart is applied

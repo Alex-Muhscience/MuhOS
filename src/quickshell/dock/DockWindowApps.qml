@@ -432,9 +432,9 @@ DockWindowState {
             let id = String(desktopId || "").replace(/\.desktop$/, "");
             let entry = DesktopEntries.byId(id) || DesktopEntries.byId(desktopId) || DesktopEntries.heuristicLookup(id);
             if (entry) {
-                entry.execute();
+                MuhosState.launchEntry(entry);
             } else if (id) {
-                Quickshell.execDetached(["gtk-launch", id]);
+                MuhosState.launchEntry({ id: id });
             }
         }
     }

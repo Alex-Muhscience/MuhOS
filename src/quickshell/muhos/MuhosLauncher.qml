@@ -226,7 +226,7 @@ PanelWindow {
         if (it.kind === "app") {
             const e = DesktopEntries.byId(it.payload);
             if (!e) return;
-            e.execute();
+            MuhosState.launchEntry(e);
             Quickshell.execDetached(["python3", Caching.qsDir + "/launcher/app_rank.py", "--log-launch", "--name", e.name]);
         } else if (it.kind === "calc") {
             Quickshell.execDetached(["wl-copy", it.payload]);

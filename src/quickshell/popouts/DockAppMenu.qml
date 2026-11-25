@@ -259,7 +259,7 @@ PanelWindow {
                                     }
                                 } else if (typeof DesktopEntries !== "undefined" && DockAppMenuController.desktopId) {
                                     let entry = DesktopEntries.byId(DockAppMenuController.desktopId);
-                                    if (entry) entry.execute();
+                                    if (entry) MuhosState.launchEntry(entry);
                                 }
                                 DockAppMenuController.hide();
                             }
@@ -431,7 +431,7 @@ PanelWindow {
                             onClicked: {
                                 if (typeof DesktopEntries !== "undefined" && DockAppMenuController.desktopId) {
                                     let entry = DesktopEntries.byId(DockAppMenuController.desktopId);
-                                    if (entry) entry.execute();
+                                    if (entry) MuhosState.launchEntry(entry);
                                 }
                                 DockAppMenuController.hide();
                             }
