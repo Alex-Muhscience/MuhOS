@@ -35,7 +35,7 @@ PanelWindow {
         close();
         t.wayland.activate();
         Quickshell.execDetached(["hyprctl", "dispatch",
-            'hl.dsp.window.bring_to_top({ window = "address:0x' + String(t.address).replace(/^0x/, "") + '" })']);
+            'hl.dsp.window.alter_zorder({ mode = "top", window = "address:0x' + String(t.address).replace(/^0x/, "") + '" })']);
     }
 
     onShownChanged: {

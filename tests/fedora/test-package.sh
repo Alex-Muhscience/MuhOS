@@ -93,7 +93,8 @@ check "nothing points at Serpantinum's releases" bash -c '! grep -rq "ilyamiro/s
 check "updater offline in background" bash -c 'python3 -I /usr/share/muhos/src/scripts/updater.py --state-dir /tmp/u --background | grep -q "\"has_update\": false"'
 check "dock shows open apps for new users" bash -c "jq -e '.dock.showRunningApps == true' /usr/share/muhos/defaults/settings.json"
 check "dock window previews shipped" grep -q 'DockWindowPreviews' /usr/share/muhos/src/quickshell/qmldir
-check "focus raises the window" grep -q 'bring_to_top' /usr/share/muhos/src/quickshell/singletons/system/WindowTracker.qml
+check "focus raises the window" grep -q 'alter_zorder' /usr/share/muhos/src/quickshell/singletons/system/WindowTracker.qml
+check "windows cascade like Windows 11" grep -q 'muhos_cascade' /usr/share/muhos/hypr/config/muhos.lua
 check "menu bar centre modules masked" grep -q 'centerModules' /usr/share/muhos/src/quickshell/muhos/MuhosBar.qml
 check "no kitty pin for new users" bash -c "! jq -e '.dock.apps[] | select(.desktop_id == \"kitty\")' /usr/share/muhos/defaults/settings.json"
 check "file chooser helper installed" test -f /usr/share/muhos/src/quickshell/muhos/pick_file.py

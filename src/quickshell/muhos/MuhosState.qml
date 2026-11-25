@@ -204,12 +204,14 @@ QtObject {
     }
 
     // Minimize and restore (Hyprland config: window.minimize moves a window to
-    // the hidden workspace "special:minimized").
+    // the hidden workspace "special:minimized"). Restore goes through the
+    // compositor's muhos_restore_window so the window returns to the
+    // workspace it was minimized from, not always the first one.
     function minimizeWindow(toplevel) { if (toplevel) toplevel.minimized = true; }
     function restoreWindow(address) {
         if (!address) return;
-        const a = String(address).startsWith("0x") ? String(address) : "0x" + address;
-        Quickshell.execDetached(["hyprctl", "dispatch", 'hl.dsp.window.move({ workspace = "e+0", window = "address:' + a + '" })']);
+        const a = String(address).replace(/^address:/, "").replace(/^0x/i, "");
+        Quickshell.execDetached(["hyprctl", "eval", 'muhos_restore_window("0x' + a + '")']);
     }
 
     // An app's icon: a theme icon name or a file path (some apps, e.g. ones in
