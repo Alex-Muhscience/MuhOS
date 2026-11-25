@@ -238,23 +238,93 @@ QtObject {
         return toplevel.title || "MuhOS";
     }
 
-    // Dark style: the theme mode, regenerated from the current wallpaper.
+    // Dark style: the theme mode. With colours from the wallpaper (Matugen),
+    // they are regenerated in the new mode. With a fixed colour preset (the
+    // default, "macOS"), the preset's light or dark counterpart is applied
+    // instead ("macOS" <-> "macOS Dark", "GitHub Light" <-> "GitHub Dark"):
+    // Matugen ignores requests for fixed presets, so the switch used to save
+    // the mode and change nothing.
     readonly property bool darkStyle: (Config.getSetting("theme", {}).mode || "dark") === "dark"
     function setDarkStyle(on) {
         const mode = on ? "dark" : "light";
-        Config.setSetting("theme.mode", mode);
         // Apps follow too, but only through MuhOS's own dconf profile (set by
         // muhos-session), never the user's GNOME settings, and only while no
         // GTK_THEME is forced: WhiteSur breaks under the dark colour scheme, so
         // a session started light switches its apps at the next login.
         if (Quickshell.env("DCONF_PROFILE") === "muhos" && !Quickshell.env("GTK_THEME"))
             Quickshell.execDetached(["gsettings", "set", "org.gnome.desktop.interface", "color-scheme", on ? "prefer-dark" : "default"]);
+        // MuhOS's wallpapers come in light and dark versions (name-light.jpg,
+        // name-dark.jpg): switch to the one for the new mode if it exists.
+        let current = "";
+        const paths = Wallpaper.screenWallpaperPaths || {};
+        for (const k in paths) { if (paths[k]) { current = paths[k]; break; } }
+        const pair = String(current).replace(/-(light|dark)(\.[A-Za-z0-9]+)$/, "-" + mode + "$2");
+        if (current && pair !== current) {
+            _wallPair.path = pair;
+            _wallPair.command = ["test", "-r", pair];
+            _wallPair.running = true;
+        }
+        const theme = Config.getSetting("theme", {});
+        if (theme.matugen === false && theme.activePreset) {
+            const names = presetCounterparts(theme.activePreset, mode);
+            if (names.length > 0) {
+                _presetRead.mode = mode;
+                _presetRead.command = ["bash", "-c",
+                    'for n in "$@"; do f="$0/$n.json"; [ -r "$f" ] && { cat "$f"; exit 0; }; done; exit 1',
+                    Caching.serpantinumDir + "/assets/themes"].concat(names);
+                _presetRead.running = true;
+                return;
+            }
+            // No counterpart: keep the preset's colours, change only the mode.
+            Config.setSetting("theme.mode", mode);
+            if (typeof Matugen !== "undefined") Matugen.generateFromStatic(theme.colors, mode);
+            return;
+        }
+        Config.setSetting("theme.mode", mode);
         let wall = Matugen.lastWallpaper;
         if (!wall) {
             const paths = Wallpaper.screenWallpaperPaths || {};
             for (const k in paths) { if (paths[k]) { wall = paths[k]; break; } }
         }
         if (wall) Matugen.generate(wall, mode);
+    }
+    // Names to try for a preset's counterpart in the given mode, best first.
+    function presetCounterparts(name, mode) {
+        const base = String(name).replace(/\s*\((Dark|Light)\)$/i, "").replace(/\s+(Dark|Light)$/i, "");
+        const out = mode === "dark"
+            ? [base + " Dark", base + " (Dark)"]
+            : [base + " Light", base + " (Light)", base];
+        return out;
+    }
+    readonly property Process _wallPair: Process {
+        property string path: ""
+        onExited: (code) => { if (code === 0 && path) Wallpaper.setWallpaper("all", path, "fade"); }
+    }
+    readonly property Process _presetRead: Process {
+        property string mode: "dark"
+        stdout: StdioCollector {
+            onStreamFinished: {
+                let preset = null;
+                try { preset = JSON.parse(this.text); } catch (e) { preset = null; }
+                const mode = root._presetRead.mode;
+                const theme = Config.getSetting("theme", {});
+                if (!preset || !preset.colors) {
+                    // Counterpart not found: change only the mode.
+                    Config.setSetting("theme.mode", mode);
+                    if (typeof Matugen !== "undefined") Matugen.generateFromStatic(theme.colors, mode);
+                    return;
+                }
+                // As the Settings theme picker applies a preset.
+                theme.activePreset = preset.name;
+                theme.matugen = false;
+                theme.colors = preset.colors;
+                theme.mode = mode;
+                Config.setSetting("theme", theme);
+                if (typeof ThemeBackend !== "undefined" && typeof ThemeBackend.applyColorObject === "function")
+                    ThemeBackend.applyColorObject(preset.colors);
+                if (typeof Matugen !== "undefined") Matugen.generateFromStatic(preset.colors, mode);
+            }
+        }
     }
 
     // Brightness (upstream scripts/brightness.sh; hidden without a backlight or DDC)
