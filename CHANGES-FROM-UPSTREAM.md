@@ -121,6 +121,7 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - muhos 0.1.1 (da961e4)
 - muhos 0.1.2 (2bcff15)
 - Windows: real cascade, restore to home workspace, raise fixes (7ef5671)
+- muhos 0.1.3 (5af418f)
 
 ## MuhOS branding
 
@@ -220,6 +221,7 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - Regenerate CHANGES-FROM-UPSTREAM.md (d3baeb0)
 - Regenerate CHANGES-FROM-UPSTREAM.md (0084efe)
 - Regenerate CHANGES-FROM-UPSTREAM.md (1286b58)
+- Regenerate CHANGES-FROM-UPSTREAM.md (33bb1e4)
 
 ## Upstream files changed by MuhOS
 
