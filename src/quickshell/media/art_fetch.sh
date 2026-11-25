@@ -14,6 +14,22 @@ TITLE="$3"
 ARTIST="$4"
 
 CLEAN_URL="$RAW_URL"
+# MuhOS: a cover given inline as a data: URI (art embedded in the file, e.g.
+# from mpv-mpris). The shell passes only "data:" (the URI can be megabytes);
+# ask the player for it and write the image to a file, then use that file.
+if [[ "$RAW_URL" == data:* ]]; then
+    inline="$(playerctl -p "${PLAYER_ID#org.mpris.MediaPlayer2.}" metadata mpris:artUrl 2>/dev/null)"
+    RAW_URL=""
+    CLEAN_URL=""
+    if [[ "$inline" == data:*\;base64,* ]]; then
+        inline_file="$TMP_DIR/inline_$(printf '%s' "$inline" | md5sum | cut -d" " -f1)"
+        [ -s "$inline_file" ] || printf '%s' "${inline#*;base64,}" | base64 -d > "$inline_file" 2>/dev/null
+        if [ -s "$inline_file" ]; then
+            CLEAN_URL="$inline_file"
+            RAW_URL="file://$inline_file"
+        fi
+    fi
+fi
 if [[ "$RAW_URL" == file://* ]]; then
     CLEAN_URL="${RAW_URL#file://}"
     CLEAN_URL="$(printf '%b' "${CLEAN_URL//%/\\x}")"
@@ -262,6 +278,16 @@ else
     WP_INSPECT=$(timeout 0.4 wpctl inspect @DEFAULT_AUDIO_SINK@ 2>/dev/null)
     NODE_NAME=$(echo "$WP_INSPECT" | awk -F'"' '/node\.name/ {print $2; exit}')
     NODE_DESC=$(echo "$WP_INSPECT" | awk -F'"' '/node\.description/ {print $2; exit}')
+    # MuhOS: the equaliser (eq_engine.py) is a filter, not an output; name the
+    # device it plays through, if any.
+    EQ_ONLY=false
+    if [[ "$NODE_NAME" == serpantinum_eq* ]]; then
+        target=$(pw-link -l 2>/dev/null | awk '/^serpantinum_eq\.output:/ { getline; sub(/^[[:space:]]*\|->[[:space:]]*/, ""); sub(/:[^:]*$/, ""); print; exit }')
+        NODE_NAME="$target"
+        NODE_DESC=""
+        [ -n "$target" ] && NODE_DESC=$(pw-dump 2>/dev/null | jq -r --arg n "$target" 'first(.[] | select(.info.props["node.name"]? == $n) | .info.props["node.description"] // empty)' 2>/dev/null)
+        [ -z "$target" ] && EQ_ONLY=true
+    fi
 
     DEV_ICON="󰓃"; DEV_NAME="Speaker"
     if [[ "$NODE_NAME" == *"bluez"* ]]; then
@@ -274,6 +300,7 @@ else
     elif [ -n "$NODE_DESC" ]; then
         DEV_NAME="$NODE_DESC"
     fi
+    $EQ_ONLY && DEV_NAME="No output device"
 
     jq -n -c --arg icon "$DEV_ICON" --arg name "$DEV_NAME" --argjson ts "$NOW_TS" \
         '{icon: $icon, name: $name, ts: $ts}' > "$DEVICE_CACHE" 2>/dev/null

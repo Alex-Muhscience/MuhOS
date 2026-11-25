@@ -147,7 +147,10 @@ Singleton {
             "bash",
             Caching.qsDir + "/media/art_fetch.sh",
             root.activePlayerId,
-            root.currentArtUrl,
+            // MuhOS: a cover given inline as a data: URI (mpv-mpris and others,
+            // for art embedded in the file) can be megabytes, over the kernel's
+            // 128 KiB limit for one argument; art_fetch.sh asks the player for it.
+            root.currentArtUrl.startsWith("data:") ? "data:" : root.currentArtUrl,
             root.trackTitle,
             root.trackArtist
         ]
