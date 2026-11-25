@@ -187,6 +187,24 @@ Variants {
                     visible: !MuhosStyle.macLayout
                     lightWallpaper: win.lightWallpaper
                 }
+                // Modules chosen for the left in Settings > Bar.
+                MuhosBarModules {
+                    anchors.verticalCenter: parent.verticalCenter
+                    side: "left"
+                    barScreen: win.screen
+                    lightWallpaper: win.lightWallpaper
+                }
+            }
+
+            // Modules chosen for the centre in Settings > Bar (macOS layout; the
+            // hybrid layout's centre is the clock island, so they go right).
+            MuhosBarModules {
+                visible: MuhosStyle.macLayout && moduleIds.length > 0
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.verticalCenter: parent.verticalCenter
+                side: "center"
+                barScreen: win.screen
+                lightWallpaper: win.lightWallpaper
             }
 
             Row {
@@ -196,6 +214,20 @@ Variants {
                 anchors.verticalCenter: parent.verticalCenter
                 spacing: MuhosStyle.s(2)
 
+                MuhosBarModules {
+                    visible: !MuhosStyle.macLayout && moduleIds.length > 0
+                    anchors.verticalCenter: parent.verticalCenter
+                    side: "center"
+                    barScreen: win.screen
+                    lightWallpaper: win.lightWallpaper
+                }
+                // Modules chosen for the right in Settings > Bar.
+                MuhosBarModules {
+                    anchors.verticalCenter: parent.verticalCenter
+                    side: "right"
+                    barScreen: win.screen
+                    lightWallpaper: win.lightWallpaper
+                }
                 BarTray {
                     anchors.verticalCenter: parent.verticalCenter
                     barWindow: win

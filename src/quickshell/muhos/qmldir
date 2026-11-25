@@ -16,6 +16,7 @@ MuhosOsd 1.0 MuhosOsd.qml
 MuhosLockScreen 1.0 MuhosLockScreen.qml
 NotificationCentre 1.0 NotificationCentre.qml
 MuhosBar 1.0 MuhosBar.qml
+MuhosBarModules 1.0 MuhosBarModules.qml
 singleton MuhosStyle 1.0 MuhosStyle.qml
 singleton MuhosCommands 1.0 MuhosCommands.qml
 singleton MuhosState 1.0 MuhosState.qml
