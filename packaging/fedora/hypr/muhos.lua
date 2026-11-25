@@ -129,3 +129,10 @@ end)
 hl.unbind(mainMod .. " + M")
 hl.bind(mainMod .. " + M", function() muhos_minimize(hl.get_active_window()) end)
 hl.bind(mainMod .. " + SHIFT + M", hl.dsp.exec_cmd("serpantinum msg toggle music"))
+
+-- Mission Control, as on macOS: every window on the workspace side by side.
+-- Super+G, or swipe up with three fingers.
+hl.bind(mainMod .. " + G", hl.dsp.exec_cmd("serpantinum ipc call muhos missionControl"))
+hl.gesture({ fingers = 3, direction = "up", action = {
+  finish = function() hl.dispatch(hl.dsp.exec_cmd("serpantinum ipc call muhos missionControl")) end,
+} })
