@@ -65,6 +65,7 @@ Variants {
         WlrLayershell.layer: WlrLayer.Top
         mask: Region {
             Region { item: leftGroup }
+            Region { item: centerModules.visible ? centerModules : null }
             Region { item: island }
             Region { item: rightGroup }
         }
@@ -199,6 +200,7 @@ Variants {
             // Modules chosen for the centre in Settings > Bar (macOS layout; the
             // hybrid layout's centre is the clock island, so they go right).
             MuhosBarModules {
+                id: centerModules
                 visible: MuhosStyle.macLayout && moduleIds.length > 0
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.verticalCenter: parent.verticalCenter
