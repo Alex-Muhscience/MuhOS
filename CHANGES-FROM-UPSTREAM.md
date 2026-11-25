@@ -51,6 +51,13 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - Dock: open pins stored with .desktop; bring minimized windows back (2b15dc8)
 - App grid in pages, as in Launchpad (00f0c75)
 - App grid: keep the dock above the grid (bab0f7d)
+- Dark Style works with colour presets, and swaps light/dark wallpapers (4122985)
+- Music: covers embedded in the file; the real output device (32dff5d)
+- Menu bar shows the modules chosen in Settings > Bar (1b722d9)
+- Open apps in their own systemd scopes, not inside the shell (a8c088e)
+- Translations for MuhOS's own wording; French first (08c94e3)
+- App grid: press and hold to move apps, as in Launchpad (d37e9c3)
+- Mission Control: every window on the workspace, side by side (c50fc20)
 
 ## Fedora-specific
 
@@ -107,6 +114,8 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - Zoom: an ordinary window filling the screen, not Hyprland's maximize (28c4ed6)
 - muhos 0.1.0-0.19: zoom as on macOS (440a0d9)
 - muhos 0.1.0-1: first release (2ec2772)
+- Mission Control on Super+G and a three-finger swipe up (b1f186f)
+- muhos 0.1.1 (da961e4)
 
 ## MuhOS branding
 
@@ -124,6 +133,7 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - Website and README: MuhOS 0.1.0 is the first release (8e96030)
 - Screenshots: current music window, app grid pages, Settings (69c1b89)
 - Website: a changelog page (45afae4)
+- Docs: Mission Control, moving apps in the grid, bar modules, translating (c4fee7c)
 
 ## Fork infrastructure
 
@@ -199,6 +209,7 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - Regenerate CHANGES-FROM-UPSTREAM.md (2407120)
 - Regenerate CHANGES-FROM-UPSTREAM.md (1a40ef8)
 - Regenerate CHANGES-FROM-UPSTREAM.md (f50aa13)
+- Regenerate CHANGES-FROM-UPSTREAM.md (f729bb2)
 
 ## Upstream files changed by MuhOS
 
@@ -247,13 +258,16 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - `src/quickshell/launcher/Launcher.qml` (modified since 2026-10-18)
 - `src/quickshell/lock/LockSurface.qml` (modified since 2026-10-18)
 - `src/quickshell/media/MusicEqualizerState.qml` (modified since 2026-10-18)
+- `src/quickshell/media/art_fetch.sh` (modified since 2026-10-18)
 - `src/quickshell/media/equalizer.sh` (modified since 2026-10-18)
 - `src/quickshell/notifications/types/Update.qml` (modified since 2026-10-18)
+- `src/quickshell/popouts/DockAppMenu.qml` (modified since 2026-10-18)
 - `src/quickshell/popouts/Osd.qml` (modified since 2026-10-18)
 - `src/quickshell/qmldir` (modified since 2026-10-18)
 - `src/quickshell/reusables/buttons/IconButton.qml` (modified since 2026-10-18)
 - `src/quickshell/reusables/guide/SettingsRow.qml` (modified since 2026-10-18)
 - `src/quickshell/serp/Start.qml` (modified since 2026-10-18)
+- `src/quickshell/singletons/audio/MprisController.qml` (modified since 2026-10-18)
 - `src/quickshell/singletons/audio/Sounds.qml` (modified since 2026-10-18)
 - `src/quickshell/singletons/system/FirstLaunch.qml` (modified since 2026-10-18)
 - `src/quickshell/singletons/system/Updater.qml` (modified since 2026-10-18)
