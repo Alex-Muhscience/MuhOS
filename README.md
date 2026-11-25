@@ -168,7 +168,8 @@ when you log in, and leaves GNOME exactly as it was.
   Down, Lock Screen, Log Out), then the focused app's name in bold (Full
   Screen, Quit). Right: the tray, search, network, volume and battery, and the
   date and time. Its text turns dark over light wallpapers and light over
-  dark ones, per screen.
+  dark ones, per screen. Extra modules chosen in Settings → Bar (system
+  monitor, weather, visualiser, media and so on) appear where you put them.
 - **Control centre.** Toggles for Wi-Fi (or Wired), Bluetooth, power mode,
   night light, dark style, do not disturb and the equaliser, with arrows into
   networks, Bluetooth devices and the equaliser; volume and brightness
@@ -179,7 +180,8 @@ when you log in, and leaves GNOME exactly as it was.
   opens the app grid.
 - **App grid.** Every installed app as a large icon over the blurred
   desktop, sorted by name, in pages as in Launchpad (swipe, scroll, the
-  page dots or the arrow keys turn them), with search. The dock stays visible above it, and
+  page dots or the arrow keys turn them), with search. Press and hold an
+  icon to move it. The dock stays visible above it, and
   opening an app closes it.
 
 <br clear="right">
@@ -287,6 +289,7 @@ part of MuhOS in detail.
 | <kbd>Super</kbd>+<kbd>Q</kbd> | Close the window |
 | <kbd>Super</kbd>+<kbd>M</kbd> | Minimise the window (the dock brings it back) |
 | <kbd>Super</kbd>+<kbd>Tab</kbd> or <kbd>Alt</kbd>+<kbd>Tab</kbd> | Next window (<kbd>Shift</kbd>: previous) |
+| <kbd>Super</kbd>+<kbd>G</kbd> or three fingers up | Mission Control: every window on the workspace |
 | <kbd>Super</kbd>+<kbd>T</kbd> or <kbd>Super</kbd>+<kbd>Shift</kbd>+<kbd>F</kbd> | Tile the window, or float it again |
 | <kbd>Super</kbd>+<kbd>Alt</kbd>+<kbd>F</kbd> | Maximise the window |
 | <kbd>Super</kbd>+drag | Move (left button) or resize (right button) a window |
