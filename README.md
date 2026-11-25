@@ -176,7 +176,9 @@ when you log in, and leaves GNOME exactly as it was.
   sliders (the volume arrow opens the Sound window: devices, inputs and
   per-app volume); screenshot, settings, lock and power buttons.
 - **Dock.** Frosted glass, icons magnify under the pointer, open apps get a
-  dot. Right-click an icon to pin or unpin it. The first icon, **Apps**,
+  dot. An app with several windows shows live previews of them above its
+  icon; click one to raise and focus it. Right-click an icon to pin or
+  unpin it. The first icon, **Apps**,
   opens the app grid.
 - **App grid.** Every installed app as a large icon over the blurred
   desktop, sorted by name, in pages as in Launchpad (swipe, scroll, the
