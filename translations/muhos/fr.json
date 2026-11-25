@@ -92,6 +92,9 @@
     "shut_down": "Éteindre",
     "sleep": "Suspendre l’activité"
   },
+  "mission": {
+    "none": "Aucune fenêtre ouverte"
+  },
   "notifications": {
     "clear_all": "Tout effacer",
     "dnd": "Ne pas déranger",

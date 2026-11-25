@@ -26,3 +26,4 @@ BarAppName 1.0 BarAppName.qml
 MuhosSwitch 1.0 MuhosSwitch.qml
 MuhosEqualizer 1.0 MuhosEqualizer.qml
 MuhosAppGrid 1.0 MuhosAppGrid.qml
+MuhosMissionControl 1.0 MuhosMissionControl.qml

@@ -21,6 +21,7 @@ QtObject {
     property bool equalizerOpen: false
     property bool appGridOpen: false
     property var appGridScreen: null
+    property bool missionControlOpen: false
     property var equalizerScreen: null
     // macOS-layout menu-bar menu: "logo", "app" or "" (closed), and where.
     property string barMenu: ""
@@ -33,6 +34,7 @@ QtObject {
         barMenu = "";
         equalizerOpen = false;
         appGridOpen = false;
+        missionControlOpen = false;
         // The wallpaper picker prepares thumbnails in the script first.
         if (target === "wallpaper" || arg) {
             Quickshell.execDetached(["bash", Caching.serpantinumDir + "/scripts/qs_manager.sh", "toggle", target].concat(arg ? [arg] : []));
@@ -50,6 +52,20 @@ QtObject {
         function notificationCentre(): void { root.toggleNotificationCentre(null); }
         function equalizer(): void { root.toggleEqualizer(null); }
         function appGrid(): void { root.toggleAppGrid(null); }
+        function missionControl(): void { root.toggleMissionControl(); }
+    }
+
+    // Mission Control: every window on the workspace, side by side.
+    function toggleMissionControl() {
+        if (!missionControlOpen) {
+            commandRequested("close", "", "");
+            controlCentreOpen = false;
+            notificationCentreOpen = false;
+            equalizerOpen = false;
+            appGridOpen = false;
+            barMenu = "";
+        }
+        missionControlOpen = !missionControlOpen;
     }
 
     // App grid (macOS's Apps / Launchpad).

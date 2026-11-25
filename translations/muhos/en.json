@@ -92,6 +92,9 @@
     "shut_down": "Shut Down",
     "sleep": "Sleep"
   },
+  "mission": {
+    "none": "No open windows"
+  },
   "notifications": {
     "clear_all": "Clear all",
     "dnd": "Do Not Disturb",
