@@ -4,7 +4,7 @@
 %global upstream_version 2.2.13
 
 Name:           muhos
-Version:        0.1.1
+Version:        0.1.2
 Release:        1%{?dist}
 Summary:        Desktop shell for Hyprland on Fedora, based on Serpantinum
 
@@ -240,6 +240,14 @@ dconf update &>/dev/null || :
 %ghost %verify(not md5 size mtime mode) %{_sysconfdir}/dconf/db/muhos
 
 %changelog
+* Wed Nov 25 2026 MuhOS contributors - 0.1.2-1
+- Dock: live window previews above the icon for apps with several windows;
+  clicking one raises and focuses it, like the macOS dock
+- Clicking a window in the dock, the app menu or Mission Control always
+  raises it, even when floating or just unminimised
+- Menu bar: centre modules chosen in Settings > Bar show colours and take
+  clicks again
+
 * Wed Nov 25 2026 MuhOS contributors - 0.1.1-1
 - Apps open in their own systemd scopes: they no longer count as the
   shell's memory or stop when the shell restarts or you log out
