@@ -4,7 +4,7 @@
 %global upstream_version 2.2.13
 
 Name:           muhos
-Version:        0.1.0
+Version:        0.1.1
 Release:        1%{?dist}
 Summary:        Desktop shell for Hyprland on Fedora, based on Serpantinum
 
@@ -240,6 +240,17 @@ dconf update &>/dev/null || :
 %ghost %verify(not md5 size mtime mode) %{_sysconfdir}/dconf/db/muhos
 
 %changelog
+* Wed Nov 25 2026 MuhOS contributors - 0.1.1-1
+- Apps open in their own systemd scopes: they no longer count as the
+  shell's memory or stop when the shell restarts or you log out
+- Menu bar shows the modules chosen in Settings > Bar
+- Dark Style works with colour presets (macOS <-> macOS Dark) and switches
+  MuhOS's light and dark wallpapers
+- Music: covers embedded in the file; names the real output device
+- Mission Control (Super+G, three fingers up)
+- App grid: press and hold to move apps
+- Translations for MuhOS's own wording; French
+
 * Wed Nov 25 2026 MuhOS contributors - 0.1.0-1
 - First release, the same software as 0.1.0-0.19 (pre-release 9)
 

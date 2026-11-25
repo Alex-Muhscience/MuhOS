@@ -77,6 +77,10 @@ check "terminal helper installed" test -x /usr/libexec/muhos/muhos-terminal
 check "Hyprland terminal is the helper, not kitty" grep -q 'muhos-terminal' /usr/share/muhos/hypr/config/variables.lua
 check "click to focus" grep -q 'follow_mouse = 2' /usr/share/muhos/hypr/config/muhos.lua
 check "zoom is a normal window, not Hyprland maximize" grep -q 'hl.on("window.fullscreen"' /usr/share/muhos/hypr/config/muhos.lua
+check "Mission Control on Super+G" grep -q 'missionControl' /usr/share/muhos/hypr/config/muhos.lua
+check "MuhOS strings translated (French)" grep -q 'Placer dans le Dock' /usr/share/muhos/src/assets/languages/fr.json
+check "MuhOS strings in English" grep -q '"minimize": "Minimize"' /usr/share/muhos/src/assets/languages/en.json
+check "apps open in their own scopes" grep -q 'app-muhos-' /usr/share/muhos/src/quickshell/muhos/MuhosState.qml
 check "minimize handled" grep -q 'window.minimize' /usr/share/muhos/hypr/config/muhos.lua
 check "logout detaches from the shell's service" grep -q 'SERPANTINUM_EXIT_DETACHED' /usr/share/muhos/src/scripts/system/exit.sh
 check "muhos-update installed" test -x /usr/bin/muhos-update
