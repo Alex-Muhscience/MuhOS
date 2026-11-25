@@ -443,8 +443,9 @@ Item {
                 Hyprland.dispatch("hl.dsp.focus({ window = \"" + addr + "\" })");
                 // Focus alone does not always raise the window (e.g. floating
                 // or just-unminimised ones); bring it to the top as well, like
-                // Mission Control does.
-                Hyprland.dispatch("hl.dsp.window.bring_to_top({ window = \"" + addr + "\" })");
+                // Mission Control does. bring_to_top takes no window argument
+                // on Hyprland 0.57, so alter_zorder is used instead.
+                Hyprland.dispatch("hl.dsp.window.alter_zorder({ mode = \"top\", window = \"" + addr + "\" })");
             } else {
                 Hyprland.dispatch("focuswindow " + addr);
                 Quickshell.execDetached(["hyprctl", "dispatch", "bringactivetotop"]);
