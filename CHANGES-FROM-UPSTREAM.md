@@ -142,6 +142,7 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - Docs: Mission Control, moving apps in the grid, bar modules, translating (c4fee7c)
 - Website: no hard-coded version on the home page (e261012)
 - Docs: dock window previews, menu bar centre modules (b98de8a)
+- Download counts on the website and README (0019258)
 
 ## Fork infrastructure
 
@@ -222,6 +223,7 @@ Base: upstream Serpantinum v2.2.13 (snapshot `muhos-upstream-v2.2.13`). Labels a
 - Regenerate CHANGES-FROM-UPSTREAM.md (0084efe)
 - Regenerate CHANGES-FROM-UPSTREAM.md (1286b58)
 - Regenerate CHANGES-FROM-UPSTREAM.md (33bb1e4)
+- Regenerate CHANGES-FROM-UPSTREAM.md (fc31180)
 
 ## Upstream files changed by MuhOS
 
