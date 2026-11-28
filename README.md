@@ -13,6 +13,7 @@
 <p align="center">
   <a href="https://github.com/Alex-Muhscience/MuhOS/actions/workflows/ci.yml"><img src="https://github.com/Alex-Muhscience/MuhOS/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
   <a href="https://github.com/Alex-Muhscience/MuhOS/releases"><img src="https://img.shields.io/github/v/release/Alex-Muhscience/MuhOS?include_prereleases&label=release&color=007aff" alt="Latest release"></a>
+  <a href="https://alex-muhscience.github.io/MuhOS/download.html"><img src="https://img.shields.io/endpoint?url=https%3A%2F%2Falex-muhscience.github.io%2FMuhOS%2Fdownloads-badge.json" alt="Downloads of the MuhOS package (one per installation or update)"></a>
   <img src="https://img.shields.io/badge/Fedora-44%20%7C%2045-51a2da?logo=fedora&logoColor=white" alt="Fedora 44 and 45">
   <img src="https://img.shields.io/badge/Hyprland-0.57-58e1ff" alt="Hyprland 0.57">
   <a href="LICENSE.md"><img src="https://img.shields.io/badge/license-AGPL--3.0--or--later-6a4fbf" alt="License: AGPL-3.0-or-later"></a>
@@ -324,6 +325,9 @@ Change or add shortcuts in `~/.config/muhos/hypr/user.lua` (see
 - No telemetry. Updates are checked against MuhOS's GitHub releases only
   when you open Settings or run `muhos-update`, or once a day if you chose
   the notify or auto update mode. Nothing about you is sent.
+- The download count on this page and the website is GitHub's own count of
+  release downloads: the MuhOS package, once per installation or update
+  (testing included). MuhOS itself reports nothing.
 - Your location isn't looked up automatically. The weather stays off until
   you set a location; forecasts then come from [Open-Meteo](https://open-meteo.com/).
   The Detect button does a one-time lookup through ipapi.co, and

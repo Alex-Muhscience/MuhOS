@@ -73,6 +73,27 @@ async function showRelease() {
 
 showRelease();
 
+// Download counts, published with the site once a day by tools/download-stats
+// (downloads of the MuhOS package: one per installation or update). Elements
+// marked data-downloads show the total; they stay hidden without the file.
+const downloadStats = (async () => {
+  try {
+    const response = await fetch("downloads.json", { cache: "no-cache" });
+    if (!response.ok) throw new Error(response.status);
+    const stats = await response.json();
+    if (typeof stats.downloads !== "number") throw new Error("no count");
+    for (const el of document.querySelectorAll("[data-downloads]")) {
+      el.querySelector(".n").textContent = stats.downloads.toLocaleString();
+      const unit = el.querySelector(".unit");
+      if (unit) unit.textContent = stats.downloads === 1 ? "download" : "downloads";
+      el.hidden = false;
+    }
+    return stats;
+  } catch {
+    return null;
+  }
+})();
+
 // Changelog page: every release's notes, as GitHub renders them. The page
 // keeps its built-in summary if GitHub can't be reached.
 async function showChangelog() {
@@ -125,6 +146,16 @@ async function showChangelog() {
     if (location.hash) document.getElementById(decodeURIComponent(location.hash.slice(1)))?.scrollIntoView();
   } catch {
     // Keep the summary that is already on the page.
+  }
+  // Each release's downloads, from the daily counts; the built-in summary's
+  // entries are matched by the tag at the start of their date line.
+  const stats = await downloadStats;
+  const counts = new Map(((stats && stats.releases) || []).map(r => [r.tag, r.downloads]));
+  for (const entry of box.querySelectorAll(".entry")) {
+    const meta = entry.querySelector(".meta");
+    const tag = entry.id || (meta ? meta.textContent.split("·")[0].trim() : "");
+    const n = counts.get(tag);
+    if (meta && n !== undefined) meta.append(` · ${n.toLocaleString()} ${n === 1 ? "download" : "downloads"}`);
   }
 }
 

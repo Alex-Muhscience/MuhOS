@@ -252,3 +252,7 @@ footer a { color: var(--text-dim); }
 .changelog .body pre { overflow-x: auto; }
 .changelog .body img { max-width: 100%; height: auto; }
 .changelog .more { margin-top: 24px; }
+
+/* Download count under the release box */
+.downloads { color: var(--text-dim); font-size: 15px; margin: 12px 0 0; }
+.downloads strong { color: var(--text); }

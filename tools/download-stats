@@ -1,0 +1,89 @@
+#!/usr/bin/env python3
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# MuhOS: count downloads from the GitHub releases, for the website and the
+# README badge.
+#
+#   tools/download-stats [--out DIR]
+#
+# Writes DIR/downloads.json (the counts) and DIR/downloads-badge.json (a
+# shields.io endpoint badge); without --out, prints downloads.json.
+#
+# A "download" is one download of the MuhOS package itself
+# (muhos-*.noarch.rpm): each installation or update fetches it once. Every
+# install also fetches Quickshell, Matugen, two WhiteSur packages and
+# SHA256SUMS; those are counted separately as "files", so the headline
+# number is not multiplied by them. GitHub's counts include everyone's
+# downloads, the maintainers' testing too.
+#
+# Uses GITHUB_TOKEN when set (higher API rate limit); standard library only.
+
+import datetime
+import json
+import os
+import re
+import sys
+import urllib.request
+
+REPO = "Alex-Muhscience/MuhOS"
+MUHOS = re.compile(r"^muhos-.*\.noarch\.rpm$")
+
+
+def releases():
+    out, page = [], 1
+    while True:
+        req = urllib.request.Request(
+            f"https://api.github.com/repos/{REPO}/releases?per_page=100&page={page}",
+            headers={"Accept": "application/vnd.github+json", "User-Agent": "muhos-download-stats"})
+        token = os.environ.get("GITHUB_TOKEN")
+        if token:
+            req.add_header("Authorization", "Bearer " + token)
+        batch = json.load(urllib.request.urlopen(req, timeout=30))
+        out.extend(batch)
+        if len(batch) < 100:
+            return out
+        page += 1
+
+
+def stats():
+    per_release = []
+    total = files = 0
+    for r in releases():
+        if r.get("draft"):
+            continue
+        assets = r.get("assets", [])
+        muhos = sum(a.get("download_count", 0) for a in assets if MUHOS.match(a.get("name", "")))
+        every = sum(a.get("download_count", 0) for a in assets)
+        total += muhos
+        files += every
+        per_release.append({"tag": r["tag_name"], "name": r.get("name") or r["tag_name"],
+                            "prerelease": bool(r.get("prerelease")), "downloads": muhos, "files": every})
+    return {
+        "downloads": total,
+        "files": files,
+        "releases": per_release,
+        "updated": datetime.datetime.now(datetime.timezone.utc).replace(microsecond=0).isoformat(),
+        "note": "downloads counts the MuhOS package (one per installation or update); files counts every file.",
+    }
+
+
+def main():
+    data = stats()
+    if "--out" not in sys.argv[1:]:
+        json.dump(data, sys.stdout, indent=2)
+        print()
+        return 0
+    out = sys.argv[sys.argv.index("--out") + 1]
+    os.makedirs(out, exist_ok=True)
+    with open(os.path.join(out, "downloads.json"), "w", encoding="utf-8") as fh:
+        json.dump(data, fh, indent=2)
+        fh.write("\n")
+    badge = {"schemaVersion": 1, "label": "downloads", "message": f"{data['downloads']:,}", "color": "007aff"}
+    with open(os.path.join(out, "downloads-badge.json"), "w", encoding="utf-8") as fh:
+        json.dump(badge, fh)
+        fh.write("\n")
+    print(f"{data['downloads']} MuhOS package downloads, {data['files']} files")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

@@ -1,5 +1,6 @@
 # MuhOS: publish the website (site/) to GitHub Pages, with the README
-# screenshots and logo copied in, so images live in one place.
+# screenshots and logo copied in, so images live in one place, and the
+# download counts (tools/download-stats) refreshed daily and on each release.
 name: Website
 
 on:
@@ -10,6 +11,11 @@ on:
       - "docs/screenshots/**"
       - "docs/assets/muhos-tile.svg"
       - ".github/workflows/pages.yml"
+      - "tools/download-stats"
+  release:
+    types: [published]
+  schedule:
+    - cron: "17 3 * * *"
   workflow_dispatch:
 
 permissions:
@@ -32,6 +38,13 @@ jobs:
           cp -r site/. _site/
           cp docs/screenshots/*.webp _site/screenshots/
           cp docs/assets/muhos-tile.svg _site/
+      - name: Download counts
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        # Never blocks the site: without the file, the counts stay hidden.
+        run: python3 -I tools/download-stats --out _site || echo "::warning::download counts unavailable"
+      - name: Check links
+        run: |
           # Every local link and image must exist.
           missing=0
           for page in _site/*.html; do
